@@ -12,6 +12,8 @@ import FunnelTab from './FunnelTab';
 import AnalyticsTab from './AnalyticsTab';
 import RevenueDashboard from './RevenueDashboard';
 import SiteAuditTab from './SiteAuditTab';
+import { TaskManager } from './TaskManager';
+import { ActivityHeatmap } from './ActivityHeatmap';
 import SettingsTab from './SettingsTab';
 
 const tabComponents: Record<string, React.ComponentType> = {
@@ -24,6 +26,8 @@ const tabComponents: Record<string, React.ComponentType> = {
   analytics: AnalyticsTab,
   revenue: RevenueDashboard,
   'site-audit': SiteAuditTab,
+  tasks: TaskManager,
+  activity: ActivityHeatmap,
   settings: SettingsTab,
 };
 

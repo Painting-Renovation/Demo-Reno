@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Eye, ArrowRight, X, MapPin, ZoomIn, ChevronLeft, ChevronRight, Layers } from 'lucide-react';
+import { Eye, ArrowRight, X, MapPin, ZoomIn, ChevronLeft, ChevronRight, Layers, Hand } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/lib/store';
 
@@ -84,6 +84,14 @@ const galleryItems: GalleryItem[] = [
 
 const categories: Category[] = ['All', 'Interior', 'Exterior', 'Cabinets', 'Deck'];
 
+const categoryCounts: Record<Category, number> = {
+  All: galleryItems.length,
+  Interior: galleryItems.filter(i => i.category === 'Interior').length,
+  Exterior: galleryItems.filter(i => i.category === 'Exterior').length,
+  Cabinets: galleryItems.filter(i => i.category === 'Cabinets').length,
+  Deck: galleryItems.filter(i => i.category === 'Deck').length,
+};
+
 function SkeletonCard() {
   return (
     <div className="rounded-2xl overflow-hidden">
@@ -128,14 +136,14 @@ function LightboxModal({
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="relative max-w-4xl w-full max-h-[85vh] overflow-hidden rounded-2xl bg-white shadow-2xl"
+        className="relative max-w-5xl w-full max-h-[90vh] overflow-hidden rounded-2xl bg-white shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between px-8 py-5 border-b border-gray-100">
           <div>
-            <h3 className="text-navy font-bold text-lg">{item.title}</h3>
-            <div className="flex items-center gap-3 text-sm text-gray-500 mt-0.5">
+            <h3 className="text-navy font-bold text-xl">{item.title}</h3>
+            <div className="flex items-center gap-3 text-sm text-gray-500 mt-1">
               <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{item.location}</span>
               <span className="bg-sage/10 text-sage text-xs font-medium px-2 py-0.5 rounded-full">{item.category}</span>
             </div>
@@ -150,7 +158,7 @@ function LightboxModal({
         </div>
 
         {/* Image */}
-        <div className="relative aspect-video bg-gray-50">
+        <div className="relative aspect-video bg-gray-50 mx-4 mt-4 rounded-xl overflow-hidden">
           <img
             src={item.afterImage}
             alt={item.title}
@@ -165,8 +173,8 @@ function LightboxModal({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4">
-          <p className="text-gray-600 text-sm">{item.description}</p>
+        <div className="px-8 py-5">
+          <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
         </div>
 
         {/* Nav arrows */}
@@ -201,10 +209,10 @@ export function Gallery() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Simulate initial load
-  useState(() => {
+  useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 100);
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   const filteredItems = activeCategory === 'All'
     ? galleryItems
@@ -241,6 +249,10 @@ export function Gallery() {
           backgroundSize: '28px 28px',
         }}
       />
+
+      {/* Gradient overlays */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-gold/[0.06] rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-navy/[0.04] rounded-full blur-[100px] translate-x-1/3 translate-y-1/3 pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -285,8 +297,8 @@ export function Gallery() {
               onClick={() => setActiveCategory(category)}
               className={`relative px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
                 activeCategory === category
-                  ? 'text-white'
-                  : 'text-gray-600 hover:text-navy hover:bg-white'
+                  ? 'text-white shadow-lg shadow-navy/20'
+                  : 'text-gray-600 hover:text-navy hover:bg-white hover:shadow-sm'
               }`}
             >
               {activeCategory === category && (
@@ -296,7 +308,16 @@ export function Gallery() {
                   transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 />
               )}
-              <span className="relative z-10">{category}</span>
+              <span className="relative z-10 flex items-center gap-2">
+                {category}
+                <span className={`inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full text-[10px] font-bold ${
+                  activeCategory === category
+                    ? 'bg-white/20 text-white'
+                    : 'bg-gray-200/80 text-gray-500'
+                }`}>
+                  {categoryCounts[category]}
+                </span>
+              </span>
             </button>
           ))}
         </motion.div>
@@ -324,7 +345,7 @@ export function Gallery() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: index * 0.08 }}
-                  className={`group relative rounded-2xl overflow-hidden cursor-pointer bg-white shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gold/10 ${getSpanClasses(item)}`}
+                  className={`group relative rounded-2xl overflow-hidden cursor-pointer bg-white shadow-sm hover:shadow-[0_20px_40px_-8px_rgba(11,29,58,0.18)] transition-all duration-300 border border-gold/10 hover:scale-[1.02] hover:border-gold/20 ${getSpanClasses(item)}`}
                   onMouseEnter={() => setHoveredItem(item.id)}
                   onMouseLeave={() => setHoveredItem(null)}
                   onClick={() => setLightboxItem(item)}
@@ -397,8 +418,9 @@ export function Gallery() {
                     animate={{ opacity: hoveredItem === item.id ? 0 : 1 }}
                     className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10"
                   >
-                    <span className="bg-white/80 backdrop-blur-sm text-navy text-xs font-semibold px-4 py-2 rounded-full shadow-sm">
-                      Hover to see result
+                    <span className="bg-white/85 backdrop-blur-sm text-navy text-xs font-semibold px-4 py-2 rounded-full shadow-sm flex items-center gap-2">
+                      <Hand className="w-3.5 h-3.5 animate-swipe-hint" />
+                      Swipe to compare
                     </span>
                   </motion.div>
                 </motion.div>

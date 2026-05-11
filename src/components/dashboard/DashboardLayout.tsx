@@ -23,6 +23,8 @@ import {
   ArrowLeft,
   Menu,
   UserPlus,
+  ListTodo,
+  Activity,
 } from 'lucide-react';
 import NotificationCenter from './NotificationCenter';
 import QuickActions from './QuickActions';
@@ -39,6 +41,8 @@ const iconMap: Record<string, React.ElementType> = {
   DollarSign,
   ShieldCheck,
   Settings,
+  ListTodo,
+  Activity,
 };
 
 interface QuickStats {

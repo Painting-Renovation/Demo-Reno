@@ -2,16 +2,16 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Star, CheckCircle, Award, ThumbsUp, ShieldCheck, BadgeCheck, Clock, TrendingUp } from 'lucide-react';
+import { Calendar, Star, CheckCircle, Award, ThumbsUp, ShieldCheck, BadgeCheck, Clock, TrendingUp, Tag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/lib/store';
 import { AnimatedCounter } from './AnimatedCounter';
 
 const stats = [
-  { icon: CheckCircle, value: 2000, label: 'Projects Completed', suffix: '+' },
-  { icon: Award, value: 15, label: 'Years Experience', suffix: '+' },
-  { icon: Star, value: 4.9, label: 'Google Rating', suffix: '★', prefix: '', decimals: 1 },
-  { icon: ThumbsUp, value: 100, label: 'Satisfaction Guaranteed', suffix: '%' },
+  { icon: CheckCircle, value: 2000, label: 'Projects Completed', suffix: '+', gradient: 'from-gold/20 to-gold/5' },
+  { icon: Award, value: 15, label: 'Years Experience', suffix: '+', gradient: 'from-sage/20 to-sage/5' },
+  { icon: Star, value: 4.9, label: 'Google Rating', suffix: '★', prefix: '', decimals: 1, gradient: 'from-[#E8B94E]/20 to-[#C8973E]/5' },
+  { icon: ThumbsUp, value: 100, label: 'Satisfaction Guaranteed', suffix: '%', gradient: 'from-navy-light/20 to-navy/5' },
 ];
 
 export function Hero() {
@@ -97,9 +97,10 @@ export function Hero() {
             <Button
               onClick={() => setEstimateFormOpen(true)}
               size="lg"
-              className="bg-gold hover:bg-gold-light text-white font-semibold px-8 py-4 text-base rounded-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 animate-pulse-glow"
+              className="bg-gold hover:bg-gold-light text-white font-semibold px-8 py-4 text-base rounded-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 animate-glow-pulse relative"
             >
-              Get a Free Estimate
+              <Tag className="w-4 h-4 mr-2 text-gold-light" />
+              Get a <span className="font-black underline decoration-2 decoration-gold-light underline-offset-2">FREE</span> Estimate
             </Button>
             <Button
               variant="outline"
@@ -117,32 +118,41 @@ export function Hero() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.0 }}
-            className="flex items-center justify-center gap-3 mb-14"
+            className="flex flex-col items-center justify-center gap-2 mb-14"
           >
-            <div className="flex -space-x-2">
-              {[
-                'bg-gold/30',
-                'bg-sage/30',
-                'bg-navy-light/30',
-                'bg-gold-light/30',
-              ].map((bg, i) => (
-                <div
-                  key={i}
-                  className={`w-7 h-7 rounded-full ${bg} border-2 border-navy/60 flex items-center justify-center`}
-                >
-                  <span className="text-[9px] font-bold text-white/80">
-                    {['JM', 'SK', 'AP', 'RL'][i]}
-                  </span>
-                </div>
-              ))}
+            <div className="flex items-center gap-3">
+              <div className="flex -space-x-2">
+                {[
+                  'bg-gold/30',
+                  'bg-sage/30',
+                  'bg-navy-light/30',
+                  'bg-gold-light/30',
+                ].map((bg, i) => (
+                  <div
+                    key={i}
+                    className={`w-7 h-7 rounded-full ${bg} border-2 border-navy/60 flex items-center justify-center`}
+                  >
+                    <span className="text-[9px] font-bold text-white/80">
+                      {['JM', 'SK', 'AP', 'RL'][i]}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="flex items-center gap-1.5">
+                <ShieldCheck className="w-4 h-4 text-gold" />
+                <span className="text-white/70 text-sm">
+                  Trusted by <strong className="text-white/90">
+                    <AnimatedCounter target={2000} duration={2500} suffix="+" />
+                  </strong> homeowners across GTA
+                </span>
+              </div>
             </div>
-            <div className="flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-gold" />
-              <span className="text-white/70 text-sm">
-                Trusted by <strong className="text-white/90">
-                  <AnimatedCounter target={2000} duration={2500} suffix="+" />
-                </strong> homeowners
-              </span>
+            <div className="flex items-center gap-2 text-white/40 text-xs">
+              <span>4.9 average rating</span>
+              <span>•</span>
+              <span>Licensed &amp; Insured</span>
+              <span>•</span>
+              <span>5-Year Warranty</span>
             </div>
           </motion.div>
         </motion.div>
@@ -170,10 +180,11 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
-              className="stat-card-glow glass-morphism rounded-2xl px-4 py-6 text-center group cursor-default"
+              className="stat-card-glow glass-morphism rounded-2xl px-4 py-6 text-center group cursor-default relative overflow-hidden"
             >
-              <stat.icon className="w-6 h-6 text-gold mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" />
-              <div className="text-2xl md:text-3xl font-bold text-white mb-1 text-shadow-gold">
+              <div className={`absolute inset-0 bg-gradient-to-b ${stat.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+              <stat.icon className="w-6 h-6 text-gold mx-auto mb-2 group-hover:scale-110 transition-transform duration-300 relative z-10" />
+              <div className="text-2xl md:text-3xl font-bold text-white mb-1 text-shadow-gold relative z-10">
                 <AnimatedCounter
                   target={stat.value}
                   duration={2000 + index * 300}
@@ -182,7 +193,7 @@ export function Hero() {
                   decimals={stat.decimals || 0}
                 />
               </div>
-              <div className="text-white/70 text-xs sm:text-sm">
+              <div className="text-white/70 text-xs sm:text-sm relative z-10">
                 {stat.label}
               </div>
             </motion.div>

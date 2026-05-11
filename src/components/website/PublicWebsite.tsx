@@ -9,6 +9,7 @@ import { BrandsSection } from './BrandsSection';
 import { TeamSection } from './TeamSection';
 import { BeforeAfter } from './BeforeAfter';
 import { Gallery } from './Gallery';
+import { ColorPaletteExplorer } from './ColorPaletteExplorer';
 import { PortfolioShowcase } from './PortfolioShowcase';
 import { Process } from './Process';
 import { Testimonials } from './Testimonials';
@@ -27,6 +28,7 @@ import { LiveChatWidget } from './LiveChatWidget';
 import { CookieConsent } from './CookieConsent';
 import { BackToTop } from './BackToTop';
 import { SectionDivider } from './SectionDivider';
+import { StatsBar } from './StatsBar';
 
 export function PublicWebsite() {
   return (
@@ -56,6 +58,9 @@ export function PublicWebsite() {
         <SectionDivider variant="dark" />
 
         <Gallery />
+        <SectionDivider variant="dark" />
+
+        <ColorPaletteExplorer />
         <SectionDivider variant="light" />
 
         <PortfolioShowcase />
@@ -81,6 +86,8 @@ export function PublicWebsite() {
         <SectionDivider variant="dark" />
 
         <ContactSection />
+
+        <StatsBar />
       </main>
 
       <Footer />

@@ -52,5 +52,7 @@ export const DASHBOARD_TABS: DashboardTab[] = [
   { id: 'analytics', label: 'Analytics', icon: 'BarChart3' },
   { id: 'revenue', label: 'Revenue', icon: 'DollarSign' },
   { id: 'site-audit', label: 'Site Audit', icon: 'ShieldCheck' },
+  { id: 'tasks', label: 'Task Manager', icon: 'ListTodo' },
+  { id: 'activity', label: 'Activity', icon: 'Activity' },
   { id: 'settings', label: 'Settings', icon: 'Settings' },
 ];

@@ -85,9 +85,14 @@ export function Services() {
   const { setEstimateFormOpen } = useAppStore();
 
   return (
-    <section id="services" className="py-20 md:py-28 bg-white relative">
+    <section id="services" className="py-20 md:py-28 bg-white relative overflow-hidden">
       {/* Subtle noise texture */}
       <div className="noise-overlay absolute inset-0 pointer-events-none" />
+
+      {/* Background gradient orbs */}
+      <div className="absolute top-20 -left-32 w-80 h-80 bg-gold/[0.04] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 -right-32 w-96 h-96 bg-sage/[0.04] rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-20 left-1/3 w-72 h-72 bg-navy/[0.03] rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -101,10 +106,10 @@ export function Services() {
           <span className="text-gold text-sm font-semibold tracking-widest uppercase">
             ProCoat Painters
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-navy mt-3 mb-4 text-shadow-navy">
-            Our Professional Services
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 mb-4">
+            <span className="text-gradient-animate bg-gradient-to-r from-navy via-gold to-navy">Our Professional Services</span>
           </h2>
-          <p className="text-gray-700 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
             From residential homes to commercial properties, we deliver exceptional painting results
             with meticulous attention to detail.
           </p>
@@ -122,7 +127,7 @@ export function Services() {
             <motion.div
               key={service.title}
               variants={cardVariants as any}
-              className="service-card-gradient service-card group bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 hover:shadow-2xl hover:border-gold/20"
+              className="service-card-gradient service-card card-3d-hover group bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 hover:shadow-[0_25px_50px_-12px_rgba(11,29,58,0.2)] hover:border-gold/20"
             >
               {/* Image */}
               <div className="relative h-48 overflow-hidden">
@@ -133,7 +138,7 @@ export function Services() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-navy/20 to-transparent" />
                 <div className="absolute bottom-4 left-4">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg bg-gradient-to-br from-gold to-gold-light ring-1 ring-white/20">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg bg-gradient-to-br from-gold to-gold-light ring-1 ring-white/20 icon-rotate-hover">
                     <service.icon className="w-6 h-6 text-white" />
                   </div>
                 </div>
@@ -146,13 +151,13 @@ export function Services() {
                     {service.title}
                   </h3>
                   {'popular' in service && service.popular && (
-                    <span className="flex-shrink-0 inline-flex items-center gap-1 bg-gold/10 text-gold text-xs font-semibold px-2.5 py-1 rounded-full border border-gold/20">
-                      <Sparkles className="w-3 h-3" />
+                    <span className="flex-shrink-0 inline-flex items-center gap-1 bg-gold/10 text-gold text-xs font-bold px-3 py-1.5 rounded-full border border-gold/30 animate-badge-pulse">
+                      <Sparkles className="w-3.5 h-3.5" />
                       Most Popular
                     </span>
                   )}
                 </div>
-                <p className="text-gray-700 text-sm leading-relaxed mb-4">
+                <p className="text-gray-600 text-sm leading-relaxed mb-4">
                   {service.description}
                 </p>
 

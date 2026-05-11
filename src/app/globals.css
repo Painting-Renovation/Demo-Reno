@@ -845,3 +845,109 @@ select:focus-visible {
   border-left-color: #C8973E;
   background-color: #FDF8F0;
 }
+
+/* ========================================
+   ANIMATED GRADIENT BORDER FOR CARDS
+   ======================================== */
+@keyframes gradient-rotate {
+  0% { --gradient-angle: 0deg; }
+  100% { --gradient-angle: 360deg; }
+}
+
+/* ========================================
+   GLOW PULSE FOR CTA BUTTONS
+   ======================================== */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(200, 151, 62, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(200, 151, 62, 0.6), 0 0 60px rgba(200, 151, 62, 0.2); }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* ========================================
+   CARD 3D HOVER
+   ======================================== */
+.card-3d-hover {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+.card-3d-hover:hover {
+  transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateZ(10px);
+}
+
+/* ========================================
+   TEXT GRADIENT ANIMATION
+   ======================================== */
+@keyframes text-gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.text-gradient-animate {
+  background-size: 200% auto;
+  animation: text-gradient-shift 3s ease-in-out infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ========================================
+   UNDERLINE GROW EFFECT (updated - left-aligned)
+   ======================================== */
+.underline-grow {
+  position: relative;
+}
+.underline-grow::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #C8973E, #C8973E);
+  transition: width 0.3s ease;
+}
+.underline-grow:hover::after {
+  width: 100%;
+}
+
+/* ========================================
+   PULSE BADGE ANIMATION
+   ======================================== */
+@keyframes badge-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(200, 151, 62, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(200, 151, 62, 0); }
+}
+
+.animate-badge-pulse {
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+/* ========================================
+   ICON ROTATE HOVER
+   ======================================== */
+.icon-rotate-hover {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.icon-rotate-hover:hover {
+  transform: rotate(12deg) scale(1.1);
+}
+
+/* ========================================
+   ANIMATED HAND SWIPE
+   ======================================== */
+@keyframes swipe-hint {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(6px); }
+  50% { transform: translateX(-2px); }
+  75% { transform: translateX(4px); }
+}
+
+.animate-swipe-hint {
+  animation: swipe-hint 1.5s ease-in-out infinite;
+}

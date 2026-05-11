@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { Star, ChevronLeft, ChevronRight, Quote, BadgeCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Carousel,
@@ -10,6 +10,15 @@ import {
   CarouselItem,
 } from '@/components/ui/carousel';
 import { useAppStore } from '@/lib/store';
+
+const avatarColors = [
+  'bg-gradient-to-br from-gold to-gold-light',
+  'bg-gradient-to-br from-sage to-sage-light',
+  'bg-gradient-to-br from-navy to-navy-light',
+  'bg-gradient-to-br from-[#E8B94E] to-[#C8973E]',
+  'bg-gradient-to-br from-[#3B82A0] to-[#0B1D3A]',
+  'bg-gradient-to-br from-[#8B5E3C] to-[#C8973E]',
+];
 
 interface Testimonial {
   id: number;
@@ -148,34 +157,42 @@ export function Testimonials() {
             <CarouselContent className="-ml-4">
               {testimonials.map((testimonial) => (
                 <CarouselItem key={testimonial.id} className="pl-4 md:basis-1/2 lg:basis-1/2">
-                  <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8 h-full flex flex-col hover:bg-white/15 transition-all duration-300">
-                    {/* Quote icon */}
-                    <Quote className="w-8 h-8 text-gold/40 mb-4 flex-shrink-0" />
+                  <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8 h-full flex flex-col hover:bg-white/[0.15] hover:border-white/20 hover:shadow-lg hover:shadow-gold/5 transition-all duration-300 hover:-translate-y-1">
+                    {/* Large decorative quotation marks */}
+                    <div className="relative mb-2">
+                      <Quote className="w-10 h-10 text-gold/30 absolute -top-1 -left-1" />
+                      <Quote className="w-5 h-5 text-gold/50 relative z-10" />
+                    </div>
 
                     {/* Stars */}
-                    <div className="flex gap-1 mb-4">
-                      {Array.from({ length: testimonial.rating }).map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-gold text-gold" />
+                    <div className="flex gap-0.5 mb-4">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Star key={i} className={`w-5 h-5 ${i < testimonial.rating ? 'fill-gold text-gold' : 'fill-white/10 text-white/10'}`} />
                       ))}
+                      <span className="text-gold/70 text-xs font-medium ml-2 self-center">{testimonial.rating}.0</span>
                     </div>
 
                     {/* Text */}
-                    <p className="text-white/80 text-sm leading-relaxed mb-6 flex-grow">
-                      &ldquo;{testimonial.text}&rdquo;
+                    <p className="text-white/80 text-sm leading-relaxed mb-6 flex-grow relative">
+                      <span className="absolute -top-3 -left-1 text-4xl font-serif text-gold/15 select-none leading-none">&ldquo;</span>
+                      {testimonial.text}
                     </p>
 
                     {/* Author */}
                     <div className="flex items-center gap-3 pt-4 border-t border-white/10">
-                      <div className="w-10 h-10 bg-gold/20 rounded-full flex items-center justify-center">
-                        <span className="text-gold font-bold text-sm">
-                          {testimonial.name.charAt(0)}
+                      <div className={`w-11 h-11 ${avatarColors[testimonial.id % avatarColors.length]} rounded-full flex items-center justify-center shadow-lg ring-2 ring-white/10`}>
+                        <span className="text-white font-bold text-sm">
+                          {testimonial.name.split(' ').map(n => n.charAt(0)).join('')}
                         </span>
                       </div>
-                      <div>
-                        <p className="text-white font-semibold text-sm">{testimonial.name}</p>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-1.5">
+                          <p className="text-white font-semibold text-sm truncate">{testimonial.name}</p>
+                          <BadgeCheck className="w-4 h-4 text-sage flex-shrink-0" />
+                        </div>
                         <p className="text-white/50 text-xs">{testimonial.location}</p>
                       </div>
-                      <span className="ml-auto text-xs bg-white/10 text-white/70 px-3 py-1 rounded-full">
+                      <span className="ml-auto text-xs bg-white/10 text-white/70 px-3 py-1 rounded-full hidden sm:inline-flex">
                         {testimonial.service}
                       </span>
                     </div>
