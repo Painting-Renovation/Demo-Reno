@@ -1,0 +1,221 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ========== OWNER / ADMIN ==========
+
+model Owner {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  passwordHash  String
+  name          String
+  phone         String?
+  company       String   @default("ProCoat Painters")
+  address       String?
+  googleEmail   String?
+  googleToken   String?
+  slackWebhook  String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// ========== LEADS & CONTACTS ==========
+
+model Lead {
+  id            String   @id @default(cuid())
+  firstName     String
+  lastName      String
+  email         String
+  phone         String?
+  address       String?
+  city          String?
+  postalCode    String?
+  serviceType   String?
+  projectDesc   String?
+  budget        String?
+  howHeard      String?   // referral, google, social, etc.
+  leadSource    String   @default("website") // website, phone, referral, walk-in
+  status        String   @default("new") // new, contacted, qualified, proposal, won, lost, archived
+  priority      String   @default("medium") // low, medium, high, urgent
+  notes         String?
+  funnelStage   String   @default("awareness") // awareness, interest, consideration, intent, evaluation, purchase
+  assignedTo    String?  // team member name
+  estimatedValue Float?
+  closedValue   Float?
+  closedAt      DateTime?
+  lastContacted DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  appointments  Appointment[]
+  projects      Project[]
+  quotes        Quote[]
+  activities    LeadActivity[]
+  trackings     VisitorTracking[]
+}
+
+model LeadActivity {
+  id          String   @id @default(cuid())
+  leadId      String
+  type        String   // call, email, visit, estimate, follow-up
+  description String
+  outcome     String?
+  createdAt   DateTime @default(now())
+  lead        Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+}
+
+// ========== APPOINTMENTS ==========
+
+model Appointment {
+  id          String   @id @default(cuid())
+  leadId      String?
+  firstName   String
+  lastName    String
+  email       String
+  phone       String?
+  address     String?
+  serviceType String?
+  notes       String?
+  date        DateTime
+  duration    Int      @default(60) // minutes
+  status      String   @default("scheduled") // scheduled, confirmed, in-progress, completed, cancelled, no-show
+  googleEventId String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  lead        Lead?    @relation(fields: [leadId], references: [id], onDelete: SetNull)
+}
+
+// ========== PROJECTS ==========
+
+model Project {
+  id            String   @id @default(cuid())
+  leadId        String?
+  name          String
+  description   String?
+  serviceType   String?
+  status        String   @default("pending") // pending, in-progress, completed, cancelled
+  startDate     DateTime?
+  endDate       DateTime?
+  estimatedCost Float?
+  actualCost    Float?
+  address       String?
+  notes         String?
+  teamMembers   String?  // JSON array of team member names
+  beforeImages  String?  // JSON array of image URLs
+  afterImages   String?  // JSON array of image URLs
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  lead          Lead?    @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  quotes        Quote[]
+}
+
+// ========== QUOTES / ESTIMATES ==========
+
+model Quote {
+  id          String   @id @default(cuid())
+  leadId      String?
+  projectId   String?
+  title       String
+  items       String   // JSON array of line items
+  subtotal    Float
+  tax         Float    @default(0)
+  total       Float
+  status      String   @default("draft") // draft, sent, viewed, accepted, rejected
+  validUntil  DateTime?
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  lead        Lead?    @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  project     Project? @relation(fields: [projectId], references: [id], onDelete: SetNull)
+}
+
+// ========== ANALYTICS & TRACKING ==========
+
+model VisitorTracking {
+  id            String   @id @default(cuid())
+  leadId        String?
+  sessionId     String
+  page          String
+  referrer      String?
+  utmSource     String?
+  utmMedium     String?
+  utmCampaign   String?
+  utmTerm       String?
+  utmContent    String?
+  action        String?  // view, click, form_start, form_submit, estimate_request, call_click
+  elementId     String?  // which CTA/button was interacted with
+  userAgent     String?
+  ipAddress     String?
+  screenResolution String?
+  createdAt     DateTime @default(now())
+  lead          Lead?    @relation(fields: [leadId], references: [id], onDelete: SetNull)
+}
+
+model SiteAudit {
+  id            String   @id @default(cuid())
+  metric        String   // page_view, form_submission, phone_click, estimate_request, appointment_booking
+  value         Float    @default(1)
+  metadata      String?  // JSON for additional context
+  date          DateTime @default(now())
+}
+
+// ========== TESTIMONIALS ==========
+
+model Testimonial {
+  id          String   @id @default(cuid())
+  name        String
+  location    String?
+  rating      Int      @default(5)
+  text        String
+  service     String?
+  isFeatured  Boolean  @default(false)
+  isApproved  Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
+
+// ========== GALLERY ==========
+
+model GalleryImage {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  category    String   // interior, exterior, cabinet, deck, commercial
+  beforeUrl   String?
+  afterUrl    String?
+  isFeatured  Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
+// ========== EMAIL LOG ==========
+
+model EmailLog {
+  id          String   @id @default(cuid())
+  to          String
+  subject     String
+  body        String
+  status      String   @default("sent") // sent, failed, queued
+  type        String   // lead_notification, appointment_confirm, quote_sent
+  metadata    String?  // JSON
+  createdAt   DateTime @default(now())
+}
+
+// ========== NOTIFICATION SETTINGS ==========
+
+model NotificationSettings {
+  id              String   @id @default(cuid())
+  newLead         Boolean  @default(true)
+  newAppointment  Boolean  @default(true)
+  quoteSent       Boolean  @default(true)
+  projectUpdate   Boolean  @default(true)
+  dailySummary    Boolean  @default(true)
+  weeklyReport    Boolean  @default(true)
+  emailEnabled    Boolean  @default(true)
+  slackEnabled    Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

@@ -1,0 +1,182 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { PaintBucket, Home, Settings2, Building2, Trees, Palette, ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useAppStore } from '@/lib/store';
+
+const services = [
+  {
+    icon: PaintBucket,
+    title: 'Interior Painting',
+    description: 'Transform your living spaces with flawless interior painting. From walls to ceilings, trim to accent features — we deliver a perfect finish every time.',
+    image: '/images/hero-interior.jpg',
+    features: ['Walls & Ceilings', 'Trim & Baseboards', 'Accent Walls', 'Drywall Repair'],
+  },
+  {
+    icon: Home,
+    title: 'Exterior Painting',
+    description: 'Protect and beautify your home exterior with premium paints built to withstand Toronto\'s diverse weather conditions year-round.',
+    image: '/images/hero-exterior.jpg',
+    features: ['Siding & Stucco', 'Doors & Windows', 'Garage Doors', 'Weatherproofing'],
+  },
+  {
+    icon: Settings2,
+    title: 'Cabinet Refinishing',
+    description: 'Give your kitchen or bathroom a brand new look without the cost of replacement. Cabinet refinishing saves up to 70% compared to new cabinets.',
+    image: '/images/cabinet-refinish.jpg',
+    features: ['Kitchen Cabinets', 'Bathroom Vanities', 'Color Change', 'Laminate Refinishing'],
+  },
+  {
+    icon: Building2,
+    title: 'Commercial Painting',
+    description: 'Professional commercial painting services with minimal disruption to your business. Available evenings and weekends for your convenience.',
+    image: '/images/commercial.jpg',
+    features: ['Office Spaces', 'Retail Stores', 'Strata Properties', 'Industrial Units'],
+  },
+  {
+    icon: Trees,
+    title: 'Deck & Fence Staining',
+    description: 'Restore and protect your outdoor wood surfaces with professional staining and sealing services that extend the life of your deck and fence.',
+    image: '/images/deck-fence.jpg',
+    features: ['Deck Staining', 'Fence Painting', 'Wood Sealing', 'Restoration'],
+  },
+  {
+    icon: Palette,
+    title: 'Color Consultation',
+    description: 'Not sure which colors to choose? Our expert color consultants help you select the perfect palette to complement your space and style.',
+    image: '/images/service-painting.jpg',
+    features: ['Expert Guidance', 'Sample Testing', 'Trend Forecasting', 'Custom Palettes'],
+  },
+];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut' },
+  },
+};
+
+export function Services() {
+  const { setEstimateFormOpen } = useAppStore();
+
+  return (
+    <section id="services" className="py-20 md:py-28 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <span className="text-gold text-sm font-semibold tracking-widest uppercase">
+            ProCoat Painters
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy mt-3 mb-4">
+            Our Professional Services
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            From residential homes to commercial properties, we deliver exceptional painting results
+            with meticulous attention to detail.
+          </p>
+        </motion.div>
+
+        {/* Services Grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-50px' }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {services.map((service) => (
+            <motion.div
+              key={service.title}
+              variants={cardVariants}
+              className="service-card group bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 hover:border-gold/30"
+            >
+              {/* Image */}
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent" />
+                <div className="absolute bottom-4 left-4">
+                  <div className="w-12 h-12 bg-gold/90 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                    <service.icon className="w-6 h-6 text-white" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-navy mb-3 group-hover:text-gold transition-colors">
+                  {service.title}
+                </h3>
+                <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                  {service.description}
+                </p>
+
+                {/* Features */}
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {service.features.map((feature) => (
+                    <span
+                      key={feature}
+                      className="text-xs bg-cream text-navy/80 px-3 py-1 rounded-full font-medium"
+                    >
+                      {feature}
+                    </span>
+                  ))}
+                </div>
+
+                <button className="inline-flex items-center gap-1 text-gold font-semibold text-sm group-hover:gap-2 transition-all">
+                  Learn More
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mt-16 bg-navy rounded-2xl p-10 md:p-14"
+        >
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+            Ready to Transform Your Space?
+          </h3>
+          <p className="text-white/70 max-w-xl mx-auto mb-8">
+            Get a free, no-obligation estimate tailored to your project. Our team is ready to bring
+            your vision to life.
+          </p>
+          <Button
+            onClick={() => setEstimateFormOpen(true)}
+            className="bg-gold hover:bg-gold-light text-white font-semibold px-8 py-3 rounded-lg transition-all shadow-lg hover:shadow-xl"
+          >
+            Get Free Estimate
+          </Button>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
