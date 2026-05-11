@@ -75,6 +75,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Label } from '@/components/ui/label';
+import LeadScoringPanel from './LeadScoringPanel';
 import { cn } from '@/lib/utils';
 
 interface Lead {
@@ -422,6 +423,9 @@ export default function LeadsTab() {
           </SelectContent>
         </Select>
       </div>
+
+      {/* Lead Scoring Panel */}
+      <LeadScoringPanel leads={leads} onScored={fetchLeads} />
 
       {/* Table */}
       <Card className="dashboard-card overflow-hidden">

@@ -5,7 +5,9 @@ import { PromotionsBanner } from './PromotionsBanner';
 import { Hero } from './Hero';
 import { Services } from './Services';
 import { WhyChooseUs } from './WhyChooseUs';
+import { BrandsSection } from './BrandsSection';
 import { TeamSection } from './TeamSection';
+import { BeforeAfter } from './BeforeAfter';
 import { Gallery } from './Gallery';
 import { PortfolioShowcase } from './PortfolioShowcase';
 import { Process } from './Process';
@@ -38,9 +40,15 @@ export function PublicWebsite() {
 
         <WhyChooseUs />
 
+        <BrandsSection />
+
         <div className="section-divider" />
 
         <TeamSection />
+
+        <div className="section-divider" />
+
+        <BeforeAfter />
 
         <div className="section-divider" />
 

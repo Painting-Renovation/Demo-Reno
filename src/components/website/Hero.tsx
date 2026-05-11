@@ -2,15 +2,16 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Star, CheckCircle, Award, ThumbsUp } from 'lucide-react';
+import { Calendar, Star, CheckCircle, Award, ThumbsUp, ShieldCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/lib/store';
+import { AnimatedCounter } from './AnimatedCounter';
 
 const stats = [
-  { icon: CheckCircle, value: '2000+', label: 'Projects Completed' },
-  { icon: Award, value: '15+', label: 'Years Experience' },
-  { icon: Star, value: '4.9★', label: 'Google Rating' },
-  { icon: ThumbsUp, value: '100%', label: 'Satisfaction Guaranteed' },
+  { icon: CheckCircle, value: 2000, label: 'Projects Completed', suffix: '+' },
+  { icon: Award, value: 15, label: 'Years Experience', suffix: '+' },
+  { icon: Star, value: 4.9, label: 'Google Rating', suffix: '★', prefix: '', decimals: 1 },
+  { icon: ThumbsUp, value: 100, label: 'Satisfaction Guaranteed', suffix: '%' },
 ];
 
 export function Hero() {
@@ -39,6 +40,12 @@ export function Hero() {
         <div className="hero-overlay absolute inset-0" />
       </div>
 
+      {/* Video-like Shimmer Overlay */}
+      <div className="hero-shimmer-overlay" />
+
+      {/* Grain Texture Overlay */}
+      <div className="grain-overlay absolute inset-0" />
+
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
@@ -63,7 +70,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6 text-balance"
           >
             Transform Your Space{' '}
             <br className="hidden sm:block" />
@@ -85,7 +92,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.8 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8"
           >
             <Button
               onClick={() => setEstimateFormOpen(true)}
@@ -104,6 +111,40 @@ export function Hero() {
               Book a Consultation
             </Button>
           </motion.div>
+
+          {/* Trusted by homeowners badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1.0 }}
+            className="flex items-center justify-center gap-3 mb-14"
+          >
+            <div className="flex -space-x-2">
+              {[
+                'bg-gold/30',
+                'bg-sage/30',
+                'bg-navy-light/30',
+                'bg-gold-light/30',
+              ].map((bg, i) => (
+                <div
+                  key={i}
+                  className={`w-7 h-7 rounded-full ${bg} border-2 border-navy/60 flex items-center justify-center`}
+                >
+                  <span className="text-[9px] font-bold text-white/80">
+                    {['JM', 'SK', 'AP', 'RL'][i]}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="flex items-center gap-1.5">
+              <ShieldCheck className="w-4 h-4 text-gold" />
+              <span className="text-white/70 text-sm">
+                Trusted by <strong className="text-white/90">
+                  <AnimatedCounter target={2000} duration={2500} suffix="+" />
+                </strong> homeowners
+              </span>
+            </div>
+          </motion.div>
         </motion.div>
 
         {/* Paint Brush Stroke Divider */}
@@ -116,7 +157,7 @@ export function Hero() {
           <div className="paint-stroke-divider" />
         </motion.div>
 
-        {/* Stats Bar */}
+        {/* Stats Bar with AnimatedCounter */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -132,8 +173,14 @@ export function Hero() {
               className="stat-card-glow glass-morphism rounded-2xl px-4 py-6 text-center group cursor-default"
             >
               <stat.icon className="w-6 h-6 text-gold mx-auto mb-2 group-hover:scale-110 transition-transform duration-300" />
-              <div className="text-2xl md:text-3xl font-bold text-white mb-1 animate-count text-shadow-gold">
-                {stat.value}
+              <div className="text-2xl md:text-3xl font-bold text-white mb-1 text-shadow-gold">
+                <AnimatedCounter
+                  target={stat.value}
+                  duration={2000 + index * 300}
+                  suffix={stat.suffix}
+                  prefix={stat.prefix || ''}
+                  decimals={stat.decimals || 0}
+                />
               </div>
               <div className="text-white/70 text-xs sm:text-sm">
                 {stat.label}
@@ -143,20 +190,40 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator with floating animation */}
+      {/* Scroll indicator with elegant design */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
-        <div className="w-7 h-11 border-2 border-white/25 rounded-full flex justify-center pt-2 backdrop-blur-sm">
+        <a
+          href="#services"
+          className="flex flex-col items-center gap-2 group"
+          aria-label="Scroll down"
+        >
+          <span className="text-white/40 text-[10px] tracking-[0.2em] uppercase font-medium group-hover:text-white/60 transition-colors">
+            Scroll
+          </span>
+          <div className="relative w-6 h-10 border-[1.5px] border-white/20 rounded-full group-hover:border-white/40 transition-colors">
+            <motion.div
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              className="w-1 h-2.5 bg-gold rounded-full absolute left-1/2 -translate-x-1/2"
+            />
+            {/* Top glow dot */}
+            <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-gold/30" />
+          </div>
+          {/* Bottom arrow hint */}
           <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-1 h-2.5 bg-gold rounded-full"
-          />
-        </div>
+            animate={{ opacity: [0.3, 0.8, 0.3] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className="text-white/30">
+              <path d="M5 6L0 0H10L5 6Z" fill="currentColor" />
+            </svg>
+          </motion.div>
+        </a>
       </motion.div>
     </section>
   );

@@ -10,6 +10,7 @@ import ProjectsTab from './ProjectsTab';
 import QuotesTab from './QuotesTab';
 import FunnelTab from './FunnelTab';
 import AnalyticsTab from './AnalyticsTab';
+import SiteAuditTab from './SiteAuditTab';
 import SettingsTab from './SettingsTab';
 
 const tabComponents: Record<string, React.ComponentType> = {
@@ -20,6 +21,7 @@ const tabComponents: Record<string, React.ComponentType> = {
   quotes: QuotesTab,
   funnel: FunnelTab,
   analytics: AnalyticsTab,
+  'site-audit': SiteAuditTab,
   settings: SettingsTab,
 };
 

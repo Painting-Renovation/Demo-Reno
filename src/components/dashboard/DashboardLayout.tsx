@@ -16,13 +16,14 @@ import {
   FileText,
   Filter,
   BarChart3,
+  ShieldCheck,
   Settings,
   LogOut,
   ArrowLeft,
-  Bell,
   Menu,
   UserPlus,
 } from 'lucide-react';
+import NotificationCenter from './NotificationCenter';
 import { cn } from '@/lib/utils';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -33,6 +34,7 @@ const iconMap: Record<string, React.ElementType> = {
   FileText,
   Filter,
   BarChart3,
+  ShieldCheck,
   Settings,
 };
 
@@ -210,15 +212,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               </div>
             </div>
 
-            {/* Notification Bell */}
-            <Button variant="ghost" size="icon" className="relative">
-              <Bell className="h-5 w-5 text-muted-foreground" />
-              {quickStats.pendingAppointments > 0 && (
-                <Badge className="absolute -top-1 -right-1 h-4 w-4 p-0 flex items-center justify-center text-[10px] bg-gold text-white border-0">
-                  {quickStats.pendingAppointments}
-                </Badge>
-              )}
-            </Button>
+            {/* Notification Center */}
+            <NotificationCenter />
 
             {/* Avatar */}
             <div className="flex items-center justify-center h-8 w-8 rounded-full bg-navy text-white text-xs font-bold">
