@@ -24,35 +24,40 @@ A production-ready web application cloning and enhancing CertaPro Painters (toro
 - Database seeded with demo data
 - Owner login: owner@procoatpainters.com (any password 6+ chars)
 
-### Phase 2: Public Website ✅ (17 components)
-- Sticky navbar with mobile menu, active section indicator, FREE badge
+### Phase 2: Public Website ✅ (21 components)
+- Sticky navbar with gold accent line, mobile menu, active section indicator, FREE badge, bold logo
+- **Promotions Banner** - Dismissible "Spring Special 15% Off" with CTAs, 24h localStorage persistence
 - Full-screen hero with parallax, shimmer text, paint stroke divider, stats bar
-- 6 service cards with gradient borders, stagger animations, noise overlay
+- 6 service cards with gradient borders, stagger animations, noise overlay, "View All Services" link
 - **Why Choose Us** - 6 trust indicators (Licensed, 5-Star, Warranty, Eco-Friendly, Clean Crew, On-Time)
+- **Meet the Team** - 4 team member cards with initials avatar, hover glow, LinkedIn icons
 - Before/After gallery with category tabs
+- **Portfolio Showcase** - 6-project horizontal scroll carousel with navigation arrows
 - 4-step process timeline
 - Auto-rotating testimonials carousel (6 reviews)
 - **FAQ** section with 8 accordion items
 - GTA service areas (12 locations)
-- Contact section with form, FAQ accordion, social proof badges, map placeholder
+- Contact section with working form (POSTs to API), FAQ accordion, social proof badges, map placeholder
 - Professional footer with social icons, CTA banner, gold gradient line
-- **Floating CTA** button (appears after scrolling past hero)
-- **Cookie Consent** banner (localStorage tracked)
+- **Floating CTA** button (appears after scrolling past hero, minimizable)
+- **Live Chat Widget** - Bot chat with quick replies, typing indicator, auto-responses
+- **Cookie Consent** banner (localStorage tracked, customizable preferences)
 - **Back to Top** button
 
 ### Phase 3: Lead & Appointment System ✅
 - Multi-step estimate form (3 steps with zod validation)
-- Appointment booking form with date picker
-- Both submit to API, create lead activity, and fire notifications
+- Appointment booking form with date picker (firstName/lastName split)
+- Contact form now POSTs to /api/leads (was previously a no-op stub)
+- All forms create lead activity and fire notifications
 
 ### Phase 4: Owner Dashboard ✅ (11 components)
 - Login screen with authentication
 - Dashboard sidebar layout (collapsible mobile)
-- Overview: KPI cards, recent leads, upcoming appointments, **activity timeline**
+- Overview: KPI cards, recent leads, upcoming appointments, activity timeline
 - Leads: Full CRUD table with search/filter/pagination/detail
-- Appointments: List view with status management
+- Appointments: List + Calendar views, create/delete in both views
 - Projects: Grid/table with progress tracking
-- Quotes: Dynamic line items with calculations
+- Quotes: Dynamic line items with shadcn/ui Textarea
 - Funnel: Visual pipeline with 6 stages + drop-off indicators
 - Analytics: Recharts (Area, Bar, Pie) + 4 metric cards
 - Settings: Profile, notification toggles, integration settings
@@ -67,91 +72,64 @@ A production-ready web application cloning and enhancing CertaPro Painters (toro
 
 ### Phase 6: Assets ✅
 - 8 AI-generated images (hero, services, gallery, logo)
-- All stored in public/images/
 
 ### Phase 7: Notification Mini-Service ✅
 - Port 3001, Hono framework
-- Email notification logging
-- Slack webhook message building
-- Health check endpoint
-- Notification log viewer
-- Integrated with lead creation (auto-fire on new lead)
+- Email notification logging, Slack webhook building
+- Health check, notification log viewer
+- Integrated with lead creation
 
 ### Phase 8: Styling Enhancements ✅
-- 20+ CSS animations and utility classes added to globals.css
-- Hero gradient animation, parallax scrolling
-- Glass-morphism utilities
-- Shimmer loading effects
-- Text-shadow utilities for gold/navy text
-- Floating, pulse-glow, stagger animations
-- Underline-grow hover effect for links
-- Improved focus-visible styles for accessibility
-- Noise texture overlay
-- Service card gradient borders
-- Stat card glow effects
-- Paint brush stroke divider
-- Footer link lift effects
-- Gold-navy gradient line
-- Map placeholder styling
-- Form input glow on focus
-- FAQ accordion styling
-- Social proof badges
-- Custom scrollbar with gold gradient
+- 20+ CSS animations and utility classes in globals.css
+- Parallax, shimmer, glass-morphism, pulse-glow, stagger animations
+- Gradient borders, stat card glow, paint brush dividers
+- Custom scrollbar, noise textures, form input glow
+- Improved focus-visible accessibility
 
 ---
 
-## QA Review Round 1 Results (This Session)
+## QA Review Round 2 Results
+
+### Bugs Found & Fixed: 8 issues
+
+#### CRITICAL (2)
+1. **AppointmentsTab.tsx** - Calendar view "New" button missing onClick handler
+2. **AppointmentsTab.tsx** - Calendar view missing Create and Delete dialogs
+
+#### MODERATE (3)
+3. **ContactSection.tsx** - Contact form was a no-op stub; now POSTs to /api/leads
+4. **AnalyticsTab.tsx** - Duplicate STAGE_COLORS constant removed
+5. **QuotesTab.tsx** - Raw textarea replaced with shadcn/ui Textarea
+
+#### LOW (3)
+6. **FloatingCTA.tsx** - Scroll handler re-subscription fixed with useRef
+7. **analytics/route.ts** - Unused Prisma import removed
+8. **FAQ.tsx + WhyChooseUs.tsx** - Framer Motion variant type errors fixed (ease as const)
+
+### New Features Added: 4
+1. **PromotionsBanner** - Dismissible promotional banner with 24h persistence
+2. **TeamSection** - 4 team member cards with hover effects and stagger animation
+3. **LiveChatWidget** - Floating chat with bot responses and quick replies
+4. **PortfolioShowcase** - 6-project horizontal scroll carousel
+
+### Navbar Enhancement
+- Added 2px gold gradient line at top
+- Made logo bolder (extrabold, text-xl)
+
+### metadataBase Fix
+- Added `metadataBase: new URL("https://procoatpainters.com")` to layout.tsx
+
+---
+
+## QA Review Round 1 Results (Previous Session)
 
 ### Bugs Found & Fixed: 12 issues
+- CRITICAL (3): AppointmentForm schema mismatch, EstimateForm type inference, unused imports
+- MODERATE (5): Unused imports in AnalyticsTab, ProjectsTab, Testimonials, ServiceAreas
+- LOW (4): TS narrowing, implicit types, motion variants, carousel types
 
-#### CRITICAL (3)
-1. **AppointmentForm.tsx** - Form schema/API field mismatch (name→firstName/lastName, date format)
-2. **EstimateForm.tsx** - Broken type inference with conditional zod schema (merged into single schema)
-3. **AppointmentsTab.tsx** - Unused import causing dead code
-
-#### MODERATE (5)
-4. **AnalyticsTab.tsx** - 4 unused imports removed
-5. **ProjectsTab.tsx** - 3 unused imports + redundant local SVG component removed
-6. **ProjectsTab.tsx** - Unsafe type cast fixed
-7. **Testimonials.tsx** - 2 unused imports removed
-8. **ServiceAreas.tsx** - Unused Phone import removed
-
-#### LOW (4)
-9. **AppointmentsTab.tsx** - TypeScript narrowing warnings fixed
-10. **analytics/route.ts** - Implicit never array type fixed
-11. **Services.tsx** - Framer motion variants type mismatch fixed
-12. **Testimonials.tsx** - Broken embla-carousel type import fixed
-
-### New Features Added: 7
-1. **FloatingCTA** - Floating estimate button after hero scroll
-2. **CookieConsent** - GDPR-style cookie banner with preferences
-3. **BackToTop** - Scroll-to-top button
-4. **FAQ** - 8-item accordion section
-5. **WhyChooseUs** - 6 trust indicators on cream background
-6. **Activity Timeline** - Recent activity in dashboard overview
-7. **Notification Service** - Email/slack notification mini-service
-
-### Enhancements Made: 20+
-- Parallax scrolling on hero
-- Text shimmer animation
-- Glass-morphism effects
-- Stagger animations on cards
-- Gradient border reveals on hover
-- Paint brush stroke decorative divider
-- Stat card glow on hover
-- Active section nav indicator
-- FREE badge on phone number
-- Mobile menu spring animation
-- CTA pulse glow animation
-- Footer CTA banner with shimmer
-- Social media icons
-- Footer link lift effects
-- Map placeholder with grid pattern
-- Form input focus glow
-- Social proof badges
-- Custom scrollbar
-- Noise texture overlays
-- Improved accessibility (focus-visible)
+### Features Added: 7
+- FloatingCTA, CookieConsent, BackToTop, FAQ, WhyChooseUs, Activity Timeline, Notification Service
 
 ---
 
@@ -176,7 +154,7 @@ A production-ready web application cloning and enhancing CertaPro Painters (toro
 ---
 
 ## Component Count
-- Website Components: 17
+- Website Components: 21
 - Dashboard Components: 11
 - API Routes: 16+
 - Mini-Services: 1 (notification-service on port 3001)

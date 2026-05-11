@@ -168,12 +168,36 @@ export function ContactSection() {
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // POST to /api/leads would go here
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    setSubmitting(true);
+    setSubmitError('');
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: formData.name.split(' ')[0] || formData.name,
+          lastName: formData.name.split(' ').slice(1).join(' ') || '',
+          email: formData.email,
+          phone: formData.phone || undefined,
+          serviceType: formData.service || undefined,
+          projectDesc: formData.message || undefined,
+          leadSource: 'website',
+        }),
+      });
+      if (!res.ok) throw new Error('Failed to submit');
+      setSubmitted(true);
+      setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch {
+      setSubmitError('Something went wrong. Please try again or call us directly.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -386,10 +410,15 @@ export function ContactSection() {
 
                   <Button
                     type="submit"
-                    className="w-full bg-gold hover:bg-gold-light text-white font-semibold py-3.5 rounded-lg transition-all shadow-md hover:shadow-lg hover:scale-[1.02]"
+                    disabled={submitting}
+                    className="w-full bg-gold hover:bg-gold-light text-white font-semibold py-3.5 rounded-lg transition-all shadow-md hover:shadow-lg hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    Send Message
+                    {submitting ? 'Sending...' : 'Send Message'}
                   </Button>
+
+                  {submitError && (
+                    <p className="text-xs text-red-500 text-center">{submitError}</p>
+                  )}
 
                   <p className="text-xs text-gray-400 text-center">
                     We typically respond within 24 hours on business days.

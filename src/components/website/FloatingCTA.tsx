@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, FileText, X, Minimize2 } from 'lucide-react';
 import { useAppStore } from '@/lib/store';
@@ -10,19 +10,18 @@ export function FloatingCTA() {
   const [isVisible, setIsVisible] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [hasPulsed, setHasPulsed] = useState(false);
+  const isVisibleRef = useRef(false);
 
   const handleScroll = useCallback(() => {
     const heroHeight = window.innerHeight;
     const scrollY = window.scrollY;
+    const shouldShow = scrollY > heroHeight * 0.8;
 
-    if (scrollY > heroHeight * 0.8) {
-      if (!isVisible) {
-        setIsVisible(true);
-      }
-    } else {
-      setIsVisible(false);
+    if (shouldShow !== isVisibleRef.current) {
+      isVisibleRef.current = shouldShow;
+      setIsVisible(shouldShow);
     }
-  }, [isVisible]);
+  }, []);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });

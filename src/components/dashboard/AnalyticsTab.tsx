@@ -18,7 +18,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  Legend,
 } from 'recharts';
 import {
   Eye,
@@ -69,6 +68,7 @@ const periodOptions = [
 ];
 
 const SOURCE_COLORS = ['#0B1D3A', '#C8973E', '#5B7B5A', '#3B82A0'];
+const STAGE_COLORS = ['#0B1D3A', '#132D5E', '#1E4D8C', '#C8973E', '#E8B94E', '#5B7B5A'];
 
 const defaultAnalytics: AnalyticsData = {
   metrics: [
@@ -402,5 +402,3 @@ export default function AnalyticsTab() {
     </div>
   );
 }
-
-const STAGE_COLORS = ['#0B1D3A', '#132D5E', '#1E4D8C', '#C8973E', '#E8B94E', '#5B7B5A'];

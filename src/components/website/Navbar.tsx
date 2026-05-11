@@ -66,6 +66,9 @@ export function Navbar() {
             : 'bg-transparent'
         }`}
       >
+        {/* Gold accent line at very top */}
+        <div className="h-0.5 bg-gradient-to-r from-gold/40 via-gold to-gold/40" />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-18 md:h-20">
             {/* Logo */}
@@ -87,10 +90,10 @@ export function Navbar() {
                 </div>
               </div>
               <div className="flex flex-col">
-                <span className="text-white font-bold text-lg leading-tight tracking-tight">
+                <span className="text-white font-extrabold text-xl leading-tight tracking-tight">
                   ProCoat
                 </span>
-                <span className="text-gold text-xs font-medium tracking-widest uppercase">
+                <span className="text-gold text-xs font-semibold tracking-widest uppercase">
                   Painters
                 </span>
               </div>

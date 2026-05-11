@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://procoatpainters.com"),
   title: "ProCoat Painters | Professional Painting Services in Toronto & GTA",
   description: "Toronto's trusted painting professionals. Premium interior & exterior painting, cabinet refinishing, commercial painting, deck & fence staining. Free estimates, licensed & insured. 4.9★ Google Rating.",
   keywords: ["painting contractor Toronto", "house painting Toronto", "interior painting", "exterior painting", "cabinet refinishing", "commercial painting", "painter Toronto", "GTA painting services", "ProCoat Painters", "free estimate painting"],

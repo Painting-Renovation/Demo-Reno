@@ -253,7 +253,7 @@ export default function AppointmentsTab() {
                 ))}
               </SelectContent>
             </Select>
-            <Button className="bg-gold hover:bg-gold-light text-white">
+            <Button className="bg-gold hover:bg-gold-light text-white" onClick={() => setCreateOpen(true)}>
               <Plus className="h-4 w-4 mr-1.5" />
               New
             </Button>
@@ -313,6 +313,98 @@ export default function AppointmentsTab() {
             onUpdateStatus={handleUpdateStatus}
           />
         </Dialog>
+
+        {/* Create Dialog */}
+        <Dialog open={createOpen} onOpenChange={setCreateOpen}>
+          <DialogContent className="max-w-lg">
+            <DialogHeader>
+              <DialogTitle>New Appointment</DialogTitle>
+              <DialogDescription>Schedule a new client appointment</DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>First Name *</Label>
+                  <Input value={formData.firstName} onChange={(e) => setFormData({ ...formData, firstName: e.target.value })} />
+                  {formErrors.firstName && <p className="text-xs text-destructive">{formErrors.firstName}</p>}
+                </div>
+                <div className="space-y-2">
+                  <Label>Last Name *</Label>
+                  <Input value={formData.lastName} onChange={(e) => setFormData({ ...formData, lastName: e.target.value })} />
+                  {formErrors.lastName && <p className="text-xs text-destructive">{formErrors.lastName}</p>}
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label>Email *</Label>
+                <Input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
+                {formErrors.email && <p className="text-xs text-destructive">{formErrors.email}</p>}
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Phone</Label>
+                  <Input value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
+                </div>
+                <div className="space-y-2">
+                  <Label>Service Type</Label>
+                  <Select value={formData.serviceType} onValueChange={(v) => setFormData({ ...formData, serviceType: v })}>
+                    <SelectTrigger><SelectValue placeholder="Select" /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Interior Painting">Interior Painting</SelectItem>
+                      <SelectItem value="Exterior Painting">Exterior Painting</SelectItem>
+                      <SelectItem value="Cabinet Refinishing">Cabinet Refinishing</SelectItem>
+                      <SelectItem value="Commercial Painting">Commercial Painting</SelectItem>
+                      <SelectItem value="Deck & Fence">Deck &amp; Fence</SelectItem>
+                      <SelectItem value="Wallpaper">Wallpaper</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label>Address</Label>
+                <Input value={formData.address} onChange={(e) => setFormData({ ...formData, address: e.target.value })} />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Date & Time *</Label>
+                  <Input type="datetime-local" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} />
+                  {formErrors.date && <p className="text-xs text-destructive">{formErrors.date}</p>}
+                </div>
+                <div className="space-y-2">
+                  <Label>Duration (min)</Label>
+                  <Input type="number" value={formData.duration} onChange={(e) => setFormData({ ...formData, duration: parseInt(e.target.value) || 60 })} />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <Label>Notes</Label>
+                <Textarea value={formData.notes} onChange={(e) => setFormData({ ...formData, notes: e.target.value })} rows={3} />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => { setCreateOpen(false); setFormData(emptyAppointment); setFormErrors({}); }}>Cancel</Button>
+              <Button className="bg-navy hover:bg-navy-light" onClick={handleCreate} disabled={submitting}>
+                {submitting ? 'Creating...' : 'Create Appointment'}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+        {/* Delete Dialog */}
+        <AlertDialog open={deleteOpen} onOpenChange={setDeleteOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Cancel Appointment</AlertDialogTitle>
+              <AlertDialogDescription>
+                Are you sure you want to delete this appointment? This action cannot be undone.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Keep</AlertDialogCancel>
+              <AlertDialogAction onClick={handleDelete} className="bg-destructive text-white hover:bg-destructive/90">
+                Delete
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     );
   }
