@@ -30,7 +30,8 @@ import {
 import { format } from 'date-fns';
 
 const appointmentSchema = z.object({
-  name: z.string().min(2, 'Name is required'),
+  firstName: z.string().min(2, 'First name is required'),
+  lastName: z.string().min(2, 'Last name is required'),
   email: z.string().email('Valid email is required'),
   phone: z.string().min(10, 'Valid phone number is required'),
   address: z.string().min(5, 'Address is required'),
@@ -97,9 +98,14 @@ export function AppointmentForm() {
     setIsSubmitting(true);
 
     try {
+      // Build the API payload - map form fields to what the API expects
+      const dateValue = selectedDate
+        ? format(selectedDate, 'yyyy-MM-dd') + 'T' + (data.preferredTime || '09:00')
+        : data.preferredDate;
+      const { preferredDate, preferredTime, ...apiFields } = data;
       const payload = {
-        ...data,
-        preferredDate: selectedDate ? format(selectedDate, 'yyyy-MM-dd') : data.preferredDate,
+        ...apiFields,
+        date: dateValue,
       };
 
       const res = await fetch('/api/appointments', {
@@ -160,26 +166,36 @@ export function AppointmentForm() {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <Label htmlFor="appt-name" className="text-sm text-navy">Name *</Label>
+                  <Label htmlFor="appt-firstname" className="text-sm text-navy">First Name *</Label>
                   <Input
-                    id="appt-name"
-                    placeholder="Your full name"
-                    {...register('name')}
-                    className={errors.name ? 'border-red-400' : ''}
+                    id="appt-firstname"
+                    placeholder="First name"
+                    {...register('firstName')}
+                    className={errors.firstName ? 'border-red-400' : ''}
                   />
-                  {errors.name && <p className="text-xs text-red-500">{errors.name.message}</p>}
+                  {errors.firstName && <p className="text-xs text-red-500">{errors.firstName.message}</p>}
                 </div>
                 <div className="space-y-1.5">
-                  <Label htmlFor="appt-email" className="text-sm text-navy">Email *</Label>
+                  <Label htmlFor="appt-lastname" className="text-sm text-navy">Last Name *</Label>
                   <Input
-                    id="appt-email"
-                    type="email"
-                    placeholder="your@email.com"
-                    {...register('email')}
-                    className={errors.email ? 'border-red-400' : ''}
+                    id="appt-lastname"
+                    placeholder="Last name"
+                    {...register('lastName')}
+                    className={errors.lastName ? 'border-red-400' : ''}
                   />
-                  {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
+                  {errors.lastName && <p className="text-xs text-red-500">{errors.lastName.message}</p>}
                 </div>
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="appt-email" className="text-sm text-navy">Email *</Label>
+                <Input
+                  id="appt-email"
+                  type="email"
+                  placeholder="your@email.com"
+                  {...register('email')}
+                  className={errors.email ? 'border-red-400' : ''}
+                />
+                {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -330,7 +346,7 @@ export function AppointmentForm() {
               </motion.div>
               <h3 className="text-2xl font-bold text-navy mb-3">Consultation Booked!</h3>
               <p className="text-gray-600 mb-2 max-w-sm mx-auto">
-                Thank you, {watchedFields.name}! Your consultation has been scheduled.
+                Thank you, {watchedFields.firstName}! Your consultation has been scheduled.
               </p>
               {selectedDate && (
                 <div className="bg-cream rounded-xl p-4 mt-4 mb-6 inline-block">

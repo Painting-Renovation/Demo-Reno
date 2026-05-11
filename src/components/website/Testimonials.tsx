@@ -8,8 +8,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
 } from '@/components/ui/carousel';
 import { useAppStore } from '@/lib/store';
 
@@ -73,9 +71,16 @@ const testimonials: Testimonial[] = [
   },
 ];
 
+interface EmblaApi {
+  scrollPrev: () => void;
+  scrollNext: () => void;
+  scrollTo: (index: number) => void;
+  canScrollNext: () => boolean;
+}
+
 export function Testimonials() {
   const { setEstimateFormOpen } = useAppStore();
-  const [api, setApi] = useState<ReturnType<typeof import('embla-carousel-react').useEmblaCarousel>[1] | null>(null);
+  const [api, setApi] = useState<EmblaApi | undefined>(undefined);
 
   const scroll = useCallback((direction: 'prev' | 'next') => {
     if (api) {
@@ -133,7 +138,7 @@ export function Testimonials() {
           className="relative max-w-5xl mx-auto"
         >
           <Carousel
-            setApi={setApi}
+            setApi={setApi as (api: unknown) => void}
             opts={{
               align: 'start',
               loop: true,

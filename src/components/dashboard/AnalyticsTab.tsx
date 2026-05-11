@@ -26,10 +26,6 @@ import {
   Phone,
   Calendar,
   TrendingUp,
-  Globe,
-  Smartphone,
-  Referral,
-  UserCheck,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 

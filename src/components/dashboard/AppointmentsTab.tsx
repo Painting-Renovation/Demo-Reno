@@ -48,7 +48,6 @@ import {
   Clock,
   MoreHorizontal,
   Eye,
-  Pencil,
   Trash2,
   MapPin,
   Phone,
@@ -226,7 +225,7 @@ export default function AppointmentsTab() {
           <div className="flex items-center gap-2">
             <div className="flex bg-muted rounded-lg p-0.5">
               <Button
-                variant={viewMode === 'list' ? 'default' : 'ghost'}
+                variant={(viewMode as string) === 'list' ? 'default' : 'ghost'}
                 size="sm"
                 className="h-8"
                 onClick={() => setViewMode('list')}
@@ -234,7 +233,7 @@ export default function AppointmentsTab() {
                 <List className="h-4 w-4" />
               </Button>
               <Button
-                variant={viewMode === 'calendar' ? 'default' : 'ghost'}
+                variant={(viewMode as string) === 'calendar' ? 'default' : 'ghost'}
                 size="sm"
                 className="h-8"
                 onClick={() => setViewMode('calendar')}
@@ -330,7 +329,7 @@ export default function AppointmentsTab() {
         <div className="flex items-center gap-2">
           <div className="flex bg-muted rounded-lg p-0.5">
             <Button
-              variant={viewMode === 'list' ? 'default' : 'ghost'}
+              variant={(viewMode as string) === 'list' ? 'default' : 'ghost'}
               size="sm"
               className="h-8"
               onClick={() => setViewMode('list')}
@@ -338,7 +337,7 @@ export default function AppointmentsTab() {
               <List className="h-4 w-4" />
             </Button>
             <Button
-              variant={viewMode === 'calendar' ? 'default' : 'ghost'}
+              variant={(viewMode as string) === 'calendar' ? 'default' : 'ghost'}
               size="sm"
               className="h-8"
               onClick={() => setViewMode('calendar')}

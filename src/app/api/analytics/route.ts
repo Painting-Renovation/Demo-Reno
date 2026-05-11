@@ -152,7 +152,7 @@ export async function GET(request: NextRequest) {
 
     // Mini funnel
     const funnelStages = ['awareness', 'interest', 'consideration', 'intent', 'evaluation', 'purchase'];
-    const miniFunnel = [];
+    const miniFunnel: Array<{ stage: string; count: number }> = [];
     for (const stage of funnelStages) {
       const count = await db.lead.count({ where: { funnelStage: stage } });
       miniFunnel.push({

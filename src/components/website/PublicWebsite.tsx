@@ -11,6 +11,11 @@ import { ContactSection } from './ContactSection';
 import { Footer } from './Footer';
 import { EstimateForm } from './EstimateForm';
 import { AppointmentForm } from './AppointmentForm';
+import { WhyChooseUs } from './WhyChooseUs';
+import { FAQ } from './FAQ';
+import { FloatingCTA } from './FloatingCTA';
+import { CookieConsent } from './CookieConsent';
+import { BackToTop } from './BackToTop';
 
 export function PublicWebsite() {
   return (
@@ -26,6 +31,10 @@ export function PublicWebsite() {
 
         <div className="section-divider" />
 
+        <WhyChooseUs />
+
+        <div className="section-divider" />
+
         <Gallery />
 
         <div className="section-divider" />
@@ -35,6 +44,10 @@ export function PublicWebsite() {
         <div className="section-divider" />
 
         <Testimonials />
+
+        <div className="section-divider" />
+
+        <FAQ />
 
         <div className="section-divider" />
 
@@ -50,6 +63,11 @@ export function PublicWebsite() {
       {/* Modal Forms */}
       <EstimateForm />
       <AppointmentForm />
+
+      {/* Floating UI Elements */}
+      <FloatingCTA />
+      <BackToTop />
+      <CookieConsent />
     </div>
   );
 }

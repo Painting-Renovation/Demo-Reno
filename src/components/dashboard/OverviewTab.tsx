@@ -23,6 +23,10 @@ import {
   FileText,
   Phone,
   ArrowRight,
+  CalendarPlus,
+  Mail,
+  MessageSquare,
+  Clock,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -50,10 +54,73 @@ interface Appointment {
   time: string;
 }
 
+interface ActivityItem {
+  id: string;
+  type: 'lead' | 'appointment' | 'call' | 'message';
+  description: string;
+  timestamp: string;
+  icon: React.ElementType;
+  iconColor: string;
+}
+
+const getActivityIcon = (status: string): { icon: React.ElementType; color: string } => {
+  switch (status) {
+    case 'new':
+      return { icon: UserPlus, color: 'bg-blue-100 text-blue-600' };
+    case 'contacted':
+      return { icon: Phone, color: 'bg-amber-100 text-amber-600' };
+    case 'qualified':
+      return { icon: Mail, color: 'bg-green-100 text-green-600' };
+    case 'proposal':
+      return { icon: FileText, color: 'bg-purple-100 text-purple-600' };
+    case 'won':
+      return { icon: CalendarPlus, color: 'bg-emerald-100 text-emerald-600' };
+    case 'lost':
+      return { icon: MessageSquare, color: 'bg-red-100 text-red-500' };
+    default:
+      return { icon: Users, color: 'bg-gray-100 text-gray-500' };
+  }
+};
+
+const getStatusAction = (status: string): string => {
+  switch (status) {
+    case 'new':
+      return 'submitted a new estimate request';
+    case 'contacted':
+      return 'was contacted by the team';
+    case 'qualified':
+      return 'was qualified as a potential client';
+    case 'proposal':
+      return 'received a project proposal';
+    case 'won':
+      return 'converted to a booked project';
+    case 'lost':
+      return 'marked as a lost lead';
+    default:
+      return 'was updated';
+  }
+};
+
+function formatRelativeTime(dateStr: string): string {
+  const date = new Date(dateStr);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
+
+  if (diffMins < 1) return 'Just now';
+  if (diffMins < 60) return `${diffMins}m ago`;
+  if (diffHours < 24) return `${diffHours}h ago`;
+  if (diffDays < 7) return `${diffDays}d ago`;
+  return date.toLocaleDateString();
+}
+
 export default function OverviewTab() {
   const [kpis, setKpis] = useState<KPI[]>([]);
   const [recentLeads, setRecentLeads] = useState<LeadRow[]>([]);
   const [upcomingAppointments, setUpcomingAppointments] = useState<Appointment[]>([]);
+  const [activities, setActivities] = useState<ActivityItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -99,8 +166,10 @@ export default function OverviewTab() {
           ]);
         }
 
+        const leadsData = leads.data || leads || [];
+
         setRecentLeads(
-          (leads.data || leads || []).map((l: Record<string, unknown>) => ({
+          leadsData.map((l: Record<string, unknown>) => ({
             id: l.id as string,
             name: `${l.firstName} ${l.lastName}`,
             email: l.email as string,
@@ -109,6 +178,22 @@ export default function OverviewTab() {
             date: new Date(l.createdAt as string).toLocaleDateString(),
           }))
         );
+
+        // Build activity items from leads data
+        const activityList: ActivityItem[] = leadsData.slice(0, 5).map((l: Record<string, unknown>) => {
+          const status = (l.status || 'new') as string;
+          const { icon, color } = getActivityIcon(status);
+          return {
+            id: l.id as string,
+            type: 'lead' as const,
+            description: `${l.firstName} ${l.lastName} ${getStatusAction(status)}`,
+            timestamp: new Date(l.createdAt as string).toISOString(),
+            icon,
+            iconColor: color,
+          };
+        });
+
+        setActivities(activityList);
 
         setUpcomingAppointments(
           (appointments.data || appointments || []).map((a: Record<string, unknown>) => ({
@@ -329,6 +414,65 @@ export default function OverviewTab() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Recent Activity Timeline */}
+      <Card className="dashboard-card">
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-base font-semibold text-navy">Recent Activity</CardTitle>
+              <CardDescription>Latest lead activity and updates</CardDescription>
+            </div>
+            <Clock className="h-4 w-4 text-muted-foreground" />
+          </div>
+        </CardHeader>
+        <CardContent>
+          {activities.length === 0 ? (
+            <div className="text-center py-8 text-sm text-muted-foreground">
+              No recent activity
+            </div>
+          ) : (
+            <div className="relative">
+              {/* Vertical timeline line */}
+              <div className="absolute left-[18px] top-2 bottom-2 w-px bg-border" />
+
+              <div className="space-y-4">
+                {activities.map((activity, index) => {
+                  const Icon = activity.icon;
+                  return (
+                    <div key={activity.id} className="flex items-start gap-4 relative">
+                      {/* Timeline dot */}
+                      <div
+                        className={cn(
+                          'flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center z-10 border-2 border-white',
+                          activity.iconColor
+                        )}
+                      >
+                        <Icon className="w-4 h-4" />
+                      </div>
+
+                      {/* Content */}
+                      <div className="flex-1 min-w-0 pb-1">
+                        <p className="text-sm text-foreground leading-relaxed">
+                          {activity.description}
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          {formatRelativeTime(activity.timestamp)}
+                        </p>
+                      </div>
+
+                      {/* Connector to last item */}
+                      {index < activities.length - 1 && (
+                        <div className="absolute left-[18px] top-[36px] bottom-[-16px] w-px bg-border" />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 }

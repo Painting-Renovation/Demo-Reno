@@ -97,27 +97,248 @@
   }
 }
 
-/* Custom scrollbar */
+/* ========================================
+   CUSTOM SCROLLBAR - Rounded Thumbs
+   ======================================== */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
   background: #F5F0E8;
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #C8973E;
-  border-radius: 4px;
+  background: linear-gradient(180deg, #C8973E, #A67C2E);
+  border-radius: 10px;
+  border: 2px solid #F5F0E8;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #A67C2E;
+  background: linear-gradient(180deg, #E8B94E, #C8973E);
 }
 
-/* Hero gradient overlay */
+/* ========================================
+   HERO GRADIENT OVERLAY - Animated
+   ======================================== */
 .hero-overlay {
-  background: linear-gradient(135deg, rgba(11,29,58,0.85) 0%, rgba(11,29,58,0.6) 50%, rgba(200,151,62,0.3) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(11,29,58,0.88) 0%,
+    rgba(11,29,58,0.65) 40%,
+    rgba(19,45,94,0.55) 60%,
+    rgba(200,151,62,0.25) 100%
+  );
+  background-size: 200% 200%;
+  animation: heroGradientShift 8s ease-in-out infinite;
 }
 
-/* Gold gradient text */
+@keyframes heroGradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ========================================
+   PARALLAX-LIKE SCROLL CLASS
+   ======================================== */
+.parallax-bg {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+/* ========================================
+   GLASS MORPHISM UTILITY
+   ======================================== */
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.glass-morphism-light {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ========================================
+   SHIMMER LOADING EFFECT
+   ======================================== */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(200,151,62,0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+.shimmer-skeleton {
+  background: linear-gradient(
+    90deg,
+    #F5F0E8 25%,
+    #EDE8DC 37%,
+    #F5F0E8 63%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+  border-radius: 0.5rem;
+}
+
+/* ========================================
+   TEXT-SHADOW UTILITY FOR GOLD TEXT
+   ======================================== */
+.text-shadow-gold {
+  text-shadow: 0 1px 3px rgba(200, 151, 62, 0.3),
+               0 0 20px rgba(200, 151, 62, 0.1);
+}
+.text-shadow-navy {
+  text-shadow: 0 2px 4px rgba(11, 29, 58, 0.2);
+}
+
+/* ========================================
+   FLOATING ANIMATION KEYFRAMES
+   ======================================== */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+.animate-float-slow {
+  animation: float 5s ease-in-out infinite;
+}
+.animate-float-delayed {
+  animation: float 4s ease-in-out 1s infinite;
+}
+
+/* ========================================
+   PULSE-GLOW ANIMATION FOR CTAs
+   ======================================== */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(200, 151, 62, 0.3),
+                0 4px 16px rgba(200, 151, 62, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(200, 151, 62, 0.5),
+                0 4px 24px rgba(200, 151, 62, 0.3);
+  }
+}
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+/* ========================================
+   STAGGER ANIMATION FOR LIST ITEMS
+   ======================================== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.stagger-item {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+.stagger-item:nth-child(1) { animation-delay: 0.05s; }
+.stagger-item:nth-child(2) { animation-delay: 0.1s; }
+.stagger-item:nth-child(3) { animation-delay: 0.15s; }
+.stagger-item:nth-child(4) { animation-delay: 0.2s; }
+.stagger-item:nth-child(5) { animation-delay: 0.25s; }
+.stagger-item:nth-child(6) { animation-delay: 0.3s; }
+.stagger-item:nth-child(7) { animation-delay: 0.35s; }
+.stagger-item:nth-child(8) { animation-delay: 0.4s; }
+
+/* ========================================
+   UNDERLINE-GROW HOVER EFFECT FOR LINKS
+   ======================================== */
+.underline-grow {
+  position: relative;
+  text-decoration: none;
+}
+.underline-grow::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #C8973E, #E8B94E);
+  transition: width 0.3s ease, left 0.3s ease;
+  border-radius: 1px;
+}
+.underline-grow:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* ========================================
+   IMPROVED FOCUS-VISIBLE STYLES
+   ======================================== */
+:focus-visible {
+  outline: 2px solid #C8973E;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #C8973E;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(200, 151, 62, 0.15);
+}
+
+/* ========================================
+   NOISE TEXTURE OVERLAY CLASS
+   ======================================== */
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ========================================
+   GRADIENT TEXT SHIMMER (for hero heading)
+   ======================================== */
+@keyframes textShimmer {
+  0% { background-position: -500% center; }
+  100% { background-position: 500% center; }
+}
+.text-shimmer-gold {
+  background: linear-gradient(
+    90deg,
+    #C8973E 0%,
+    #E8B94E 20%,
+    #FFD700 35%,
+    #E8B94E 50%,
+    #C8973E 65%,
+    #E8B94E 80%,
+    #C8973E 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textShimmer 6s linear infinite;
+}
+
+/* ========================================
+   GOLD GRADIENT TEXT (static)
+   ======================================== */
 .text-gradient-gold {
   background: linear-gradient(135deg, #C8973E, #E8B94E);
   -webkit-background-clip: text;
@@ -125,13 +346,17 @@
   background-clip: text;
 }
 
-/* Section divider */
+/* ========================================
+   SECTION DIVIDER
+   ======================================== */
 .section-divider {
   background: linear-gradient(90deg, transparent, #C8973E, transparent);
   height: 2px;
 }
 
-/* Card hover effects */
+/* ========================================
+   SERVICE CARD EFFECTS
+   ======================================== */
 .service-card {
   transition: all 0.3s ease;
 }
@@ -140,7 +365,9 @@
   box-shadow: 0 20px 40px rgba(11,29,58,0.12);
 }
 
-/* Animated gradient border */
+/* ========================================
+   ANIMATED GRADIENT BORDER
+   ======================================== */
 .gradient-border {
   position: relative;
   background: white;
@@ -155,18 +382,90 @@
   z-index: -1;
 }
 
-/* Shimmer animation */
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+/* Service card gradient border on hover */
+.service-card-gradient {
+  position: relative;
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
 }
-.shimmer {
-  background: linear-gradient(90deg, transparent, rgba(200,151,62,0.1), transparent);
-  background-size: 200% 100%;
-  animation: shimmer 3s infinite;
+.service-card-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, transparent 40%, #C8973E 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.service-card-gradient:hover::before {
+  opacity: 1;
 }
 
-/* Counter animation */
+/* ========================================
+   STAT CARD GLOW ON HOVER
+   ======================================== */
+.stat-card-glow {
+  position: relative;
+  transition: all 0.4s ease;
+}
+.stat-card-glow::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(200,151,62,0.4), transparent, rgba(200,151,62,0.4));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  filter: blur(4px);
+}
+.stat-card-glow:hover::after {
+  opacity: 1;
+}
+.stat-card-glow:hover {
+  border-color: rgba(200,151,62,0.5);
+}
+
+/* ========================================
+   PAINT BRUSH STROKE DIVIDER
+   ======================================== */
+.paint-stroke-divider {
+  position: relative;
+  height: 6px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(200,151,62,0.2) 5%,
+    #C8973E 15%,
+    #E8B94E 30%,
+    #C8973E 50%,
+    #E8B94E 70%,
+    #C8973E 85%,
+    rgba(200,151,62,0.2) 95%,
+    transparent 100%
+  );
+  border-radius: 3px;
+  opacity: 0.6;
+}
+.paint-stroke-divider::before {
+  content: '';
+  position: absolute;
+  inset: -1px 5% -1px 5%;
+  background: inherit;
+  filter: blur(3px);
+  border-radius: inherit;
+  opacity: 0.4;
+}
+
+/* ========================================
+   COUNTER ANIMATION (CSS-only appearance)
+   ======================================== */
 @keyframes countUp {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -175,7 +474,93 @@
   animation: countUp 0.6s ease-out forwards;
 }
 
-/* Dashboard styles */
+/* ========================================
+   NAV SCROLL BOTTOM BORDER
+   ======================================== */
+.nav-scrolled-border {
+  border-bottom: 1px solid rgba(200, 151, 62, 0.2);
+}
+
+/* ========================================
+   FAQ ACCORDION STYLES
+   ======================================== */
+.faq-item {
+  transition: all 0.3s ease;
+}
+.faq-item:hover {
+  background-color: #FDF8F0;
+}
+.faq-item[open] summary {
+  color: #C8973E;
+}
+.faq-item[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+
+/* ========================================
+   MAP PLACEHOLDER GRADIENT
+   ======================================== */
+.map-placeholder {
+  background:
+    linear-gradient(135deg, #0B1D3A 0%, #132D5E 30%, #1a3a6e 50%, #132D5E 70%, #0B1D3A 100%);
+  position: relative;
+  overflow: hidden;
+}
+.map-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(200,151,62,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 50%, rgba(91,123,90,0.08) 0%, transparent 50%),
+    linear-gradient(0deg, transparent 49.5%, rgba(200,151,62,0.06) 49.5%, rgba(200,151,62,0.06) 50.5%, transparent 50.5%),
+    linear-gradient(90deg, transparent 49.5%, rgba(200,151,62,0.06) 49.5%, rgba(200,151,62,0.06) 50.5%, transparent 50.5%);
+  background-size: 100% 100%, 100% 100%, 60px 60px, 60px 60px;
+}
+
+/* ========================================
+   SOCIAL PROOF BADGE STYLES
+   ======================================== */
+.social-proof-badge {
+  transition: all 0.3s ease;
+}
+.social-proof-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* ========================================
+   FORM INPUT FOCUS RING ANIMATION
+   ======================================== */
+.form-input-glow:focus {
+  border-color: #C8973E;
+  box-shadow: 0 0 0 3px rgba(200, 151, 62, 0.12);
+  transition: all 0.3s ease;
+}
+
+/* ========================================
+   FOOTER HOVER LIFT EFFECT
+   ======================================== */
+.footer-link-lift {
+  transition: all 0.25s ease;
+  display: inline-block;
+}
+.footer-link-lift:hover {
+  transform: translateY(-1px);
+  color: #E8B94E;
+}
+
+/* ========================================
+   GOLD-TO-NAVY GRADIENT LINE
+   ======================================== */
+.gold-navy-gradient-line {
+  height: 3px;
+  background: linear-gradient(90deg, #C8973E, #0B1D3A, #C8973E);
+}
+
+/* ========================================
+   DASHBOARD STYLES
+   ======================================== */
 .dashboard-card {
   transition: all 0.2s ease;
   border: 1px solid var(--border);
@@ -185,7 +570,9 @@
   box-shadow: 0 4px 12px rgba(200,151,62,0.1);
 }
 
-/* Status badge colors */
+/* ========================================
+   STATUS BADGE COLORS
+   ======================================== */
 .status-new { background-color: #DBEAFE; color: #1E40AF; }
 .status-contacted { background-color: #FEF3C7; color: #92400E; }
 .status-qualified { background-color: #D1FAE5; color: #065F46; }
@@ -193,7 +580,9 @@
 .status-won { background-color: #D1FAE5; color: #065F46; }
 .status-lost { background-color: #FEE2E2; color: #991B1B; }
 
-/* Funnel stages */
+/* ========================================
+   FUNNEL STAGES
+   ======================================== */
 .funnel-stage {
   transition: all 0.3s ease;
   border-left: 4px solid transparent;

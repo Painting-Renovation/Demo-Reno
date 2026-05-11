@@ -55,7 +55,7 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.12,
     },
   },
 };
@@ -73,8 +73,11 @@ export function Services() {
   const { setEstimateFormOpen } = useAppStore();
 
   return (
-    <section id="services" className="py-20 md:py-28 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" className="py-20 md:py-28 bg-white relative">
+      {/* Subtle noise texture */}
+      <div className="noise-overlay absolute inset-0 pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -86,7 +89,7 @@ export function Services() {
           <span className="text-gold text-sm font-semibold tracking-widest uppercase">
             ProCoat Painters
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy mt-3 mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy mt-3 mb-4 text-shadow-navy">
             Our Professional Services
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
@@ -106,19 +109,19 @@ export function Services() {
           {services.map((service) => (
             <motion.div
               key={service.title}
-              variants={cardVariants}
-              className="service-card group bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 hover:border-gold/30"
+              variants={cardVariants as any}
+              className="service-card-gradient service-card group bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 hover:shadow-2xl hover:border-gold/20"
             >
               {/* Image */}
               <div className="relative h-48 overflow-hidden">
                 <img
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-navy/20 to-transparent" />
                 <div className="absolute bottom-4 left-4">
-                  <div className="w-12 h-12 bg-gold/90 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg bg-gradient-to-br from-gold to-gold-light ring-1 ring-white/20">
                     <service.icon className="w-6 h-6 text-white" />
                   </div>
                 </div>
@@ -126,7 +129,7 @@ export function Services() {
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-navy mb-3 group-hover:text-gold transition-colors">
+                <h3 className="text-xl font-bold text-navy mb-3 group-hover:text-gold transition-colors duration-300">
                   {service.title}
                 </h3>
                 <p className="text-gray-600 text-sm leading-relaxed mb-4">
@@ -134,24 +137,44 @@ export function Services() {
                 </p>
 
                 {/* Features */}
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2 mb-5">
                   {service.features.map((feature) => (
                     <span
                       key={feature}
-                      className="text-xs bg-cream text-navy/80 px-3 py-1 rounded-full font-medium"
+                      className="text-xs bg-cream text-navy/80 px-3 py-1.5 rounded-full font-medium border border-gold/5 hover:bg-gold/10 transition-colors"
                     >
                       {feature}
                     </span>
                   ))}
                 </div>
 
-                <button className="inline-flex items-center gap-1 text-gold font-semibold text-sm group-hover:gap-2 transition-all">
+                <button className="inline-flex items-center gap-1.5 text-gold font-semibold text-sm group-hover:gap-3 transition-all duration-300 underline-grow">
                   Learn More
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </button>
               </div>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* View All Services Link */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-center mt-10"
+        >
+          <button
+            onClick={() => {
+              const el = document.getElementById('contact');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="inline-flex items-center gap-2 text-navy hover:text-gold font-medium transition-colors duration-300 underline-grow text-sm"
+          >
+            View all services and get a custom quote
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </motion.div>
 
         {/* Bottom CTA */}
@@ -160,21 +183,27 @@ export function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mt-16 bg-navy rounded-2xl p-10 md:p-14"
+          className="text-center mt-16 bg-navy rounded-2xl p-10 md:p-14 relative overflow-hidden noise-overlay"
         >
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+          {/* Decorative gradient orb */}
+          <div className="absolute -top-20 -right-20 w-60 h-60 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-sage/10 rounded-full blur-3xl pointer-events-none" />
+
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 relative z-10">
             Ready to Transform Your Space?
           </h3>
-          <p className="text-white/70 max-w-xl mx-auto mb-8">
+          <p className="text-white/70 max-w-xl mx-auto mb-8 relative z-10">
             Get a free, no-obligation estimate tailored to your project. Our team is ready to bring
             your vision to life.
           </p>
-          <Button
-            onClick={() => setEstimateFormOpen(true)}
-            className="bg-gold hover:bg-gold-light text-white font-semibold px-8 py-3 rounded-lg transition-all shadow-lg hover:shadow-xl"
-          >
-            Get Free Estimate
-          </Button>
+          <div className="relative z-10">
+            <Button
+              onClick={() => setEstimateFormOpen(true)}
+              className="bg-gold hover:bg-gold-light text-white font-semibold px-8 py-3.5 rounded-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 animate-pulse-glow"
+            >
+              Get Free Estimate
+            </Button>
+          </div>
         </motion.div>
       </div>
     </section>

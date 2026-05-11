@@ -7,24 +7,51 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const status = searchParams.get('status');
     const funnelStage = searchParams.get('funnelStage');
-    const limit = searchParams.get('limit');
+    const search = searchParams.get('search');
+    const page = searchParams.get('page') || '1';
+    const limit = searchParams.get('limit') || '50';
     const sort = searchParams.get('sort');
 
     const where: Record<string, unknown> = {};
     if (status && status !== 'all') where.status = status;
     if (funnelStage) where.funnelStage = funnelStage;
+    if (search) {
+      where.OR = [
+        { firstName: { contains: search } },
+        { lastName: { contains: search } },
+        { email: { contains: search } },
+        { phone: { contains: search } },
+        { city: { contains: search } },
+      ];
+    }
 
-    const orderBy: Record<string, string> = sort === 'latest'
-      ? { createdAt: 'desc' }
+    const orderBy: Record<string, string> = sort === 'oldest'
+      ? { createdAt: 'asc' }
       : { createdAt: 'desc' };
 
-    const leads = await db.lead.findMany({
-      where,
-      orderBy,
-      take: limit ? parseInt(limit) : undefined,
-    });
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const [leads, total] = await Promise.all([
+      db.lead.findMany({
+        where,
+        orderBy,
+        skip,
+        take: parseInt(limit),
+        include: {
+          _count: { select: { appointments: true, projects: true, quotes: true } },
+        },
+      }),
+      db.lead.count({ where }),
+    ]);
 
-    return NextResponse.json({ data: leads });
+    return NextResponse.json({
+      data: leads,
+      pagination: {
+        page: parseInt(page),
+        limit: parseInt(limit),
+        total,
+        totalPages: Math.ceil(total / parseInt(limit)),
+      },
+    });
   } catch (error) {
     console.error('GET /api/leads error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -61,6 +88,36 @@ export async function POST(request: NextRequest) {
         status: 'new',
         funnelStage: 'awareness',
       },
+    });
+
+    // Create lead activity
+    await db.leadActivity.create({
+      data: {
+        leadId: lead.id,
+        type: 'estimate',
+        description: `New lead created via ${leadSource || 'website'}`,
+      },
+    });
+
+    // Create site audit entry
+    await db.siteAudit.create({
+      data: { metric: 'estimate_request', value: 1 },
+    });
+
+    // Fire notification to notification service (non-blocking)
+    fetch('/api/notify?XTransformPort=3001', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type: 'new_lead',
+        title: `New Lead: ${firstName} ${lastName}`,
+        message: `A new lead has been submitted via the website.${serviceType ? ` Service: ${serviceType}` : ''}${city ? ` Location: ${city}` : ''}`,
+        leadName: `${firstName} ${lastName}`,
+        leadEmail: email,
+        service: serviceType || undefined,
+      }),
+    }).catch(() => {
+      // Non-blocking — don't fail the lead creation if notification fails
     });
 
     return NextResponse.json(lead, { status: 201 });

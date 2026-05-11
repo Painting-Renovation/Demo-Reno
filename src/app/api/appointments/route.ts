@@ -36,9 +36,13 @@ export async function POST(request: NextRequest) {
     const {
       firstName, lastName, email, phone, address,
       serviceType, notes, date, duration, leadId,
+      preferredDate,
     } = body;
 
-    if (!firstName || !lastName || !email || !date) {
+    // Support both `date` (dashboard) and `preferredDate` (appointment form)
+    const resolvedDate = date || preferredDate;
+
+    if (!firstName || !lastName || !email || !resolvedDate) {
       return NextResponse.json(
         { error: 'Name, email, and date are required' },
         { status: 400 }
@@ -54,7 +58,7 @@ export async function POST(request: NextRequest) {
         address: address || null,
         serviceType: serviceType || null,
         notes: notes || null,
-        date: new Date(date),
+        date: new Date(resolvedDate),
         duration: duration || 60,
         leadId: leadId || null,
         status: 'scheduled',

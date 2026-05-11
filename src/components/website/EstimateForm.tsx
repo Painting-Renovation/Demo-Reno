@@ -46,8 +46,10 @@ const step2Schema = z.object({
   referralSource: z.string().min(1, 'Please select an option'),
 });
 
-type Step1Data = z.infer<typeof step1Schema>;
-type Step2Data = z.infer<typeof step2Schema>;
+// Combined schema for all form fields across all steps
+const fullFormSchema = step1Schema.merge(step2Schema);
+
+type FullFormData = z.infer<typeof fullFormSchema>;
 
 const serviceTypes = [
   'Interior Painting',
@@ -95,8 +97,8 @@ export function EstimateForm() {
     watch,
     setValue,
     reset,
-  } = useForm({
-    resolver: zodResolver(currentStep === 1 ? step1Schema : step2Schema),
+  } = useForm<FullFormData>({
+    resolver: zodResolver(fullFormSchema),
     mode: 'onChange',
   });
 
