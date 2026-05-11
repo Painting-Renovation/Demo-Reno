@@ -3,28 +3,33 @@ import * as React from "react"
 const MOBILE_BREAKPOINT = 768
 
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(undefined)
-  const mountedRef = React.useRef(false)
+  const [isMobile, setIsMobile] = React.useState(false)
 
   React.useEffect(() => {
-    mountedRef.current = true
+    // In React 18 Strict Mode, effects run twice. Use requestAnimationFrame
+    // to defer the initial state check until after the component is fully mounted,
+    // preventing the "state update before mount" warning.
+    let cancelled = false
+
     const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
-    const onChange = () => {
-      if (mountedRef.current) {
+
+    const update = () => {
+      if (!cancelled) {
         setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
       }
     }
-    mql.addEventListener("change", onChange)
-    // Use setTimeout to ensure component is fully mounted before setState
-    const timer = setTimeout(() => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
-    }, 0)
+
+    // Defer the initial check to the next animation frame
+    const rafId = requestAnimationFrame(update)
+
+    mql.addEventListener("change", update)
+
     return () => {
-      mountedRef.current = false
-      mql.removeEventListener("change", onChange)
-      clearTimeout(timer)
+      cancelled = true
+      cancelAnimationFrame(rafId)
+      mql.removeEventListener("change", update)
     }
   }, [])
 
-  return !!isMobile
+  return isMobile
 }

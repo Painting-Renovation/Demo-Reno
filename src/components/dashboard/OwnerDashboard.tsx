@@ -16,6 +16,7 @@ import { TaskManager } from './TaskManager';
 import { ActivityHeatmap } from './ActivityHeatmap';
 import { ClientHistory } from './ClientHistory';
 import { QuotePreview } from './QuotePreview';
+import { InvoiceManager } from './InvoiceManager';
 import SettingsTab from './SettingsTab';
 
 const tabComponents: Record<string, React.ComponentType> = {
@@ -32,6 +33,7 @@ const tabComponents: Record<string, React.ComponentType> = {
   activity: ActivityHeatmap,
   'client-history': ClientHistory,
   'quote-preview': QuotePreview,
+  invoices: InvoiceManager,
   settings: SettingsTab,
 };
 

@@ -30,6 +30,9 @@ import { BackToTop } from './BackToTop';
 import { SectionDivider } from './SectionDivider';
 import { StatsBar } from './StatsBar';
 import { GuaranteeSection } from './GuaranteeSection';
+import { ProjectJourney } from './ProjectJourney';
+import { LeadMagnetSection } from './LeadMagnetSection';
+import { ExitIntentPopup } from './ExitIntentPopup';
 
 export function PublicWebsite() {
   return (
@@ -46,6 +49,9 @@ export function PublicWebsite() {
 
         <PricingCalculator />
         <SectionDivider variant="dark" />
+
+        <LeadMagnetSection />
+        <SectionDivider variant="light" />
 
         <WhyChooseUs />
 
@@ -68,6 +74,9 @@ export function PublicWebsite() {
         <SectionDivider variant="dark" />
 
         <Process />
+        <SectionDivider variant="light" />
+
+        <ProjectJourney />
         <SectionDivider variant="light" />
 
         <Testimonials />
@@ -105,6 +114,7 @@ export function PublicWebsite() {
       <LiveChatWidget />
       <BackToTop />
       <CookieConsent />
+      <ExitIntentPopup />
     </div>
   );
 }

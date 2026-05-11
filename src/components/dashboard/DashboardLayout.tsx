@@ -26,6 +26,7 @@ import {
   ListTodo,
   Activity,
   User,
+  Receipt,
 } from 'lucide-react';
 import NotificationCenter from './NotificationCenter';
 import QuickActions from './QuickActions';
@@ -45,6 +46,7 @@ const iconMap: Record<string, React.ElementType> = {
   ListTodo,
   Activity,
   User,
+  Receipt,
 };
 
 interface QuickStats {

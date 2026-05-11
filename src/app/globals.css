@@ -1127,3 +1127,171 @@ select:focus-visible {
     size: letter;
   }
 }
+
+/* ========================================
+   GLASS MORPHISM HERO - Enhanced glass for pill
+   ======================================== */
+.glass-morphism-hero {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 20px rgba(200, 151, 62, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* ========================================
+   HERO CONTENT ANIMATED BORDER GLOW
+   ======================================== */
+@keyframes heroBorderGlow {
+  0%, 100% {
+    box-shadow: 0 0 30px rgba(200, 151, 62, 0.08), inset 0 0 30px rgba(200, 151, 62, 0.03);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(200, 151, 62, 0.15), inset 0 0 40px rgba(200, 151, 62, 0.06);
+  }
+}
+
+.hero-content-glow {
+  animation: heroBorderGlow 4s ease-in-out infinite;
+  border: 1px solid rgba(200, 151, 62, 0.1);
+  border-radius: 2rem;
+}
+
+/* ========================================
+   SERVICE CARD TOP GRADIENT BORDER
+   ======================================== */
+.card-top-gradient {
+  position: relative;
+}
+.card-top-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #C8973E, rgba(200, 151, 62, 0.3), transparent);
+  border-radius: 999px 999px 0 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.card-top-gradient:hover::before {
+  opacity: 1;
+}
+
+/* ========================================
+   REVIEW CARD PREMIUM HOVER
+   ======================================== */
+.review-card-premium {
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border: 1px solid transparent;
+}
+.review-card-premium:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(11, 29, 58, 0.1);
+  border-color: rgba(200, 151, 62, 0.25);
+}
+
+/* ========================================
+   SEASONAL TIP HOVER BORDER LEFT
+   ======================================== */
+.tip-hover-border {
+  border-left: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+.tip-hover-border.tip-spring:hover {
+  border-left-color: #16a34a;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+}
+.tip-hover-border.tip-summer:hover {
+  border-left-color: #d97706;
+  background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+}
+.tip-hover-border.tip-fall:hover {
+  border-left-color: #ea580c;
+  background: linear-gradient(135deg, #fff7ed 0%, #ffffff 100%);
+}
+.tip-hover-border.tip-winter:hover {
+  border-left-color: #2563eb;
+  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
+}
+
+/* ========================================
+   RATING GOLD CIRCLE BADGE
+   ======================================== */
+.rating-gold-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #C8973E, #E8B94E);
+  box-shadow: 0 4px 20px rgba(200, 151, 62, 0.3), 0 0 40px rgba(200, 151, 62, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* ========================================
+   ANIMATED CLOCK PULSE
+   ======================================== */
+@keyframes clockPulse {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(10deg); }
+  75% { transform: rotate(-10deg); }
+}
+.animate-clock-pulse {
+  animation: clockPulse 3s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* ========================================
+   TRUST BADGE MINI
+   ======================================== */
+.trust-badge-mini {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(11, 29, 58, 0.06);
+  transition: all 0.3s ease;
+}
+.trust-badge-mini:hover {
+  border-color: rgba(200, 151, 62, 0.2);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* ========================================
+   RESPONSE PROMISE BADGE
+   ======================================== */
+@keyframes responsePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(91, 123, 90, 0.3); }
+  50% { box-shadow: 0 0 0 8px rgba(91, 123, 90, 0); }
+}
+.response-promise-badge {
+  animation: responsePulse 2.5s ease-in-out infinite;
+}
+
+/* ========================================
+   LINK UNDERLINE ANIMATION (visible)
+   ======================================== */
+.link-underline-visible {
+  position: relative;
+  text-decoration: none;
+}
+.link-underline-visible::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #C8973E, #E8B94E);
+  transition: width 0.3s ease;
+  border-radius: 1px;
+}
+.link-underline-visible:hover::after {
+  width: 100%;
+}

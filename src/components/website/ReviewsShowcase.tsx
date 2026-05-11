@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Star, CheckCircle2, Clock, ThumbsUp, ExternalLink } from 'lucide-react';
+import { Star, CheckCircle2, Clock, ThumbsUp, ExternalLink, Quote } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/lib/store';
@@ -154,6 +154,12 @@ const sourceColors: Record<string, string> = {
   Houzz: 'bg-orange-50 text-orange-700 border-orange-100',
 };
 
+const avatarGradients: Record<number, string> = {
+  5: 'from-amber-400 to-yellow-500',
+  4: 'from-blue-400 to-indigo-500',
+  3: 'from-gray-300 to-gray-400',
+};
+
 const filterTabs: { id: ServiceFilter; label: string }[] = [
   { id: 'all', label: 'All Reviews' },
   { id: 'interior', label: 'Interior' },
@@ -217,7 +223,7 @@ export function ReviewsShowcase() {
   return (
     <section id="reviews" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+        {/* Section Header with decorative element */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -225,9 +231,17 @@ export function ReviewsShowcase() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-2 bg-cream rounded-full px-4 py-1.5 mb-4">
-            <Star className="w-4 h-4 text-gold fill-gold" />
-            <span className="text-sm font-medium text-navy/70">Customer Reviews</span>
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <div className="w-12 h-px bg-gold/30" />
+            <div className="inline-flex items-center gap-2 bg-cream rounded-full px-4 py-1.5">
+              <Star className="w-4 h-4 text-gold fill-gold" />
+              <span className="text-sm font-medium text-navy/70">Customer Reviews</span>
+            </div>
+            <div className="w-12 h-px bg-gold/30" />
+          </div>
+          {/* Decorative quotation mark */}
+          <div className="flex justify-center mb-3">
+            <Quote className="w-8 h-8 text-gold/20" />
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-navy mb-3">
             What Our Clients Really Think
@@ -246,32 +260,32 @@ export function ReviewsShowcase() {
           className="bg-cream rounded-2xl p-6 md:p-8 mb-10"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            {/* Left: Big rating */}
-            <div className="flex flex-col items-center md:items-start">
-              <div className="flex items-baseline gap-3">
-                <span className="text-6xl md:text-7xl font-bold text-navy">4.9</span>
-                <div className="flex flex-col">
-                  <div className="flex gap-0.5">
-                    {[1, 2, 3, 4, 5].map((s) => (
-                      <Star
-                        key={s}
-                        className={`w-5 h-5 ${s <= 4 ? 'fill-gold text-gold' : 'fill-gold/40 text-gold/40'}`}
-                      />
-                    ))}
-                  </div>
-                  <span className="text-sm text-gray-500 mt-1">4.9 out of 5 stars</span>
-                </div>
+            {/* Left: Big rating with gold circle badge */}
+            <div className="flex items-center gap-6">
+              <div className="rating-gold-circle flex-shrink-0">
+                <span className="text-2xl font-bold text-white leading-none">4.9</span>
+                <span className="text-[10px] text-white/80 font-medium">/ 5.0</span>
               </div>
-              <p className="text-gray-600 mt-2">Based on <strong className="text-navy">350+ verified reviews</strong></p>
-              <div className="flex gap-2 mt-4">
-                {['Google', 'HomeStars', 'Houzz'].map((source) => (
-                  <span
-                    key={source}
-                    className={`text-xs font-medium px-2.5 py-1 rounded-full border ${sourceColors[source]}`}
-                  >
-                    {source}
-                  </span>
-                ))}
+              <div className="flex flex-col">
+                <div className="flex gap-0.5">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <Star
+                      key={s}
+                      className={`w-5 h-5 ${s <= 4 ? 'fill-gold text-gold' : 'fill-gold/40 text-gold/40'}`}
+                    />
+                  ))}
+                </div>
+                <span className="text-sm text-gray-500 mt-1">Based on <strong className="text-navy">350+ verified reviews</strong></span>
+                <div className="flex gap-2 mt-3">
+                  {['Google', 'HomeStars', 'Houzz'].map((source) => (
+                    <span
+                      key={source}
+                      className={`text-xs font-medium px-2.5 py-1 rounded-full border ${sourceColors[source]}`}
+                    >
+                      {source}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -329,7 +343,7 @@ export function ReviewsShowcase() {
           </div>
         </div>
 
-        {/* Reviews Grid */}
+        {/* Reviews Grid with premium card design */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -341,13 +355,13 @@ export function ReviewsShowcase() {
             <motion.div
               key={review.id}
               variants={itemVariants}
-              className="bg-white border border-gray-100 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300 group"
+              className="review-card-premium bg-white border border-gray-100 rounded-xl p-6 group"
             >
-              {/* Top row */}
+              {/* Top row with larger gradient avatar */}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 bg-gradient-to-br from-gold/20 to-gold/5 rounded-full flex items-center justify-center border border-gold/20">
-                    <span className="text-gold font-bold text-sm">{review.name.charAt(0)}</span>
+                  <div className={`w-12 h-12 bg-gradient-to-br ${avatarGradients[review.rating] || avatarGradients[3]} rounded-full flex items-center justify-center shadow-sm`}>
+                    <span className="text-white font-bold text-sm">{review.name.charAt(0)}</span>
                   </div>
                   <div>
                     <div className="flex items-center gap-2">
@@ -424,7 +438,7 @@ export function ReviewsShowcase() {
           ))}
         </motion.div>
 
-        {/* CTA */}
+        {/* CTA with animate-glow-pulse */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -434,7 +448,7 @@ export function ReviewsShowcase() {
         >
           <Button
             onClick={() => setEstimateFormOpen(true)}
-            className="bg-navy hover:bg-navy-light text-white font-semibold px-8 py-3 rounded-lg transition-all shadow-lg hover:shadow-xl"
+            className="bg-navy hover:bg-navy-light text-white font-semibold px-8 py-3 rounded-lg transition-all shadow-lg hover:shadow-xl animate-glow-pulse"
           >
             Write a Review
             <ExternalLink className="w-4 h-4 ml-2" />

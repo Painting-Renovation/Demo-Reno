@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { PaintBucket, Home, Settings2, Building2, Trees, Palette, ArrowRight, Sparkles } from 'lucide-react';
+import { PaintBucket, Home, Settings2, Building2, Trees, Palette, ArrowRight, Sparkles, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/lib/store';
 
@@ -12,7 +12,7 @@ const services = [
     description: 'Transform your living spaces with flawless interior painting. From walls to ceilings, trim to accent features — we deliver a perfect finish every time.',
     image: '/images/hero-interior.jpg',
     features: ['Walls & Ceilings', 'Trim & Baseboards', 'Accent Walls', 'Drywall Repair'],
-    price: 'From $800',
+    priceRange: '$800 - $2,500',
     popular: true,
   },
   {
@@ -21,7 +21,7 @@ const services = [
     description: 'Protect and beautify your home exterior with premium paints built to withstand Toronto\'s diverse weather conditions year-round.',
     image: '/images/hero-exterior.jpg',
     features: ['Siding & Stucco', 'Doors & Windows', 'Garage Doors', 'Weatherproofing'],
-    price: 'From $1,500',
+    priceRange: '$1,500 - $5,000',
     popular: false,
   },
   {
@@ -30,7 +30,7 @@ const services = [
     description: 'Give your kitchen or bathroom a brand new look without the cost of replacement. Cabinet refinishing saves up to 70% compared to new cabinets.',
     image: '/images/cabinet-refinish.jpg',
     features: ['Kitchen Cabinets', 'Bathroom Vanities', 'Color Change', 'Laminate Refinishing'],
-    price: 'From $600',
+    priceRange: '$600 - $1,800',
     popular: false,
   },
   {
@@ -39,7 +39,7 @@ const services = [
     description: 'Professional commercial painting services with minimal disruption to your business. Available evenings and weekends for your convenience.',
     image: '/images/commercial.jpg',
     features: ['Office Spaces', 'Retail Stores', 'Strata Properties', 'Industrial Units'],
-    price: 'From $2,000',
+    priceRange: '$2,000 - $8,000',
     popular: false,
   },
   {
@@ -48,7 +48,7 @@ const services = [
     description: 'Restore and protect your outdoor wood surfaces with professional staining and sealing services that extend the life of your deck and fence.',
     image: '/images/deck-fence.jpg',
     features: ['Deck Staining', 'Fence Painting', 'Wood Sealing', 'Restoration'],
-    price: 'From $400',
+    priceRange: '$400 - $1,200',
     popular: false,
   },
   {
@@ -57,7 +57,7 @@ const services = [
     description: 'Not sure which colors to choose? Our expert color consultants help you select the perfect palette to complement your space and style.',
     image: '/images/service-painting.jpg',
     features: ['Expert Guidance', 'Sample Testing', 'Trend Forecasting', 'Custom Palettes'],
-    price: 'Free',
+    priceRange: 'Free',
     popular: false,
   },
 ];
@@ -95,7 +95,7 @@ export function Services() {
       <div className="absolute -bottom-20 left-1/3 w-72 h-72 bg-navy/[0.03] rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
+        {/* Section Header with View All count badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -103,9 +103,14 @@ export function Services() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-gold text-sm font-semibold tracking-widest uppercase">
-            ProCoat Painters
-          </span>
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="text-gold text-sm font-semibold tracking-widest uppercase">
+              ProCoat Painters
+            </span>
+            <span className="inline-flex items-center justify-center min-w-[24px] h-6 px-2 rounded-full bg-gold/10 text-gold text-xs font-bold border border-gold/20">
+              {services.length}
+            </span>
+          </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black mt-3 mb-4">
             <span className="text-gradient-animate bg-gradient-to-r from-navy via-gold to-navy">Our Professional Services</span>
           </h2>
@@ -127,7 +132,7 @@ export function Services() {
             <motion.div
               key={service.title}
               variants={cardVariants as any}
-              className="service-card-gradient service-card card-3d-hover group bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 hover:shadow-[0_25px_50px_-12px_rgba(11,29,58,0.2)] hover:border-gold/20"
+              className="service-card-gradient card-top-gradient card-3d-hover group bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 hover:shadow-[0_25px_50px_-12px_rgba(11,29,58,0.2)] hover:border-gold/20"
             >
               {/* Image */}
               <div className="relative h-48 overflow-hidden">
@@ -150,7 +155,7 @@ export function Services() {
                   <h3 className="text-xl font-bold text-navy group-hover:text-gold transition-colors duration-300">
                     {service.title}
                   </h3>
-                  {'popular' in service && service.popular && (
+                  {service.popular && (
                     <span className="flex-shrink-0 inline-flex items-center gap-1 bg-gold/10 text-gold text-xs font-bold px-3 py-1.5 rounded-full border border-gold/30 animate-badge-pulse">
                       <Sparkles className="w-3.5 h-3.5" />
                       Most Popular
@@ -161,13 +166,14 @@ export function Services() {
                   {service.description}
                 </p>
 
-                {/* Features */}
+                {/* Features with checkmark icons */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {service.features.map((feature) => (
                     <span
                       key={feature}
-                      className="text-xs bg-cream text-navy/80 px-3 py-1.5 rounded-full font-medium border border-gold/5 hover:bg-gold/10 transition-colors"
+                      className="text-xs bg-cream text-navy/80 px-3 py-1.5 rounded-full font-medium border border-gold/5 hover:bg-gold/10 transition-colors inline-flex items-center gap-1.5"
                     >
+                      <Check className="w-3 h-3 text-sage flex-shrink-0" />
                       {feature}
                     </span>
                   ))}
@@ -175,10 +181,10 @@ export function Services() {
 
                 {/* Price indicator */}
                 <div className="flex items-center justify-between mt-5 pt-4 border-t border-gray-100">
-                  <span className={"text-sm font-semibold " + ('price' in service && service.price === 'Free' ? 'text-sage' : 'text-gold')}>
-                    {'price' in service ? service.price : ''}
+                  <span className={"text-sm font-semibold " + (service.priceRange === 'Free' ? 'text-sage' : 'text-gold')}>
+                    {service.priceRange === 'Free' ? 'Free Consultation' : `Starting from ${service.priceRange}`}
                   </span>
-                  <button className="inline-flex items-center gap-1.5 text-gold font-semibold text-sm group-hover:gap-3 transition-all duration-300 underline-grow">
+                  <button className="inline-flex items-center gap-1.5 text-gold font-semibold text-sm group-hover:gap-3 transition-all duration-300 link-underline-visible">
                     Learn More
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </button>
@@ -201,7 +207,7 @@ export function Services() {
               const el = document.getElementById('contact');
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="inline-flex items-center gap-2 text-navy hover:text-gold font-medium transition-colors duration-300 underline-grow text-sm"
+            className="inline-flex items-center gap-2 text-navy hover:text-gold font-medium transition-colors duration-300 link-underline-visible text-sm"
           >
             View all services and get a custom quote
             <ArrowRight className="w-4 h-4" />

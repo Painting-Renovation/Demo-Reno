@@ -47,20 +47,22 @@ export function Hero() {
       <div className="grain-overlay absolute inset-0" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="pt-20"
+          className="pt-20 hero-content-glow px-6 sm:px-10 md:px-16 py-10 sm:py-14"
         >
+          {/* Improved pill with Award icon + glassier effect */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-flex items-center gap-2 glass-morphism rounded-full px-5 py-2.5 mb-8"
+            className="inline-flex items-center gap-2.5 glass-morphism-hero rounded-full px-5 py-2.5 mb-8"
           >
-            <div className="w-2 h-2 bg-gold rounded-full animate-pulse" />
+            <Award className="w-4 h-4 text-gold flex-shrink-0" />
+            <div className="w-px h-4 bg-white/20" />
             <span className="text-white/90 text-sm font-medium">
               Toronto&apos;s Trusted Painting Professionals
             </span>
@@ -78,11 +80,13 @@ export function Hero() {
             <span className="text-shimmer-gold text-shadow-gold">Professional Painting</span>
           </motion.h1>
 
+          {/* Subtitle slightly larger */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.6 }}
-            className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto mb-10"
+            className="text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
+            style={{ color: 'rgba(255,255,255,0.8)' }}
           >
             Premium residential &amp; commercial painting services across the Greater Toronto Area.
             Licensed, insured, and committed to excellence since 2009.
@@ -157,14 +161,47 @@ export function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Paint Brush Stroke Divider */}
+        {/* Decorative SVG Paint Brush Stroke */}
         <motion.div
           initial={{ opacity: 0, scaleX: 0 }}
           animate={{ opacity: 1, scaleX: 1 }}
           transition={{ duration: 0.8, delay: 1.1, ease: 'easeOut' }}
-          className="max-w-md mx-auto mb-10"
+          className="max-w-lg mx-auto mb-6"
         >
-          <div className="paint-stroke-divider" />
+          <svg viewBox="0 0 500 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+            <path
+              d="M2 18 C50 22, 80 8, 140 14 C200 20, 220 6, 280 12 C340 18, 360 4, 420 10 C460 14, 480 8, 498 12"
+              stroke="url(#brushGradient)"
+              strokeWidth="4"
+              strokeLinecap="round"
+              fill="none"
+              opacity="0.7"
+            />
+            <path
+              d="M10 16 C60 20, 100 10, 160 16 C220 22, 250 8, 310 14 C370 20, 400 6, 450 12 C475 15, 490 10, 498 12"
+              stroke="url(#brushGradient2)"
+              strokeWidth="2"
+              strokeLinecap="round"
+              fill="none"
+              opacity="0.3"
+            />
+            <defs>
+              <linearGradient id="brushGradient" x1="0" y1="0" x2="500" y2="0">
+                <stop offset="0%" stopColor="#C8973E" stopOpacity="0" />
+                <stop offset="15%" stopColor="#C8973E" stopOpacity="0.8" />
+                <stop offset="50%" stopColor="#E8B94E" stopOpacity="1" />
+                <stop offset="85%" stopColor="#C8973E" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#C8973E" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient id="brushGradient2" x1="0" y1="0" x2="500" y2="0">
+                <stop offset="0%" stopColor="#E8B94E" stopOpacity="0" />
+                <stop offset="20%" stopColor="#E8B94E" stopOpacity="0.5" />
+                <stop offset="50%" stopColor="#FFD700" stopOpacity="0.6" />
+                <stop offset="80%" stopColor="#E8B94E" stopOpacity="0.5" />
+                <stop offset="100%" stopColor="#E8B94E" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
         </motion.div>
 
         {/* Stats Bar with AnimatedCounter */}
@@ -172,7 +209,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 1.0 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto"
         >
           {stats.map((stat, index) => (
             <motion.div

@@ -29,6 +29,7 @@ import {
   Clock,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { QuickNotesWidget } from './QuickNotesWidget';
 
 interface KPI {
   label: string;
@@ -473,6 +474,9 @@ export default function OverviewTab() {
           )}
         </CardContent>
       </Card>
+
+      {/* Quick Notes Widget */}
+      <QuickNotesWidget />
     </div>
   );
 }

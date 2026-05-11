@@ -15,6 +15,9 @@ import {
   Shield,
   Award,
   ThumbsUp,
+  Navigation,
+  CheckCircle2,
+  Zap,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -50,13 +53,19 @@ const contactInfo = [
     href: '#',
     color: 'bg-sage/10 text-sage',
   },
-  {
-    icon: Clock,
-    label: 'Business Hours',
-    value: 'Mon-Fri: 8:00 AM - 6:00 PM\nSat: 9:00 AM - 3:00 PM',
-    href: '#',
-    color: 'bg-gold/10 text-gold',
-  },
+];
+
+const businessHours = [
+  { day: 'Monday - Friday', hours: '8:00 AM - 6:00 PM', open: true },
+  { day: 'Saturday', hours: '9:00 AM - 3:00 PM', open: true },
+  { day: 'Sunday', hours: 'Closed', open: false },
+];
+
+const trustBadges = [
+  { icon: Shield, label: 'Licensed', detail: 'Ontario' },
+  { icon: Award, label: 'Insured', detail: 'Full Coverage' },
+  { icon: Star, label: '5-Star', detail: '350+ Reviews' },
+  { icon: Zap, label: 'WSIB', detail: 'Compliant' },
 ];
 
 const serviceOptions = [
@@ -254,8 +263,31 @@ export function ContactSection() {
               </a>
             ))}
 
+            {/* Business Hours with animated clock */}
+            <div className="p-4 rounded-xl border border-gold/10 bg-cream/50">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-8 h-8 bg-gold/10 rounded-lg flex items-center justify-center">
+                  <Clock className="w-4 h-4 text-gold animate-clock-pulse" />
+                </div>
+                <p className="text-sm font-semibold text-navy">Business Hours</p>
+              </div>
+              <div className="space-y-2">
+                {businessHours.map((item) => (
+                  <div key={item.day} className="flex items-center justify-between text-sm">
+                    <span className={`font-medium ${item.open ? 'text-navy/80' : 'text-gray-400'}`}>
+                      {item.day}
+                    </span>
+                    <span className={`flex items-center gap-1.5 ${item.open ? 'text-gray-600' : 'text-gray-400'}`}>
+                      {item.open && <span className="w-1.5 h-1.5 bg-sage rounded-full" />}
+                      {item.hours}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Social Media */}
-            <div className="pt-4">
+            <div className="pt-2">
               <p className="text-sm font-semibold text-navy mb-3">Follow Us</p>
               <div className="flex gap-3">
                 <a
@@ -282,18 +314,19 @@ export function ContactSection() {
               </div>
             </div>
 
-            {/* Map Placeholder with gradient/pattern */}
-            <div className="mt-4 map-placeholder rounded-2xl h-52 flex items-center justify-center relative">
+            {/* Google Maps Placeholder with navy overlay + Get Directions CTA */}
+            <div className="mt-2 map-placeholder rounded-2xl h-56 flex items-center justify-center relative">
+              <div className="absolute inset-0 bg-navy/30" />
               <div className="relative z-10 text-center">
-                <div className="w-12 h-12 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-3 border border-gold/30">
-                  <MapPin className="w-6 h-6 text-gold" />
+                <div className="w-14 h-14 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-3 border border-gold/30">
+                  <MapPin className="w-7 h-7 text-gold" />
                 </div>
-                <p className="text-sm text-white/80 font-medium">Google Maps</p>
-                <p className="text-xs text-white/50 mt-1">123 Painting Lane, Toronto</p>
-                <div className="mt-3 inline-flex items-center gap-1.5 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1.5 border border-white/15">
-                  <div className="w-1.5 h-1.5 bg-sage rounded-full" />
-                  <span className="text-[10px] text-white/70 font-medium">Serving the GTA</span>
-                </div>
+                <p className="text-sm text-white/90 font-medium">123 Painting Lane, Toronto</p>
+                <p className="text-xs text-white/50 mt-1">Suite 200, M4B 1B3</p>
+                <button className="mt-3 inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm hover:bg-white/25 rounded-full px-4 py-2 border border-white/20 transition-all duration-300 text-white text-xs font-semibold cursor-pointer hover:-translate-y-0.5">
+                  <Navigation className="w-3.5 h-3.5" />
+                  Get Directions
+                </button>
               </div>
             </div>
           </motion.div>
@@ -307,9 +340,16 @@ export function ContactSection() {
             className="lg:col-span-3"
           >
             <div className="bg-cream rounded-2xl p-6 md:p-8 border border-gray-100 shadow-sm">
-              <h3 className="text-xl font-bold text-navy mb-6">
-                Quick Contact Form
-              </h3>
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-bold text-navy">
+                  Quick Contact Form
+                </h3>
+                {/* We respond within 2 hours promise badge */}
+                <div className="response-promise-badge hidden sm:flex items-center gap-2 bg-sage/10 text-sage text-xs font-semibold px-3 py-1.5 rounded-full border border-sage/20">
+                  <Zap className="w-3.5 h-3.5" />
+                  We respond within 2 hours
+                </div>
+              </div>
 
               {submitted ? (
                 <motion.div
@@ -420,11 +460,27 @@ export function ContactSection() {
                     <p className="text-xs text-red-500 text-center">{submitError}</p>
                   )}
 
-                  <p className="text-xs text-gray-400 text-center">
+                  <p className="text-xs text-gray-400 text-center sm:hidden">
+                    <Zap className="w-3 h-3 inline text-sage" /> We typically respond within 2 hours during business hours.
+                  </p>
+                  <p className="text-xs text-gray-400 text-center hidden sm:block">
                     We typically respond within 24 hours on business days.
                   </p>
                 </form>
               )}
+
+              {/* Trust Badges Row */}
+              <div className="flex items-center justify-center gap-3 sm:gap-4 mt-6 pt-6 border-t border-gray-200/60">
+                {trustBadges.map((badge) => (
+                  <div key={badge.label} className="trust-badge-mini">
+                    <badge.icon className={`w-4 h-4 ${badge.iconColor}`} />
+                    <div className="text-center">
+                      <span className="text-[11px] font-bold text-navy block leading-tight">{badge.label}</span>
+                      <span className="text-[9px] text-gray-400">{badge.detail}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
