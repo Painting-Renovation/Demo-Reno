@@ -17,6 +17,7 @@ import { ActivityHeatmap } from './ActivityHeatmap';
 import { ClientHistory } from './ClientHistory';
 import { QuotePreview } from './QuotePreview';
 import { InvoiceManager } from './InvoiceManager';
+import { LeadSourceAnalytics } from './LeadSourceAnalytics';
 import SettingsTab from './SettingsTab';
 
 const tabComponents: Record<string, React.ComponentType> = {
@@ -34,6 +35,7 @@ const tabComponents: Record<string, React.ComponentType> = {
   'client-history': ClientHistory,
   'quote-preview': QuotePreview,
   invoices: InvoiceManager,
+  'lead-sources': LeadSourceAnalytics,
   settings: SettingsTab,
 };
 

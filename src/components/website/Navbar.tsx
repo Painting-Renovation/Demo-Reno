@@ -2,12 +2,22 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { PaintBucket, Phone, Menu, X, Sparkles, Facebook, Instagram } from 'lucide-react';
+import { PaintBucket, Phone, Menu, X, Sparkles, Facebook, Instagram, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/lib/store';
 
 const navLinks = [
-  { label: 'Services', href: '#services' },
+  {
+    label: 'Services',
+    href: '#services',
+    dropdown: [
+      { label: 'Interior Painting', href: '#services' },
+      { label: 'Exterior Painting', href: '#services' },
+      { label: 'Cabinet Refinishing', href: '#services' },
+      { label: 'Commercial Painting', href: '#services' },
+      { label: 'Color Consultation', href: '#services' },
+    ],
+  },
   { label: 'Gallery', href: '#gallery' },
   { label: 'Process', href: '#process' },
   { label: 'Testimonials', href: '#testimonials' },
@@ -18,6 +28,8 @@ export function Navbar() {
   const { setEstimateFormOpen, setMobileMenuOpen, mobileMenuOpen } = useAppStore();
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
+  const [dropdownTimeout, setDropdownTimeout] = useState<NodeJS.Timeout | null>(null);
 
   const handleScroll = useCallback(() => {
     setScrolled(window.scrollY > 50);
@@ -48,10 +60,20 @@ export function Navbar() {
 
   const handleNavClick = (href: string) => {
     setMobileMenuOpen(false);
+    setDropdownOpen(null);
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleDropdownEnter = (label: string) => {
+    if (dropdownTimeout) clearTimeout(dropdownTimeout);
+    setDropdownOpen(label);
+  };
+
+  const handleDropdownLeave = () => {
+    setDropdownTimeout(setTimeout(() => setDropdownOpen(null), 150));
   };
 
   return (
@@ -66,7 +88,7 @@ export function Navbar() {
             : 'bg-transparent'
         }`}
       >
-        {/* Gold accent line at very top - thicker with shimmer */}
+        {/* Gold accent line at very top - with shimmer */}
         <div className="h-1 animate-shimmer-line" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -119,22 +141,73 @@ export function Navbar() {
 
             {/* Desktop Nav */}
             <div className="hidden lg:flex items-center gap-8">
-              {navLinks.map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => handleNavClick(link.href)}
-                  className={`text-sm font-medium transition-all duration-300 relative group ${
-                    activeSection === link.href.replace('#', '')
-                      ? 'text-gold font-semibold'
-                      : 'text-white/80 hover:text-gold'
-                  }`}
-                >
-                  {link.label}
-                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-gold transition-all duration-300 ${
-                    activeSection === link.href.replace('#', '') ? 'w-full' : 'w-0 group-hover:w-full'
-                  }`} />
-                </button>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.href.replace('#', '');
+                const hasDropdown = !!link.dropdown;
+
+                return (
+                  <div
+                    key={link.href}
+                    className="relative"
+                    onMouseEnter={() => hasDropdown && handleDropdownEnter(link.label)}
+                    onMouseLeave={handleDropdownLeave}
+                  >
+                    <button
+                      onClick={() => handleNavClick(link.href)}
+                      className={`text-sm font-medium transition-all duration-300 relative group flex items-center gap-1 ${
+                        isActive
+                          ? 'text-gold font-semibold nav-active-gradient'
+                          : 'text-white/80 hover:text-gold'
+                      }`}
+                    >
+                      {link.label}
+                      {hasDropdown && (
+                        <motion.span
+                          animate={{ rotate: dropdownOpen === link.label ? 180 : 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <ChevronDown className="w-3.5 h-3.5 text-white/40 group-hover:text-gold transition-colors" />
+                        </motion.span>
+                      )}
+                      {!isActive && (
+                        <span className={`absolute -bottom-1 left-0 h-0.5 bg-gold/60 transition-all duration-300 ${
+                          !hasDropdown ? 'w-0 group-hover:w-full' : 'w-0'
+                        }`} />
+                      )}
+                    </button>
+
+                    {/* Dropdown Menu */}
+                    <AnimatePresence>
+                      {hasDropdown && dropdownOpen === link.label && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                          transition={{ duration: 0.2, ease: 'easeOut' }}
+                          className="absolute top-full -left-4 mt-3 w-56 py-2 bg-navy/98 backdrop-blur-2xl rounded-xl border border-white/10 shadow-xl shadow-black/20 overflow-hidden"
+                        >
+                          {/* Gradient top accent */}
+                          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
+
+                          {link.dropdown!.map((item, i) => (
+                            <motion.button
+                              key={item.label}
+                              initial={{ opacity: 0, x: -8 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: i * 0.04, duration: 0.2 }}
+                              onClick={() => handleNavClick(item.href)}
+                              className="w-full text-left px-4 py-2.5 text-sm text-white/70 hover:text-gold hover:bg-white/5 transition-all duration-200 flex items-center gap-2"
+                            >
+                              <div className="w-1 h-1 rounded-full bg-gold/40" />
+                              {item.label}
+                            </motion.button>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
             </div>
 
             {/* Right Side */}
@@ -153,7 +226,7 @@ export function Navbar() {
               <div className="relative hidden sm:block">
                 <Button
                   onClick={() => setEstimateFormOpen(true)}
-                  className="bg-gold hover:bg-gold-light text-white font-semibold px-5 py-2 rounded-lg transition-all shadow-md hover:shadow-lg animate-pulse-glow"
+                  className="bg-gold hover:bg-gold-light text-white font-semibold px-5 py-2 rounded-lg transition-all shadow-md hover:shadow-lg cta-button-enhanced animate-pulse-glow-enhanced"
                   size="sm"
                 >
                   Get Free Estimate
@@ -188,7 +261,7 @@ export function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+              className="absolute inset-0 bg-black/60 backdrop-blur-md"
               onClick={() => setMobileMenuOpen(false)}
             />
             {/* Slide-in Panel */}
@@ -196,10 +269,10 @@ export function Navbar() {
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
+              transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
               className="absolute right-0 top-0 bottom-0 w-80 max-w-[85vw] bg-navy shadow-2xl"
             >
-              {/* Decorative top bar */}
+              {/* Decorative top bar with gradient */}
               <div className="h-1 bg-gradient-to-r from-gold via-gold-light to-gold animate-shimmer-line" />
 
               <div className="pt-24 px-6 pb-8 flex flex-col h-full">
@@ -213,7 +286,7 @@ export function Navbar() {
                       onClick={() => handleNavClick(link.href)}
                       className={`text-left px-4 py-3.5 rounded-xl text-base transition-all duration-200 ${
                         activeSection === link.href.replace('#', '')
-                          ? 'text-gold bg-gold/10 font-semibold'
+                          ? 'text-gold bg-gold/10 font-semibold border-l-2 border-gold'
                           : 'text-white/80 hover:text-gold hover:bg-white/5 font-medium'
                       }`}
                     >
@@ -240,19 +313,19 @@ export function Navbar() {
                       setMobileMenuOpen(false);
                       setEstimateFormOpen(true);
                     }}
-                    className="w-full bg-gold hover:bg-gold-light text-white font-semibold py-3.5 rounded-xl transition-all shadow-lg"
+                    className="w-full bg-gold hover:bg-gold-light text-white font-semibold py-3.5 rounded-xl transition-all shadow-lg cta-button-enhanced"
                   >
                     Get Free Estimate
                   </Button>
 
                   {/* Social icons */}
                   <div className="flex items-center justify-center gap-3 pt-4 border-t border-white/10">
-                    <span className="text-white/30 text-xs">Follow us</span>
+                    <span className="text-white/20 text-xs tracking-wider uppercase">Follow us</span>
                     <a
                       href="https://facebook.com"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-10 h-10 bg-white/5 hover:bg-white/10 rounded-xl flex items-center justify-center text-white/50 hover:text-gold transition-all"
+                      className="w-10 h-10 bg-white/5 hover:bg-blue-600/20 border border-white/8 hover:border-blue-400/30 rounded-xl flex items-center justify-center text-white/40 hover:text-blue-400 transition-all duration-300 social-icon-hover"
                     >
                       <Facebook className="w-4 h-4" />
                     </a>
@@ -260,7 +333,7 @@ export function Navbar() {
                       href="https://instagram.com"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-10 h-10 bg-white/5 hover:bg-white/10 rounded-xl flex items-center justify-center text-white/50 hover:text-gold transition-all"
+                      className="w-10 h-10 bg-white/5 hover:bg-pink-600/20 border border-white/8 hover:border-pink-400/30 rounded-xl flex items-center justify-center text-white/40 hover:text-pink-400 transition-all duration-300 social-icon-hover"
                     >
                       <Instagram className="w-4 h-4" />
                     </a>
@@ -268,7 +341,7 @@ export function Navbar() {
                       href="https://google.com"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-10 h-10 bg-white/5 hover:bg-white/10 rounded-xl flex items-center justify-center text-white/50 hover:text-gold transition-all text-xs font-bold"
+                      className="w-10 h-10 bg-white/5 hover:bg-red-600/20 border border-white/8 hover:border-red-400/30 rounded-xl flex items-center justify-center text-white/40 hover:text-red-400 transition-all duration-300 social-icon-hover text-xs font-bold"
                     >
                       G
                     </a>

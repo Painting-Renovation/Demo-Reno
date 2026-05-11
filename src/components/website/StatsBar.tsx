@@ -296,6 +296,7 @@ export function StatsBar() {
                       suffix={stat.suffix}
                       prefix={stat.prefix}
                       decimals={stat.decimals}
+                      immediate={false}
                     />
                   ) : (
                     <span>{stat.prefix}0{stat.suffix}</span>

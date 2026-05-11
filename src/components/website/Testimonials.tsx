@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Star, ChevronLeft, ChevronRight, Quote, BadgeCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -80,6 +80,23 @@ const testimonials: Testimonial[] = [
   },
 ];
 
+/* Gold gradient star SVG component */
+function GoldStar({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="url(#goldStarGradient)">
+      <defs>
+        <linearGradient id="goldStarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#C8973E" />
+          <stop offset="40%" stopColor="#FFD700" />
+          <stop offset="70%" stopColor="#E8B94E" />
+          <stop offset="100%" stopColor="#C8973E" />
+        </linearGradient>
+      </defs>
+      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+    </svg>
+  );
+}
+
 interface EmblaApi {
   scrollPrev: () => void;
   scrollNext: () => void;
@@ -116,6 +133,7 @@ export function Testimonials() {
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-gold/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-gold/5 rounded-full translate-x-1/3 translate-y-1/3" />
+      <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-sage/[0.03] rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -157,30 +175,30 @@ export function Testimonials() {
             <CarouselContent className="-ml-4">
               {testimonials.map((testimonial) => (
                 <CarouselItem key={testimonial.id} className="pl-4 md:basis-1/2 lg:basis-1/2">
-                  <div className="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-6 md:p-8 h-full flex flex-col hover:bg-white/[0.15] hover:border-white/20 hover:shadow-lg hover:shadow-gold/5 transition-all duration-300 hover:-translate-y-1">
+                  <div className="glassmorphism-card rounded-2xl p-6 md:p-8 h-full flex flex-col card-hover-lift relative overflow-hidden">
                     {/* Large decorative quotation marks */}
-                    <div className="relative mb-2">
-                      <Quote className="w-10 h-10 text-gold/30 absolute -top-1 -left-1" />
-                      <Quote className="w-5 h-5 text-gold/50 relative z-10" />
-                    </div>
+                    <div className="quote-decorative">&ldquo;</div>
+                    <div className="quote-decorative-end">&ldquo;</div>
 
-                    {/* Stars */}
-                    <div className="flex gap-0.5 mb-4">
+                    {/* Stars with gold gradient */}
+                    <div className="flex gap-1 mb-4 relative z-10">
                       {Array.from({ length: 5 }).map((_, i) => (
-                        <Star key={i} className={`w-5 h-5 ${i < testimonial.rating ? 'fill-gold text-gold' : 'fill-white/10 text-white/10'}`} />
+                        <GoldStar
+                          key={i}
+                          className={`w-5 h-5 transition-transform duration-200 ${i < testimonial.rating ? 'opacity-100' : 'opacity-20'}`}
+                        />
                       ))}
                       <span className="text-gold/70 text-xs font-medium ml-2 self-center">{testimonial.rating}.0</span>
                     </div>
 
                     {/* Text */}
-                    <p className="text-white/80 text-sm leading-relaxed mb-6 flex-grow relative">
-                      <span className="absolute -top-3 -left-1 text-4xl font-serif text-gold/15 select-none leading-none">&ldquo;</span>
+                    <p className="text-white/80 text-sm leading-relaxed mb-6 flex-grow relative z-10">
                       {testimonial.text}
                     </p>
 
                     {/* Author */}
-                    <div className="flex items-center gap-3 pt-4 border-t border-white/10">
-                      <div className={`w-11 h-11 ${avatarColors[testimonial.id % avatarColors.length]} rounded-full flex items-center justify-center shadow-lg ring-2 ring-white/10`}>
+                    <div className="flex items-center gap-3 pt-4 border-t border-white/10 relative z-10">
+                      <div className={`w-11 h-11 ${avatarColors[testimonial.id % avatarColors.length]} rounded-full flex items-center justify-center shadow-lg avatar-ring-animate`}>
                         <span className="text-white font-bold text-sm">
                           {testimonial.name.split(' ').map(n => n.charAt(0)).join('')}
                         </span>
@@ -192,10 +210,13 @@ export function Testimonials() {
                         </div>
                         <p className="text-white/50 text-xs">{testimonial.location}</p>
                       </div>
-                      <span className="ml-auto text-xs bg-white/10 text-white/70 px-3 py-1 rounded-full hidden sm:inline-flex">
+                      <span className="ml-auto text-xs bg-white/10 text-white/70 px-3 py-1 rounded-full hidden sm:inline-flex backdrop-blur-sm">
                         {testimonial.service}
                       </span>
                     </div>
+
+                    {/* Subtle shimmer overlay on hover */}
+                    <div className="absolute inset-0 rounded-2xl shimmer-bg opacity-0 hover:opacity-100 transition-opacity duration-700 pointer-events-none z-0" />
                   </div>
                 </CarouselItem>
               ))}
@@ -203,18 +224,27 @@ export function Testimonials() {
 
             {/* Custom Navigation */}
             <div className="flex items-center justify-center gap-4 mt-8">
-              <button
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => scroll('prev')}
-                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-gold hover:border-gold/40 transition-all"
+                className="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-gold hover:border-gold/40 hover:bg-gold/10 transition-all duration-300"
               >
                 <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
+              </motion.button>
+              <div className="flex gap-1.5">
+                {testimonials.slice(0, 6).map((_, i) => (
+                  <div key={i} className="w-1.5 h-1.5 rounded-full bg-gold/30" />
+                ))}
+              </div>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => scroll('next')}
-                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-gold hover:border-gold/40 transition-all"
+                className="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-gold hover:border-gold/40 hover:bg-gold/10 transition-all duration-300"
               >
                 <ChevronRight className="w-5 h-5" />
-              </button>
+              </motion.button>
             </div>
           </Carousel>
         </motion.div>
@@ -229,7 +259,7 @@ export function Testimonials() {
         >
           <Button
             onClick={() => setEstimateFormOpen(true)}
-            className="bg-gold hover:bg-gold-light text-white font-semibold px-8 py-3 rounded-lg transition-all shadow-lg hover:shadow-xl"
+            className="bg-gold hover:bg-gold-light text-white font-semibold px-8 py-3 rounded-lg transition-all shadow-lg hover:shadow-xl cta-button-enhanced"
           >
             Join Our Happy Clients
           </Button>

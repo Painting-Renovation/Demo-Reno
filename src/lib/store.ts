@@ -57,5 +57,6 @@ export const DASHBOARD_TABS: DashboardTab[] = [
   { id: 'client-history', label: 'Client History', icon: 'User' },
   { id: 'quote-preview', label: 'Quote Preview', icon: 'FileText' },
   { id: 'invoices', label: 'Invoices', icon: 'Receipt' },
+  { id: 'lead-sources', label: 'Lead Sources', icon: 'BarChart3' },
   { id: 'settings', label: 'Settings', icon: 'Settings' },
 ];

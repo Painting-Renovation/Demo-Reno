@@ -33,6 +33,10 @@ import { GuaranteeSection } from './GuaranteeSection';
 import { ProjectJourney } from './ProjectJourney';
 import { LeadMagnetSection } from './LeadMagnetSection';
 import { ExitIntentPopup } from './ExitIntentPopup';
+import { ROICalculator } from './ROICalculator';
+import { VideoTestimonials } from './VideoTestimonials';
+import { EnhancedTeam } from './EnhancedTeam';
+import { ExpressService } from './ExpressService';
 
 export function PublicWebsite() {
   return (
@@ -54,12 +58,21 @@ export function PublicWebsite() {
         <SectionDivider variant="light" />
 
         <WhyChooseUs />
+        <SectionDivider variant="light" />
+
+        <ROICalculator />
+        <SectionDivider variant="dark" />
+
+        <VideoTestimonials />
+        <SectionDivider variant="light" />
 
         <BrandsSection />
         <SectionDivider variant="light" />
 
         <TeamSection />
         <SectionDivider variant="dark" />
+
+        <EnhancedTeam />
 
         <BeforeAfter />
         <SectionDivider variant="dark" />
@@ -75,6 +88,8 @@ export function PublicWebsite() {
 
         <Process />
         <SectionDivider variant="light" />
+
+        <ExpressService />
 
         <ProjectJourney />
         <SectionDivider variant="light" />

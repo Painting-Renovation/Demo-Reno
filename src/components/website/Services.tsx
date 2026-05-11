@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { PaintBucket, Home, Settings2, Building2, Trees, Palette, ArrowRight, Sparkles, Check } from 'lucide-react';
+import { PaintBucket, Home, Settings2, Building2, Trees, Palette, ArrowRight, Sparkles, Check, Paintbrush } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/lib/store';
 
@@ -94,6 +94,29 @@ export function Services() {
       <div className="absolute top-1/2 -right-32 w-96 h-96 bg-sage/[0.04] rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-20 left-1/3 w-72 h-72 bg-navy/[0.03] rounded-full blur-3xl pointer-events-none" />
 
+      {/* Floating paint brush decorations */}
+      <motion.div
+        className="absolute top-32 right-16 text-gold/[0.06] pointer-events-none hidden lg:block"
+        animate={{ y: [-8, 8, -8], rotate: [0, 10, 0] }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <Paintbrush className="w-12 h-12" />
+      </motion.div>
+      <motion.div
+        className="absolute bottom-40 left-12 text-sage/[0.06] pointer-events-none hidden lg:block"
+        animate={{ y: [8, -8, 8], rotate: [0, -8, 0] }}
+        transition={{ duration: 13, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <Paintbrush className="w-10 h-10" />
+      </motion.div>
+      <motion.div
+        className="absolute top-1/2 right-[5%] text-navy/[0.04] pointer-events-none hidden xl:block"
+        animate={{ y: [-5, 12, -5], rotate: [0, 15, 0] }}
+        transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        <PaintBucket className="w-10 h-10" />
+      </motion.div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header with View All count badge */}
         <motion.div
@@ -132,7 +155,7 @@ export function Services() {
             <motion.div
               key={service.title}
               variants={cardVariants as any}
-              className="service-card-gradient card-top-gradient card-3d-hover group bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 hover:shadow-[0_25px_50px_-12px_rgba(11,29,58,0.2)] hover:border-gold/20"
+              className="animate-border-spin card-hover-lift card-shine group bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100 hover:shadow-[0_25px_60px_-15px_rgba(11,29,58,0.2)] hover:border-gold/20"
             >
               {/* Image */}
               <div className="relative h-48 overflow-hidden">
@@ -156,7 +179,7 @@ export function Services() {
                     {service.title}
                   </h3>
                   {service.popular && (
-                    <span className="flex-shrink-0 inline-flex items-center gap-1 bg-gold/10 text-gold text-xs font-bold px-3 py-1.5 rounded-full border border-gold/30 animate-badge-pulse">
+                    <span className="flex-shrink-0 inline-flex items-center gap-1 bg-gradient-to-r from-gold to-gold-light text-white text-xs font-bold px-3 py-1.5 rounded-full animate-pulse-glow-enhanced shadow-lg shadow-gold/20">
                       <Sparkles className="w-3.5 h-3.5" />
                       Most Popular
                     </span>
@@ -225,8 +248,9 @@ export function Services() {
           {/* Decorative gradient orb */}
           <div className="absolute -top-20 -right-20 w-60 h-60 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-sage/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
 
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 relative z-10">
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 relative z-10 text-glow-white">
             Ready to Transform Your Space?
           </h3>
           <p className="text-white/70 max-w-xl mx-auto mb-8 relative z-10">
@@ -236,7 +260,7 @@ export function Services() {
           <div className="relative z-10">
             <Button
               onClick={() => setEstimateFormOpen(true)}
-              className="bg-gold hover:bg-gold-light text-white font-semibold px-8 py-3.5 rounded-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 animate-pulse-glow"
+              className="bg-gold hover:bg-gold-light text-white font-semibold px-8 py-3.5 rounded-lg transition-all shadow-lg hover:shadow-xl cta-button-enhanced animate-pulse-glow-enhanced"
             >
               Get Free Estimate
             </Button>
