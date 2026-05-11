@@ -51,12 +51,14 @@ export function AnimatedCounter({
         const easedProgress = easeOutCubic(progress);
         const currentCount = easedProgress * target;
 
-        setCount(decimals > 0 ? parseFloat(currentCount.toFixed(decimals)) : Math.floor(currentCount));
+        const displayCount = progress >= 0.995
+          ? target // Snap to target when 99.5%+ complete
+          : (decimals > 0 ? parseFloat(currentCount.toFixed(decimals)) : Math.floor(currentCount));
+
+        setCount(displayCount);
 
         if (progress < 1) {
           animationRef.current = requestAnimationFrame(animate);
-        } else {
-          setCount(target);
         }
       };
 

@@ -58,5 +58,6 @@ export const DASHBOARD_TABS: DashboardTab[] = [
   { id: 'quote-preview', label: 'Quote Preview', icon: 'FileText' },
   { id: 'invoices', label: 'Invoices', icon: 'Receipt' },
   { id: 'lead-sources', label: 'Lead Sources', icon: 'BarChart3' },
+  { id: 'performance-kpi', label: 'KPI Dashboard', icon: 'TrendingUp' },
   { id: 'settings', label: 'Settings', icon: 'Settings' },
 ];

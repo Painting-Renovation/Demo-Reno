@@ -16,6 +16,10 @@ import {
   Check,
   X,
   Sparkles,
+  DollarSign,
+  Shield,
+  Clock,
+  BadgeCheck,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -156,25 +160,39 @@ export function ROICalculator() {
           <div className="lg:col-span-2 space-y-5">
             {/* Room Type Selection */}
             <div className="bg-white rounded-2xl p-6 shadow-lg border border-gold/10">
-              <h3 className="text-lg font-bold text-navy mb-1">Room Type</h3>
+              <h3 className="text-lg font-bold text-navy mb-1 flex items-center gap-2">
+                <Home className="w-5 h-5 text-gold" />
+                Room Type
+              </h3>
               <p className="text-sm text-gray-500 mb-4">Select the space you want to paint</p>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-2.5">
                 {roomOptions.map((opt) => {
                   const Icon = opt.icon;
+                  const isActive = selectedRoom === opt.id;
                   return (
-                    <button
+                    <motion.button
                       key={opt.id}
                       onClick={() => handleRoomSelect(opt.id)}
-                      className={`p-3 rounded-xl border-2 text-left transition-all duration-200 ${
-                        selectedRoom === opt.id
-                          ? 'border-gold bg-gold/5 shadow-md'
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`p-3.5 rounded-xl border-2 text-left transition-all duration-300 relative overflow-hidden ${
+                        isActive
+                          ? 'border-gold bg-gradient-to-br from-gold/10 to-gold/5 shadow-lg shadow-gold/10'
                           : 'border-gray-100 hover:border-gold/30 hover:shadow-sm'
                       }`}
                     >
-                      <Icon className={`w-5 h-5 mb-1 ${selectedRoom === opt.id ? 'text-gold' : 'text-gray-400'}`} />
-                      <span className="block text-xs font-semibold text-navy">{opt.label}</span>
+                      {/* Active indicator dot */}
+                      {isActive && (
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-gold shadow-sm shadow-gold/30"
+                        />
+                      )}
+                      <Icon className={`w-5 h-5 mb-1.5 transition-colors duration-300 ${isActive ? 'text-gold' : 'text-gray-400'}`} />
+                      <span className={`block text-xs font-semibold transition-colors duration-300 ${isActive ? 'text-gold' : 'text-navy'}`}>{opt.label}</span>
                       <span className="block text-[10px] text-gray-400">{opt.description}</span>
-                    </button>
+                    </motion.button>
                   );
                 })}
               </div>
@@ -183,8 +201,11 @@ export function ROICalculator() {
             {/* Room Size */}
             <div className="bg-white rounded-2xl p-6 shadow-lg border border-gold/10">
               <div className="flex items-center justify-between mb-1">
-                <h3 className="text-lg font-bold text-navy">Room Size</h3>
-                <Badge variant="outline" className="border-gold/30 text-gold font-bold">
+                <h3 className="text-lg font-bold text-navy flex items-center gap-2">
+                  <DollarSign className="w-5 h-5 text-gold" />
+                  Room Size
+                </h3>
+                <Badge variant="outline" className="border-gold/30 text-gold font-bold tabular-nums">
                   {sqFt.toLocaleString()} sq ft
                 </Badge>
               </div>
@@ -204,7 +225,7 @@ export function ROICalculator() {
                 >
                   <room.icon className="w-6 h-6 text-gold/60" />
                 </motion.div>
-                <div className="absolute bottom-1.5 right-2 text-[10px] text-navy/40 font-mono">
+                <div className="absolute bottom-1.5 right-2 text-[10px] text-navy/40 font-mono tabular-nums">
                   {sqFt} ft²
                 </div>
               </div>
@@ -219,7 +240,7 @@ export function ROICalculator() {
                 onChange={(e) => setSqFt(Number(e.target.value))}
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gold"
               />
-              <div className="flex justify-between text-[10px] text-gray-400 mt-1">
+              <div className="flex justify-between text-[10px] text-gray-400 mt-1 tabular-nums">
                 <span>{selectedRoom === 'whole-house' ? '500' : '50'} sq ft</span>
                 <span>{selectedRoom === 'whole-house' ? '5,000' : '600'} sq ft</span>
               </div>
@@ -227,7 +248,10 @@ export function ROICalculator() {
 
             {/* Current Condition */}
             <div className="bg-white rounded-2xl p-6 shadow-lg border border-gold/10">
-              <h3 className="text-lg font-bold text-navy mb-1">Current Condition</h3>
+              <h3 className="text-lg font-bold text-navy mb-1 flex items-center gap-2">
+                <Shield className="w-5 h-5 text-gold" />
+                Current Condition
+              </h3>
               <p className="text-sm text-gray-500 mb-4">How would you rate the current paint?</p>
               <div className="space-y-2">
                 {conditionOptions.map((opt) => (
@@ -242,7 +266,7 @@ export function ROICalculator() {
                   >
                     <span className="text-lg">{opt.emoji}</span>
                     <span className="flex-1 text-sm font-semibold text-navy">{opt.label}</span>
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-gray-400 tabular-nums">
                       {opt.multiplier > 1 ? `${Math.round((opt.multiplier - 1) * 100)}% more value` : opt.multiplier < 1 ? `${Math.round((1 - opt.multiplier) * 100)}% less value` : 'Baseline'}
                     </span>
                   </button>
@@ -267,7 +291,7 @@ export function ROICalculator() {
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.4, type: 'spring' }}
                 >
-                  <p className="text-5xl md:text-6xl font-bold mb-2">
+                  <p className="text-5xl md:text-6xl font-bold mb-2 tabular-nums">
                     ${calculations.valueIncrease.toLocaleString()}
                   </p>
                   <p className="text-white/60 text-sm">
@@ -275,7 +299,7 @@ export function ROICalculator() {
                   </p>
                 </motion.div>
 
-                {/* ROI Progress Bar */}
+                {/* ROI Progress Bar with animated gradient */}
                 <div className="mt-6">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm text-white/70">Return on Investment</span>
@@ -283,18 +307,32 @@ export function ROICalculator() {
                       key={calculations.roi}
                       initial={{ scale: 0.8 }}
                       animate={{ scale: 1 }}
-                      className="text-2xl font-bold text-gold"
+                      className="text-2xl font-bold text-gold tabular-nums"
                     >
                       {calculations.roi}%
                     </motion.span>
                   </div>
                   <div className="w-full h-4 bg-white/10 rounded-full overflow-hidden">
                     <motion.div
-                      className="h-full rounded-full bg-gradient-to-r from-gold to-gold-light"
+                      className="h-full rounded-full relative overflow-hidden"
                       initial={{ width: 0 }}
                       animate={{ width: `${Math.min(100, calculations.roi)}%` }}
                       transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
-                    />
+                      style={{
+                        background: 'linear-gradient(90deg, #C8973E, #E8B94E, #C8973E)',
+                        backgroundSize: '200% 100%',
+                      }}
+                    >
+                      {/* Animated shimmer on the progress bar */}
+                      <div
+                        className="absolute inset-0 opacity-50"
+                        style={{
+                          background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
+                          backgroundSize: '200% 100%',
+                          animation: 'shimmer 2s ease-in-out infinite',
+                        }}
+                      />
+                    </motion.div>
                   </div>
                   <p className="text-white/50 text-xs mt-1">
                     {calculations.roi > 50
@@ -307,10 +345,13 @@ export function ROICalculator() {
               </div>
             </div>
 
-            {/* DIY vs Professional Comparison */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* DIY vs Professional Comparison with side-by-side cards and divider */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-0 relative">
+              {/* Vertical divider */}
+              <div className="hidden md:block absolute top-4 bottom-4 left-1/2 -translate-x-1/2 w-px bg-gradient-to-b from-transparent via-gold/20 to-transparent" />
+
               {/* DIY Option */}
-              <div className="bg-white rounded-2xl p-5 shadow-lg border border-gray-200 relative">
+              <div className="bg-white rounded-2xl md:rounded-r-none p-5 shadow-lg border border-gray-200 relative md:border-r-0">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center">
                     <X className="w-4 h-4 text-red-500" />
@@ -320,10 +361,10 @@ export function ROICalculator() {
                 <div className="space-y-3">
                   <div>
                     <p className="text-xs text-gray-500 uppercase tracking-wider">Estimated Cost</p>
-                    <p className="text-2xl font-bold text-navy">${calculations.diyCost.toLocaleString()}</p>
+                    <p className="text-2xl font-bold text-navy tabular-nums">${calculations.diyCost.toLocaleString()}</p>
                   </div>
                   <div className="h-px bg-gray-100" />
-                  <div className="space-y-1.5">
+                  <div className="space-y-2">
                     <p className="text-xs font-semibold text-gray-500">What you get:</p>
                     {[
                       'Weekend warrior timeline (3-5x longer)',
@@ -342,7 +383,7 @@ export function ROICalculator() {
               </div>
 
               {/* Professional Option */}
-              <div className="bg-white rounded-2xl p-5 shadow-lg border-2 border-gold/30 relative">
+              <div className="bg-white rounded-2xl md:rounded-l-none p-5 shadow-xl border-2 border-gold/30 relative md:border-l-0">
                 <div className="absolute -top-2.5 left-5">
                   <Badge className="bg-gold text-white text-[10px] font-bold px-2.5 py-0.5 shadow-md">
                     RECOMMENDED
@@ -357,10 +398,10 @@ export function ROICalculator() {
                 <div className="space-y-3">
                   <div>
                     <p className="text-xs text-gray-500 uppercase tracking-wider">Estimated Cost</p>
-                    <p className="text-2xl font-bold text-gold">${calculations.proCost.toLocaleString()}</p>
+                    <p className="text-2xl font-bold text-gold tabular-nums">${calculations.proCost.toLocaleString()}</p>
                   </div>
                   <div className="h-px bg-gold/10" />
-                  <div className="space-y-1.5">
+                  <div className="space-y-2">
                     <p className="text-xs font-semibold text-gray-500">What you get:</p>
                     {[
                       `Professional results in ${calculations.timeSaved} hours`,
@@ -381,25 +422,25 @@ export function ROICalculator() {
 
             {/* Bottom Stats Row */}
             <div className="grid grid-cols-3 gap-3">
-              <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100 text-center">
+              <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100 text-center hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
                 <div className="w-10 h-10 mx-auto mb-2 rounded-lg bg-sage/10 flex items-center justify-center">
                   <TrendingUp className="w-5 h-5 text-sage" />
                 </div>
-                <p className="text-lg font-bold text-navy">{calculations.roi}%</p>
+                <p className="text-lg font-bold text-navy tabular-nums">{calculations.roi}%</p>
                 <p className="text-[10px] text-gray-500 uppercase tracking-wider">ROI</p>
               </div>
-              <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100 text-center">
+              <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100 text-center hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
                 <div className="w-10 h-10 mx-auto mb-2 rounded-lg bg-gold/10 flex items-center justify-center">
                   <Sparkles className="w-5 h-5 text-gold" />
                 </div>
-                <p className="text-lg font-bold text-navy">{calculations.proQualityScore}</p>
+                <p className="text-lg font-bold text-navy tabular-nums">{calculations.proQualityScore}</p>
                 <p className="text-[10px] text-gray-500 uppercase tracking-wider">Pro Quality</p>
               </div>
-              <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100 text-center">
+              <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100 text-center hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
                 <div className="w-10 h-10 mx-auto mb-2 rounded-lg bg-navy/10 flex items-center justify-center">
                   <ArrowRight className="w-5 h-5 text-navy" />
                 </div>
-                <p className="text-lg font-bold text-navy">${calculations.savingsVsRealEstate.toLocaleString()}</p>
+                <p className="text-lg font-bold text-navy tabular-nums">${calculations.savingsVsRealEstate.toLocaleString()}</p>
                 <p className="text-[10px] text-gray-500 uppercase tracking-wider">Commission Saved</p>
               </div>
             </div>

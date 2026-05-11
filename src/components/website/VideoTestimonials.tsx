@@ -204,9 +204,9 @@ export function VideoTestimonials() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                className="group bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
               >
-                {/* Thumbnail / Video Preview */}
+                {/* Thumbnail / Video Preview with cinematic overlay */}
                 <div
                   className="relative aspect-video bg-gradient-to-br from-navy/90 to-navy-light/90 cursor-pointer overflow-hidden"
                   onClick={() => openVideoModal(t)}
@@ -221,33 +221,37 @@ export function VideoTestimonials() {
                     }}
                   />
 
+                  {/* Cinematic aspect ratio letterbox bars */}
+                  <div className="absolute inset-x-0 top-0 h-2 bg-black/30" />
+                  <div className="absolute inset-x-0 bottom-0 h-2 bg-black/30" />
+
                   {/* Avatar watermark */}
-                  <div className="absolute bottom-3 right-3 w-16 h-16 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
-                    <span className="text-white/40 font-bold text-lg">{t.initials}</span>
+                  <div className="absolute bottom-4 right-3 w-14 h-14 rounded-xl bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/10">
+                    <span className="text-white/40 font-bold text-base">{t.initials}</span>
                   </div>
 
-                  {/* Play button */}
+                  {/* Dramatic multi-ring play button */}
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="relative">
-                      {/* Pulse ring */}
+                    <div className="relative w-20 h-20 flex items-center justify-center">
+                      {/* Outer ring */}
+                      <div className="absolute inset-0 rounded-full bg-white/10 play-pulse-outer" />
+                      {/* Middle ring */}
+                      <div className="absolute inset-2 rounded-full bg-white/15 play-pulse-middle" />
+                      {/* Inner ring */}
                       <motion.div
-                        className="absolute inset-0 rounded-full bg-white/20"
-                        animate={{ scale: [1, 1.4, 1], opacity: [0.5, 0, 0.5] }}
-                        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+                        className="absolute inset-4 rounded-full bg-white/10"
+                        animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0, 0.5] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                       />
-                      <motion.div
-                        className="absolute inset-0 rounded-full bg-white/15"
-                        animate={{ scale: [1, 1.25, 1], opacity: [0.3, 0, 0.3] }}
-                        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
-                      />
-                      <div className="relative w-16 h-16 rounded-full bg-gold/90 flex items-center justify-center shadow-lg shadow-gold/30 group-hover:bg-gold transition-colors">
-                        <Play className="w-6 h-6 text-white ml-1" fill="white" />
+                      {/* Main play button */}
+                      <div className="relative w-12 h-12 rounded-full bg-gold flex items-center justify-center shadow-lg shadow-gold/40 group-hover:bg-gold-light group-hover:shadow-xl group-hover:shadow-gold/50 group-hover:scale-110 transition-all duration-300">
+                        <Play className="w-5 h-5 text-white ml-0.5" fill="white" />
                       </div>
                     </div>
                   </div>
 
-                  {/* Duration badge */}
-                  <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-mono px-2 py-1 rounded-md flex items-center gap-1">
+                  {/* Duration badge with clock icon */}
+                  <div className="absolute top-3 left-3 bg-black/70 backdrop-blur-sm text-white text-xs font-mono px-2.5 py-1 rounded-md flex items-center gap-1.5">
                     <Clock className="w-3 h-3" />
                     {t.duration}
                   </div>
@@ -263,7 +267,7 @@ export function VideoTestimonials() {
                         className={`w-4 h-4 ${i < t.rating ? 'fill-gold text-gold' : 'fill-gray-200 text-gray-200'}`}
                       />
                     ))}
-                    <span className="text-xs text-gray-400 ml-1">{t.rating}.0</span>
+                    <span className="text-xs text-gray-400 ml-1 tabular-nums">{t.rating}.0</span>
                   </div>
 
                   {/* Name & Location */}
@@ -301,7 +305,7 @@ export function VideoTestimonials() {
             <button
               key={i}
               onClick={() => scrollToIndex(i)}
-              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+              className={`h-2.5 rounded-full transition-all duration-300 ${
                 i === currentIndex
                   ? 'bg-gold w-8'
                   : i === (currentIndex + 1) % videoTestimonials.length || i === (currentIndex + 2) % videoTestimonials.length
@@ -338,26 +342,27 @@ export function VideoTestimonials() {
         </motion.div>
       </div>
 
-      {/* Video Player Modal */}
+      {/* Video Player Modal with dark theme */}
       <AnimatePresence>
         {isModalOpen && playingTestimonial && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            style={{ background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
             onClick={closeModal}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              initial={{ scale: 0.92, opacity: 0, y: 40 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl"
+              exit={{ scale: 0.92, opacity: 0, y: 40 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-[#1a1a2e] rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl border border-white/10"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header */}
-              <div className="bg-gradient-to-br from-navy to-navy-light p-5 relative">
+              {/* Dark header */}
+              <div className="bg-gradient-to-br from-[#0B1D3A] to-[#132D5E] p-5 relative border-b border-white/5">
                 <button
                   onClick={closeModal}
                   className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
@@ -375,7 +380,7 @@ export function VideoTestimonials() {
                   <div>
                     <div className="flex items-center gap-2">
                       <h3 className="text-white font-bold">{playingTestimonial.name}</h3>
-                      <BadgeCheck className="w-4 h-4 text-sage" />
+                      <BadgeCheck className="w-4 h-4 text-sage-light" />
                     </div>
                     <p className="text-white/60 text-sm">{playingTestimonial.location}</p>
                     <div className="flex items-center gap-2 mt-1">
@@ -400,26 +405,26 @@ export function VideoTestimonials() {
                 <div className="flex items-center gap-3 mb-1">
                   <button
                     onClick={() => setIsPlaying(!isPlaying)}
-                    className="w-8 h-8 rounded-full bg-navy/10 hover:bg-navy/20 flex items-center justify-center text-navy transition-colors"
+                    className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
                     aria-label={isPlaying ? 'Pause' : 'Play'}
                   >
                     {isPlaying ? (
                       <div className="flex gap-0.5">
-                        <div className="w-1 h-3 bg-navy rounded-full" />
-                        <div className="w-1 h-3 bg-navy rounded-full" />
+                        <div className="w-1 h-3 bg-white rounded-full" />
+                        <div className="w-1 h-3 bg-white rounded-full" />
                       </div>
                     ) : (
                       <Play className="w-3.5 h-3.5 ml-0.5" fill="currentColor" />
                     )}
                   </button>
-                  <div className="flex-1 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                  <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
                     <motion.div
-                      className="h-full bg-gold rounded-full"
+                      className="h-full bg-gradient-to-r from-gold to-gold-light rounded-full"
                       animate={{ width: `${scrollProgress}%` }}
                       transition={{ duration: 0.1 }}
                     />
                   </div>
-                  <span className="text-[10px] text-gray-400 font-mono min-w-[32px] text-right">
+                  <span className="text-[10px] text-white/40 font-mono min-w-[32px] text-right tabular-nums">
                     {Math.round(scrollProgress)}%
                   </span>
                 </div>
@@ -428,7 +433,7 @@ export function VideoTestimonials() {
               {/* Testimonial Text */}
               <div
                 ref={scrollRef}
-                className="px-5 py-4 max-h-48 overflow-y-auto text-sm text-gray-700 leading-relaxed"
+                className="px-5 py-4 max-h-48 overflow-y-auto text-sm text-white/70 leading-relaxed"
               >
                 <Quote className="w-6 h-6 text-gold/30 mb-2" />
                 <p>{playingTestimonial.testimonial}</p>

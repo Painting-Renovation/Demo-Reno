@@ -1718,3 +1718,216 @@ select:focus-visible {
     0 -8px 40px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
+
+/* ========================================
+   ROUND 8: NEW ANIMATION UTILITIES (10)
+   ======================================== */
+
+/* 1. animate-marquee - Horizontal scrolling text marquee */
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  display: flex;
+  animation: marqueeScroll 20s linear infinite;
+  width: max-content;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* 2. animate-flip-in - Card flip entrance animation */
+@keyframes flipIn {
+  0% {
+    opacity: 0;
+    transform: perspective(600px) rotateX(-15deg) translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(600px) rotateX(0deg) translateY(0);
+  }
+}
+.animate-flip-in {
+  animation: flipIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 3. animate-reveal-up - Staggered reveal from below */
+@keyframes revealUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+.animate-reveal-up {
+  animation: revealUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 4. animate-scale-in - Scale from 0.8 to 1 entrance */
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.animate-scale-in {
+  animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 5. glassmorphism-strong - Stronger blur backdrop effect */
+.glassmorphism-strong {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+.glassmorphism-strong-light {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+}
+
+/* 6. text-gradient-animated - Animated gradient text */
+@keyframes textGradientAnimated {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.text-gradient-animated {
+  background: linear-gradient(135deg, #C8973E, #0B1D3A, #E8B94E, #5B7B5A, #C8973E);
+  background-size: 300% 300%;
+  animation: textGradientAnimated 6s ease-in-out infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 7. card-gradient-border - Gradient border using pseudo-element */
+.card-gradient-border {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.card-gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, #C8973E, #0B1D3A, #E8B94E);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.card-gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* 8. animate-check-reveal - Checkmark draw animation for lists */
+@keyframes checkReveal {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-45deg);
+  }
+  60% {
+    transform: scale(1.2) rotate(0deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+.animate-check-reveal {
+  animation: checkReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 9. tab-indicator - Animated sliding tab indicator */
+.tab-indicator {
+  position: relative;
+}
+.tab-indicator::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #C8973E, #E8B94E);
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateX(-50%);
+}
+.tab-indicator.active::after {
+  width: 60%;
+}
+
+/* 10. sparkle-dot - Small sparkle/twinkle animation */
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
+}
+.sparkle-dot {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #C8973E;
+  box-shadow: 0 0 6px rgba(200, 151, 62, 0.6);
+  animation: sparkle 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Extra: play-pulse-dramatic - Multi-ring dramatic pulse for video play buttons */
+@keyframes playPulseOuter {
+  0%, 100% { transform: scale(1); opacity: 0.4; }
+  50% { transform: scale(1.6); opacity: 0; }
+}
+@keyframes playPulseMiddle {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.35); opacity: 0; }
+}
+.play-pulse-outer {
+  animation: playPulseOuter 2.5s ease-out infinite;
+}
+.play-pulse-middle {
+  animation: playPulseMiddle 2.5s ease-out 0.4s infinite;
+}
+
+/* Extra: countdown-flip - Flip clock style segment */
+@keyframes countdownFlip {
+  0% {
+    transform: perspective(200px) rotateX(0deg);
+  }
+  50% {
+    transform: perspective(200px) rotateX(-90deg);
+  }
+  100% {
+    transform: perspective(200px) rotateX(0deg);
+  }
+}
+.countdown-segment {
+  animation: countdownFlip 1s ease-in-out;
+  transform-style: preserve-3d;
+}

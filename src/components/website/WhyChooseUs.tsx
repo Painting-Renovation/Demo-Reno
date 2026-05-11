@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Shield, Star, FileCheck, Leaf, Users, Clock, ArrowRight, Award } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/lib/store';
@@ -63,11 +64,48 @@ const cardVariants = {
   },
 };
 
+/* Animated number counter that counts from 00 to target when in view */
+function AnimatedBadge({ index }: { index: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    const target = index + 1;
+    const duration = 800;
+    const steps = 20;
+    const interval = duration / steps;
+    let step = 0;
+    const timer = setInterval(() => {
+      step++;
+      setCount(step >= target ? target : step);
+      if (step >= target) clearInterval(timer);
+    }, interval);
+    return () => clearInterval(timer);
+  }, [isInView, index]);
+
+  return (
+    <span ref={ref} className="text-4xl font-black text-gray-100 group-hover:text-gold/10 transition-all duration-500 number-glow tabular-nums">
+      {String(count).padStart(2, '0')}
+    </span>
+  );
+}
+
 export function WhyChooseUs() {
   const { setEstimateFormOpen } = useAppStore();
 
   return (
-    <section className="py-24 bg-cream relative overflow-hidden" id="why-choose-us">
+    <section className="py-20 md:py-28 relative overflow-hidden" id="why-choose-us">
+      {/* Shifting gradient background */}
+      <div
+        className="absolute inset-0 animate-gradient-shift"
+        style={{
+          background: 'linear-gradient(135deg, #FDF8F0 0%, #F5EFE0 25%, #FDF8F0 50%, #EEF5EE 75%, #FDF8F0 100%)',
+          backgroundSize: '400% 400%',
+        }}
+      />
+
       {/* Decorative background pattern */}
       <div
         className="absolute inset-0 opacity-[0.03]"
@@ -78,8 +116,8 @@ export function WhyChooseUs() {
       />
 
       {/* Gradient orbs */}
-      <div className="absolute top-20 -left-40 w-96 h-96 bg-gold/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 -right-40 w-96 h-96 bg-sage/5 rounded-full blur-3xl" />
+      <div className="absolute top-20 -left-40 w-96 h-96 bg-gold/5 rounded-full blur-3xl animate-float-slow" />
+      <div className="absolute bottom-20 -right-40 w-96 h-96 bg-sage/5 rounded-full blur-3xl animate-float-delayed" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-navy/[0.02] rounded-full blur-3xl" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -97,15 +135,43 @@ export function WhyChooseUs() {
             <span className="text-sm font-semibold text-navy/70 tracking-wide">Trusted Excellence</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-navy mb-4">
-            Why Choose{' '}
-            <span className="text-gradient-gold relative">
-              ProCoat
-              <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" fill="none">
-                <path d="M2 6C50 2 150 2 198 6" stroke="#C8973E" strokeWidth="3" strokeLinecap="round" opacity="0.4" />
-              </svg>
-            </span>
-          </h2>
+          <div className="relative inline-block">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-navy mb-4">
+              Why Choose{' '}
+              <span className="text-gradient-gold relative">
+                ProCoat
+                <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" fill="none">
+                  <path d="M2 6C50 2 150 2 198 6" stroke="#C8973E" strokeWidth="3" strokeLinecap="round" opacity="0.4" />
+                </svg>
+              </span>
+            </h2>
+            {/* Decorative paint brush SVG behind title */}
+            <svg
+              className="absolute -right-12 -top-6 w-24 h-24 opacity-[0.06] rotate-12 hidden sm:block"
+              viewBox="0 0 100 100"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect x="10" y="40" width="8" height="55" rx="3" fill="#C8973E" transform="rotate(-15 14 67)" />
+              <path d="M14 40C14 40 8 20 15 8C22 20 16 40 16 40" fill="#5B7B5A" />
+              <ellipse cx="14" cy="95" rx="8" ry="4" fill="#C8973E" opacity="0.5" />
+            </svg>
+            {/* Decorative paint splatter SVG */}
+            <svg
+              className="absolute -left-16 bottom-0 w-20 h-20 opacity-[0.04] hidden sm:block"
+              viewBox="0 0 80 80"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="40" cy="40" r="20" fill="#C8973E" />
+              <circle cx="15" cy="25" r="6" fill="#C8973E" />
+              <circle cx="60" cy="30" r="8" fill="#C8973E" />
+              <circle cx="30" cy="65" r="5" fill="#C8973E" />
+              <circle cx="65" cy="60" r="4" fill="#C8973E" />
+              <circle cx="20" cy="55" r="3" fill="#C8973E" />
+            </svg>
+          </div>
+
           <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
             Thousands of homeowners across the GTA trust ProCoat Painters for quality work,
             reliable service, and exceptional results.
@@ -161,26 +227,33 @@ export function WhyChooseUs() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8"
         >
           {trustItems.map((item, index) => {
             const Icon = item.icon;
-            const borderColor = index % 2 === 0 ? 'bg-gold' : 'bg-sage';
+            const borderColor = index % 2 === 0 ? '#C8973E' : '#5B7B5A';
             return (
               <motion.div
                 key={index}
                 variants={cardVariants}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="card-shine bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 group relative border border-transparent hover:border-gold/20 cursor-default"
+                className="card-shine bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-500 group relative border border-transparent hover:border-gold/20 cursor-default overflow-hidden"
               >
-                {/* Top colored border */}
-                <div className={`absolute top-0 left-6 right-6 h-1 rounded-b-full ${borderColor} opacity-60 group-hover:opacity-100 transition-opacity duration-300`} />
+                {/* Colored left border that extends on hover */}
+                <div
+                  className="absolute left-0 top-0 bottom-0 w-0 group-hover:w-1.5 rounded-r-full transition-all duration-500 ease-out"
+                  style={{ backgroundColor: borderColor }}
+                />
 
-                {/* Numbered counter */}
+                {/* Top colored border */}
+                <div
+                  className={`absolute top-0 left-8 right-8 h-1 rounded-b-full opacity-60 group-hover:opacity-100 transition-opacity duration-300`}
+                  style={{ backgroundColor: borderColor }}
+                />
+
+                {/* Numbered counter with animation */}
                 <div className="absolute top-6 right-6">
-                  <span className="text-4xl font-black text-gray-100 group-hover:text-gold/10 transition-colors duration-500 number-glow">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
+                  <AnimatedBadge index={index} />
                 </div>
 
                 <div className="flex flex-col gap-4 relative z-10">
@@ -188,7 +261,7 @@ export function WhyChooseUs() {
                     <Icon className="w-7 h-7 text-gold" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-navy mb-2">
+                    <h3 className="text-lg font-bold text-navy mb-2 group-hover:text-gold transition-colors duration-300">
                       {item.title}
                     </h3>
                     <p className="text-base text-gray-500 leading-relaxed">
@@ -214,7 +287,7 @@ export function WhyChooseUs() {
           </p>
           <Button
             onClick={() => setEstimateFormOpen(true)}
-            className="bg-gold hover:bg-gold-light text-white font-semibold px-8 py-4 rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
+            className="bg-gold hover:bg-gold-light text-white font-semibold px-8 py-4 rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 cta-button-enhanced"
           >
             Get Your Free Estimate
             <ArrowRight className="w-4 h-4 ml-2" />

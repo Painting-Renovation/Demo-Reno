@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import {
   Zap,
   Clock,
@@ -130,7 +130,7 @@ function useCountdown() {
     return () => clearInterval(interval);
   }, []);
 
-  return timeLeft;
+  return { timeLeft };
 }
 
 const trustBadges = [
@@ -142,8 +142,19 @@ const trustBadges = [
 
 export function ExpressService() {
   const { setEstimateFormOpen } = useAppStore();
-  const timeLeft = useCountdown();
+  const { timeLeft } = useCountdown();
   const [slotsLeft, setSlotsLeft] = useState(3);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const [itemsRevealed, setItemsRevealed] = useState(false);
+
+  // Trigger checkmark reveal animation when section is in view
+  useEffect(() => {
+    if (isInView) {
+      const timer = setTimeout(() => setItemsRevealed(true), 500);
+      return () => clearTimeout(timer);
+    }
+  }, [isInView]);
 
   // Simulate slots decreasing
   useEffect(() => {
@@ -159,62 +170,83 @@ export function ExpressService() {
   }, []);
 
   return (
-    <section className="py-20 md:py-28 bg-gradient-to-b from-cream to-white relative overflow-hidden">
+    <section className="py-20 md:py-28 bg-gradient-to-b from-cream to-white relative overflow-hidden" ref={sectionRef}>
       {/* Background decoration */}
       <div className="absolute top-0 left-1/4 w-80 h-80 bg-gold/5 rounded-full blur-[100px]" />
       <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-sage/5 rounded-full blur-[80px]" />
 
-      {/* Urgency top banner */}
+      {/* Urgency top banner with scrolling marquee */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="bg-gradient-to-r from-navy to-navy-light rounded-2xl p-4 md:p-5 mb-12 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl"
+          className="bg-gradient-to-r from-navy to-navy-light rounded-2xl p-4 md:p-5 mb-12 shadow-xl relative overflow-hidden"
         >
-          <div className="flex items-center gap-3">
-            {/* Pulsing indicator */}
-            <div className="relative">
-              <div className="w-3 h-3 bg-red-500 rounded-full" />
-              <motion.div
-                className="absolute inset-0 bg-red-500 rounded-full"
-                animate={{ scale: [1, 2, 1], opacity: [0.6, 0, 0.6] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-              />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 text-gold" />
-                <span className="text-white font-bold text-sm md:text-base">Limited Express Slots Available</span>
-              </div>
-              <p className="text-white/50 text-xs mt-0.5">
-                Only {slotsLeft} express slots remaining this week
-              </p>
+          {/* Scrolling marquee text overlay */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.04]">
+            <div className="animate-marquee whitespace-nowrap">
+              <span className="text-white text-sm font-medium mx-8">
+                LIMITED AVAILABILITY • EXPRESS BOOKING • SAME-DAY SERVICE • 48-HOUR REFRESH • 1-WEEK TRANSFORMATION • PROFESSIONAL RESULTS GUARANTEED
+              </span>
+              <span className="text-white text-sm font-medium mx-8">
+                LIMITED AVAILABILITY • EXPRESS BOOKING • SAME-DAY SERVICE • 48-HOUR REFRESH • 1-WEEK TRANSFORMATION • PROFESSIONAL RESULTS GUARANTEED
+              </span>
+              <span className="text-white text-sm font-medium mx-8">
+                LIMITED AVAILABILITY • EXPRESS BOOKING • SAME-DAY SERVICE • 48-HOUR REFRESH • 1-WEEK TRANSFORMATION • PROFESSIONAL RESULTS GUARANTEED
+              </span>
             </div>
           </div>
 
-          {/* Countdown timer */}
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 text-white/60 text-xs">
-              <Timer className="w-3.5 h-3.5" />
-              <span>Book before end of day:</span>
-            </div>
-            <div className="flex items-center gap-1">
-              {[
-                { value: timeLeft.hours, label: 'hr' },
-                { value: timeLeft.minutes, label: 'min' },
-                { value: timeLeft.seconds, label: 'sec' },
-              ].map((unit, i) => (
-                <div key={unit.label} className="flex items-center gap-1">
-                  <div className="bg-white/10 rounded-lg px-2 py-1 min-w-[40px] text-center">
-                    <span className="text-white font-mono font-bold text-sm md:text-base">
-                      {String(unit.value).padStart(2, '0')}
-                    </span>
-                  </div>
-                  {i < 2 && <span className="text-white/30 text-xs font-bold">:</span>}
+          <div className="relative flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              {/* Pulsing indicator */}
+              <div className="relative">
+                <div className="w-3 h-3 bg-red-500 rounded-full" />
+                <motion.div
+                  className="absolute inset-0 bg-red-500 rounded-full"
+                  animate={{ scale: [1, 2, 1], opacity: [0.6, 0, 0.6] }}
+                  transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4 text-gold" />
+                  <span className="text-white font-bold text-sm md:text-base">Limited Express Slots Available</span>
                 </div>
-              ))}
+                <p className="text-white/50 text-xs mt-0.5">
+                  Only {slotsLeft} express slots remaining this week
+                </p>
+              </div>
+            </div>
+
+            {/* Flip-clock style countdown timer */}
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1.5 text-white/60 text-xs">
+                <Timer className="w-3.5 h-3.5" />
+                <span>Book before end of day:</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                {[
+                  { value: timeLeft.hours, label: 'hr' },
+                  { value: timeLeft.minutes, label: 'min' },
+                  { value: timeLeft.seconds, label: 'sec' },
+                ].map((unit, i) => (
+                  <div key={unit.label} className="flex items-center gap-1.5">
+                    <div className="relative bg-white/10 rounded-lg px-3 py-2 min-w-[48px] text-center overflow-hidden">
+                      <span className="text-white font-mono font-bold text-base md:text-lg tabular-nums">
+                        {String(unit.value).padStart(2, '0')}
+                      </span>
+                      {/* Top highlight line */}
+                      <div className="absolute top-0 left-2 right-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                    </div>
+                    {i < 2 && (
+                      <span className="text-white/30 text-xs font-bold animate-pulse-glow">:</span>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </motion.div>
@@ -240,7 +272,7 @@ export function ExpressService() {
           </p>
         </motion.div>
 
-        {/* Express Options */}
+        {/* Express Options with gradient border on hover */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {expressOptions.map((option, index) => {
             const Icon = option.icon;
@@ -258,13 +290,16 @@ export function ExpressService() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
+                className={`relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 ${
                   option.popular ? 'border-2 border-gold/30' : 'border border-gray-100'
                 }`}
               >
+                {/* Gradient border glow on hover */}
+                <div className={`absolute inset-0 rounded-2xl card-gradient-border pointer-events-none`} />
+
                 {/* Popular badge */}
                 {option.popular && (
-                  <div className="absolute top-0 right-0">
+                  <div className="absolute top-0 right-0 z-10">
                     <div className="bg-gold text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl flex items-center gap-1">
                       <Sparkles className="w-3 h-3" />
                       MOST POPULAR
@@ -278,7 +313,7 @@ export function ExpressService() {
                 <div className="p-6">
                   {/* Header */}
                   <div className="flex items-start justify-between mb-4">
-                    <div className={`w-12 h-12 rounded-xl ${colors.bg} flex items-center justify-center`}>
+                    <div className={`w-12 h-12 rounded-xl ${colors.bg} flex items-center justify-center transition-transform duration-300 group-hover/card:scale-110`}>
                       <Icon className={`w-6 h-6 ${colors.text}`} />
                     </div>
                     <Badge className={`${colors.badge} text-white text-[10px] font-bold border-0`}>
@@ -291,15 +326,20 @@ export function ExpressService() {
 
                   {/* Price */}
                   <div className="bg-gray-50 rounded-xl p-4 mb-5">
-                    <p className="text-2xl font-bold text-navy">{option.priceRange}</p>
+                    <p className="text-2xl font-bold text-navy tabular-nums">{option.priceRange}</p>
                     <p className="text-xs text-gray-400 mt-0.5">{option.priceNote}</p>
                   </div>
 
-                  {/* Includes */}
+                  {/* Includes with animated checkmark reveals */}
                   <div className="space-y-2.5 mb-6">
-                    {option.includes.map((item) => (
+                    {option.includes.map((item, i) => (
                       <div key={item} className="flex items-start gap-2">
-                        <Check className="w-4 h-4 text-sage mt-0.5 shrink-0" />
+                        <Check
+                          className={`w-4 h-4 text-sage mt-0.5 shrink-0 transition-all duration-300 ${
+                            itemsRevealed ? 'opacity-100' : 'opacity-0 scale-0'
+                          }`}
+                          style={itemsRevealed ? { animation: `checkReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${0.1 + i * 0.08}s forwards` } : {}}
+                        />
                         <span className="text-sm text-gray-600">{item}</span>
                       </div>
                     ))}

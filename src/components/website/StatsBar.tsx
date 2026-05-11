@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useMemo } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import {
   Briefcase,
@@ -113,8 +113,24 @@ const cardVariants = {
   },
 };
 
-/* Decorative paint-splash dot pattern */
+/* Decorative paint-splash dot pattern with sparkle dots */
 function BackgroundPattern({ parallaxY }: { parallaxY: number }) {
+  // Generate deterministic sparkle positions
+  const sparkles = useMemo(() => [
+    { top: '15%', left: '10%', delay: '0s', size: 5 },
+    { top: '25%', left: '80%', delay: '1s', size: 4 },
+    { top: '45%', left: '20%', delay: '2s', size: 6 },
+    { top: '60%', left: '70%', delay: '0.5s', size: 3 },
+    { top: '80%', left: '40%', delay: '1.5s', size: 5 },
+    { top: '35%', left: '55%', delay: '2.5s', size: 4 },
+    { top: '70%', left: '15%', delay: '3s', size: 3 },
+    { top: '20%', left: '50%', delay: '0.8s', size: 4 },
+    { top: '55%', left: '90%', delay: '1.2s', size: 5 },
+    { top: '85%', left: '60%', delay: '2s', size: 3 },
+    { top: '10%', left: '35%', delay: '1.8s', size: 4 },
+    { top: '50%', left: '45%', delay: '2.8s', size: 6 },
+  ], []);
+
   return (
     <motion.div
       className="absolute inset-0 overflow-hidden pointer-events-none"
@@ -140,6 +156,22 @@ function BackgroundPattern({ parallaxY }: { parallaxY: number }) {
         </defs>
         <rect width="100%" height="100%" fill="url(#stats-dots)" />
       </svg>
+
+      {/* Floating sparkle dots */}
+      {sparkles.map((sp, i) => (
+        <div
+          key={i}
+          className="sparkle-dot"
+          style={{
+            top: sp.top,
+            left: sp.left,
+            width: `${sp.size}px`,
+            height: `${sp.size}px`,
+            animationDelay: sp.delay,
+            animationDuration: `${2.5 + (i % 3)}s`,
+          }}
+        />
+      ))}
 
       {/* Paint-splash SVG accents */}
       <motion.div
@@ -195,7 +227,8 @@ export function StatsBar() {
     offset: ['start end', 'end start'],
   });
 
-  const parallaxY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+  // More dramatic parallax (increased range)
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   // Track if counters should animate (only after in view)
   const [countersActive, setCountersActive] = useState(false);
@@ -271,13 +304,8 @@ export function StatsBar() {
               variants={cardVariants}
               className="relative group"
             >
-              <div className="stat-card-glow relative overflow-hidden rounded-2xl p-4 sm:p-5 md:p-6 text-center transition-all duration-300 hover:scale-[1.02]"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  backdropFilter: 'blur(16px)',
-                  WebkitBackdropFilter: 'blur(16px)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                }}
+              <div
+                className="glassmorphism-strong relative overflow-hidden rounded-2xl p-4 sm:p-5 md:p-6 text-center transition-all duration-300 hover:scale-[1.03]"
               >
                 {/* Hover gradient overlay */}
                 <div className={`absolute inset-0 bg-gradient-to-b ${stat.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`} />
@@ -287,20 +315,29 @@ export function StatsBar() {
                   <stat.icon className="w-5 h-5 sm:w-6 sm:h-6 text-gold group-hover:scale-110 transition-transform duration-300" />
                 </div>
 
-                {/* Number */}
-                <div className="relative z-10 text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 text-shadow-gold">
-                  {countersActive ? (
-                    <AnimatedCounter
-                      target={stat.value}
-                      duration={2000 + index * 200}
-                      suffix={stat.suffix}
-                      prefix={stat.prefix}
-                      decimals={stat.decimals}
-                      immediate={false}
-                    />
-                  ) : (
-                    <span>{stat.prefix}0{stat.suffix}</span>
-                  )}
+                {/* Number with tabular-nums and gradient underline */}
+                <div className="relative z-10 text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1 text-shadow-glow">
+                  <span className="tabular-nums">
+                    {countersActive ? (
+                      <AnimatedCounter
+                        target={stat.value}
+                        duration={2000 + index * 200}
+                        suffix={stat.suffix}
+                        prefix={stat.prefix}
+                        decimals={stat.decimals}
+                        immediate={false}
+                      />
+                    ) : (
+                      <span>{stat.prefix}0{stat.suffix}</span>
+                    )}
+                  </span>
+                  {/* Gradient underline beneath the stat number */}
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={countersActive ? { width: '60%' } : { width: 0 }}
+                    transition={{ duration: 0.8, delay: 0.3 + index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    className="h-[2px] bg-gradient-to-r from-gold/80 via-gold to-gold/40 mx-auto mt-1 rounded-full"
+                  />
                 </div>
 
                 {/* Label */}

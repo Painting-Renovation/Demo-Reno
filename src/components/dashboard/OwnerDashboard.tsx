@@ -18,6 +18,7 @@ import { ClientHistory } from './ClientHistory';
 import { QuotePreview } from './QuotePreview';
 import { InvoiceManager } from './InvoiceManager';
 import { LeadSourceAnalytics } from './LeadSourceAnalytics';
+import { PerformanceKPI } from './PerformanceKPI';
 import SettingsTab from './SettingsTab';
 
 const tabComponents: Record<string, React.ComponentType> = {
@@ -36,6 +37,7 @@ const tabComponents: Record<string, React.ComponentType> = {
   'quote-preview': QuotePreview,
   invoices: InvoiceManager,
   'lead-sources': LeadSourceAnalytics,
+  'performance-kpi': PerformanceKPI,
   settings: SettingsTab,
 };
 

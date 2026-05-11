@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   MapPin,
@@ -271,12 +271,34 @@ function StarRating({ rating, size = 'sm' }: { rating: number; size?: 'sm' | 'md
   );
 }
 
+/* Animated count badge component */
+function AnimatedCountBadge({ count, isActive }: { count: number; isActive: boolean }) {
+  return (
+    <span
+      className={`
+        ml-1.5 text-xs rounded-full px-1.5 py-0.5 tabular-nums font-semibold transition-all duration-300
+        ${isActive ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-500'}
+      `}
+    >
+      <motion.span
+        key={count}
+        initial={{ scale: 0.8, opacity: 0.5 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.3 }}
+      >
+        {count}
+      </motion.span>
+    </span>
+  );
+}
+
 // ─── Main Component ──────────────────────────────────────────────────────────
 
 export function InteractiveShowcase() {
   const [activeCategory, setActiveCategory] = useState<string>('All Projects');
   const [sortBy, setSortBy] = useState('newest');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const tabsRef = useRef<HTMLDivElement>(null);
 
   // Filter + sort logic
   const filteredProjects = useMemo(() => {
@@ -358,35 +380,30 @@ export function InteractiveShowcase() {
           transition={{ duration: 0.5, delay: 0.15 }}
           className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 md:mb-10"
         >
-          {/* Category Tabs */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-hide">
+          {/* Category Tabs with animated pill indicator */}
+          <div ref={tabsRef} className="relative flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-hide">
             <Filter className="w-4 h-4 text-gray-400 flex-shrink-0 mr-1" />
             {categories.map((cat) => {
               const isActive = activeCategory === cat;
               const count = categoryCounts[cat] || 0;
               return (
-                <button
+                <motion.button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   className={`
-                    relative flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer
-                    ${
-                      isActive
-                        ? 'bg-navy text-white shadow-lg shadow-navy/20'
-                        : 'bg-white text-gray-600 hover:bg-navy/5 hover:text-navy border border-gray-200'
+                    relative flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 cursor-pointer
+                    ${isActive
+                      ? 'bg-navy text-white shadow-lg shadow-navy/20'
+                      : 'bg-white text-gray-600 hover:bg-navy/5 hover:text-navy border border-gray-200'
                     }
                   `}
+                  layout
+                  layoutId="category-pill"
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                 >
                   {cat}
-                  <span
-                    className={`
-                      ml-1.5 text-xs rounded-full px-1.5 py-0.5
-                      ${isActive ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-500'}
-                    `}
-                  >
-                    {count}
-                  </span>
-                </button>
+                  <AnimatedCountBadge count={count} isActive={isActive} />
+                </motion.button>
               );
             })}
           </div>
@@ -426,20 +443,24 @@ export function InteractiveShowcase() {
                 layout
                 className="group relative"
               >
-                <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 h-full flex flex-col">
-                  {/* Hero Image */}
+                <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 h-full flex flex-col card-gradient-border">
+                  {/* Hero Image with zoom-on-hover */}
                   <div className="relative h-56 overflow-hidden">
                     <img
                       src={project.afterImage}
                       alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.12]"
                       loading="lazy"
                     />
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-navy/10 to-transparent" />
+                    {/* Cinematic gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy/70 via-navy/10 to-transparent" />
+
+                    {/* Cinematic aspect ratio bars */}
+                    <div className="absolute inset-x-0 top-0 h-3 bg-black/20" />
+                    <div className="absolute inset-x-0 bottom-0 h-3 bg-black/20" />
 
                     {/* Category badge (top-left) */}
-                    <div className="absolute top-3 left-3">
+                    <div className="absolute top-4 left-3">
                       <Badge
                         className={`${getCategoryBadgeStyle(project.category)} backdrop-blur-sm text-xs font-semibold px-3 py-1 rounded-full border-0 shadow-sm`}
                       >
@@ -448,16 +469,16 @@ export function InteractiveShowcase() {
                     </div>
 
                     {/* Project value badge (top-right) */}
-                    <div className="absolute top-3 right-3">
+                    <div className="absolute top-4 right-3">
                       <span className="inline-flex items-center gap-1 bg-white/90 backdrop-blur-sm text-navy text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
                         <DollarSign className="w-3 h-3" />
                         {project.projectValue.toLocaleString()}
                       </span>
                     </div>
 
-                    {/* Before/After hint */}
-                    <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <span className="inline-flex items-center gap-1 bg-navy/80 backdrop-blur-sm text-white text-xs font-medium px-2.5 py-1 rounded-full">
+                    {/* Before/After hint with zoom icon */}
+                    <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                      <span className="inline-flex items-center gap-1 bg-navy/80 backdrop-blur-sm text-white text-xs font-medium px-2.5 py-1.5 rounded-full">
                         View Details
                         <ArrowRight className="w-3 h-3" />
                       </span>
@@ -550,9 +571,14 @@ export function InteractiveShowcase() {
 
       {/* ── Project Detail Modal ──────────────────────────────────────── */}
       <Dialog open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
-        <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto bg-white p-0 gap-0 rounded-2xl">
+        <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto bg-white p-0 gap-0 rounded-2xl [&>button]:hidden">
           {selectedProject && (
-            <>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 30 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            >
               {/* Modal Header Image */}
               <div className="relative h-48 sm:h-64 overflow-hidden rounded-t-2xl">
                 <img
@@ -595,7 +621,7 @@ export function InteractiveShowcase() {
                     Before &amp; After
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="relative rounded-xl overflow-hidden border border-gray-200">
+                    <div className="relative rounded-xl overflow-hidden border border-gray-200 group/img">
                       <div className="absolute top-2 left-2 z-10">
                         <span className="bg-gray-800/80 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">
                           Before
@@ -604,10 +630,10 @@ export function InteractiveShowcase() {
                       <img
                         src={selectedProject.beforeImage}
                         alt={`${selectedProject.title} - Before`}
-                        className="w-full h-48 sm:h-56 object-cover"
+                        className="w-full h-48 sm:h-56 object-cover transition-transform duration-500 group-hover/img:scale-105"
                       />
                     </div>
-                    <div className="relative rounded-xl overflow-hidden border border-gray-200">
+                    <div className="relative rounded-xl overflow-hidden border border-gray-200 group/img">
                       <div className="absolute top-2 left-2 z-10">
                         <span className="bg-gold/90 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full">
                           After
@@ -616,7 +642,7 @@ export function InteractiveShowcase() {
                       <img
                         src={selectedProject.afterImage}
                         alt={`${selectedProject.title} - After`}
-                        className="w-full h-48 sm:h-56 object-cover"
+                        className="w-full h-48 sm:h-56 object-cover transition-transform duration-500 group-hover/img:scale-105"
                       />
                     </div>
                   </div>
@@ -632,22 +658,22 @@ export function InteractiveShowcase() {
 
                 {/* Project Stats */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-                  <div className="bg-cream rounded-xl p-4 text-center border border-navy/5">
+                  <div className="bg-cream rounded-xl p-4 text-center border border-navy/5 hover:shadow-md transition-shadow duration-300">
                     <Clock className="w-5 h-5 text-gold mx-auto mb-1.5" />
                     <p className="text-xs text-gray-500 mb-0.5">Duration</p>
                     <p className="text-navy font-bold text-sm">{selectedProject.duration}</p>
                   </div>
-                  <div className="bg-cream rounded-xl p-4 text-center border border-navy/5">
+                  <div className="bg-cream rounded-xl p-4 text-center border border-navy/5 hover:shadow-md transition-shadow duration-300">
                     <Users className="w-5 h-5 text-gold mx-auto mb-1.5" />
                     <p className="text-xs text-gray-500 mb-0.5">Team Size</p>
                     <p className="text-navy font-bold text-sm">{selectedProject.teamSize} painters</p>
                   </div>
-                  <div className="bg-cream rounded-xl p-4 text-center border border-navy/5">
+                  <div className="bg-cream rounded-xl p-4 text-center border border-navy/5 hover:shadow-md transition-shadow duration-300">
                     <PaintBucket className="w-5 h-5 text-gold mx-auto mb-1.5" />
                     <p className="text-xs text-gray-500 mb-0.5">Paint Used</p>
                     <p className="text-navy font-bold text-sm">{selectedProject.paintUsed}</p>
                   </div>
-                  <div className="bg-cream rounded-xl p-4 text-center border border-navy/5">
+                  <div className="bg-cream rounded-xl p-4 text-center border border-navy/5 hover:shadow-md transition-shadow duration-300">
                     <Star className="w-5 h-5 text-gold mx-auto mb-1.5" />
                     <p className="text-xs text-gray-500 mb-0.5">Customer Rating</p>
                     <p className="text-navy font-bold text-sm">
@@ -698,7 +724,7 @@ export function InteractiveShowcase() {
                   </Button>
                 </div>
               </div>
-            </>
+            </motion.div>
           )}
         </DialogContent>
       </Dialog>

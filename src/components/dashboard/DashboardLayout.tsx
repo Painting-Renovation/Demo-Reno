@@ -27,6 +27,7 @@ import {
   Activity,
   User,
   Receipt,
+  TrendingUp,
 } from 'lucide-react';
 import NotificationCenter from './NotificationCenter';
 import QuickActions from './QuickActions';
@@ -47,6 +48,7 @@ const iconMap: Record<string, React.ElementType> = {
   Activity,
   User,
   Receipt,
+  TrendingUp,
 };
 
 interface QuickStats {

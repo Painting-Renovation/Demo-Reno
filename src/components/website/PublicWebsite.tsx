@@ -37,6 +37,11 @@ import { ROICalculator } from './ROICalculator';
 import { VideoTestimonials } from './VideoTestimonials';
 import { EnhancedTeam } from './EnhancedTeam';
 import { ExpressService } from './ExpressService';
+import { CommercialShowcase } from './CommercialShowcase';
+import { MaintenanceTips } from './MaintenanceTips';
+import { ChatBotPanel } from './ChatBotPanel';
+import { NeighborhoodSpotlight } from './NeighborhoodSpotlight';
+import { BeforeAfterSlider } from './BeforeAfterSlider';
 
 export function PublicWebsite() {
   return (
@@ -109,6 +114,18 @@ export function PublicWebsite() {
         <SeasonalTips />
         <SectionDivider variant="dark" />
 
+        <MaintenanceTips />
+        <SectionDivider variant="light" />
+
+        <CommercialShowcase />
+        <SectionDivider variant="dark" />
+
+        <NeighborhoodSpotlight />
+        <SectionDivider variant="light" />
+
+        <BeforeAfterSlider />
+        <SectionDivider variant="dark" />
+
         <ServiceAreas />
         <WeatherWidget />
         <SectionDivider variant="dark" />
@@ -126,7 +143,7 @@ export function PublicWebsite() {
 
       {/* Floating UI Elements */}
       <FloatingCTA />
-      <LiveChatWidget />
+      <ChatBotPanel />
       <BackToTop />
       <CookieConsent />
       <ExitIntentPopup />
