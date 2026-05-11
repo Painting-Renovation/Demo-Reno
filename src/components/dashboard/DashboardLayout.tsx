@@ -16,6 +16,7 @@ import {
   FileText,
   Filter,
   BarChart3,
+  DollarSign,
   ShieldCheck,
   Settings,
   LogOut,
@@ -24,6 +25,7 @@ import {
   UserPlus,
 } from 'lucide-react';
 import NotificationCenter from './NotificationCenter';
+import QuickActions from './QuickActions';
 import { cn } from '@/lib/utils';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -34,6 +36,7 @@ const iconMap: Record<string, React.ElementType> = {
   FileText,
   Filter,
   BarChart3,
+  DollarSign,
   ShieldCheck,
   Settings,
 };
@@ -224,7 +227,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
         {/* Page Content */}
         <main className="flex-1 overflow-y-auto p-4 lg:p-6">
-          {children}
+          <QuickActions />
+          <div className="mt-4">
+            {children}
+          </div>
         </main>
       </div>
     </div>

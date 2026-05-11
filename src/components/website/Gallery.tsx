@@ -60,6 +60,26 @@ const galleryItems: GalleryItem[] = [
     description: 'Full deck sanding, staining, and sealing for a beautiful outdoor living space.',
     span: 'normal',
   },
+  {
+    id: 5,
+    title: 'Modern Condo Makeover',
+    location: 'Etobicoke',
+    category: 'Interior',
+    beforeImage: '/images/before-after.jpg',
+    afterImage: '/images/hero-interior.jpg',
+    description: 'Sleek modern repaint with accent walls and custom trim for a contemporary condo.',
+    span: 'normal',
+  },
+  {
+    id: 6,
+    title: 'Commercial Office Refresh',
+    location: 'Markham',
+    category: 'Exterior',
+    beforeImage: '/images/before-after.jpg',
+    afterImage: '/images/hero-exterior.jpg',
+    description: 'Complete exterior repainting of a commercial office complex with premium weather-resistant coatings.',
+    span: 'wide',
+  },
 ];
 
 const categories: Category[] = ['All', 'Interior', 'Exterior', 'Cabinets', 'Deck'];
@@ -304,7 +324,7 @@ export function Gallery() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: index * 0.08 }}
-                  className={`group relative rounded-2xl overflow-hidden cursor-pointer bg-white shadow-sm hover:shadow-xl transition-shadow duration-300 ${getSpanClasses(item)}`}
+                  className={`group relative rounded-2xl overflow-hidden cursor-pointer bg-white shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gold/10 ${getSpanClasses(item)}`}
                   onMouseEnter={() => setHoveredItem(item.id)}
                   onMouseLeave={() => setHoveredItem(null)}
                   onClick={() => setLightboxItem(item)}
@@ -332,12 +352,12 @@ export function Gallery() {
 
                   {/* Labels */}
                   <div className="absolute top-3 left-3 z-10">
-                    <span className="bg-navy/80 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                    <span className="bg-navy/90 backdrop-blur-sm text-white text-sm font-extrabold px-4 py-2 rounded-lg tracking-wider">
                       BEFORE
                     </span>
                   </div>
                   <div className="absolute top-3 right-3 z-10">
-                    <span className="bg-gold/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full">
+                    <span className="bg-gold/90 backdrop-blur-sm text-white text-sm font-extrabold px-4 py-2 rounded-lg tracking-wider">
                       AFTER
                     </span>
                   </div>
@@ -346,7 +366,7 @@ export function Gallery() {
                   <motion.div
                     initial={false}
                     animate={{ opacity: hoveredItem === item.id ? 1 : 0 }}
-                    className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent z-[5] flex flex-col items-center justify-end pb-6"
+                    className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/30 to-transparent z-[5] flex flex-col items-center justify-end pb-6"
                   >
                     <motion.div
                       initial={false}
@@ -362,8 +382,8 @@ export function Gallery() {
                           <Eye className="w-5 h-5 text-white" />
                         </div>
                       </div>
-                      <h3 className="text-white font-bold text-lg mb-1">{item.title}</h3>
-                      <p className="text-white/70 text-sm flex items-center gap-1 justify-center">
+                      <h3 className="text-white font-bold text-xl mb-1 drop-shadow-lg">{item.title}</h3>
+                      <p className="text-white/80 text-base flex items-center gap-1 justify-center drop-shadow-md">
                         <MapPin className="w-3.5 h-3.5" />{item.location}
                       </p>
                       <span className="inline-block mt-3 bg-gold/90 text-white text-xs font-semibold px-4 py-2 rounded-full hover:bg-gold transition-colors">
@@ -377,7 +397,7 @@ export function Gallery() {
                     animate={{ opacity: hoveredItem === item.id ? 0 : 1 }}
                     className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10"
                   >
-                    <span className="bg-black/40 backdrop-blur-sm text-white text-xs px-3 py-1.5 rounded-full">
+                    <span className="bg-white/80 backdrop-blur-sm text-navy text-xs font-semibold px-4 py-2 rounded-full shadow-sm">
                       Hover to see result
                     </span>
                   </motion.div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { PaintBucket, Home, Settings2, Building2, Trees, Palette, ArrowRight } from 'lucide-react';
+import { PaintBucket, Home, Settings2, Building2, Trees, Palette, ArrowRight, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/lib/store';
 
@@ -12,6 +12,8 @@ const services = [
     description: 'Transform your living spaces with flawless interior painting. From walls to ceilings, trim to accent features — we deliver a perfect finish every time.',
     image: '/images/hero-interior.jpg',
     features: ['Walls & Ceilings', 'Trim & Baseboards', 'Accent Walls', 'Drywall Repair'],
+    price: 'From $800',
+    popular: true,
   },
   {
     icon: Home,
@@ -19,6 +21,8 @@ const services = [
     description: 'Protect and beautify your home exterior with premium paints built to withstand Toronto\'s diverse weather conditions year-round.',
     image: '/images/hero-exterior.jpg',
     features: ['Siding & Stucco', 'Doors & Windows', 'Garage Doors', 'Weatherproofing'],
+    price: 'From $1,500',
+    popular: false,
   },
   {
     icon: Settings2,
@@ -26,6 +30,8 @@ const services = [
     description: 'Give your kitchen or bathroom a brand new look without the cost of replacement. Cabinet refinishing saves up to 70% compared to new cabinets.',
     image: '/images/cabinet-refinish.jpg',
     features: ['Kitchen Cabinets', 'Bathroom Vanities', 'Color Change', 'Laminate Refinishing'],
+    price: 'From $600',
+    popular: false,
   },
   {
     icon: Building2,
@@ -33,6 +39,8 @@ const services = [
     description: 'Professional commercial painting services with minimal disruption to your business. Available evenings and weekends for your convenience.',
     image: '/images/commercial.jpg',
     features: ['Office Spaces', 'Retail Stores', 'Strata Properties', 'Industrial Units'],
+    price: 'From $2,000',
+    popular: false,
   },
   {
     icon: Trees,
@@ -40,6 +48,8 @@ const services = [
     description: 'Restore and protect your outdoor wood surfaces with professional staining and sealing services that extend the life of your deck and fence.',
     image: '/images/deck-fence.jpg',
     features: ['Deck Staining', 'Fence Painting', 'Wood Sealing', 'Restoration'],
+    price: 'From $400',
+    popular: false,
   },
   {
     icon: Palette,
@@ -47,6 +57,8 @@ const services = [
     description: 'Not sure which colors to choose? Our expert color consultants help you select the perfect palette to complement your space and style.',
     image: '/images/service-painting.jpg',
     features: ['Expert Guidance', 'Sample Testing', 'Trend Forecasting', 'Custom Palettes'],
+    price: 'Free',
+    popular: false,
   },
 ];
 
@@ -89,10 +101,10 @@ export function Services() {
           <span className="text-gold text-sm font-semibold tracking-widest uppercase">
             ProCoat Painters
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy mt-3 mb-4 text-shadow-navy">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-navy mt-3 mb-4 text-shadow-navy">
             Our Professional Services
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-700 max-w-2xl mx-auto text-lg">
             From residential homes to commercial properties, we deliver exceptional painting results
             with meticulous attention to detail.
           </p>
@@ -104,7 +116,7 @@ export function Services() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-10"
         >
           {services.map((service) => (
             <motion.div
@@ -129,15 +141,23 @@ export function Services() {
 
               {/* Content */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-navy mb-3 group-hover:text-gold transition-colors duration-300">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                <div className="flex items-start justify-between gap-2 mb-3">
+                  <h3 className="text-xl font-bold text-navy group-hover:text-gold transition-colors duration-300">
+                    {service.title}
+                  </h3>
+                  {'popular' in service && service.popular && (
+                    <span className="flex-shrink-0 inline-flex items-center gap-1 bg-gold/10 text-gold text-xs font-semibold px-2.5 py-1 rounded-full border border-gold/20">
+                      <Sparkles className="w-3 h-3" />
+                      Most Popular
+                    </span>
+                  )}
+                </div>
+                <p className="text-gray-700 text-sm leading-relaxed mb-4">
                   {service.description}
                 </p>
 
                 {/* Features */}
-                <div className="flex flex-wrap gap-2 mb-5">
+                <div className="flex flex-wrap gap-2 mb-4">
                   {service.features.map((feature) => (
                     <span
                       key={feature}
@@ -148,10 +168,16 @@ export function Services() {
                   ))}
                 </div>
 
-                <button className="inline-flex items-center gap-1.5 text-gold font-semibold text-sm group-hover:gap-3 transition-all duration-300 underline-grow">
-                  Learn More
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </button>
+                {/* Price indicator */}
+                <div className="flex items-center justify-between mt-5 pt-4 border-t border-gray-100">
+                  <span className={"text-sm font-semibold " + ('price' in service && service.price === 'Free' ? 'text-sage' : 'text-gold')}>
+                    {'price' in service ? service.price : ''}
+                  </span>
+                  <button className="inline-flex items-center gap-1.5 text-gold font-semibold text-sm group-hover:gap-3 transition-all duration-300 underline-grow">
+                    Learn More
+                    <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </button>
+                </div>
               </div>
             </motion.div>
           ))}

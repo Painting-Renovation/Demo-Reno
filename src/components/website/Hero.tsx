@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Star, CheckCircle, Award, ThumbsUp, ShieldCheck } from 'lucide-react';
+import { Calendar, Star, CheckCircle, Award, ThumbsUp, ShieldCheck, BadgeCheck, Clock, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/lib/store';
 import { AnimatedCounter } from './AnimatedCounter';
@@ -187,6 +187,38 @@ export function Hero() {
               </div>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* Trust Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 1.8 }}
+          className="mt-8 mb-4 max-w-3xl mx-auto"
+        >
+          <div className="bg-white/10 backdrop-blur-md rounded-xl border border-white/15 px-4 py-3">
+            <div className="flex items-center justify-center gap-4 sm:gap-6 overflow-x-auto scrollbar-hide">
+              {[
+                { icon: Star, text: '4.9/5 Google Rating', accent: true },
+                { icon: BadgeCheck, text: 'Licensed & Insured', accent: false },
+                { icon: Clock, text: '5-Year Warranty', accent: false },
+                { icon: TrendingUp, text: '2,000+ Projects', accent: false },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-2 flex-shrink-0"
+                >
+                  <item.icon className={`w-4 h-4 ${item.accent ? 'text-gold' : 'text-white/60'}`} />
+                  <span className={`text-xs sm:text-sm whitespace-nowrap ${item.accent ? 'text-gold font-semibold' : 'text-white/70'}`}>
+                    {item.text}
+                  </span>
+                  {i < 3 && (
+                    <div className="w-px h-4 bg-white/15 hidden sm:block" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         </motion.div>
       </div>
 

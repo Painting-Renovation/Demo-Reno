@@ -18,10 +18,15 @@ import { ContactSection } from './ContactSection';
 import { Footer } from './Footer';
 import { EstimateForm } from './EstimateForm';
 import { AppointmentForm } from './AppointmentForm';
+import { PricingCalculator } from './PricingCalculator';
+import { ReviewsShowcase } from './ReviewsShowcase';
+import { SeasonalTips } from './SeasonalTips';
+import { WeatherWidget } from './WeatherWidget';
 import { FloatingCTA } from './FloatingCTA';
 import { LiveChatWidget } from './LiveChatWidget';
 import { CookieConsent } from './CookieConsent';
 import { BackToTop } from './BackToTop';
+import { SectionDivider } from './SectionDivider';
 
 export function PublicWebsite() {
   return (
@@ -31,50 +36,49 @@ export function PublicWebsite() {
 
       <main>
         <Hero />
-
-        <div className="section-divider" />
+        <SectionDivider variant="dark" />
 
         <Services />
+        <SectionDivider variant="light" />
 
-        <div className="section-divider" />
+        <PricingCalculator />
+        <SectionDivider variant="dark" />
 
         <WhyChooseUs />
 
         <BrandsSection />
-
-        <div className="section-divider" />
+        <SectionDivider variant="light" />
 
         <TeamSection />
-
-        <div className="section-divider" />
+        <SectionDivider variant="dark" />
 
         <BeforeAfter />
-
-        <div className="section-divider" />
+        <SectionDivider variant="dark" />
 
         <Gallery />
-
-        <div className="section-divider" />
+        <SectionDivider variant="light" />
 
         <PortfolioShowcase />
-
-        <div className="section-divider" />
+        <SectionDivider variant="dark" />
 
         <Process />
-
-        <div className="section-divider" />
+        <SectionDivider variant="light" />
 
         <Testimonials />
+        <SectionDivider variant="dark" />
 
-        <div className="section-divider" />
+        <ReviewsShowcase />
+        <SectionDivider variant="light" />
 
         <FAQ />
+        <SectionDivider variant="light" />
 
-        <div className="section-divider" />
+        <SeasonalTips />
+        <SectionDivider variant="dark" />
 
         <ServiceAreas />
-
-        <div className="section-divider" />
+        <WeatherWidget />
+        <SectionDivider variant="dark" />
 
         <ContactSection />
       </main>
