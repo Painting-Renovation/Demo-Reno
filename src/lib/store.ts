@@ -54,5 +54,7 @@ export const DASHBOARD_TABS: DashboardTab[] = [
   { id: 'site-audit', label: 'Site Audit', icon: 'ShieldCheck' },
   { id: 'tasks', label: 'Task Manager', icon: 'ListTodo' },
   { id: 'activity', label: 'Activity', icon: 'Activity' },
+  { id: 'client-history', label: 'Client History', icon: 'User' },
+  { id: 'quote-preview', label: 'Quote Preview', icon: 'FileText' },
   { id: 'settings', label: 'Settings', icon: 'Settings' },
 ];

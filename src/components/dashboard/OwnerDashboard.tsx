@@ -14,6 +14,8 @@ import RevenueDashboard from './RevenueDashboard';
 import SiteAuditTab from './SiteAuditTab';
 import { TaskManager } from './TaskManager';
 import { ActivityHeatmap } from './ActivityHeatmap';
+import { ClientHistory } from './ClientHistory';
+import { QuotePreview } from './QuotePreview';
 import SettingsTab from './SettingsTab';
 
 const tabComponents: Record<string, React.ComponentType> = {
@@ -28,6 +30,8 @@ const tabComponents: Record<string, React.ComponentType> = {
   'site-audit': SiteAuditTab,
   tasks: TaskManager,
   activity: ActivityHeatmap,
+  'client-history': ClientHistory,
+  'quote-preview': QuotePreview,
   settings: SettingsTab,
 };
 

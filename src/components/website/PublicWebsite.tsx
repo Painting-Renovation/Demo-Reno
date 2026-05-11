@@ -10,7 +10,7 @@ import { TeamSection } from './TeamSection';
 import { BeforeAfter } from './BeforeAfter';
 import { Gallery } from './Gallery';
 import { ColorPaletteExplorer } from './ColorPaletteExplorer';
-import { PortfolioShowcase } from './PortfolioShowcase';
+import { InteractiveShowcase } from './InteractiveShowcase';
 import { Process } from './Process';
 import { Testimonials } from './Testimonials';
 import { FAQ } from './FAQ';
@@ -29,6 +29,7 @@ import { CookieConsent } from './CookieConsent';
 import { BackToTop } from './BackToTop';
 import { SectionDivider } from './SectionDivider';
 import { StatsBar } from './StatsBar';
+import { GuaranteeSection } from './GuaranteeSection';
 
 export function PublicWebsite() {
   return (
@@ -63,13 +64,16 @@ export function PublicWebsite() {
         <ColorPaletteExplorer />
         <SectionDivider variant="light" />
 
-        <PortfolioShowcase />
+        <InteractiveShowcase />
         <SectionDivider variant="dark" />
 
         <Process />
         <SectionDivider variant="light" />
 
         <Testimonials />
+        <SectionDivider variant="dark" />
+
+        <GuaranteeSection />
         <SectionDivider variant="dark" />
 
         <ReviewsShowcase />
