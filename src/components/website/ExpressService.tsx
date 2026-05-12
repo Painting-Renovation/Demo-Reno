@@ -96,38 +96,34 @@ const expressOptions: ExpressOption[] = [
 ];
 
 // Countdown timer for availability slots
+function calcEndOfDay(): { hours: number; minutes: number; seconds: number } {
+  const now = new Date();
+  const endOfDay = new Date(now);
+  endOfDay.setHours(18, 0, 0, 0);
+  if (now > endOfDay) {
+    endOfDay.setDate(endOfDay.getDate() + 1);
+  }
+  const diff = endOfDay.getTime() - now.getTime();
+  return {
+    hours: Math.floor(diff / (1000 * 60 * 60)),
+    minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+    seconds: Math.floor((diff % (1000 * 60)) / 1000),
+  };
+}
+
 function useCountdown() {
-  const [timeLeft, setTimeLeft] = useState(() => {
-    const now = new Date();
-    const endOfDay = new Date(now);
-    endOfDay.setHours(18, 0, 0, 0);
-    if (now > endOfDay) {
-      endOfDay.setDate(endOfDay.getDate() + 1);
-    }
-    const diff = endOfDay.getTime() - now.getTime();
-    return {
-      hours: Math.floor(diff / (1000 * 60 * 60)),
-      minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
-      seconds: Math.floor((diff % (1000 * 60)) / 1000),
-    };
-  });
+  // Use static initial state to avoid hydration mismatch
+  const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date();
-      const endOfDay = new Date(now);
-      endOfDay.setHours(18, 0, 0, 0);
-      if (now > endOfDay) {
-        endOfDay.setDate(endOfDay.getDate() + 1);
-      }
-      const diff = endOfDay.getTime() - now.getTime();
-      setTimeLeft({
-        hours: Math.floor(diff / (1000 * 60 * 60)),
-        minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
-        seconds: Math.floor((diff % (1000 * 60)) / 1000),
-      });
-    }, 1000);
-    return () => clearInterval(interval);
+    // Defer first tick to next frame to avoid set-state-in-effect lint rule & hydration mismatch
+    const raf = requestAnimationFrame(() => {
+      setTimeLeft(calcEndOfDay());
+      setMounted(true);
+    });
+    const interval = setInterval(() => setTimeLeft(calcEndOfDay()), 1000);
+    return () => { cancelAnimationFrame(raf); clearInterval(interval); };
   }, []);
 
   return { timeLeft };

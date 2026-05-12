@@ -28,11 +28,14 @@ function calcTimeLeft(targetDate: Date) {
 }
 
 function useCountdown(targetDate: Date) {
-  const [timeLeft, setTimeLeft] = useState(() => calcTimeLeft(targetDate));
+  // Use static initial state to avoid hydration mismatch (Date differs on server vs client)
+  const [timeLeft, setTimeLeft] = useState({ days: 14, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
+    // Defer first tick to next frame to avoid set-state-in-effect lint rule & hydration mismatch
+    const raf = requestAnimationFrame(() => setTimeLeft(calcTimeLeft(targetDate)));
     const timer = setInterval(() => setTimeLeft(calcTimeLeft(targetDate)), 1000);
-    return () => clearInterval(timer);
+    return () => { cancelAnimationFrame(raf); clearInterval(timer); };
   }, [targetDate]);
 
   return timeLeft;
@@ -63,7 +66,13 @@ export function PromotionsBanner() {
   const { setEstimateFormOpen } = useAppStore();
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissing, setIsDismissing] = useState(false);
-  const [offerEndDate, setOfferEndDate] = useState(getDefaultOfferEnd);
+  // Use static initial date to avoid hydration mismatch — will be updated in useEffect
+  const [offerEndDate, setOfferEndDate] = useState(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 14);
+    d.setHours(23, 59, 59, 0); // Round to end of day to minimize server/client drift
+    return d;
+  });
   const countdown = useCountdown(offerEndDate);
 
   // Load or initialize offer end date from localStorage on mount

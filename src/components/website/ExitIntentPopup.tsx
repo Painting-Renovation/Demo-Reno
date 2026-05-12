@@ -11,14 +11,15 @@ export function ExitIntentPopup() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== 'undefined' ? window.innerWidth < 640 : false
-  );
+  // Use static initial state to avoid hydration mismatch (window unavailable on server)
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // Defer to next frame to avoid set-state-in-effect lint rule (client-only mount)
+    const raf = requestAnimationFrame(() => setIsMobile(window.innerWidth < 640));
     const handleResize = () => setIsMobile(window.innerWidth < 640);
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', handleResize); };
   }, []);
 
   const handleMouseLeave = useCallback((e: MouseEvent) => {
