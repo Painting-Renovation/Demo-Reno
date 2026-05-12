@@ -299,3 +299,228 @@ Stage Summary:
 - Dynamic spacer prevents content from being hidden behind both fixed elements
 - 0 lint errors, HTTP 200 verified
 - Cron job created (job_id: 144372) for webDevReview every 15 minutes
+
+---
+Task ID: 2
+Agent: Fullstack Developer
+Task: Create Services pages (overview + 6 detail pages)
+
+Work Log:
+- Created `/src/app/(public)/services/page.tsx` — Services overview page
+  - Imports `PageHero` from shared components and `servicesData` from lib
+  - Displays 6 service cards in responsive grid (1→2→3 cols) with Framer Motion stagger animations
+  - Each card: colored accent bar, icon, name, tagline, description, avgPrice, duration, top 3 features with checkmarks
+  - Cards link to `/services/[slug]` with hover lift/gold text effects
+  - "Why Choose ProCoat?" stats section on navy background (4 stat cards)
+  - Bottom CTA section with "Get Your Free Estimate" button (opens estimate modal via useAppStore) + "Contact Us" link
+  - Breadcrumb: Home > Services via PageHero
+- Created `/src/app/(public)/services/[slug]/page.tsx` — Individual service detail page
+  - Uses `useParams()` from next/navigation to get slug
+  - Calls `getServiceBySlug()` for service data; renders `ServiceNotFound` component for 404 case
+  - Key info bar: icon, service name, avgPrice, duration, "Get Free Estimate" button
+  - Main content (2/3 width): long description, features grid with checkmarks (2-col), 4-step process timeline with vertical line, FAQ accordion (AnimatePresence open/close)
+  - Sidebar (1/3 width): sticky quote card (price/duration/CTA via useAppStore), trust badges (warranty, rating, licensed, location)
+  - Related services section: links to related service detail pages with cards
+  - Bottom CTA: "Ready to Get Started?" with estimate button + back to all services link
+  - Both pages: 'use client', Tailwind + brand colors (bg-navy, text-gold, bg-cream, text-sage), responsive, Framer Motion animations
+
+Stage Summary:
+- 2 new route pages created: `/services` (overview) and `/services/[slug]` (detail)
+- All 6 services accessible: interior-painting, exterior-painting, cabinet-refinishing, commercial-painting, deck-fence, color-consultation
+- Estimate modal integration via `useAppStore.setEstimateFormOpen`
+- 404 handling with friendly fallback + link back to /services
+- Lint: 0 new errors (1 pre-existing error in Navbar.tsx unrelated to this task)
+
+---
+Task ID: 3
+Agent: Fullstack Developer
+Task: Create Gallery, About, and Contact pages
+
+Work Log:
+- Created `/src/app/(public)/gallery/page.tsx` — Gallery Page
+  - PageHero: title="Our Portfolio", breadcrumbs=[Gallery], backgroundImage="/images/hero-exterior.jpg", overlay="dark"
+  - Portfolio stats bar (navy bg): 2,000+ projects, 500+ homeowners, 15+ years, 4.9/5 rating
+  - Imported and rendered `<Gallery />` from `@/components/website/Gallery` (masonry grid with lightbox)
+  - "Before & After Showcase" section with intro header + `<BeforeAfterSlider />` from `@/components/website/BeforeAfterSlider`
+  - "How We Achieve Perfect Results" process section (4 steps: Consultation, Preparation, Execution, Final Walkthrough)
+  - "Ready to Start Your Project?" CTA section linking to /free-estimate and /contact
+  - Alternating bg-cream / bg-white sections
+- Created `/src/app/(public)/about/page.tsx` — About Page
+  - PageHero: title="About ProCoat Painters", breadcrumbs=[About]
+  - Company stats bar (navy bg): 2,000+ projects, 98% satisfaction, 4.9/5 rating, 53+ years combined experience
+  - "Our Story" section: company history narrative (founded 2009, 2000+ projects, GTA coverage) with timeline of 6 milestones (2009–2024)
+  - Trust badges: Licensed & Insured, WSIB Compliant, 5-Year Warranty, BBB A+ Rated
+  - "Why ProCoat" values section: Quality, Reliability, Communication, Cleanliness — 4 cards with icons on bg-cream
+  - Imported and rendered `<TeamSection />` from `@/components/website/TeamSection`
+  - Imported and rendered `<EnhancedTeam />` from `@/components/website/EnhancedTeam`
+  - CTA section linking to /free-estimate and /gallery
+- Created `/src/app/(public)/contact/page.tsx` — Contact Page
+  - PageHero: title="Contact Us", breadcrumbs=[Contact]
+  - "Contact Information" section: 3 cards (Phone, Email, Address) with links and descriptions
+  - Phone: (416) 555-PAINT | Email: info@procoatpainters.ca | Address: 123 Painting Lane, Suite 200, Toronto, ON M4B 1B3
+  - "Business Hours" section: detailed 7-day table (Mon-Fri 8AM-6PM, Sat 9AM-3PM, Sun Closed) with open indicators
+  - Map placeholder with "Open in Google Maps" link + "Service Areas" navy card linking to /service-areas
+  - Imported and rendered `<ContactSection />` from `@/components/website/ContactSection` (full contact form + social proof)
+  - "Frequently Asked Questions" teaser on navy bg: 4 FAQ cards + "View All FAQs" link to /faq
+
+Stage Summary:
+- 3 new route pages created: `/gallery`, `/about`, `/contact`
+- All pages: 'use client', Tailwind CSS with brand colors, Framer Motion scroll animations, mobile-first responsive
+- Reused existing components: PageHero, Gallery, BeforeAfterSlider, TeamSection, EnhancedTeam, ContactSection
+- Lint: 0 new errors (1 pre-existing error in Navbar.tsx unrelated to this task)
+
+---
+Task ID: 4
+Agent: Fullstack Developer
+Task: Create Pricing, Process, FAQ, Testimonials pages
+
+Work Log:
+- Created `/src/app/(public)/pricing/page.tsx` — Pricing Page
+  - PageHero: title="Pricing", subtitle="Get instant estimates...", breadcrumbs=[Pricing], overlay="gradient"
+  - Imported and rendered `<PricingCalculator />` from `@/components/website/PricingCalculator`
+  - Imported and rendered `<ROICalculator />` from `@/components/website/ROICalculator` (on navy bg section)
+  - "Factors That Affect Pricing" section: 6 factor cards in responsive grid (1→2→3 cols)
+    - Square Footage (Ruler), Number of Rooms (DoorOpen), Ceiling Height (ArrowUpFromLine)
+    - Prep Work Needed (Paintbrush), Paint Quality (Droplets), Access & Scaffolding (HardHat)
+  - "Get a Custom Quote" CTA section linking to /free-estimate and /contact
+  - Framer Motion stagger animations on factor cards
+- Created `/src/app/(public)/process/page.tsx` — Our Process Page
+  - PageHero: title="Our Process", subtitle="A proven approach...", breadcrumbs=[Our Process]
+  - Imported and rendered `<Process />` from `@/components/website/Process`
+  - Imported and rendered `<ProjectJourney />` from `@/components/website/ProjectJourney` (on navy bg)
+  - "What to Expect" timeline section with alternating left/right cards on desktop
+    - Day 1: Preparation & Protection (ShieldCheck, navy)
+    - Day 2–3: Painting & Application (PaintBucket, gold)
+    - Day 4: Quality Inspection (ClipboardCheck, sage)
+    - Day 5: Final Walkthrough & Handoff (ThumbsUp, navy-light)
+    - Vertical gradient connector line (navy→gold→sage) on desktop with gold dots
+  - "Ready to Get Started?" CTA section linking to /free-estimate and /contact
+- Created `/src/app/(public)/faq/page.tsx` — FAQ Page
+  - PageHero: title="Frequently Asked Questions", subtitle="Everything you need to know...", breadcrumbs=[FAQ]
+  - Imported and rendered `<FAQ />` from `@/components/website/FAQ`
+  - "Still Have Questions?" CTA section linking to /contact and /free-estimate
+    - 3 contact method cards: Phone ((416) 555-0199), Email (hello@procoatpainters.com), Live Chat
+  - Decorative MessageCircle icon in CTA
+- Created `/src/app/(public)/testimonials/page.tsx` — Testimonials Page
+  - PageHero: title="Client Testimonials", subtitle="Real reviews from real homeowners...", breadcrumbs=[Testimonials], backgroundImage="/images/hero-interior.jpg"
+  - Stats banner on navy bg: 500+ Happy Customers, 4.9/5 Average Rating, 2,000+ Projects, 98% Would Recommend
+  - Imported and rendered `<Testimonials />` from `@/components/website/Testimonials`
+  - Imported and rendered `<VideoTestimonials />` from `@/components/website/VideoTestimonials` (on white bg)
+  - Imported and rendered `<ReviewsShowcase />` from `@/components/website/ReviewsShowcase` (on navy bg)
+  - Featured quote section: Sarah & Michael T. from Leaside, Toronto with 5 gold stars
+  - "Join Our Happy Clients" CTA section linking to /free-estimate and /contact
+
+Stage Summary:
+- 4 new route pages created: `/pricing`, `/process`, `/faq`, `/testimonials`
+- All pages: 'use client', Tailwind CSS with brand colors (bg-navy, text-gold, bg-cream, bg-white), Framer Motion scroll animations, mobile-first responsive
+- Reused 7 existing components: PageHero, PricingCalculator, ROICalculator, Process, ProjectJourney, FAQ, Testimonials, VideoTestimonials, ReviewsShowcase
+- Lint: 0 new errors (1 pre-existing error in Navbar.tsx unrelated to this task)
+
+---
+Task ID: 5
+Agent: Fullstack Developer
+Task: Create Express, Commercial, Colors, Maintenance, Guarantee, Blog pages
+
+Work Log:
+- Created `/src/app/(public)/express/page.tsx` — Express Service Page
+  - PageHero: title="Express Painting Service", subtitle="Need it done fast?", breadcrumbs=[Express Service], overlay="gradient"
+  - Imported and rendered `<ExpressService />` from `@/components/website/ExpressService`
+  - "When to Choose Express" section: 4 scenario cards (Closing on a Home, Listing for Sale, Special Event, Emergency Repair) with icons and descriptions
+  - CTA section with Calendar icon, linking to /free-estimate and /contact
+- Created `/src/app/(public)/commercial/page.tsx` — Commercial Painting Page
+  - PageHero: title="Commercial Painting Services", subtitle="Professional spaces...", breadcrumbs=[Commercial], backgroundImage="/images/commercial.jpg"
+  - Imported and rendered `<CommercialShowcase />` from `@/components/website/CommercialShowcase`
+  - "Industries We Serve" section: 6 industry cards (Office, Retail, Restaurant, Healthcare, Industrial, Education) with colored accent bars and icons
+  - CTA section with "Request a Proposal" button linking to /free-estimate
+- Created `/src/app/(public)/colors/page.tsx` — Color Palette Page
+  - PageHero: title="Explore Colors", subtitle="Find the perfect palette...", breadcrumbs=[Color Palette], compact
+  - Imported and rendered `<ColorPaletteExplorer />` from `@/components/website/ColorPaletteExplorer`
+  - "Color Trends 2024" section: 6 trending colors (Warm Ivory, Sage Meadow, Terracotta Clay, Midnight Navy, Blush Rose, Greige Perfection) with hex swatches and descriptions
+  - CTA section linking to /services/color-consultation
+- Created `/src/app/(public)/maintenance/page.tsx` — Maintenance Tips Page
+  - PageHero: title="Maintenance Tips", subtitle="Keep your paint looking fresh...", breadcrumbs=[Maintenance], compact
+  - Imported and rendered `<MaintenanceTips />` from `@/components/website/MaintenanceTips`
+  - "Seasonal Care Guide" section importing and rendering `<SeasonalTips />` from `@/components/website/SeasonalTips`
+  - Quick stats banner on navy bg: 5-Year Protection, 2 Hours/Month, $2,700–$4,700 Saved
+  - CTA section linking to /free-estimate and /contact
+- Created `/src/app/(public)/guarantee/page.tsx` — Guarantee Page
+  - PageHero: title="Our Satisfaction Guarantee", subtitle="We stand behind every brushstroke.", breadcrumbs=[Guarantee]
+  - Imported and rendered `<GuaranteeSection />` from `@/components/website/GuaranteeSection`
+  - "What's Covered" section: 5 coverage cards (Peeling, Blistering, Adhesion Failure, Color Match Issues, Workmanship Quality) with icons
+  - "How to Make a Claim" section: 4-step process (Call Us, We'll Inspect, We Fix It, No Charge) with connector arrows on desktop
+  - CTA section linking to /free-estimate and /contact
+- Created `/src/app/(public)/blog/page.tsx` — Blog/Tips Page
+  - PageHero: title="Painting Tips & Insights", subtitle="Expert advice...", breadcrumbs=[Blog], compact
+  - 6 article cards with horizontal layout (image placeholder + content): title, excerpt, date, category badge (color-coded), read time, "Read More →" link
+    - Articles: White Paint, Exterior Colors, Cabinet Refinishing, Seasonal Painting, Commercial Disruption, Toronto Color Trends
+  - "Categories" sidebar with 5 categories (Interior Tips 12, Exterior Tips 8, Color Trends 10, Maintenance 6, Commercial 5)
+  - Sidebar also includes: Newsletter subscribe CTA, Quick Links section
+  - Responsive layout: single column on mobile, main + sidebar on desktop (lg:flex-row)
+
+Stage Summary:
+- 6 new route pages created: `/express`, `/commercial`, `/colors`, `/maintenance`, `/guarantee`, `/blog`
+- All pages: 'use client', Tailwind CSS with brand colors (bg-navy, text-gold, bg-cream, bg-white), Framer Motion scroll animations, mobile-first responsive
+- Reused 7 existing components: ExpressService, CommercialShowcase, ColorPaletteExplorer, MaintenanceTips, SeasonalTips, GuaranteeSection, PageHero
+- Lint: 0 new errors (1 pre-existing error in Navbar.tsx unrelated to this task)
+
+---
+Task ID: 6
+Agent: Fullstack Developer
+Task: Create Estimate, Appointment, ServiceAreas, Reviews pages
+
+Work Log:
+- Created `/src/app/(public)/free-estimate/page.tsx` — Free Estimate Page
+  - PageHero: title="Get Your Free Estimate", subtitle="No obligation, no pressure...", breadcrumbs=[Free Estimate], overlay="gradient"
+  - Trust badges strip on navy bg: Licensed, Insured, 5-Star Rated, 2,000+ Projects (using trust-badge-mini class)
+  - Estimate form in white card: Name, Email, Phone, Service Type dropdown (Interior/Exterior/Cabinets/Commercial/Deck/Consultation), Property Type dropdown (House/Condo/Townhouse/Commercial), Preferred Date, Message textarea
+  - Submit button with gold bg + animate-pulse-glow
+  - "What Happens Next?" section on navy bg (dark-texture-bg): 4 steps — Call within 24hrs, Free on-site consultation, Detailed written estimate, No obligation
+  - CTA section: phone number + /contact link
+  - Alternating cream/navy sections
+- Created `/src/app/(public)/book-appointment/page.tsx` — Book Appointment Page
+  - PageHero: title="Book an Appointment", subtitle="Schedule your free consultation...", breadcrumbs=[Book Appointment]
+  - Appointment form in white card: Name, Email, Phone, Service Needed dropdown, Preferred Date, Preferred Time dropdown (Morning/Afternoon/Evening), Property Address, Notes textarea
+  - "Why Book a Consultation?" section on navy bg: 4 reason cards — Expert Color Advice, Accurate Pricing, Meet the Crew, See Sample Boards
+  - "Have Questions?" CTA section with link to /contact
+- Created `/src/app/(public)/service-areas/page.tsx` — Service Areas Page
+  - PageHero: title="Service Areas", subtitle="Proudly serving Toronto & the GTA...", breadcrumbs=[Service Areas]
+  - Imported and rendered `<ServiceAreas />` from `@/components/website/ServiceAreas` (interactive map + area cards)
+  - "Our Coverage" section on navy bg: 14 area tags with MapPin icons and hover effects (Toronto, Mississauga, Brampton, Vaughan, Markham, Richmond Hill, Oakville, Burlington, Scarborough, North York, Etobicoke, Pickering, Ajax, Whitby)
+  - Stats row: 14+ Cities Served, 2,000+ Projects Completed, 30 min Avg. Response Time, 100% Coverage Confidence
+  - "Don't See Your Area?" CTA linking to /contact with phone number
+- Created `/src/app/(public)/reviews/page.tsx` — Reviews Page
+  - PageHero: title="Client Reviews", subtitle="350+ verified reviews...", breadcrumbs=[Reviews]
+  - Imported and rendered `<ReviewsShowcase />` from `@/components/website/ReviewsShowcase` (filterable reviews grid with ratings)
+  - "Review Sources" section on navy bg: 3 platform cards — Google (4.9★, 250+ reviews), HomeStars (4.8★, 75+ reviews), Houzz (5.0★, 25+ reviews)
+  - Combined average stat: 4.9/5.0 from 350+ verified reviews
+  - "Write a Review" CTA section linking to /contact + secondary link to /free-estimate
+
+Stage Summary:
+- 4 new route pages created: `/free-estimate`, `/book-appointment`, `/service-areas`, `/reviews`
+- All pages: 'use client', Tailwind CSS with brand colors (bg-navy, text-gold, bg-cream, bg-white), Framer Motion scroll animations, mobile-first responsive
+- Reused 2 existing components: ServiceAreas, ReviewsShowcase
+- Lint: 0 new errors (1 pre-existing error in Navbar.tsx unrelated to this task)
+
+---
+Task ID: 7
+Agent: Main Agent
+Task: Fix "Preview is not visible" — OOM crash and server stability
+
+Work Log:
+- Diagnosed root cause: Next.js 16 Turbopack was consuming 6GB+ RSS memory, triggering Linux OOM killer (`Out of memory: Killed process next-server total-vm:35780088kB, anon-rss:6135076kB`)
+- Switched from Turbopack to webpack by adding `--webpack` flag to dev script in package.json
+- Simplified next.config.ts: removed `output: "standalone"`, removed `experimental.optimizePackageImports` (was causing port binding failure with webpack), removed webpack-specific config (Turbopack-only in Next.js 16)
+- Converted (public) layout to use `next/dynamic` with `ssr: false` for 7 heavy components: FloatingCTA, ChatBotPanel, BackToTop, CookieConsent, ExitIntentPopup, EstimateForm, AppointmentForm
+- Converted homepage (page.tsx) to use `next/dynamic` with `ssr: false` for 7 below-fold sections: Hero, Services, WhyChooseUs, Testimonials, BrandsSection, StatsBar, LeadMagnetSection
+- Sub-agent converted all 20 sub-pages to use dynamic imports for components from `@/components/website/` and `@/components/shared/`
+- Used `bash -c 'exec npx next dev ...' &` pattern to achieve persistent server process across tool calls
+- Verified server stability: 24 consecutive HTTP 200 requests, all pages compiling correctly (homepage 8.8s first compile, subsequent <100ms)
+- All 20+ routes returning HTTP 200: /, /services, /services/[slug], /gallery, /about, /contact, /process, /pricing, /faq, /testimonials, /reviews, /free-estimate, /book-appointment, /commercial, /service-areas, /neighborhoods, /colors, /express, /maintenance, /guarantee, /blog
+- ESLint: 0 errors, 0 warnings
+
+Stage Summary:
+- Server stable with webpack (no OOM crashes)
+- ~30 component imports converted to dynamic loading (ssr: false) across layout + 21 pages
+- First page compile ~5-9s, subsequent requests <100ms
+- Preview should now be visible through Caddy gateway on port 81 → localhost:3000
+- Key files modified: next.config.ts, package.json, (public)/layout.tsx, (public)/page.tsx, 20 sub-page files

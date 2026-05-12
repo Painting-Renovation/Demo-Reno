@@ -1,26 +1,28 @@
 'use client';
 
+import Link from 'next/link';
 import { PaintBucket, Phone, Mail, MapPin, ArrowUp, Facebook, Instagram, ChevronRight, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/lib/store';
 
-const services = [
-  'Interior Painting',
-  'Exterior Painting',
-  'Cabinet Refinishing',
-  'Commercial Painting',
-  'Deck & Fence Staining',
-  'Color Consultation',
+const serviceLinks = [
+  { label: 'Interior Painting', href: '/services/interior-painting' },
+  { label: 'Exterior Painting', href: '/services/exterior-painting' },
+  { label: 'Cabinet Refinishing', href: '/services/cabinet-refinishing' },
+  { label: 'Commercial Painting', href: '/services/commercial-painting' },
+  { label: 'Deck & Fence Staining', href: '/services/deck-fence' },
+  { label: 'Color Consultation', href: '/services/color-consultation' },
 ];
 
 const quickLinks = [
-  { label: 'Home', href: '#' },
-  { label: 'Services', href: '#services' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'Our Process', href: '#process' },
-  { label: 'Testimonials', href: '#testimonials' },
-  { label: 'Service Areas', href: '#service-areas' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Home', href: '/' },
+  { label: 'Services', href: '/services' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'Our Process', href: '/process' },
+  { label: 'Testimonials', href: '/testimonials' },
+  { label: 'Service Areas', href: '/service-areas' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 const socialLinks = [
@@ -31,17 +33,7 @@ const socialLinks = [
 ];
 
 export function Footer() {
-  const { setView, setEstimateFormOpen } = useAppStore();
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleNavClick = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const { setEstimateFormOpen } = useAppStore();
 
   return (
     <footer className="bg-navy text-white relative">
@@ -62,12 +54,11 @@ export function Footer() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
-              <Button
-                onClick={() => setEstimateFormOpen(true)}
-                className="bg-navy hover:bg-navy-light text-white font-semibold px-8 py-3.5 rounded-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 cta-button-enhanced"
-              >
-                Request Free Estimate
-              </Button>
+              <Link href="/free-estimate">
+                <Button className="bg-navy hover:bg-navy-light text-white font-semibold px-8 py-3.5 rounded-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 cta-button-enhanced">
+                  Request Free Estimate
+                </Button>
+              </Link>
               <a
                 href="tel:4165557246"
                 className="inline-flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 text-navy font-semibold px-6 py-3.5 rounded-lg transition-all border border-navy/20"
@@ -85,7 +76,7 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-14">
           {/* Company Info */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <a href="#" className="flex items-center gap-2.5 mb-6 group" onClick={(e) => { e.preventDefault(); scrollToTop(); }}>
+            <Link href="/" className="flex items-center gap-2.5 mb-6 group">
               <div className="relative w-11 h-11 flex items-center justify-center">
                 <img
                   src="/images/logo.png"
@@ -106,7 +97,7 @@ export function Footer() {
                 <span className="text-white font-bold text-lg leading-tight">ProCoat</span>
                 <span className="text-gold text-xs font-medium tracking-widest uppercase">Painters</span>
               </div>
-            </a>
+            </Link>
             <p className="text-white/50 text-sm leading-relaxed mb-6">
               Toronto&apos;s trusted painting professionals since 2009. Licensed, insured,
               and committed to delivering exceptional results for every project.
@@ -123,7 +114,7 @@ export function Footer() {
               </div>
             </div>
 
-            {/* Social Media Links */}
+            {/* Social Media */}
             <div className="flex gap-2.5 mt-7">
               {socialLinks.map((social) => (
                 <a
@@ -145,18 +136,14 @@ export function Footer() {
               Services
             </h4>
             <ul className="space-y-3">
-              {services.map((service) => (
-                <li key={service}>
-                  <a
-                    href="#services"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleNavClick('#services');
-                    }}
+              {serviceLinks.map((service) => (
+                <li key={service.href}>
+                  <Link
+                    href={service.href}
                     className="footer-link-lift text-white/50 hover:text-white text-sm transition-colors duration-200"
                   >
-                    {service}
-                  </a>
+                    {service.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -170,21 +157,13 @@ export function Footer() {
             </h4>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
-                <li key={link.label}>
-                  <a
+                <li key={link.href}>
+                  <Link
                     href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      if (link.href !== '#') {
-                        handleNavClick(link.href);
-                      } else {
-                        scrollToTop();
-                      }
-                    }}
                     className="footer-link-lift text-white/50 hover:text-white text-sm transition-colors duration-200"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -257,22 +236,21 @@ export function Footer() {
               <span className="hidden sm:inline">Licensed &amp; Insured in Ontario.</span>
             </p>
             <div className="flex items-center gap-5">
-              <a href="#" className="footer-link-lift text-white/30 hover:text-white/60 text-xs">
+              <Link href="/faq" className="footer-link-lift text-white/30 hover:text-white/60 text-xs">
                 Privacy Policy
-              </a>
-              <a href="#" className="footer-link-lift text-white/30 hover:text-white/60 text-xs">
+              </Link>
+              <Link href="/faq" className="footer-link-lift text-white/30 hover:text-white/60 text-xs">
                 Terms of Service
-              </a>
-              <span
-                onClick={() => setView('dashboard')}
-                onContextMenu={(e) => { e.preventDefault(); setView('dashboard'); }}
-                className="text-white/15 hover:text-white/40 text-[8px] cursor-pointer select-none transition-colors"
+              </Link>
+              <Link
+                href="/dashboard"
+                className="text-white/15 hover:text-white/40 text-[8px] select-none transition-colors"
                 title=""
               >
                 ●
-              </span>
+              </Link>
               <button
-                onClick={scrollToTop}
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className="w-9 h-9 bg-white/5 hover:bg-gold/15 border border-white/8 hover:border-gold/25 rounded-full flex items-center justify-center text-white/30 hover:text-gold transition-all duration-300 social-icon-hover"
                 aria-label="Scroll to top"
               >
