@@ -541,3 +541,22 @@ Stage Summary:
 - Dashboard now accessible directly from footer "Quick Links" section without login
 - Login screen bypassed via `isOwnerAuth: true` default in store (build mode)
 - To re-enable login: set `isOwnerAuth: false` in store.ts
+
+---
+Task ID: 9
+Agent: Main Agent
+Task: Fix "too many redirects" error when clicking Dashboard link in footer
+
+Work Log:
+- Investigated thoroughly: server returns HTTP 200 for `/dashboard` with no redirect headers, no middleware, no auth redirects, no `window.location` manipulation in codebase
+- Root cause identified: Next.js client-side `<Link>` component navigating from a page inside `(public)` route group (which has a `'use client'` layout with Navbar, PromotionsBanner, FloatingCTA, etc.) to `/dashboard` (outside the route group) causes a layout transition conflict resulting in redirect loop in the browser
+- Fix 1: Changed Dashboard link in Footer Quick Links from `<Link>` to `<a>` tag for full page navigation, bypassing Next.js client-side router
+- Fix 2: Changed hidden "●" dot entry in footer bottom bar from `<Link>` to `<a>` tag
+- Fix 3: Updated DashboardLayout "Back to Website" button to use `useRouter().push('/')` instead of legacy `setView('public')` store state (which was from the old single-page architecture)
+- Removed unused `setView` import from DashboardLayout
+
+Stage Summary:
+- Dashboard navigation now uses full page load (`<a>` tag) instead of client-side transition, avoiding the route group layout conflict
+- "Back to Website" button properly navigates to `/` using Next.js router
+- ESLint: 0 errors, 0 warnings
+- Dev server: HTTP 200, stable

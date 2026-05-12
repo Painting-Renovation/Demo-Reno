@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAppStore, DASHBOARD_TABS } from '@/lib/store';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
@@ -62,7 +63,7 @@ interface DashboardLayoutProps {
 }
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
-  const { dashboardTab, setDashboardTab, logout, setView } = useAppStore();
+  const { dashboardTab, setDashboardTab, logout } = useAppStore();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [ownerName, setOwnerName] = useState('Owner');
   const [quickStats, setQuickStats] = useState<QuickStats>({
@@ -102,9 +103,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     logout();
   }, [logout]);
 
+  const router = useRouter();
+
   const handleBackToWebsite = useCallback(() => {
-    setView('public');
-  }, [setView]);
+    router.push('/');
+  }, [router]);
 
   const sidebarContent = (
     <div className="flex h-full flex-col">

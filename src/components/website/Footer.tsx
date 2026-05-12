@@ -159,12 +159,21 @@ export function Footer() {
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="footer-link-lift text-white/50 hover:text-white text-sm transition-colors duration-200"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.href === '/dashboard' ? (
+                    <a
+                      href={link.href}
+                      className="footer-link-lift text-white/50 hover:text-white text-sm transition-colors duration-200"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="footer-link-lift text-white/50 hover:text-white text-sm transition-colors duration-200"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -243,13 +252,13 @@ export function Footer() {
               <Link href="/faq" className="footer-link-lift text-white/30 hover:text-white/60 text-xs">
                 Terms of Service
               </Link>
-              <Link
+              <a
                 href="/dashboard"
                 className="text-white/15 hover:text-white/40 text-[8px] select-none transition-colors"
                 title=""
               >
                 ●
-              </Link>
+              </a>
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className="w-9 h-9 bg-white/5 hover:bg-gold/15 border border-white/8 hover:border-gold/25 rounded-full flex items-center justify-center text-white/30 hover:text-gold transition-all duration-300 social-icon-hover"
