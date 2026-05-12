@@ -25,7 +25,7 @@ const navLinks = [
 ];
 
 export function Navbar() {
-  const { setEstimateFormOpen, setMobileMenuOpen, mobileMenuOpen } = useAppStore();
+  const { setEstimateFormOpen, setMobileMenuOpen, mobileMenuOpen, promoBannerHeight } = useAppStore();
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
@@ -82,7 +82,8 @@ export function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        style={{ top: promoBannerHeight }}
+        className={`fixed left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
             ? 'bg-navy/97 backdrop-blur-2xl shadow-lg nav-scrolled-border'
             : 'bg-transparent'

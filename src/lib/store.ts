@@ -15,6 +15,7 @@ export interface AppState {
   mobileMenuOpen: boolean;
   estimateFormOpen: boolean;
   appointmentFormOpen: boolean;
+  promoBannerHeight: number;
   
   setView: (view: AppView) => void;
   setOwnerAuth: (auth: boolean) => void;
@@ -22,6 +23,7 @@ export interface AppState {
   setMobileMenuOpen: (open: boolean) => void;
   setEstimateFormOpen: (open: boolean) => void;
   setAppointmentFormOpen: (open: boolean) => void;
+  setPromoBannerHeight: (h: number) => void;
   logout: () => void;
 }
 
@@ -32,6 +34,7 @@ export const useAppStore = create<AppState>((set) => ({
   mobileMenuOpen: false,
   estimateFormOpen: false,
   appointmentFormOpen: false,
+  promoBannerHeight: 0,
   
   setView: (view) => set({ currentView: view }),
   setOwnerAuth: (auth) => set({ isOwnerAuth: auth }),
@@ -39,7 +42,8 @@ export const useAppStore = create<AppState>((set) => ({
   setMobileMenuOpen: (open) => set({ mobileMenuOpen: open }),
   setEstimateFormOpen: (open) => set({ estimateFormOpen: open }),
   setAppointmentFormOpen: (open) => set({ appointmentFormOpen: open }),
-  logout: () => set({ isOwnerAuth: false, currentView: 'public', dashboardTab: 'overview' }),
+  setPromoBannerHeight: (h) => set({ promoBannerHeight: h }),
+  logout: () => set({ isOwnerAuth: false, currentView: 'public', dashboardTab: 'overview', promoBannerHeight: 0 }),
 }));
 
 export const DASHBOARD_TABS: DashboardTab[] = [

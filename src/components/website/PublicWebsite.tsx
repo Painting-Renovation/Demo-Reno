@@ -1,8 +1,10 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Navbar } from './Navbar';
 import { PromotionsBanner } from './PromotionsBanner';
 import { Hero } from './Hero';
+import { useAppStore } from '@/lib/store';
 import { Services } from './Services';
 import { WhyChooseUs } from './WhyChooseUs';
 import { BrandsSection } from './BrandsSection';
@@ -43,11 +45,44 @@ import { ChatBotPanel } from './ChatBotPanel';
 import { NeighborhoodSpotlight } from './NeighborhoodSpotlight';
 import { BeforeAfterSlider } from './BeforeAfterSlider';
 
+/**
+ * Spacer component that sits below the fixed banner and navbar.
+ * It dynamically measures the actual rendered height of both fixed elements
+ * and sets an equivalent padding-top so page content isn't hidden behind them.
+ */
+function FixedHeaderSpacer() {
+  const { promoBannerHeight } = useAppStore();
+  const [navHeight, setNavHeight] = useState(76); // default fallback: h-18 (72px) + h-1 shimmer (4px)
+
+  useEffect(() => {
+    const navEl = document.querySelector('nav');
+    if (navEl) {
+      const update = () => setNavHeight(navEl.offsetHeight);
+      update();
+      const observer = new ResizeObserver(update);
+      observer.observe(navEl);
+      return () => observer.disconnect();
+    }
+  }, []);
+
+  const totalHeight = promoBannerHeight + navHeight;
+
+  return (
+    <div
+      className="w-full flex-shrink-0 transition-[height] duration-500"
+      style={{ height: totalHeight }}
+      aria-hidden="true"
+    />
+  );
+}
+
 export function PublicWebsite() {
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
       <PromotionsBanner />
+      <Navbar />
+      {/* Dynamic spacer to prevent content from hiding behind fixed banner + navbar */}
+      <FixedHeaderSpacer />
 
       <main>
         <Hero />

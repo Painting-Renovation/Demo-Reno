@@ -278,3 +278,24 @@ The ProCoat Painters website has grown to 71 total components (44 website + 27 d
 11. **Low**: Dark mode toggle for dashboard
 12. **Low**: Multi-language support (i18n)
 13. **Low**: A/B testing framework for CTA variations
+
+---
+Task ID: 1
+Agent: Main Agent
+Task: Fix Spring Sale promotional banner overlapping with top navigation bar
+
+Work Log:
+- Analyzed the layout: Navbar (`fixed top-0 z-50`) was overlaying PromotionsBanner (`relative z-40`)
+- Added `promoBannerHeight` state to Zustand store for cross-component coordination
+- Updated PromotionsBanner: changed from `relative z-40` to `fixed top-0 left-0 right-0 z-[60]`, added ResizeObserver to measure and report banner height to store, reset height on dismiss/exit
+- Updated Navbar: reads `promoBannerHeight` from store and applies it as `style={{ top: promoBannerHeight }}`, removed `top-0` from className
+- Added `FixedHeaderSpacer` component in PublicWebsite.tsx: dynamically measures both banner + navbar heights using ResizeObserver and renders an invisible spacer div with equivalent height
+- Removed redundant `pt-20` from Hero.tsx content glow div (spacer now handles offset)
+- Reordered component rendering in PublicWebsite: PromotionsBanner first, then Navbar, then spacer
+
+Stage Summary:
+- Banner now renders above navbar with proper z-index stacking (z-[60] > z-50)
+- Navbar smoothly slides down when banner appears, back up when dismissed
+- Dynamic spacer prevents content from being hidden behind both fixed elements
+- 0 lint errors, HTTP 200 verified
+- Cron job created (job_id: 144372) for webDevReview every 15 minutes

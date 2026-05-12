@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Sparkles, Clock, Users, Flame } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -63,9 +63,35 @@ function PaintBrushSVG({ className, flip }: { className?: string; flip?: boolean
 }
 
 export function PromotionsBanner() {
-  const { setEstimateFormOpen } = useAppStore();
+  const { setEstimateFormOpen, setPromoBannerHeight } = useAppStore();
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissing, setIsDismissing] = useState(false);
+  const bannerRef = useRef<HTMLDivElement>(null);
+
+  // Measure banner height and report to store so Navbar can offset
+  const reportHeight = useCallback(() => {
+    if (bannerRef.current && isVisible) {
+      setPromoBannerHeight(bannerRef.current.offsetHeight);
+    } else {
+      setPromoBannerHeight(0);
+    }
+  }, [isVisible, setPromoBannerHeight]);
+
+  useEffect(() => {
+    reportHeight();
+    if (isVisible && bannerRef.current) {
+      const observer = new ResizeObserver(() => reportHeight());
+      observer.observe(bannerRef.current);
+      return () => observer.disconnect();
+    }
+  }, [isVisible, reportHeight]);
+
+  // Also report height = 0 when banner is hidden
+  useEffect(() => {
+    if (!isVisible) {
+      setPromoBannerHeight(0);
+    }
+  }, [isVisible, setPromoBannerHeight]);
   // Use static initial date to avoid hydration mismatch — will be updated in useEffect
   const [offerEndDate, setOfferEndDate] = useState(() => {
     const d = new Date();
@@ -118,6 +144,7 @@ export function PromotionsBanner() {
       localStorage.setItem(DISMISS_KEY, new Date().toISOString());
       setIsVisible(false);
       setIsDismissing(false);
+      setPromoBannerHeight(0);
     }, 400);
   };
 
@@ -131,14 +158,15 @@ export function PromotionsBanner() {
   const pad = (n: number) => String(n).padStart(2, '0');
 
   return (
-    <AnimatePresence>
+    <AnimatePresence onExitComplete={() => setPromoBannerHeight(0)}>
       {isVisible && (
         <motion.div
+          ref={bannerRef}
           initial={{ y: -80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -80, opacity: 0, scale: isDismissing ? 0.98 : 1 }}
           transition={{ duration: isDismissing ? 0.4 : 0.5, ease: [0.32, 0.72, 0, 1] }}
-          className="relative z-40 overflow-hidden"
+          className="fixed top-0 left-0 right-0 z-[60] overflow-hidden"
         >
           <div className="relative bg-gradient-to-r from-navy via-navy-light to-navy">
             {/* Shimmer animation overlay */}

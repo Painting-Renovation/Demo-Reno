@@ -107,7 +107,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="pt-20 hero-content-glow px-6 sm:px-10 md:px-16 py-10 sm:py-14"
+          className="hero-content-glow px-6 sm:px-10 md:px-16 py-10 sm:py-14"
         >
           {/* Award pill with glassier effect */}
           <motion.div
