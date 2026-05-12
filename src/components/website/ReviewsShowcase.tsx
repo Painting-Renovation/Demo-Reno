@@ -216,8 +216,12 @@ export function ReviewsShowcase() {
   }, [activeFilter, sortBy]);
 
   const formatDate = (dateStr: string) => {
-    const d = new Date(dateStr);
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    // Parse date parts directly from ISO string to avoid timezone-dependent
+    // hydration mismatches between server and client (new Date('2024-11-15')
+    // is parsed as UTC midnight, which shifts to the previous day in negative UTC offsets).
+    const [year, month, day] = dateStr.split('-').map(Number);
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return `${months[month - 1]} ${day}, ${year}`;
   };
 
   return (
