@@ -29,7 +29,7 @@ export interface AppState {
 
 export const useAppStore = create<AppState>((set) => ({
   currentView: 'public',
-  isOwnerAuth: false,
+  isOwnerAuth: true, // Build mode: login disabled, dashboard accessible directly
   dashboardTab: 'overview',
   mobileMenuOpen: false,
   estimateFormOpen: false,

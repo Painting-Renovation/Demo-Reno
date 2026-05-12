@@ -23,6 +23,7 @@ const quickLinks = [
   { label: 'Service Areas', href: '/service-areas' },
   { label: 'Pricing', href: '/pricing' },
   { label: 'Contact', href: '/contact' },
+  { label: 'Dashboard', href: '/dashboard' },
 ];
 
 const socialLinks = [

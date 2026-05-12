@@ -524,3 +524,20 @@ Stage Summary:
 - First page compile ~5-9s, subsequent requests <100ms
 - Preview should now be visible through Caddy gateway on port 81 → localhost:3000
 - Key files modified: next.config.ts, package.json, (public)/layout.tsx, (public)/page.tsx, 20 sub-page files
+
+---
+Task ID: 8
+Agent: Main Agent
+Task: Add visible "Dashboard" entry in footer and bypass login for build mode
+
+Work Log:
+- Added "Dashboard" link to the `quickLinks` array in Footer.tsx (visible in the Quick Links column)
+- Set `isOwnerAuth: true` in Zustand store (src/lib/store.ts) to bypass login screen during build mode
+- Hidden "●" dot entry preserved as backup access point
+- Verified dev server running: both `/` and `/dashboard` return HTTP 200
+- ESLint: 0 errors, 0 warnings
+
+Stage Summary:
+- Dashboard now accessible directly from footer "Quick Links" section without login
+- Login screen bypassed via `isOwnerAuth: true` default in store (build mode)
+- To re-enable login: set `isOwnerAuth: false` in store.ts
