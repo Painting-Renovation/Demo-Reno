@@ -1,13 +1,4 @@
-import { PrismaClient } from '@prisma/client'
-
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClient | undefined
-}
-
-export const db =
-  globalForPrisma.prisma ??
-  new PrismaClient({
-    log: ['query'],
-  })
-
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = db
+// Backward-compatible re-export from Supabase server client.
+// All API routes now use supabase-server.ts directly.
+// This file is kept for any remaining imports of `db` from '@/lib/db'.
+export { supabase, toCamelCase, rowsToCamelCase, toSnakeCase } from './supabase-server'
