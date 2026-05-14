@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { supabase, toCamelCase, rowsToCamelCase, toSnakeCase } from '@/lib/supabase-server';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -18,19 +18,28 @@ export async function GET(request: NextRequest) {
     const featured = searchParams.get('featured');
     const limit = parseInt(searchParams.get('limit') || '50');
 
-    const where: Record<string, unknown> = { isApproved: true };
+    let query = supabase
+      .from('Testimonial')
+      .select('*')
+      .eq('is_approved', true)
+      .order('is_featured', { ascending: false })
+      .order('created_at', { ascending: false })
+      .limit(limit);
+
     if (featured === 'true') {
-      where.isFeatured = true;
+      query = query.eq('is_featured', true);
     }
 
-    const testimonials = await db.testimonial.findMany({
-      where,
-      orderBy: [
-        { isFeatured: 'desc' },
-        { createdAt: 'desc' },
-      ],
-      take: limit,
-    });
+    const { data, error } = await query;
+
+    if (error) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500, headers: corsHeaders }
+      );
+    }
+
+    const testimonials = rowsToCamelCase(data || []);
 
     return NextResponse.json(
       { success: true, data: testimonials },
@@ -63,8 +72,9 @@ export async function POST(request: NextRequest) {
     // Auto-approve featured testimonials, otherwise they need manual approval
     const isApproved = isFeatured ? true : false;
 
-    const testimonial = await db.testimonial.create({
-      data: {
+    const { data: testimonial, error } = await supabase
+      .from('Testimonial')
+      .insert(toSnakeCase({
         name,
         location: location || null,
         rating: rating || 5,
@@ -72,11 +82,19 @@ export async function POST(request: NextRequest) {
         service: service || null,
         isFeatured: isFeatured || false,
         isApproved,
-      },
-    });
+      }))
+      .select()
+      .single();
+
+    if (error) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500, headers: corsHeaders }
+      );
+    }
 
     return NextResponse.json(
-      { success: true, data: testimonial },
+      { success: true, data: toCamelCase(testimonial) },
       { status: 201, headers: corsHeaders }
     );
   } catch (error: unknown) {

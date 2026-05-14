@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { supabase, toCamelCase, toSnakeCase } from '@/lib/supabase-server';
 
 // PUT /api/quotes/[id] — update quote
 export async function PUT(
@@ -10,8 +10,14 @@ export async function PUT(
     const { id } = await params;
     const body = await request.json();
 
-    const quote = await db.quote.findUnique({ where: { id } });
-    if (!quote) {
+    // Check if quote exists
+    const { data: quote, error: findError } = await supabase
+      .from('Quote')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (findError || !quote) {
       return NextResponse.json({ error: 'Quote not found' }, { status: 404 });
     }
 
@@ -27,14 +33,20 @@ export async function PUT(
       }
     }
 
-    if (body.validUntil) updateData.validUntil = new Date(body.validUntil);
+    if (body.validUntil) updateData.validUntil = new Date(body.validUntil).toISOString();
 
-    const updated = await db.quote.update({
-      where: { id },
-      data: updateData,
-    });
+    const { data: updated, error } = await supabase
+      .from('Quote')
+      .update(toSnakeCase(updateData))
+      .eq('id', id)
+      .select()
+      .single();
 
-    return NextResponse.json(updated);
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json(toCamelCase(updated));
   } catch (error) {
     console.error('PUT /api/quotes/[id] error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -49,7 +61,14 @@ export async function DELETE(
   try {
     const { id } = await params;
 
-    await db.quote.delete({ where: { id } });
+    const { error } = await supabase
+      .from('Quote')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

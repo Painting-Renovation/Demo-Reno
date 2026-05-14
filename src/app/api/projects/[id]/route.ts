@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { supabase, toCamelCase, toSnakeCase } from '@/lib/supabase-server';
 
 // PUT /api/projects/[id] — update project
 export async function PUT(
@@ -10,8 +10,14 @@ export async function PUT(
     const { id } = await params;
     const body = await request.json();
 
-    const project = await db.project.findUnique({ where: { id } });
-    if (!project) {
+    // Check if project exists
+    const { data: project, error: findError } = await supabase
+      .from('Project')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (findError || !project) {
       return NextResponse.json({ error: 'Project not found' }, { status: 404 });
     }
 
@@ -28,15 +34,21 @@ export async function PUT(
       }
     }
 
-    if (body.startDate) updateData.startDate = new Date(body.startDate);
-    if (body.endDate) updateData.endDate = new Date(body.endDate);
+    if (body.startDate) updateData.startDate = new Date(body.startDate).toISOString();
+    if (body.endDate) updateData.endDate = new Date(body.endDate).toISOString();
 
-    const updated = await db.project.update({
-      where: { id },
-      data: updateData,
-    });
+    const { data: updated, error } = await supabase
+      .from('Project')
+      .update(toSnakeCase(updateData))
+      .eq('id', id)
+      .select()
+      .single();
 
-    return NextResponse.json(updated);
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json(toCamelCase(updated));
   } catch (error) {
     console.error('PUT /api/projects/[id] error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -51,7 +63,14 @@ export async function DELETE(
   try {
     const { id } = await params;
 
-    await db.project.delete({ where: { id } });
+    const { error } = await supabase
+      .from('Project')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

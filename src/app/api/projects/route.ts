@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { supabase, toCamelCase, rowsToCamelCase, toSnakeCase } from '@/lib/supabase-server';
 
 // GET /api/projects — list projects
 export async function GET(request: NextRequest) {
@@ -8,14 +8,26 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status');
     const limit = searchParams.get('limit');
 
-    const where: Record<string, unknown> = {};
-    if (status && status !== 'all') where.status = status;
+    let query = supabase
+      .from('Project')
+      .select('*')
+      .order('created_at', { ascending: false });
 
-    const projects = await db.project.findMany({
-      where,
-      orderBy: { createdAt: 'desc' },
-      take: limit ? parseInt(limit) : undefined,
-    });
+    if (status && status !== 'all') {
+      query = query.eq('status', status);
+    }
+
+    if (limit) {
+      query = query.limit(parseInt(limit));
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    const projects = rowsToCamelCase(data || []);
 
     return NextResponse.json({ data: projects });
   } catch (error) {
@@ -37,23 +49,29 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Project name is required' }, { status: 400 });
     }
 
-    const project = await db.project.create({
-      data: {
+    const { data: project, error } = await supabase
+      .from('Project')
+      .insert(toSnakeCase({
         name,
         description: description || null,
         serviceType: serviceType || null,
         status: status || 'pending',
-        startDate: startDate ? new Date(startDate) : null,
-        endDate: endDate ? new Date(endDate) : null,
+        startDate: startDate ? new Date(startDate).toISOString() : null,
+        endDate: endDate ? new Date(endDate).toISOString() : null,
         estimatedCost: estimatedCost ? parseFloat(String(estimatedCost)) : null,
         address: address || null,
         notes: notes || null,
         teamMembers: teamMembers || null,
         leadId: leadId || null,
-      },
-    });
+      }))
+      .select()
+      .single();
 
-    return NextResponse.json(project, { status: 201 });
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json(toCamelCase(project), { status: 201 });
   } catch (error) {
     console.error('POST /api/projects error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
