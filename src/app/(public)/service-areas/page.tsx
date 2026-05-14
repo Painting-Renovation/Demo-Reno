@@ -145,11 +145,11 @@ export default function ServiceAreasPage() {
                   <ArrowRight className="w-5 h-5" />
                 </Link>
                 <a
-                  href="tel:+14165550199"
+                  href="tel:+14375350494"
                   className="inline-flex items-center gap-2 border-2 border-white/20 hover:border-gold text-white hover:text-gold font-semibold px-8 py-4 rounded-xl transition-all duration-200"
                 >
                   <Phone className="w-5 h-5" />
-                  (416) 555-0199
+                  (437) 535-0494
                 </a>
               </div>
             </div>

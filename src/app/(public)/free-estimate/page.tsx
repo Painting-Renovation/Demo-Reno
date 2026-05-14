@@ -155,7 +155,7 @@ export default function FreeEstimatePage() {
                   <input
                     type="tel"
                     required
-                    placeholder="(416) 555-0199"
+                    placeholder="(437) 535-0494"
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 text-navy placeholder:text-gray-400 focus:border-gold focus:ring-2 focus:ring-gold/20 transition-all bg-white"
                   />
                 </div>
@@ -311,11 +311,11 @@ export default function FreeEstimatePage() {
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a
-                  href="tel:+14165550199"
+                  href="tel:+14375350494"
                   className="inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-white font-bold px-8 py-4 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-gold/25 text-lg"
                 >
                   <Phone className="w-5 h-5" />
-                  (416) 555-0199
+                  (437) 535-0494
                 </a>
                 <Link
                   href="/contact"

@@ -91,14 +91,14 @@ export default function FAQPage() {
                 <div className="flex flex-col items-center gap-2 text-white/60 p-4">
                   <Phone className="w-5 h-5 text-gold" />
                   <span className="text-sm font-medium text-white/80">
-                    (416) 555-0199
+                    (437) 535-0494
                   </span>
                   <span className="text-xs">Mon–Sat, 8am–6pm</span>
                 </div>
                 <div className="flex flex-col items-center gap-2 text-white/60 p-4">
                   <Mail className="w-5 h-5 text-gold" />
                   <span className="text-sm font-medium text-white/80">
-                    hello@procoatpainters.com
+                    infoinandoutdemolition@gmail.com
                   </span>
                   <span className="text-xs">Response within 24hrs</span>
                 </div>

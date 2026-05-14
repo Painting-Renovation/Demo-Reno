@@ -94,10 +94,10 @@ export default function NeighborhoodsPage() {
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </Link>
-              <a href="tel:4165557246">
+              <a href="tel:+14375350494">
                 <Button variant="outline" className="border-2 border-navy/20 text-navy hover:bg-navy/5 px-6 py-3 rounded-lg transition-all">
                   <Phone className="w-4 h-4 mr-2" />
-                  (416) 555-PAINT
+                  (437) 535-0494
                 </Button>
               </a>
             </div>

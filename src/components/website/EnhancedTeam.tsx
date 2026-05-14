@@ -42,7 +42,7 @@ const teamMembers: TeamMember[] = [
     specialties: ['Color Matching', 'Exterior Finishes', 'Historic Restoration', 'Team Leadership'],
     funFact: 'James once painted a mural that was featured in Toronto Life magazine.',
     linkedin: '#',
-    email: 'james@procoatpainters.com',
+    email: 'infoinandoutdemolition@gmail.com',
   },
   {
     name: 'Sarah Rodriguez',
@@ -56,7 +56,7 @@ const teamMembers: TeamMember[] = [
     specialties: ['Project Planning', 'Client Relations', 'Quality Control', 'Interior Design'],
     funFact: 'Sarah can identify over 200 paint colors by sight alone — no joke!',
     linkedin: '#',
-    email: 'sarah@procoatpainters.com',
+    email: 'infoinandoutdemolition@gmail.com',
   },
   {
     name: 'David Kim',
@@ -70,7 +70,7 @@ const teamMembers: TeamMember[] = [
     specialties: ['Fine Finishes', 'Cabinet Refinishing', 'Faux Finishes', 'Eco-Friendly Coatings'],
     funFact: 'David competed in a national painting competition and placed 2nd in Canada.',
     linkedin: '#',
-    email: 'david@procoatpainters.com',
+    email: 'infoinandoutdemolition@gmail.com',
   },
   {
     name: 'Emily Chen',
@@ -84,7 +84,7 @@ const teamMembers: TeamMember[] = [
     specialties: ['Color Psychology', 'Trend Forecasting', 'Benjamin Moore Expert', 'Farrow & Ball Specialist'],
     funFact: 'Emily has a side business painting custom pet portraits on reclaimed wood.',
     linkedin: '#',
-    email: 'emily@procoatpainters.com',
+    email: 'infoinandoutdemolition@gmail.com',
   },
 ];
 

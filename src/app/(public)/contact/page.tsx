@@ -26,25 +26,25 @@ const contactDetails = [
   {
     icon: Phone,
     title: 'Phone',
-    value: '(416) 555-PAINT',
-    link: 'tel:4165557246',
+    value: '(437) 535-0494',
+    link: 'tel:+14375350494',
     description: 'Call us anytime during business hours for a free consultation.',
     color: 'bg-gold/10 text-gold',
   },
   {
     icon: Mail,
     title: 'Email',
-    value: 'info@procoatpainters.ca',
-    link: 'mailto:info@procoatpainters.ca',
+    value: 'infoinandoutdemolition@gmail.com',
+    link: 'mailto:infoinandoutdemolition@gmail.com',
     description: 'We respond within 2 hours during business hours.',
     color: 'bg-navy/10 text-navy',
   },
   {
     icon: MapPin,
     title: 'Office Address',
-    value: '123 Painting Lane, Suite 200',
-    subValue: 'Toronto, ON M4B 1B3',
-    link: 'https://maps.google.com/?q=123+Painting+Lane+Toronto+ON',
+    value: '3300 Highway 7 W, Suite 600',
+    subValue: 'Vaughan ON L4K 4M3',
+    link: 'https://maps.google.com/?q=3300+Highway+7+W+Suite+600+Vaughan+ON',
     description: 'Visit us or request an on-site estimate at your location.',
     color: 'bg-sage/10 text-sage',
   },
@@ -200,10 +200,10 @@ export default function ContactPage() {
                   <div className="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-gold/30">
                     <MapPin className="w-8 h-8 text-gold" />
                   </div>
-                  <p className="text-white/90 font-semibold mb-1">123 Painting Lane, Suite 200</p>
-                  <p className="text-white/50 text-sm mb-4">Toronto, ON M4B 1B3</p>
+                  <p className="text-white/90 font-semibold mb-1">3300 Highway 7 W, Suite 600</p>
+                  <p className="text-white/50 text-sm mb-4">Vaughan ON L4K 4M3</p>
                   <a
-                    href="https://maps.google.com/?q=123+Painting+Lane+Toronto+ON"
+                    href="https://maps.google.com/?q=3300+Highway+7+W+Suite+600+Vaughan+ON"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm hover:bg-white/25 rounded-full px-5 py-2.5 border border-white/20 transition-all duration-300 text-white text-sm font-semibold hover:-translate-y-0.5"

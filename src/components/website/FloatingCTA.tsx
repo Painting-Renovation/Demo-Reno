@@ -55,7 +55,7 @@ export function FloatingCTA() {
             >
               {/* Phone call button (mobile) */}
               <motion.a
-                href="tel:+14165550199"
+                href="tel:+14375350494"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="md:hidden flex items-center gap-2 bg-navy hover:bg-navy-light text-white pl-4 pr-5 py-3 rounded-full shadow-lg transition-colors"

@@ -272,8 +272,8 @@ export function FAQ() {
                       </div>
                       <div>
                         <p className="text-white/50 text-xs font-medium uppercase tracking-wider mb-1">Phone</p>
-                        <a href="tel:4165557246" className="text-white font-semibold hover:text-gold transition-colors">
-                          (416) 555-PAINT
+                        <a href="tel:+14375350494" className="text-white font-semibold hover:text-gold transition-colors">
+                          (437) 535-0494
                         </a>
                       </div>
                     </div>
@@ -284,8 +284,8 @@ export function FAQ() {
                       </div>
                       <div>
                         <p className="text-white/50 text-xs font-medium uppercase tracking-wider mb-1">Email</p>
-                        <a href="mailto:info@procoatpainters.com" className="text-white font-semibold hover:text-gold transition-colors text-sm">
-                          info@procoatpainters.com
+                        <a href="mailto:infoinandoutdemolition@gmail.com" className="text-white font-semibold hover:text-gold transition-colors text-sm">
+                          infoinandoutdemolition@gmail.com
                         </a>
                       </div>
                     </div>

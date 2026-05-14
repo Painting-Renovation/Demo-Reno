@@ -221,11 +221,11 @@ export function Navbar() {
             {/* Right Side */}
             <div className="flex items-center gap-3">
               <a
-                href="tel:4165557246"
+                href="tel:+14375350494"
                 className="hidden md:flex items-center gap-2 text-white/90 hover:text-gold transition-colors text-sm font-medium group"
               >
                 <Phone className="w-4 h-4" />
-                <span>(416) 555-PAINT</span>
+                <span>(437) 535-0494</span>
                 <span className="ml-1 inline-flex items-center gap-1 bg-gold/15 text-gold text-[10px] font-bold px-2 py-0.5 rounded-full border border-gold/20 uppercase tracking-wider group-hover:bg-gold/25 transition-colors">
                   <Sparkles className="w-2.5 h-2.5" />
                   Free
@@ -335,11 +335,11 @@ export function Navbar() {
 
                 <div className="mt-auto flex flex-col gap-4">
                   <a
-                    href="tel:4165557246"
+                    href="tel:+14375350494"
                     className="flex items-center gap-3 text-white/80 hover:text-gold px-4 py-3 rounded-xl bg-white/5 transition-all group"
                   >
                     <Phone className="w-4 h-4" />
-                    <span className="text-sm font-medium">(416) 555-PAINT</span>
+                    <span className="text-sm font-medium">(437) 535-0494</span>
                     <span className="ml-auto inline-flex items-center gap-1 bg-gold/15 text-gold text-[9px] font-bold px-2 py-0.5 rounded-full border border-gold/20 uppercase tracking-wider">
                       <Sparkles className="w-2.5 h-2.5" />
                       Free

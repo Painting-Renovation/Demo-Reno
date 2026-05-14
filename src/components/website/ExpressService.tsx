@@ -392,11 +392,11 @@ export function ExpressService() {
           <p className="text-gray-500 mb-4 text-sm">Need immediate help? Call us directly.</p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
             <a
-              href="tel:+14165551234"
+              href="tel:+14375350494"
               className="inline-flex items-center gap-2 text-navy font-bold text-lg hover:text-gold transition-colors"
             >
               <Phone className="w-5 h-5" />
-              (416) 555-1234
+              (437) 535-0494
             </a>
             <span className="text-gray-300">|</span>
             <Button

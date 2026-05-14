@@ -263,7 +263,7 @@ export function AppointmentForm() {
                   <Input
                     id="appt-phone"
                     type="tel"
-                    placeholder="(416) 555-0000"
+                    placeholder="(437) 535-0494"
                     {...register('phone')}
                     className={errors.phone ? 'border-red-400 focus-visible:ring-red-200' : ''}
                   />

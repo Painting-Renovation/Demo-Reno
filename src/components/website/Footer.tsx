@@ -61,7 +61,7 @@ export function Footer() {
                 </Button>
               </Link>
               <a
-                href="tel:4165557246"
+                href="tel:+14375350494"
                 className="inline-flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 text-navy font-semibold px-6 py-3.5 rounded-lg transition-all border border-navy/20"
               >
                 <Phone className="w-4 h-4" />
@@ -191,8 +191,8 @@ export function Footer() {
                   <Phone className="w-3.5 h-3.5 text-gold" />
                 </div>
                 <div>
-                  <a href="tel:4165557246" className="footer-link-lift text-white/60 hover:text-white text-sm">
-                    (416) 555-PAINT
+                  <a href="tel:+14375350494" className="footer-link-lift text-white/60 hover:text-white text-sm">
+                    (437) 535-0494
                   </a>
                 </div>
               </li>
@@ -200,8 +200,8 @@ export function Footer() {
                 <div className="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Mail className="w-3.5 h-3.5 text-gold" />
                 </div>
-                <a href="mailto:info@procoatpainters.ca" className="footer-link-lift text-white/60 hover:text-white text-sm mt-1 inline-block">
-                  info@procoatpainters.ca
+                <a href="mailto:infoinandoutdemolition@gmail.com" className="footer-link-lift text-white/60 hover:text-white text-sm mt-1 inline-block">
+                  infoinandoutdemolition@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-3">
@@ -209,8 +209,8 @@ export function Footer() {
                   <MapPin className="w-3.5 h-3.5 text-gold" />
                 </div>
                 <span className="text-white/50 text-sm leading-relaxed mt-1">
-                  123 Painting Lane, Suite 200<br />
-                  Toronto, ON M4B 1B3
+                  3300 Highway 7 W, Suite 600<br />
+                  Vaughan ON L4K 4M3
                 </span>
               </li>
             </ul>

@@ -14,7 +14,7 @@ const teamMembers = [
     accentColor: 'text-gold',
     borderColor: 'border-gold/20',
     linkedin: '#',
-    email: 'james@procoatpainters.com',
+    email: 'infoinandoutdemolition@gmail.com',
     role: 'Leadership',
   },
   {
@@ -26,7 +26,7 @@ const teamMembers = [
     accentColor: 'text-sage-light',
     borderColor: 'border-sage/20',
     linkedin: '#',
-    email: 'sarah@procoatpainters.com',
+    email: 'infoinandoutdemolition@gmail.com',
     role: 'Operations',
   },
   {
@@ -38,7 +38,7 @@ const teamMembers = [
     accentColor: 'text-gold-light',
     borderColor: 'border-gold/20',
     linkedin: '#',
-    email: 'david@procoatpainters.com',
+    email: 'infoinandoutdemolition@gmail.com',
     role: 'Craftsmanship',
   },
   {
@@ -50,7 +50,7 @@ const teamMembers = [
     accentColor: 'text-gold',
     borderColor: 'border-gold/20',
     linkedin: '#',
-    email: 'emily@procoatpainters.com',
+    email: 'infoinandoutdemolition@gmail.com',
     role: 'Design',
   },
 ];

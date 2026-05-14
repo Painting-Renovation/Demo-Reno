@@ -304,7 +304,7 @@ export default function QuickActions() {
             </div>
             <div className="space-y-1.5">
               <Label className="text-xs">Phone</Label>
-              <Input value={newLead.phone} onChange={(e) => setNewLead({ ...newLead, phone: e.target.value })} placeholder="(416) 555-0123" />
+              <Input value={newLead.phone} onChange={(e) => setNewLead({ ...newLead, phone: e.target.value })} placeholder="(437) 535-0494" />
             </div>
             <div className="space-y-1.5">
               <Label className="text-xs">Service Type</Label>

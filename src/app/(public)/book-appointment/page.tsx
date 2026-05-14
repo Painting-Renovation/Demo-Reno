@@ -116,7 +116,7 @@ export default function BookAppointmentPage() {
                   <input
                     type="tel"
                     required
-                    placeholder="(416) 555-0199"
+                    placeholder="(437) 535-0494"
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 text-navy placeholder:text-gray-400 focus:border-gold focus:ring-2 focus:ring-gold/20 transition-all bg-white"
                   />
                 </div>
@@ -181,7 +181,7 @@ export default function BookAppointmentPage() {
                 <input
                   type="text"
                   required
-                  placeholder="123 Main St, Toronto, ON M4B 1B3"
+                  placeholder="3300 Highway 7 W, Suite 600, Vaughan ON L4K 4M3"
                   className="w-full px-4 py-3 rounded-xl border border-gray-200 text-navy placeholder:text-gray-400 focus:border-gold focus:ring-2 focus:ring-gold/20 transition-all bg-white"
                 />
               </div>

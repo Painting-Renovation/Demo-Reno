@@ -15,7 +15,10 @@ import {
   ClipboardCheck,
   TrendingUp,
   Sparkles,
+  CalendarCheck,
+  MessageSquare,
 } from 'lucide-react';
+import { KoalendarEmbed } from '@/components/website/KoalendarEmbed';
 import { useAppStore } from '@/lib/store';
 import {
   Dialog,
@@ -285,7 +288,7 @@ export function EstimateForm() {
 
   return (
     <Dialog open={estimateFormOpen} onOpenChange={(open) => !open && handleClose()}>
-      <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto p-0">
+      <DialogContent className="sm:max-w-[750px] max-h-[92vh] overflow-y-auto p-0">
         <DialogHeader className="p-6 pb-0">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-10 h-10 bg-gradient-to-br from-gold to-gold-light rounded-xl flex items-center justify-center shadow-md">
@@ -305,6 +308,37 @@ export function EstimateForm() {
         <div className="px-6 pb-6">
           {!isSuccess ? (
             <>
+              {/* Koalendar Booking Widget Section */}
+              <div className="mb-6 mt-2">
+                <div className="flex items-center gap-2.5 mb-4">
+                  <div className="w-9 h-9 bg-gradient-to-br from-[#C8973E] to-[#E8B94E] rounded-xl flex items-center justify-center shadow-sm">
+                    <CalendarCheck className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-[#0B1D3A]">
+                      Book Your Free Appointment
+                    </h3>
+                    <p className="text-xs text-gray-500">
+                      Pick a time that works best for you — no obligation.
+                    </p>
+                  </div>
+                </div>
+                <KoalendarEmbed />
+              </div>
+
+              {/* Visual Separator */}
+              <div className="relative my-6">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-gray-200" />
+                </div>
+                <div className="relative flex justify-center">
+                  <span className="bg-white px-4 py-1.5 text-xs text-gray-400 font-medium flex items-center gap-1.5 rounded-full border border-gray-100">
+                    <MessageSquare className="w-3.5 h-3.5" />
+                    Prefer to send us a message? Fill out the form below.
+                  </span>
+                </div>
+              </div>
+
               {/* Step Progress Indicator */}
               <div className="mb-8 mt-2">
                 <div className="flex items-center justify-between relative">
@@ -400,7 +434,7 @@ export function EstimateForm() {
                         <Input
                           id="phone"
                           type="tel"
-                          placeholder="(416) 555-0000"
+                          placeholder="(437) 535-0494"
                           {...register('phone')}
                           className={errors.phone ? 'border-red-400 focus-visible:ring-red-200' : ''}
                         />
@@ -428,7 +462,7 @@ export function EstimateForm() {
                       <FloatingField label="Postal Code *" htmlFor="postalCode" error={errors.postalCode}>
                         <Input
                           id="postalCode"
-                          placeholder="M4B 1B3"
+                          placeholder="L4K 4M3"
                           {...register('postalCode')}
                           className={errors.postalCode ? 'border-red-400 focus-visible:ring-red-200' : ''}
                         />

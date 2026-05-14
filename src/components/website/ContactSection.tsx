@@ -35,21 +35,21 @@ const contactInfo = [
   {
     icon: Phone,
     label: 'Phone',
-    value: '(416) 555-PAINT',
-    href: 'tel:4165557246',
+    value: '(437) 535-0494',
+    href: 'tel:+14375350494',
     color: 'bg-gold/10 text-gold',
   },
   {
     icon: Mail,
     label: 'Email',
-    value: 'info@procoatpainters.ca',
-    href: 'mailto:info@procoatpainters.ca',
+    value: 'infoinandoutdemolition@gmail.com',
+    href: 'mailto:infoinandoutdemolition@gmail.com',
     color: 'bg-navy/10 text-navy',
   },
   {
     icon: MapPin,
     label: 'Address',
-    value: '123 Painting Lane, Suite 200\nToronto, ON M4B 1B3',
+    value: '3300 Highway 7 W, Suite 600\nVaughan ON L4K 4M3',
     href: '#',
     color: 'bg-sage/10 text-sage',
   },
@@ -321,8 +321,8 @@ export function ContactSection() {
                 <div className="w-14 h-14 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-3 border border-gold/30">
                   <MapPin className="w-7 h-7 text-gold" />
                 </div>
-                <p className="text-sm text-white/90 font-medium">123 Painting Lane, Toronto</p>
-                <p className="text-xs text-white/50 mt-1">Suite 200, M4B 1B3</p>
+                <p className="text-sm text-white/90 font-medium">3300 Highway 7 W, Vaughan</p>
+                <p className="text-xs text-white/50 mt-1">Suite 600, L4K 4M3</p>
                 <button className="mt-3 inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm hover:bg-white/25 rounded-full px-4 py-2 border border-white/20 transition-all duration-300 text-white text-xs font-semibold cursor-pointer hover:-translate-y-0.5">
                   <Navigation className="w-3.5 h-3.5" />
                   Get Directions
@@ -405,7 +405,7 @@ export function ContactSection() {
                       <Input
                         id="contact-phone"
                         type="tel"
-                        placeholder="(416) 555-0000"
+                        placeholder="(437) 535-0494"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="bg-white border-gray-200 form-input-glow transition-all"

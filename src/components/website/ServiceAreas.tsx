@@ -332,11 +332,11 @@ export function ServiceAreas() {
                       Request Service in Your Area
                     </Button>
                     <a
-                      href="tel:+14165550199"
+                      href="tel:+14375350494"
                       className="inline-flex items-center gap-1.5 text-sm font-medium text-navy hover:text-gold transition-colors"
                     >
                       <Phone className="w-3.5 h-3.5" />
-                      (416) 555-0199
+                      (437) 535-0494
                     </a>
                   </div>
                 </div>

@@ -29,9 +29,9 @@ const VALID_UNTIL = 'February 10, 2025';
 const COMPANY = {
   name: 'ProCoat Painters',
   tagline: 'Professional Painting Services',
-  address: '123 Bay Street, Toronto, ON M5H 2V2',
-  phone: '(416) 555-PAINT',
-  email: 'info@procoatpainters.com',
+  address: '3300 Highway 7 W, Suite 600, Vaughan ON L4K 4M3',
+  phone: '(437) 535-0494',
+  email: 'infoinandoutdemolition@gmail.com',
   website: 'www.procoatpainters.com',
   license: 'License #BC-7842',
   hstNumber: 'HST 84739 2651 RT0001',

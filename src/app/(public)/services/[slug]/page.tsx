@@ -373,7 +373,7 @@ export default function ServiceDetailPage() {
 
                 <div className="mt-6 flex items-center justify-center gap-2 text-sm text-white/40">
                   <Phone className="w-3.5 h-3.5" />
-                  <span>Or call (416) 555-0123</span>
+                  <span>Or call (437) 535-0494</span>
                 </div>
               </motion.div>
 

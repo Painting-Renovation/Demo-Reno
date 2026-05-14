@@ -90,7 +90,7 @@ const initialInvoices: Invoice[] = [
     number: 'INV-2025-001',
     client: 'Sarah Mitchell',
     email: 'sarah.mitchell@email.com',
-    address: '42 Oakwood Dr, Toronto, ON M4B 1B3',
+    address: '3300 Highway 7 W, Suite 600, Vaughan ON L4K 4M3',
     status: 'Paid',
     date: '2025-01-15',
     dueDate: '2025-02-15',
