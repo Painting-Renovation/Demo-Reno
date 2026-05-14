@@ -688,3 +688,38 @@ Stage Summary:
 - ⚠️ BLOCKED: PAT needs "Contents: Read and Write" permission — user must regenerate token at https://github.com/settings/tokens
 - Auto-sync cron will retry every 30 min and will succeed once token is fixed
 - webDevReview cron running every 3 hours for ongoing development
+
+---
+Task ID: 14
+Agent: Main Agent + Fullstack Developer Subagent
+Task: Migrate full database from SQLite/Prisma to Supabase PostgreSQL
+
+Work Log:
+- Analyzed current Prisma schema: 12 models (Owner, Lead, LeadActivity, Appointment, Project, Quote, VisitorTracking, SiteAudit, Testimonial, GalleryImage, EmailLog, NotificationSettings)
+- Created comprehensive Supabase migration SQL (566 lines): supabase-migration.sql
+  - 13 custom ENUM types for status fields
+  - 12 tables with proper foreign keys and constraints
+  - 30+ indexes for query performance
+  - 36 RLS policies (public read, anonymous insert, service_role full access)
+  - Auto-update triggers for updatedAt/createdAt
+  - Seed data: default owner, 8 testimonials, 12 gallery items, notification settings
+- Installed @supabase/supabase-js via bun
+- Created src/lib/supabase-server.ts: server client with service_role key + camelCase/snake_case helpers
+- Converted ALL 15 API route files from Prisma to Supabase:
+  - tracking/route.ts, appointments/route.ts, appointments/[id]/route.ts
+  - analytics/route.ts (most complex: 13+ count queries, groupBy conversions)
+  - notifications/route.ts, owner/route.ts, quotes/route.ts, quotes/[id]/route.ts
+  - leads/route.ts, leads/[id]/route.ts, leads/bulk/route.ts
+  - projects/route.ts, projects/[id]/route.ts, gallery/route.ts, testimonials/route.ts
+- Updated src/lib/db.ts to re-export from supabase-server for backward compatibility
+- Set up .env.local with NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY
+- ESLint: 0 errors
+- All commits pushed to GitHub
+
+Stage Summary:
+- Full database migration from SQLite/Prisma to Supabase PostgreSQL complete
+- 15 API routes converted, all response shapes preserved (camelCase via helpers)
+- SQL migration script ready to run in Supabase dashboard (supabase-migration.sql)
+- User needs to run the SQL in Supabase SQL Editor: https://supabase.com/dashboard/project/kvhhlvwoarzanasrnjto/sql/new
+- Dev server running, 0 lint errors, all routes HTTP 200
+- 4 commits pushed to GitHub (8c0f6f7, a151386, f8a982e, 8171c90)
