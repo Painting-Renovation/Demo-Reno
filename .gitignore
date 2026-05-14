@@ -50,5 +50,21 @@ test
 prompt
 
 server.log
+
 # agent-ctx (internal agent working directory)
 agent-ctx/
+
+# download / upload directories (runtime data)
+download/
+upload/
+
+# mini-services (runtime processes, not source)
+mini-services/node_modules/
+mini-services/*.db
+
+# prisma database files
+db/*.db
+db/*.db-journal
+
+# worklog drafts (internal)
+worklog-*.md
