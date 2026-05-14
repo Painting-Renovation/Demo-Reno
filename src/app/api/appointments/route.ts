@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { supabase, toCamelCase, rowsToCamelCase, toSnakeCase } from '@/lib/supabase-server';
 
 // GET /api/appointments — list appointments
 export async function GET(request: NextRequest) {
@@ -8,19 +8,26 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get('status');
     const limit = searchParams.get('limit');
 
-    const where: Record<string, unknown> = {};
+    let query = supabase
+      .from('Appointment')
+      .select('*')
+      .order('date', { ascending: true });
+
     if (status && status !== 'all') {
-      where.status = status;
-    } else {
-      // By default, show upcoming (non-completed, non-cancelled)
-      // But if no filter, show all
+      query = query.eq('status', status);
     }
 
-    const appointments = await db.appointment.findMany({
-      where,
-      orderBy: { date: 'asc' },
-      take: limit ? parseInt(limit) : undefined,
-    });
+    if (limit) {
+      query = query.limit(parseInt(limit));
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    const appointments = rowsToCamelCase(data || []);
 
     return NextResponse.json({ data: appointments });
   } catch (error) {
@@ -49,8 +56,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const appointment = await db.appointment.create({
-      data: {
+    const { data: appointment, error } = await supabase
+      .from('Appointment')
+      .insert(toSnakeCase({
         firstName,
         lastName,
         email,
@@ -58,14 +66,19 @@ export async function POST(request: NextRequest) {
         address: address || null,
         serviceType: serviceType || null,
         notes: notes || null,
-        date: new Date(resolvedDate),
+        date: new Date(resolvedDate).toISOString(),
         duration: duration || 60,
         leadId: leadId || null,
         status: 'scheduled',
-      },
-    });
+      }))
+      .select()
+      .single();
 
-    return NextResponse.json(appointment, { status: 201 });
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json(toCamelCase(appointment), { status: 201 });
   } catch (error) {
     console.error('POST /api/appointments error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

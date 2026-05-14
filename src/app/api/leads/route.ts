@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { supabase, toCamelCase, rowsToCamelCase, toSnakeCase } from '@/lib/supabase-server';
 
 // GET /api/leads — list leads with optional filters
 export async function GET(request: NextRequest) {
@@ -12,42 +12,76 @@ export async function GET(request: NextRequest) {
     const limit = searchParams.get('limit') || '50';
     const sort = searchParams.get('sort');
 
-    const where: Record<string, unknown> = {};
-    if (status && status !== 'all') where.status = status;
-    if (funnelStage) where.funnelStage = funnelStage;
-    if (search) {
-      where.OR = [
-        { firstName: { contains: search } },
-        { lastName: { contains: search } },
-        { email: { contains: search } },
-        { phone: { contains: search } },
-        { city: { contains: search } },
-      ];
+    let query = supabase
+      .from('Lead')
+      .select('*');
+
+    if (status && status !== 'all') {
+      query = query.eq('status', status);
+    }
+    if (funnelStage) {
+      query = query.eq('funnel_stage', funnelStage);
     }
 
-    const orderBy: Record<string, string> = sort === 'oldest'
-      ? { createdAt: 'asc' }
-      : { createdAt: 'desc' };
+    // Text search across multiple fields using OR
+    if (search) {
+      query = query.or(
+        `first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%,city.ilike.%${search}%`
+      );
+    }
 
-    const skip = (parseInt(page) - 1) * parseInt(limit);
+    // Sorting
+    if (sort === 'oldest') {
+      query = query.order('created_at', { ascending: true });
+    } else {
+      query = query.order('created_at', { ascending: false });
+    }
+
+    // Count total matching records
+    const { count: total, error: countError } = await supabase
+      .from('Lead')
+      .select('*', { count: 'exact', head: true })
+      .eq(status && status !== 'all' ? 'status' : 'id', status && status !== 'all' ? status : 'id')
+      .ilike(status && status !== 'all' ? 'id' : 'id', status && status !== 'all' ? 'id' : '%');
+
+    // Pagination
+    const offset = (parseInt(page) - 1) * parseInt(limit);
     const includeScore = searchParams.get('score') === 'true';
 
-    const [leads, total] = await Promise.all([
-      db.lead.findMany({
-        where,
-        orderBy,
-        skip,
-        take: parseInt(limit),
-        include: {
-          _count: { select: { appointments: true, projects: true, quotes: true, activities: true } },
+    // Apply pagination
+    query = query.range(offset, offset + parseInt(limit) - 1);
+
+    const { data, error } = await query;
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    const leads = rowsToCamelCase(data || []);
+
+    // Get counts for each lead (appointments, projects, quotes, activities)
+    const leadsWithCounts = await Promise.all(leads.map(async (lead: Record<string, unknown>) => {
+      const [apptRes, projRes, quoteRes, actRes] = await Promise.all([
+        supabase.from('Appointment').select('*', { count: 'exact', head: true }).eq('lead_id', lead.id),
+        supabase.from('Project').select('*', { count: 'exact', head: true }).eq('lead_id', lead.id),
+        supabase.from('Quote').select('*', { count: 'exact', head: true }).eq('lead_id', lead.id),
+        supabase.from('LeadActivity').select('*', { count: 'exact', head: true }).eq('lead_id', lead.id),
+      ]);
+
+      return {
+        ...lead,
+        _count: {
+          appointments: apptRes.count || 0,
+          projects: projRes.count || 0,
+          quotes: quoteRes.count || 0,
+          activities: actRes.count || 0,
         },
-      }),
-      db.lead.count({ where }),
-    ]);
+      };
+    }));
 
     // Compute lead scores if requested
-    const data = includeScore
-      ? leads.map((lead) => {
+    const dataResult = includeScore
+      ? leadsWithCounts.map((lead) => {
           const activityCount = lead._count.activities;
           const statusOrder = ['new', 'contacted', 'qualified', 'proposal', 'won'];
           const statusIdx = statusOrder.indexOf(lead.status) || 0;
@@ -89,15 +123,30 @@ export async function GET(request: NextRequest) {
             },
           };
         })
-      : leads;
+      : leadsWithCounts;
+
+    // Get accurate total count with all filters applied
+    let countQuery = supabase
+      .from('Lead')
+      .select('*', { count: 'exact', head: true });
+
+    if (status && status !== 'all') countQuery = countQuery.eq('status', status);
+    if (funnelStage) countQuery = countQuery.eq('funnel_stage', funnelStage);
+    if (search) {
+      countQuery = countQuery.or(
+        `first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%,city.ilike.%${search}%`
+      );
+    }
+
+    const { count: accurateTotal } = await countQuery;
 
     return NextResponse.json({
-      data,
+      data: dataResult,
       pagination: {
         page: parseInt(page),
         limit: parseInt(limit),
-        total,
-        totalPages: Math.ceil(total / parseInt(limit)),
+        total: accurateTotal || 0,
+        totalPages: Math.ceil((accurateTotal || 0) / parseInt(limit)),
       },
     });
   } catch (error) {
@@ -119,8 +168,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Name and email are required' }, { status: 400 });
     }
 
-    const lead = await db.lead.create({
-      data: {
+    const { data: lead, error: leadError } = await supabase
+      .from('Lead')
+      .insert(toSnakeCase({
         firstName,
         lastName,
         email,
@@ -135,22 +185,29 @@ export async function POST(request: NextRequest) {
         leadSource: leadSource || 'website',
         status: 'new',
         funnelStage: 'awareness',
-      },
-    });
+      }))
+      .select()
+      .single();
+
+    if (leadError) {
+      return NextResponse.json({ error: leadError.message }, { status: 500 });
+    }
+
+    const camelLead = toCamelCase(lead);
 
     // Create lead activity
-    await db.leadActivity.create({
-      data: {
-        leadId: lead.id,
+    await supabase
+      .from('LeadActivity')
+      .insert(toSnakeCase({
+        leadId: camelLead.id,
         type: 'estimate',
         description: `New lead created via ${leadSource || 'website'}`,
-      },
-    });
+      }));
 
     // Create site audit entry
-    await db.siteAudit.create({
-      data: { metric: 'estimate_request', value: 1 },
-    });
+    await supabase
+      .from('SiteAudit')
+      .insert(toSnakeCase({ metric: 'estimate_request', value: 1 }));
 
     // Fire notification to notification service (non-blocking)
     fetch('/api/notify?XTransformPort=3001', {
@@ -168,7 +225,7 @@ export async function POST(request: NextRequest) {
       // Non-blocking — don't fail the lead creation if notification fails
     });
 
-    return NextResponse.json(lead, { status: 201 });
+    return NextResponse.json(camelLead, { status: 201 });
   } catch (error) {
     console.error('POST /api/leads error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

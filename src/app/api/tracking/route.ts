@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { supabase, toCamelCase, rowsToCamelCase, toSnakeCase } from '@/lib/supabase-server';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -37,8 +37,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Store in VisitorTracking
-    const tracking = await db.visitorTracking.create({
-      data: {
+    const { data: tracking, error: trackingError } = await supabase
+      .from('VisitorTracking')
+      .insert(toSnakeCase({
         sessionId,
         page,
         referrer: referrer || null,
@@ -49,15 +50,24 @@ export async function POST(request: NextRequest) {
         elementId: elementId || null,
         userAgent: userAgent || null,
         leadId: leadId || null,
-      },
-    });
+      }))
+      .select()
+      .single();
+
+    if (trackingError) {
+      return NextResponse.json(
+        { error: trackingError.message },
+        { status: 500, headers: corsHeaders }
+      );
+    }
 
     // If action is form_submit or estimate_request, also update SiteAudit
     if (action === 'form_submit' || action === 'estimate_request') {
       const metric = action === 'estimate_request' ? 'estimate_request' : 'form_submission';
 
-      await db.siteAudit.create({
-        data: {
+      await supabase
+        .from('SiteAudit')
+        .insert(toSnakeCase({
           metric,
           value: 1,
           metadata: JSON.stringify({
@@ -69,12 +79,11 @@ export async function POST(request: NextRequest) {
             elementId,
             leadId,
           }),
-        },
-      });
+        }));
     }
 
     return NextResponse.json(
-      { success: true, data: tracking },
+      { success: true, data: toCamelCase(tracking) },
       { status: 201, headers: corsHeaders }
     );
   } catch (error: unknown) {

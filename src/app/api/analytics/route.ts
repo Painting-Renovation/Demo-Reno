@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { supabase, toCamelCase, rowsToCamelCase } from '@/lib/supabase-server';
 
 // GET /api/analytics — fetch analytics data
 export async function GET(request: NextRequest) {
@@ -27,88 +27,115 @@ export async function GET(request: NextRequest) {
         break;
     }
 
+    const startIso = startDate.toISOString();
+    const nowIso = now.toISOString();
+
     // KPIs
-    const totalLeads = await db.lead.count({
-      where: { createdAt: { gte: startDate } },
-    });
+    const { count: totalLeads, error: tlError } = await supabase
+      .from('Lead')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', startIso);
+    if (tlError) return NextResponse.json({ error: tlError.message }, { status: 500 });
 
-    const activeProjects = await db.project.count({
-      where: { status: 'in-progress' },
-    });
+    const { count: activeProjects, error: apError } = await supabase
+      .from('Project')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'in-progress');
+    if (apError) return NextResponse.json({ error: apError.message }, { status: 500 });
 
-    const completedProjects = await db.project.findMany({
-      where: {
-        status: 'completed',
-        actualCost: { not: null },
-      },
-      select: { actualCost: true },
-    });
+    const { data: completedProjects, error: cpError } = await supabase
+      .from('Project')
+      .select('actual_cost')
+      .eq('status', 'completed')
+      .not('actual_cost', 'is', null);
+    if (cpError) return NextResponse.json({ error: cpError.message }, { status: 500 });
 
-    const revenue = completedProjects.reduce(
-      (sum, p) => sum + (p.actualCost || 0),
+    const revenue = (completedProjects || []).reduce(
+      (sum: number, p) => sum + (p.actual_cost || 0),
       0
     );
 
-    const wonLeads = await db.lead.count({
-      where: { status: 'won', createdAt: { gte: startDate } },
-    });
+    const { count: wonLeads, error: wlError } = await supabase
+      .from('Lead')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'won')
+      .gte('created_at', startIso);
+    if (wlError) return NextResponse.json({ error: wlError.message }, { status: 500 });
 
     const conversionRate = totalLeads > 0
-      ? Math.round((wonLeads / totalLeads) * 100)
+      ? Math.round(((wonLeads || 0) / (totalLeads || 0)) * 100)
       : 0;
 
-    const pendingAppointments = await db.appointment.count({
-      where: {
-        status: { in: ['scheduled', 'confirmed'] },
-        date: { gte: now },
-      },
-    });
+    const { count: pendingAppointments, error: paError } = await supabase
+      .from('Appointment')
+      .select('*', { count: 'exact', head: true })
+      .in('status', ['scheduled', 'confirmed'])
+      .gte('date', nowIso);
+    if (paError) return NextResponse.json({ error: paError.message }, { status: 500 });
 
     // Previous period comparison
     const periodMs = now.getTime() - startDate.getTime();
     const prevStart = new Date(startDate.getTime() - periodMs);
-    const prevLeads = await db.lead.count({
-      where: { createdAt: { gte: prevStart, lt: startDate } },
-    });
+    const prevStartIso = prevStart.toISOString();
 
-    const leadsChange = prevLeads > 0
-      ? Math.round(((totalLeads - prevLeads) / prevLeads) * 100)
-      : totalLeads > 0 ? 100 : 0;
+    const { count: prevLeads, error: plError } = await supabase
+      .from('Lead')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', prevStartIso)
+      .lt('created_at', startIso);
+    if (plError) return NextResponse.json({ error: plError.message }, { status: 500 });
+
+    const leadsChange = (prevLeads || 0) > 0
+      ? Math.round((((totalLeads || 0) - (prevLeads || 0)) / (prevLeads || 0)) * 100)
+      : (totalLeads || 0) > 0 ? 100 : 0;
 
     const kpis = {
-      totalLeads,
-      activeProjects,
+      totalLeads: totalLeads || 0,
+      activeProjects: activeProjects || 0,
       revenue,
       conversionRate,
-      pendingAppointments,
+      pendingAppointments: pendingAppointments || 0,
       leadsChange,
       projectsChange: 8,
       revenueChange: 12,
       conversionChange: 5,
     };
 
-    // Leads over time (monthly)
-    const leadsOverTime = await db.$queryRaw`
-      SELECT 
-        strftime('%Y-%m', "createdAt") as date,
-        COUNT(*) as leads
-      FROM "Lead"
-      WHERE "createdAt" >= ${startDate}
-      GROUP BY strftime('%Y-%m', "createdAt")
-      ORDER BY date ASC
-    `;
+    // Leads over time (monthly) — use Supabase RPC or group in app
+    const { data: leadsData, error: lotError } = await supabase
+      .from('Lead')
+      .select('created_at')
+      .gte('created_at', startIso);
+    if (lotError) return NextResponse.json({ error: lotError.message }, { status: 500 });
 
-    const formattedLeadsOverTime = (leadsOverTime as Array<{ date: string; leads: bigint }>).map((item) => ({
-      date: new Date(item.date + '-01').toLocaleDateString('en-US', { month: 'short' }),
-      leads: Number(item.leads),
-    }));
+    // Group leads by month in-app
+    const monthGroups: Record<string, number> = {};
+    for (const row of leadsData || []) {
+      const d = new Date(row.created_at);
+      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+      monthGroups[key] = (monthGroups[key] || 0) + 1;
+    }
+
+    const formattedLeadsOverTime = Object.entries(monthGroups)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([date, leads]) => ({
+        date: new Date(date + '-01').toLocaleDateString('en-US', { month: 'short' }),
+        leads,
+      }));
 
     // Lead sources
-    const leadSources = await db.lead.groupBy({
-      by: ['leadSource'],
-      where: { createdAt: { gte: startDate } },
-      _count: { leadSource: true },
-    });
+    const { data: leadSourceData, error: lsError } = await supabase
+      .from('Lead')
+      .select('lead_source')
+      .gte('created_at', startIso);
+    if (lsError) return NextResponse.json({ error: lsError.message }, { status: 500 });
+
+    // Group by source in-app
+    const sourceGroups: Record<string, number> = {};
+    for (const row of leadSourceData || []) {
+      const key = row.lead_source as string;
+      if (key) sourceGroups[key] = (sourceGroups[key] || 0) + 1;
+    }
 
     const sourceColorMap: Record<string, string> = {
       website: '#0B1D3A',
@@ -117,25 +144,34 @@ export async function GET(request: NextRequest) {
       'walk-in': '#3B82A0',
     };
 
-    const totalSourceLeads = leadSources.reduce((sum, s) => sum + s._count.leadSource, 0);
-    const leadSourcesFormatted = leadSources.map((s) => ({
-      name: s.leadSource.charAt(0).toUpperCase() + s.leadSource.slice(1),
-      value: totalSourceLeads > 0 ? Math.round((s._count.leadSource / totalSourceLeads) * 100) : 0,
-      color: sourceColorMap[s.leadSource] || '#6B7280',
+    const totalSourceLeads = Object.values(sourceGroups).reduce((sum, c) => sum + c, 0);
+    const leadSourcesFormatted = Object.entries(sourceGroups).map(([source, count]) => ({
+      name: source.charAt(0).toUpperCase() + source.slice(1),
+      value: totalSourceLeads > 0 ? Math.round((count / totalSourceLeads) * 100) : 0,
+      color: sourceColorMap[source] || '#6B7280',
     }));
 
     // Service popularity
-    const servicePopularity = await db.lead.groupBy({
-      by: ['serviceType'],
-      where: { createdAt: { gte: startDate }, serviceType: { not: null } },
-      _count: { serviceType: true },
-      orderBy: { _count: { serviceType: 'desc' } },
-    });
+    const { data: serviceData, error: spError } = await supabase
+      .from('Lead')
+      .select('service_type')
+      .gte('created_at', startIso)
+      .not('service_type', 'is', null);
+    if (spError) return NextResponse.json({ error: spError.message }, { status: 500 });
 
-    const servicePopFormatted = servicePopularity.map((s) => ({
-      name: s.serviceType?.replace(' Painting', '').replace(' Refinishing', '') || 'Other',
-      count: s._count.serviceType,
-    }));
+    // Group by service type in-app, then sort descending
+    const serviceGroups: Record<string, number> = {};
+    for (const row of serviceData || []) {
+      const key = row.service_type as string;
+      if (key) serviceGroups[key] = (serviceGroups[key] || 0) + 1;
+    }
+
+    const servicePopFormatted = Object.entries(serviceGroups)
+      .sort(([, a], [, b]) => b - a)
+      .map(([serviceType, count]) => ({
+        name: serviceType?.replace(' Painting', '').replace(' Refinishing', '') || 'Other',
+        count,
+      }));
 
     // Funnel data
     if (view === 'funnel') {
@@ -143,7 +179,11 @@ export async function GET(request: NextRequest) {
       const funnel: Record<string, number> = {};
 
       for (const stage of funnelStages) {
-        funnel[stage] = await db.lead.count({ where: { funnelStage: stage } });
+        const { count } = await supabase
+          .from('Lead')
+          .select('*', { count: 'exact', head: true })
+          .eq('funnel_stage', stage);
+        funnel[stage] = count || 0;
       }
 
       return NextResponse.json({ funnel });
@@ -153,55 +193,69 @@ export async function GET(request: NextRequest) {
     const funnelStages = ['awareness', 'interest', 'consideration', 'intent', 'evaluation', 'purchase'];
     const miniFunnel: Array<{ stage: string; count: number }> = [];
     for (const stage of funnelStages) {
-      const count = await db.lead.count({ where: { funnelStage: stage } });
+      const { count } = await supabase
+        .from('Lead')
+        .select('*', { count: 'exact', head: true })
+        .eq('funnel_stage', stage);
       miniFunnel.push({
         stage: stage.charAt(0).toUpperCase() + stage.slice(1),
-        count,
+        count: count || 0,
       });
     }
 
     // Tracking metrics
-    const pageViews = await db.visitorTracking.count({
-      where: { createdAt: { gte: startDate }, action: 'view' },
-    });
+    const { count: pageViews, error: pvError } = await supabase
+      .from('VisitorTracking')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', startIso)
+      .eq('action', 'view');
+    if (pvError) return NextResponse.json({ error: pvError.message }, { status: 500 });
 
-    const formSubmissions = await db.visitorTracking.count({
-      where: { createdAt: { gte: startDate }, action: { in: ['form_submit', 'estimate_request'] } },
-    });
+    const { count: formSubmissions, error: fsError } = await supabase
+      .from('VisitorTracking')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', startIso)
+      .in('action', ['form_submit', 'estimate_request']);
+    if (fsError) return NextResponse.json({ error: fsError.message }, { status: 500 });
 
-    const phoneClicks = await db.visitorTracking.count({
-      where: { createdAt: { gte: startDate }, action: 'call_click' },
-    });
+    const { count: phoneClicks, error: pcError } = await supabase
+      .from('VisitorTracking')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', startIso)
+      .eq('action', 'call_click');
+    if (pcError) return NextResponse.json({ error: pcError.message }, { status: 500 });
 
-    const appointmentsBooked = await db.appointment.count({
-      where: { createdAt: { gte: startDate } },
-    });
+    const { count: appointmentsBooked, error: abError } = await supabase
+      .from('Appointment')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', startIso);
+    if (abError) return NextResponse.json({ error: abError.message }, { status: 500 });
 
     const metrics = [
       {
         label: 'Page Views',
-        value: pageViews || 2847,
+        value: (pageViews || 0) || 2847,
         change: 12.5,
         icon: 'Eye',
         color: '#0B1D3A',
       },
       {
         label: 'Form Submissions',
-        value: formSubmissions || 48,
+        value: (formSubmissions || 0) || 48,
         change: 8.3,
         icon: 'FileText',
         color: '#C8973E',
       },
       {
         label: 'Phone Calls',
-        value: phoneClicks || 23,
+        value: (phoneClicks || 0) || 23,
         change: -5.2,
         icon: 'Phone',
         color: '#5B7B5A',
       },
       {
         label: 'Appointments Booked',
-        value: appointmentsBooked || 18,
+        value: (appointmentsBooked || 0) || 18,
         change: 15.7,
         icon: 'Calendar',
         color: '#3B82A0',

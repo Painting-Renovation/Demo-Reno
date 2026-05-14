@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { supabase, toCamelCase, toSnakeCase } from '@/lib/supabase-server';
 
 // PUT /api/appointments/[id] — update appointment
 export async function PUT(
@@ -10,8 +10,14 @@ export async function PUT(
     const { id } = await params;
     const body = await request.json();
 
-    const appointment = await db.appointment.findUnique({ where: { id } });
-    if (!appointment) {
+    // Check if appointment exists
+    const { data: appointment, error: findError } = await supabase
+      .from('Appointment')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (findError || !appointment) {
       return NextResponse.json({ error: 'Appointment not found' }, { status: 404 });
     }
 
@@ -28,15 +34,21 @@ export async function PUT(
     }
 
     if (body.date) {
-      updateData.date = new Date(body.date);
+      updateData.date = new Date(body.date).toISOString();
     }
 
-    const updated = await db.appointment.update({
-      where: { id },
-      data: updateData,
-    });
+    const { data: updated, error } = await supabase
+      .from('Appointment')
+      .update(toSnakeCase(updateData))
+      .eq('id', id)
+      .select()
+      .single();
 
-    return NextResponse.json(updated);
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json(toCamelCase(updated));
   } catch (error) {
     console.error('PUT /api/appointments/[id] error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -51,7 +63,14 @@ export async function DELETE(
   try {
     const { id } = await params;
 
-    await db.appointment.delete({ where: { id } });
+    const { error } = await supabase
+      .from('Appointment')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

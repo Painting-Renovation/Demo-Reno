@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { supabase, toSnakeCase } from '@/lib/supabase-server';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -41,30 +41,35 @@ export async function PUT(request: NextRequest) {
       updateData.funnelStage = funnelStage;
     }
 
-    const result = await db.lead.updateMany({
-      where: {
-        id: { in: ids },
-      },
-      data: updateData,
-    });
+    const { error, count } = await supabase
+      .from('Lead')
+      .update(toSnakeCase(updateData))
+      .in('id', ids);
+
+    if (error) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500, headers: corsHeaders }
+      );
+    }
 
     // Create activities for each updated lead
     for (const leadId of ids) {
-      await db.leadActivity.create({
-        data: {
+      await supabase
+        .from('LeadActivity')
+        .insert(toSnakeCase({
           leadId,
           type: 'follow-up',
           description: `Bulk update: status changed to "${status}"${funnelStage ? `, funnel stage to "${funnelStage}"` : ''}`,
           outcome: status,
-        },
-      });
+        }));
     }
 
     return NextResponse.json(
       {
         success: true,
-        data: { count: result.count },
-        message: `${result.count} leads updated successfully`,
+        data: { count: count || ids.length },
+        message: `${count || ids.length} leads updated successfully`,
       },
       { status: 200, headers: corsHeaders }
     );

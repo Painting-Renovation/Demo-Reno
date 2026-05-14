@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { supabase, toCamelCase, rowsToCamelCase } from '@/lib/supabase-server';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -19,22 +19,30 @@ export async function GET(request: NextRequest) {
     const featured = searchParams.get('featured');
     const limit = parseInt(searchParams.get('limit') || '50');
 
-    const where: Record<string, unknown> = {};
+    let query = supabase
+      .from('GalleryImage')
+      .select('*')
+      .order('sort_order', { ascending: true })
+      .order('created_at', { ascending: false })
+      .limit(limit);
+
     if (category) {
-      where.category = category;
+      query = query.eq('category', category);
     }
     if (featured === 'true') {
-      where.isFeatured = true;
+      query = query.eq('is_featured', true);
     }
 
-    const galleryImages = await db.galleryImage.findMany({
-      where,
-      orderBy: [
-        { sortOrder: 'asc' },
-        { createdAt: 'desc' },
-      ],
-      take: limit,
-    });
+    const { data, error } = await query;
+
+    if (error) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 500, headers: corsHeaders }
+      );
+    }
+
+    const galleryImages = rowsToCamelCase(data || []);
 
     return NextResponse.json(
       { success: true, data: galleryImages },

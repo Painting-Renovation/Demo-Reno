@@ -1,27 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
+import { supabase, toCamelCase, toSnakeCase } from '@/lib/supabase-server';
 
 // GET /api/owner — fetch owner profile
 export async function GET() {
   try {
-    const owner = await db.owner.findFirst({
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        phone: true,
-        company: true,
-        address: true,
-        googleEmail: true,
-        slackWebhook: true,
-      },
-    });
+    const { data: owner, error } = await supabase
+      .from('Owner')
+      .select('id, email, name, phone, company, address, google_email, slack_webhook')
+      .limit(1)
+      .single();
 
-    if (!owner) {
+    if (error) {
       return NextResponse.json({ error: 'Owner not found' }, { status: 404 });
     }
 
-    return NextResponse.json(owner);
+    return NextResponse.json(toCamelCase(owner));
   } catch (error) {
     console.error('GET /api/owner error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -37,11 +30,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
     }
 
-    const owner = await db.owner.findUnique({
-      where: { email },
-    });
+    const { data: owner, error } = await supabase
+      .from('Owner')
+      .select('*')
+      .eq('email', email)
+      .single();
 
-    if (!owner) {
+    if (error || !owner) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
@@ -70,34 +65,37 @@ export async function PUT(request: NextRequest) {
     const body = await request.json();
     const { name, phone, company, address, googleEmail, slackWebhook } = body;
 
-    const owner = await db.owner.findFirst();
-    if (!owner) {
+    // Find the owner
+    const { data: owner, error: findError } = await supabase
+      .from('Owner')
+      .select('id')
+      .limit(1)
+      .single();
+
+    if (findError || !owner) {
       return NextResponse.json({ error: 'Owner not found' }, { status: 404 });
     }
 
-    const updated = await db.owner.update({
-      where: { id: owner.id },
-      data: {
-        ...(name !== undefined && { name }),
-        ...(phone !== undefined && { phone }),
-        ...(company !== undefined && { company }),
-        ...(address !== undefined && { address }),
-        ...(googleEmail !== undefined && { googleEmail }),
-        ...(slackWebhook !== undefined && { slackWebhook }),
-      },
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        phone: true,
-        company: true,
-        address: true,
-        googleEmail: true,
-        slackWebhook: true,
-      },
-    });
+    const updateData: Record<string, unknown> = {};
+    if (name !== undefined) updateData.name = name;
+    if (phone !== undefined) updateData.phone = phone;
+    if (company !== undefined) updateData.company = company;
+    if (address !== undefined) updateData.address = address;
+    if (googleEmail !== undefined) updateData.googleEmail = googleEmail;
+    if (slackWebhook !== undefined) updateData.slackWebhook = slackWebhook;
 
-    return NextResponse.json(updated);
+    const { data: updated, error } = await supabase
+      .from('Owner')
+      .update(toSnakeCase(updateData))
+      .eq('id', owner.id)
+      .select('id, email, name, phone, company, address, google_email, slack_webhook')
+      .single();
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json(toCamelCase(updated));
   } catch (error) {
     console.error('PUT /api/owner error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
