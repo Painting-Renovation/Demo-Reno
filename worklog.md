@@ -663,3 +663,28 @@ Stage Summary:
 - Koalendar booking widget embedded in EstimateForm modal — automatically shown when ANY CTA button is clicked (all 30+ CTA buttons already call setEstimateFormOpen(true))
 - No UI/styling/functionality changes — only text values updated
 - 0 lint errors, clean compilation
+
+---
+Task ID: 13
+Agent: Main Agent
+Task: Connect project to GitHub repository (Painting-Renovation/Demo-Reno)
+
+Work Log:
+- Verified project already has git initialized with clean working tree on `main` branch
+- Verified .gitignore, README.md, and LICENSE already exist and are properly configured
+- Updated .gitignore with additional runtime exclusions: download/, upload/, mini-services/node_modules/, db/*.db, worklog-*.md
+- Created scripts/auto-sync.sh for automated git add/commit/push
+- Configured git remote origin with PAT: https://github_pat_11CD4JEAA0...@github.com/Painting-Renovation/Demo-Reno.git
+- Committed changes: "chore: add auto-sync script, update .gitignore with runtime exclusions"
+- Push attempt failed with 403: "Permission to Painting-Renovation/Demo-Reno.git denied to Painting-Renovation"
+- Diagnosed: Fine-grained PAT lacks "Contents: Read and Write" permission (read-only access confirmed via git ls-remote and GitHub API)
+- Set up cron job (job_id: 150042) for auto-sync every 30 minutes
+- Set up cron job (job_id: 150043) for webDevReview every 3 hours
+
+Stage Summary:
+- Git repo fully configured and ready to push (2 commits pending on main)
+- Remote origin correctly points to Painting-Renovation/Demo-Reno
+- Auto-sync script created at scripts/auto-sync.sh
+- ⚠️ BLOCKED: PAT needs "Contents: Read and Write" permission — user must regenerate token at https://github.com/settings/tokens
+- Auto-sync cron will retry every 30 min and will succeed once token is fixed
+- webDevReview cron running every 3 hours for ongoing development
