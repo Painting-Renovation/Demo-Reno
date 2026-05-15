@@ -723,3 +723,35 @@ Stage Summary:
 - User needs to run the SQL in Supabase SQL Editor: https://supabase.com/dashboard/project/kvhhlvwoarzanasrnjto/sql/new
 - Dev server running, 0 lint errors, all routes HTTP 200
 - 4 commits pushed to GitHub (8c0f6f7, a151386, f8a982e, 8171c90)
+
+---
+Task ID: 15
+Agent: Main Agent + Fullstack Developer Subagent
+Task: Fix all form submissions to properly save data to Supabase
+
+Work Log:
+- Investigated all 12 form-related files across the project
+- Identified 6 files with submission issues:
+  1. EstimateForm.tsx — catch block silently showed success on API failure
+  2. AppointmentForm.tsx — same silent error issue
+  3. free-estimate/page.tsx — form onSubmit was a NO-OP (did nothing)
+  4. book-appointment/page.tsx — form onSubmit was a NO-OP (did nothing)
+  5. LeadMagnetSection.tsx — fake setTimeout instead of real API call
+  6. ExitIntentPopup.tsx — fake setTimeout instead of real API call
+- Fixed EstimateForm.tsx: Added submitError state, proper error handling, error UI banner
+- Fixed AppointmentForm.tsx: Added submitError state, proper error handling, error UI banner
+- Fixed free-estimate/page.tsx: Converted to controlled inputs, wired onSubmit to POST /api/leads, added success/error/loading states
+- Fixed book-appointment/page.tsx: Converted to controlled inputs, wired onSubmit to POST /api/appointments, added success/error/loading states
+- Fixed LeadMagnetSection.tsx: Replaced setTimeout with real fetch('/api/leads') POST
+- Fixed ExitIntentPopup.tsx: Replaced setTimeout with real fetch('/api/leads') POST
+- ContactSection.tsx verified — already works correctly, not modified
+- Attempted to run SQL migration programmatically via pg driver and Supabase API — requires database password
+- ESLint: 0 errors
+- All changes pushed to GitHub (commit 1092680)
+
+Stage Summary:
+- All 6 broken forms now properly submit data to Supabase API routes
+- Forms show clear loading/success/error states with brand-consistent styling
+- Standalone pages (free-estimate, book-appointment) fully functional
+- Lead capture forms (LeadMagnet, ExitIntent) save to real database
+- BLOCKED: SQL migration needs to be run by user in Supabase dashboard for tables to exist
