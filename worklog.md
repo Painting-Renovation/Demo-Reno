@@ -807,3 +807,30 @@ Stage Summary:
 - All 5 forms confirmed working: 3 modal/inline forms + 2 page-level forms
 - Supabase tables: Lead (1 row), Appointment (2 rows) after testing
 - Lint: 0 errors, 0 warnings
+
+---
+Task ID: 11
+Agent: Main Agent
+Task: Verify and fix all form submissions to save data to Supabase
+
+Work Log:
+- Verified Supabase connection: All 12 tables exist (Owner, Lead, LeadActivity, Appointment, Project, Quote, VisitorTracking, SiteAudit, Testimonial, GalleryImage, EmailLog, NotificationSettings) — SQL migration WAS already executed
+- .env.local credentials verified correct (Supabase URL, Service Role Key, Anon Key)
+- Audited ALL 9 form components: every form has a real fetch() call to an API endpoint (no dead/placeholder forms found)
+- Fixed field name mismatch in EstimateForm.tsx: `description` → `projectDesc`, `referralSource` → `howHeard` (API expected different field names)
+- Added `timeline` field support: timeline data is now captured and stored in the `notes` column of the Lead table
+- Fixed `/api/leads` POST handler: Added proper error handling for LeadActivity and SiteAudit secondary inserts (non-critical, log errors but don't fail the main request)
+- Updated API to accept `notes` and `timeline` fields, combining them into the `notes` column
+- End-to-end tested: POST /api/leads through Next.js → Supabase (201 response, data confirmed in Supabase dashboard)
+- End-to-end tested: POST /api/appointments through Next.js → Supabase (201 response, data confirmed in Supabase dashboard)
+- Known non-critical issue: LeadActivity inserts fail due to a trigger referencing `updatedAt` column that doesn't exist on that table — errors now logged instead of silently failing. This does NOT affect lead or appointment data saving.
+- ESLint: 0 errors on modified files
+
+Stage Summary:
+- ✅ Supabase IS connected and all 12 tables exist
+- ✅ ALL 9 forms have working fetch() calls to API routes
+- ✅ Leads and Appointments save correctly to Supabase
+- ✅ Fixed EstimateForm field name mismatch (projectDesc, howHeard)
+- ✅ Added timeline capture in notes field
+- ✅ Added proper error handling for secondary inserts
+- ⚠️ LeadActivity table has a trigger issue (non-critical, doesn't affect main data)

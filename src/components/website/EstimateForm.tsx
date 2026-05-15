@@ -235,9 +235,10 @@ export function EstimateForm() {
         city: watchedFields.city,
         postalCode: watchedFields.postalCode,
         serviceType: watchedFields.serviceType,
-        description: watchedFields.description,
-        timeline: watchedFields.timeline,
-        referralSource: watchedFields.referralSource,
+        projectDesc: watchedFields.description || null,
+        howHeard: watchedFields.referralSource || null,
+        timeline: watchedFields.timeline || null,
+        leadSource: 'website',
       };
 
       const res = await fetch('/api/leads', {

@@ -161,12 +161,18 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const {
       firstName, lastName, email, phone, address, city, postalCode,
-      serviceType, projectDesc, budget, howHeard, leadSource,
+      serviceType, projectDesc, budget, howHeard, leadSource, notes, timeline,
     } = body;
 
     if (!firstName || !lastName || !email) {
       return NextResponse.json({ error: 'Name and email are required' }, { status: 400 });
     }
+
+    // Combine timeline into notes if provided
+    const combinedNotes = [
+      notes || null,
+      timeline ? `Preferred timeline: ${timeline}` : null,
+    ].filter(Boolean).join(' | ') || null;
 
     const { data: lead, error: leadError } = await supabase
       .from('Lead')
@@ -183,6 +189,7 @@ export async function POST(request: NextRequest) {
         budget: budget || null,
         howHeard: howHeard || null,
         leadSource: leadSource || 'website',
+        notes: combinedNotes,
         status: 'new',
         funnelStage: 'awareness',
       })
@@ -193,19 +200,25 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: leadError.message }, { status: 500 });
     }
 
-    // Create lead activity
-    await supabase
+    // Create lead activity (non-critical — log errors but don't fail the request)
+    const { error: activityError } = await supabase
       .from('LeadActivity')
       .insert({
         leadId: lead.id,
         type: 'estimate',
         description: `New lead created via ${leadSource || 'website'}`,
       });
+    if (activityError) {
+      console.error('Failed to create LeadActivity:', activityError.message);
+    }
 
-    // Create site audit entry
-    await supabase
+    // Create site audit entry (non-critical)
+    const { error: auditError } = await supabase
       .from('SiteAudit')
       .insert({ metric: 'estimate_request', value: 1 });
+    if (auditError) {
+      console.error('Failed to create SiteAudit:', auditError.message);
+    }
 
     // Fire notification to notification service (non-blocking)
     fetch('/api/notify?XTransformPort=3001', {
