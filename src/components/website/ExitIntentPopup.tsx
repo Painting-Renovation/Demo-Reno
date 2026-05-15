@@ -11,6 +11,7 @@ export function ExitIntentPopup() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   // Use static initial state to avoid hydration mismatch (window unavailable on server)
   const [isMobile, setIsMobile] = useState(false);
 
@@ -44,14 +45,43 @@ export function ExitIntentPopup() {
     };
   }, [handleMouseLeave]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
     setLoading(true);
-    setTimeout(() => {
+    setSubmitError('');
+
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          leadSource: 'website',
+          serviceType: 'Exit Intent',
+          firstName: 'Visitor',
+          lastName: '',
+          projectDesc: 'Claimed 15% discount',
+        }),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        let errorMsg = 'Something went wrong. Please try again.';
+        try {
+          const errData = await res.json();
+          errorMsg = errData.error || errData.message || errorMsg;
+        } catch {
+          // use default error message
+        }
+        setSubmitError(errorMsg);
+      }
+    } catch {
+      setSubmitError('Something went wrong. Please try again later.');
+    } finally {
       setLoading(false);
-      setSubmitted(true);
-    }, 1200);
+    }
   };
 
   const handleClose = () => {
@@ -214,6 +244,14 @@ export function ExitIntentPopup() {
                         </>
                       )}
                     </button>
+
+                    {/* Error display */}
+                    {submitError && (
+                      <div className="bg-red-500/20 border border-red-500/30 rounded-xl p-3 flex items-start gap-2 mt-3">
+                        <span className="text-red-300 text-xs font-bold mt-0.5">!</span>
+                        <p className="text-xs text-red-200">{submitError}</p>
+                      </div>
+                    )}
                   </form>
 
                   {/* Dismiss */}

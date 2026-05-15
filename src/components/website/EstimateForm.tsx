@@ -184,6 +184,7 @@ export function EstimateForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
 
   const {
@@ -209,17 +210,20 @@ export function EstimateForm() {
       valid = await trigger(['serviceType', 'description', 'timeline', 'referralSource']);
     }
     if (valid) {
+      setSubmitError('');
       setCurrentStep((prev) => Math.min(prev + 1, 3));
     }
   };
 
   const handleBack = () => {
+    setSubmitError('');
     setCurrentStep((prev) => Math.max(prev - 1, 1));
   };
 
   const onSubmit = async () => {
     if (!termsAccepted) return;
     setIsSubmitting(true);
+    setSubmitError('');
 
     try {
       const payload = {
@@ -245,11 +249,18 @@ export function EstimateForm() {
       if (res.ok) {
         setShowConfetti(true);
         setTimeout(() => setIsSuccess(true), 400);
+      } else {
+        let errorMsg = 'Something went wrong. Please try again.';
+        try {
+          const errData = await res.json();
+          errorMsg = errData.error || errData.message || errorMsg;
+        } catch {
+          // use default error message
+        }
+        setSubmitError(errorMsg);
       }
     } catch {
-      // Still show success for demo
-      setShowConfetti(true);
-      setTimeout(() => setIsSuccess(true), 400);
+      setSubmitError('Something went wrong. Please try again or call us at (437) 535-0494.');
     } finally {
       setIsSubmitting(false);
     }
@@ -261,6 +272,7 @@ export function EstimateForm() {
       setCurrentStep(1);
       setIsSuccess(false);
       setTermsAccepted(false);
+      setSubmitError('');
       setShowConfetti(false);
       reset();
     }, 300);
@@ -619,6 +631,29 @@ export function EstimateForm() {
                         my estimate request. I understand that my information will be used solely for
                         the purpose of providing a painting estimate.
                       </Label>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Error display */}
+              <AnimatePresence>
+                {submitError && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -5, height: 0 }}
+                    animate={{ opacity: 1, y: 0, height: 'auto' }}
+                    exit={{ opacity: 0, y: -5, height: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="mb-4"
+                  >
+                    <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3">
+                      <div className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-red-500 text-xs font-bold">!</span>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-red-800">Submission Failed</p>
+                        <p className="text-xs text-red-600 mt-0.5">{submitError}</p>
+                      </div>
                     </div>
                   </motion.div>
                 )}

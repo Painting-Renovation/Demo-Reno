@@ -22,17 +22,47 @@ export function LeadMagnetSection() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
     setLoading(true);
-    setTimeout(() => {
+    setSubmitError('');
+
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          leadSource: 'website',
+          serviceType: 'Lead Magnet',
+          firstName: 'Subscriber',
+          lastName: '',
+          projectDesc: 'Downloaded painting guide',
+        }),
+      });
+
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        let errorMsg = 'Something went wrong. Please try again.';
+        try {
+          const errData = await res.json();
+          errorMsg = errData.error || errData.message || errorMsg;
+        } catch {
+          // use default error message
+        }
+        setSubmitError(errorMsg);
+      }
+    } catch {
+      setSubmitError('Something went wrong. Please try again later.');
+    } finally {
       setLoading(false);
-      setSubmitted(true);
-    }, 1500);
+    }
   };
 
   return (
@@ -242,6 +272,14 @@ export function LeadMagnetSection() {
                         </>
                       )}
                     </button>
+
+                    {/* Error display */}
+                    {submitError && (
+                      <div className="bg-red-50 border border-red-200 rounded-xl p-3 flex items-start gap-2 mt-3">
+                        <span className="text-red-500 text-xs font-bold mt-0.5">!</span>
+                        <p className="text-xs text-red-600">{submitError}</p>
+                      </div>
+                    )}
                   </form>
 
                   {/* Trust indicators */}

@@ -132,6 +132,7 @@ export function AppointmentForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [calendarOpen, setCalendarOpen] = useState(false);
 
@@ -152,6 +153,7 @@ export function AppointmentForm() {
 
   const onSubmit = async (data: AppointmentData) => {
     setIsSubmitting(true);
+    setSubmitError('');
 
     try {
       // Build the API payload - map form fields to what the API expects
@@ -173,11 +175,18 @@ export function AppointmentForm() {
       if (res.ok) {
         setShowConfetti(true);
         setTimeout(() => setIsSuccess(true), 400);
+      } else {
+        let errorMsg = 'Something went wrong. Please try again.';
+        try {
+          const errData = await res.json();
+          errorMsg = errData.error || errData.message || errorMsg;
+        } catch {
+          // use default error message
+        }
+        setSubmitError(errorMsg);
       }
     } catch {
-      // Still show success for demo
-      setShowConfetti(true);
-      setTimeout(() => setIsSuccess(true), 400);
+      setSubmitError('Something went wrong. Please try again or call us at (437) 535-0494.');
     } finally {
       setIsSubmitting(false);
     }
@@ -188,6 +197,7 @@ export function AppointmentForm() {
     setTimeout(() => {
       setIsSuccess(false);
       setShowConfetti(false);
+      setSubmitError('');
       setSelectedDate(undefined);
       reset();
     }, 300);
@@ -404,6 +414,29 @@ export function AppointmentForm() {
                   className="resize-none rounded-xl"
                 />
               </div>
+
+              {/* Error display */}
+              <AnimatePresence>
+                {submitError && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -5, height: 0 }}
+                    animate={{ opacity: 1, y: 0, height: 'auto' }}
+                    exit={{ opacity: 0, y: -5, height: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="mb-2"
+                  >
+                    <div className="bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3">
+                      <div className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <span className="text-red-500 text-xs font-bold">!</span>
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-red-800">Booking Failed</p>
+                        <p className="text-xs text-red-600 mt-0.5">{submitError}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               <div className="pt-2">
                 <Button
