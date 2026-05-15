@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase, toCamelCase, rowsToCamelCase } from '@/lib/supabase-server';
+import { supabase } from '@/lib/supabase-server';
 
 // GET /api/analytics — fetch analytics data
 export async function GET(request: NextRequest) {
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
     const { count: totalLeads, error: tlError } = await supabase
       .from('Lead')
       .select('*', { count: 'exact', head: true })
-      .gte('created_at', startIso);
+      .gte('createdAt', startIso);
     if (tlError) return NextResponse.json({ error: tlError.message }, { status: 500 });
 
     const { count: activeProjects, error: apError } = await supabase
@@ -45,13 +45,13 @@ export async function GET(request: NextRequest) {
 
     const { data: completedProjects, error: cpError } = await supabase
       .from('Project')
-      .select('actual_cost')
+      .select('actualCost')
       .eq('status', 'completed')
-      .not('actual_cost', 'is', null);
+      .not('actualCost', 'is', null);
     if (cpError) return NextResponse.json({ error: cpError.message }, { status: 500 });
 
     const revenue = (completedProjects || []).reduce(
-      (sum: number, p) => sum + (p.actual_cost || 0),
+      (sum: number, p) => sum + (p.actualCost || 0),
       0
     );
 
@@ -59,7 +59,7 @@ export async function GET(request: NextRequest) {
       .from('Lead')
       .select('*', { count: 'exact', head: true })
       .eq('status', 'won')
-      .gte('created_at', startIso);
+      .gte('createdAt', startIso);
     if (wlError) return NextResponse.json({ error: wlError.message }, { status: 500 });
 
     const conversionRate = totalLeads > 0
@@ -81,8 +81,8 @@ export async function GET(request: NextRequest) {
     const { count: prevLeads, error: plError } = await supabase
       .from('Lead')
       .select('*', { count: 'exact', head: true })
-      .gte('created_at', prevStartIso)
-      .lt('created_at', startIso);
+      .gte('createdAt', prevStartIso)
+      .lt('createdAt', startIso);
     if (plError) return NextResponse.json({ error: plError.message }, { status: 500 });
 
     const leadsChange = (prevLeads || 0) > 0
@@ -104,14 +104,14 @@ export async function GET(request: NextRequest) {
     // Leads over time (monthly) — use Supabase RPC or group in app
     const { data: leadsData, error: lotError } = await supabase
       .from('Lead')
-      .select('created_at')
-      .gte('created_at', startIso);
+      .select('createdAt')
+      .gte('createdAt', startIso);
     if (lotError) return NextResponse.json({ error: lotError.message }, { status: 500 });
 
     // Group leads by month in-app
     const monthGroups: Record<string, number> = {};
     for (const row of leadsData || []) {
-      const d = new Date(row.created_at);
+      const d = new Date(row.createdAt);
       const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
       monthGroups[key] = (monthGroups[key] || 0) + 1;
     }
@@ -126,14 +126,14 @@ export async function GET(request: NextRequest) {
     // Lead sources
     const { data: leadSourceData, error: lsError } = await supabase
       .from('Lead')
-      .select('lead_source')
-      .gte('created_at', startIso);
+      .select('leadSource')
+      .gte('createdAt', startIso);
     if (lsError) return NextResponse.json({ error: lsError.message }, { status: 500 });
 
     // Group by source in-app
     const sourceGroups: Record<string, number> = {};
     for (const row of leadSourceData || []) {
-      const key = row.lead_source as string;
+      const key = row.leadSource as string;
       if (key) sourceGroups[key] = (sourceGroups[key] || 0) + 1;
     }
 
@@ -154,15 +154,15 @@ export async function GET(request: NextRequest) {
     // Service popularity
     const { data: serviceData, error: spError } = await supabase
       .from('Lead')
-      .select('service_type')
-      .gte('created_at', startIso)
-      .not('service_type', 'is', null);
+      .select('serviceType')
+      .gte('createdAt', startIso)
+      .not('serviceType', 'is', null);
     if (spError) return NextResponse.json({ error: spError.message }, { status: 500 });
 
     // Group by service type in-app, then sort descending
     const serviceGroups: Record<string, number> = {};
     for (const row of serviceData || []) {
-      const key = row.service_type as string;
+      const key = row.serviceType as string;
       if (key) serviceGroups[key] = (serviceGroups[key] || 0) + 1;
     }
 
@@ -182,7 +182,7 @@ export async function GET(request: NextRequest) {
         const { count } = await supabase
           .from('Lead')
           .select('*', { count: 'exact', head: true })
-          .eq('funnel_stage', stage);
+          .eq('funnelStage', stage);
         funnel[stage] = count || 0;
       }
 
@@ -196,7 +196,7 @@ export async function GET(request: NextRequest) {
       const { count } = await supabase
         .from('Lead')
         .select('*', { count: 'exact', head: true })
-        .eq('funnel_stage', stage);
+        .eq('funnelStage', stage);
       miniFunnel.push({
         stage: stage.charAt(0).toUpperCase() + stage.slice(1),
         count: count || 0,
@@ -207,28 +207,28 @@ export async function GET(request: NextRequest) {
     const { count: pageViews, error: pvError } = await supabase
       .from('VisitorTracking')
       .select('*', { count: 'exact', head: true })
-      .gte('created_at', startIso)
+      .gte('createdAt', startIso)
       .eq('action', 'view');
     if (pvError) return NextResponse.json({ error: pvError.message }, { status: 500 });
 
     const { count: formSubmissions, error: fsError } = await supabase
       .from('VisitorTracking')
       .select('*', { count: 'exact', head: true })
-      .gte('created_at', startIso)
+      .gte('createdAt', startIso)
       .in('action', ['form_submit', 'estimate_request']);
     if (fsError) return NextResponse.json({ error: fsError.message }, { status: 500 });
 
     const { count: phoneClicks, error: pcError } = await supabase
       .from('VisitorTracking')
       .select('*', { count: 'exact', head: true })
-      .gte('created_at', startIso)
+      .gte('createdAt', startIso)
       .eq('action', 'call_click');
     if (pcError) return NextResponse.json({ error: pcError.message }, { status: 500 });
 
     const { count: appointmentsBooked, error: abError } = await supabase
       .from('Appointment')
       .select('*', { count: 'exact', head: true })
-      .gte('created_at', startIso);
+      .gte('createdAt', startIso);
     if (abError) return NextResponse.json({ error: abError.message }, { status: 500 });
 
     const metrics = [

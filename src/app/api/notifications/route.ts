@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase, toCamelCase, toSnakeCase } from '@/lib/supabase-server';
+import { supabase } from '@/lib/supabase-server';
 
 // GET /api/notifications — fetch notification settings
 export async function GET() {
@@ -14,7 +14,7 @@ export async function GET() {
       // No rows found — create default settings
       const { data: newSettings, error: createError } = await supabase
         .from('NotificationSettings')
-        .insert(toSnakeCase({}))
+        .insert({})
         .select()
         .single();
 
@@ -22,14 +22,14 @@ export async function GET() {
         return NextResponse.json({ error: createError.message }, { status: 500 });
       }
 
-      return NextResponse.json(toCamelCase(newSettings));
+      return NextResponse.json(newSettings);
     }
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json(toCamelCase(settings));
+    return NextResponse.json(settings);
   } catch (error) {
     console.error('GET /api/notifications error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -57,7 +57,7 @@ export async function PUT(request: NextRequest) {
       // Create with the body data
       const { data: newSettings, error: createError } = await supabase
         .from('NotificationSettings')
-        .insert(toSnakeCase(body))
+        .insert(body)
         .select()
         .single();
 
@@ -65,7 +65,7 @@ export async function PUT(request: NextRequest) {
         return NextResponse.json({ error: createError.message }, { status: 500 });
       }
 
-      return NextResponse.json(toCamelCase(newSettings));
+      return NextResponse.json(newSettings);
     }
 
     // Update existing settings
@@ -83,7 +83,7 @@ export async function PUT(request: NextRequest) {
 
     const { data: updatedSettings, error: updateError } = await supabase
       .from('NotificationSettings')
-      .update(toSnakeCase(updateData))
+      .update(updateData)
       .eq('id', (existingSettings as Record<string, unknown>).id)
       .select()
       .single();
@@ -92,7 +92,7 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: updateError.message }, { status: 500 });
     }
 
-    return NextResponse.json(toCamelCase(updatedSettings));
+    return NextResponse.json(updatedSettings);
   } catch (error) {
     console.error('PUT /api/notifications error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase, toCamelCase, toSnakeCase } from '@/lib/supabase-server';
+import { supabase } from '@/lib/supabase-server';
 
 // GET /api/owner — fetch owner profile
 export async function GET() {
   try {
     const { data: owner, error } = await supabase
       .from('Owner')
-      .select('id, email, name, phone, company, address, google_email, slack_webhook')
+      .select('id, email, name, phone, company, address, googleEmail, slackWebhook')
       .limit(1)
       .single();
 
@@ -14,7 +14,7 @@ export async function GET() {
       return NextResponse.json({ error: 'Owner not found' }, { status: 404 });
     }
 
-    return NextResponse.json(toCamelCase(owner));
+    return NextResponse.json(owner);
   } catch (error) {
     console.error('GET /api/owner error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -86,16 +86,16 @@ export async function PUT(request: NextRequest) {
 
     const { data: updated, error } = await supabase
       .from('Owner')
-      .update(toSnakeCase(updateData))
+      .update(updateData)
       .eq('id', owner.id)
-      .select('id, email, name, phone, company, address, google_email, slack_webhook')
+      .select('id, email, name, phone, company, address, googleEmail, slackWebhook')
       .single();
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json(toCamelCase(updated));
+    return NextResponse.json(updated);
   } catch (error) {
     console.error('PUT /api/owner error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

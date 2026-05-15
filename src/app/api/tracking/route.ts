@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase, toCamelCase, rowsToCamelCase, toSnakeCase } from '@/lib/supabase-server';
+import { supabase } from '@/lib/supabase-server';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     // Store in VisitorTracking
     const { data: tracking, error: trackingError } = await supabase
       .from('VisitorTracking')
-      .insert(toSnakeCase({
+      .insert({
         sessionId,
         page,
         referrer: referrer || null,
@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
         elementId: elementId || null,
         userAgent: userAgent || null,
         leadId: leadId || null,
-      }))
+      })
       .select()
       .single();
 
@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
 
       await supabase
         .from('SiteAudit')
-        .insert(toSnakeCase({
+        .insert({
           metric,
           value: 1,
           metadata: JSON.stringify({
@@ -79,11 +79,11 @@ export async function POST(request: NextRequest) {
             elementId,
             leadId,
           }),
-        }));
+        });
     }
 
     return NextResponse.json(
-      { success: true, data: toCamelCase(tracking) },
+      { success: true, data: tracking },
       { status: 201, headers: corsHeaders }
     );
   } catch (error: unknown) {

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase, toCamelCase, rowsToCamelCase, toSnakeCase } from '@/lib/supabase-server';
+import { supabase } from '@/lib/supabase-server';
 
 // GET /api/appointments — list appointments
 export async function GET(request: NextRequest) {
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    const appointments = rowsToCamelCase(data || []);
+    const appointments = data || [];
 
     return NextResponse.json({ data: appointments });
   } catch (error) {
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
 
     const { data: appointment, error } = await supabase
       .from('Appointment')
-      .insert(toSnakeCase({
+      .insert({
         firstName,
         lastName,
         email,
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
         duration: duration || 60,
         leadId: leadId || null,
         status: 'scheduled',
-      }))
+      })
       .select()
       .single();
 
@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json(toCamelCase(appointment), { status: 201 });
+    return NextResponse.json(appointment, { status: 201 });
   } catch (error) {
     console.error('POST /api/appointments error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
