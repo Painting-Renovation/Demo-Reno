@@ -1189,3 +1189,38 @@ Stage Summary:
 - Blog cards and article pages show relevant cover images
 - Paint color theme system preserved alongside cover images
 - No regressions in existing functionality
+
+---
+Task ID: gallery-before-after-images
+Agent: Main Agent
+Task: Add photo-realistic Before & After images for Gallery categories (Interior, Exterior, Cabinets, Deck)
+
+Work Log:
+- Analyzed current gallery structure: Gallery.tsx (6 items), BeforeAfterSlider.tsx (6 items), both with hardcoded data
+- Identified all 6 items shared the same `before-after.jpg` for before images — unrealistic
+- Created shared data file `src/lib/gallery-data.ts` with 10 demolition project items across 4 categories
+- Generated 20 AI photo-realistic images (10 before + 10 after) using z-ai image generation CLI:
+  - Interior (3): living-room, kitchen, bathroom
+  - Exterior (3): house-siding-removal, garage-demolition, commercial-facade
+  - Cabinets (2): kitchen-cabinet-removal, bathroom-vanity-tear-out
+  - Deck (2): deck-removal, porch-demolition
+- Updated Gallery.tsx:
+  - Imports shared data from gallery-data.ts
+  - New SplitViewLightbox with drag-to-compare before/after slider
+  - Cards show real before images by default, reveal after images on hover
+  - "Hover to compare" hint on each card
+- Updated BeforeAfterSlider.tsx:
+  - Imports shared data from gallery-data.ts
+  - Category filter tabs (All, Interior, Exterior, Cabinets, Deck) with item counts
+  - Category change resets to first item via handleCategoryChange callback
+  - Fixed React 19 lint errors (no setState in effects, no ref access during render)
+- Updated gallery/page.tsx text to match demolition context (removed painting references)
+- All images saved to `/public/images/gallery/` (21 .webp files, ~3.6MB total)
+
+Stage Summary:
+- 10 unique demolition project items with authentic before/after image pairs
+- Shared gallery data eliminates duplicate data between Gallery and BeforeAfterSlider
+- Lightbox now shows interactive before/after comparison slider instead of just after image
+- All 20 AI-generated images are demolition-context appropriate
+- ESLint: 0 errors, 0 warnings
+- Dev server: /gallery returns HTTP 200

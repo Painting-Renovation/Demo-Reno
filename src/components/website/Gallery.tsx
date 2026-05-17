@@ -1,96 +1,13 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Eye, ArrowRight, X, MapPin, ZoomIn, ChevronLeft, ChevronRight, Layers, Hand } from 'lucide-react';
+import { Eye, ArrowRight, X, MapPin, ZoomIn, ChevronLeft, ChevronRight, Layers, Hand, GripVertical } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppStore } from '@/lib/store';
+import { galleryItems, categories, getCategoryCounts, type Category, type GalleryItem } from '@/lib/gallery-data';
 
-type Category = 'All' | 'Interior' | 'Exterior' | 'Cabinets' | 'Deck';
-
-interface GalleryItem {
-  id: number;
-  title: string;
-  location: string;
-  category: Category;
-  beforeImage: string;
-  afterImage: string;
-  description: string;
-  span?: 'tall' | 'wide' | 'normal';
-}
-
-const galleryItems: GalleryItem[] = [
-  {
-    id: 1,
-    title: 'Modern Living Room Refresh',
-    location: 'Downtown Toronto',
-    category: 'Interior',
-    beforeImage: '/images/before-after.jpg',
-    afterImage: '/images/hero-interior.jpg',
-    description: 'Complete interior repaint with custom color palette, including feature walls and trim work.',
-    span: 'tall',
-  },
-  {
-    id: 2,
-    title: 'Victorian Home Exterior',
-    location: 'North York',
-    category: 'Exterior',
-    beforeImage: '/images/before-after.jpg',
-    afterImage: '/images/hero-exterior.jpg',
-    description: 'Full exterior restoration preserving the classic Victorian charm with modern durability.',
-    span: 'normal',
-  },
-  {
-    id: 3,
-    title: 'Kitchen Cabinet Makeover',
-    location: 'Mississauga',
-    category: 'Cabinets',
-    beforeImage: '/images/before-after.jpg',
-    afterImage: '/images/cabinet-refinish.jpg',
-    description: 'Complete cabinet refinishing from dark oak to crisp white with new hardware.',
-    span: 'wide',
-  },
-  {
-    id: 4,
-    title: 'Cedar Deck Restoration',
-    location: 'Scarborough',
-    category: 'Deck',
-    beforeImage: '/images/before-after.jpg',
-    afterImage: '/images/deck-fence.jpg',
-    description: 'Full deck sanding, staining, and sealing for a beautiful outdoor living space.',
-    span: 'normal',
-  },
-  {
-    id: 5,
-    title: 'Modern Condo Makeover',
-    location: 'Etobicoke',
-    category: 'Interior',
-    beforeImage: '/images/before-after.jpg',
-    afterImage: '/images/hero-interior.jpg',
-    description: 'Sleek modern repaint with accent walls and custom trim for a contemporary condo.',
-    span: 'normal',
-  },
-  {
-    id: 6,
-    title: 'Commercial Office Refresh',
-    location: 'Markham',
-    category: 'Exterior',
-    beforeImage: '/images/before-after.jpg',
-    afterImage: '/images/hero-exterior.jpg',
-    description: 'Complete exterior repainting of a commercial office complex with premium weather-resistant coatings.',
-    span: 'wide',
-  },
-];
-
-const categories: Category[] = ['All', 'Interior', 'Exterior', 'Cabinets', 'Deck'];
-
-const categoryCounts: Record<Category, number> = {
-  All: galleryItems.length,
-  Interior: galleryItems.filter(i => i.category === 'Interior').length,
-  Exterior: galleryItems.filter(i => i.category === 'Exterior').length,
-  Cabinets: galleryItems.filter(i => i.category === 'Cabinets').length,
-  Deck: galleryItems.filter(i => i.category === 'Deck').length,
-};
+const categoryCounts = getCategoryCounts();
 
 function SkeletonCard() {
   return (
@@ -104,7 +21,8 @@ function SkeletonCard() {
   );
 }
 
-function LightboxModal({
+/* ─── Before / After Split-View Lightbox ─────────────────── */
+function SplitViewLightbox({
   item,
   onClose,
   onPrev,
@@ -119,6 +37,41 @@ function LightboxModal({
   hasNext: boolean;
   hasPrev: boolean;
 }) {
+  const [sliderPos, setSliderPos] = useState(50);
+  const [isDragging, setIsDragging] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const updatePos = useCallback((clientX: number) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    setSliderPos(Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100)));
+  }, []);
+
+  const onPointerDown = useCallback((e: React.PointerEvent) => {
+    setIsDragging(true);
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+    updatePos(e.clientX);
+  }, [updatePos]);
+
+  const onPointerMove = useCallback((e: React.PointerEvent) => {
+    if (!isDragging) return;
+    updatePos(e.clientX);
+  }, [isDragging, updatePos]);
+
+  const onPointerUp = useCallback(() => setIsDragging(false), []);
+
+  // Body cursor
+  useEffect(() => {
+    if (isDragging) {
+      document.body.style.cursor = 'ew-resize';
+      document.body.style.userSelect = 'none';
+    } else {
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    }
+    return () => { document.body.style.cursor = ''; document.body.style.userSelect = ''; };
+  }, [isDragging]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -127,10 +80,8 @@ function LightboxModal({
       className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-4"
       onClick={onClose}
     >
-      {/* Backdrop */}
       <div className="absolute inset-0 bg-navy/90 backdrop-blur-md" />
 
-      {/* Content */}
       <motion.div
         initial={{ scale: 0.9, opacity: 0, y: 40 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -145,7 +96,7 @@ function LightboxModal({
             <h3 className="text-navy font-bold text-xl">{item.title}</h3>
             <div className="flex items-center gap-3 text-sm text-gray-500 mt-1">
               <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{item.location}</span>
-              <span className="bg-sage/10 text-sage text-xs font-medium px-2 py-0.5 rounded-full">{item.category}</span>
+              <span className="bg-navy/10 text-navy text-xs font-medium px-2 py-0.5 rounded-full">{item.category}</span>
             </div>
           </div>
           <button
@@ -157,22 +108,87 @@ function LightboxModal({
           </button>
         </div>
 
-        {/* Image */}
-        <div className="relative aspect-video bg-gray-50 mx-2 sm:mx-4 mt-2 sm:mt-4 rounded-lg sm:rounded-xl overflow-hidden">
+        {/* Split Before/After comparison */}
+        <div
+          ref={containerRef}
+          className="relative w-full aspect-video mx-2 sm:mx-4 mt-2 sm:mt-4 rounded-lg sm:rounded-xl overflow-hidden select-none"
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerUp}
+          style={{ touchAction: 'none' }}
+        >
+          {/* Before (full) */}
           <img
-            src={item.afterImage}
-            alt={item.title}
-            className="w-full h-full object-cover"
+            src={item.beforeImage}
+            alt={`${item.title} - Before`}
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            draggable={false}
           />
-          {/* Overlay badge */}
-          <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4">
-            <span className="bg-gold/90 backdrop-blur-sm text-white text-xs font-bold px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full">
+          {/* After (clipped) */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
+          >
+            <img
+              src={item.afterImage}
+              alt={`${item.title} - After`}
+              className="absolute inset-0 w-full h-full object-cover"
+              draggable={false}
+            />
+          </div>
+
+          {/* Divider line */}
+          <div
+            className="absolute top-0 bottom-0 w-0.5 bg-white/80 z-10 pointer-events-none"
+            style={{ left: `${sliderPos}%`, transition: isDragging ? 'none' : 'left 0.1s' }}
+          >
+            <div className="absolute inset-0 w-1 -ml-[1.5px] bg-gold/40 blur-sm" />
+          </div>
+
+          {/* Handle */}
+          <div
+            className="absolute top-1/2 -translate-y-1/2 z-20 pointer-events-none"
+            style={{ left: `${sliderPos}%`, transform: 'translate(-50%, -50%)' }}
+          >
+            <div
+              className="w-11 h-11 bg-white rounded-full shadow-xl flex items-center justify-center border-2 border-gold/50"
+              style={isDragging ? { transform: 'scale(1.15)' } : undefined}
+            >
+              <GripVertical className="w-5 h-5 text-navy" />
+            </div>
+          </div>
+
+          {/* Labels */}
+          <div
+            className="absolute z-10 pointer-events-none"
+            style={{ top: '12px', left: '12px', opacity: sliderPos > 15 ? 1 : 0, transition: 'opacity 0.3s' }}
+          >
+            <span className="bg-navy/80 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full tracking-wider">
+              BEFORE
+            </span>
+          </div>
+          <div
+            className="absolute z-10 pointer-events-none"
+            style={{ top: '12px', right: '12px', opacity: sliderPos < 85 ? 1 : 0, transition: 'opacity 0.3s' }}
+          >
+            <span className="bg-gold/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full tracking-wider">
               AFTER
+            </span>
+          </div>
+
+          {/* Hint */}
+          <div
+            className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 pointer-events-none transition-opacity duration-500"
+            style={{ opacity: isDragging ? 0 : 0.85 }}
+          >
+            <span className="bg-black/50 backdrop-blur-sm text-white text-xs px-4 py-1.5 rounded-full whitespace-nowrap">
+              ← Drag to compare →
             </span>
           </div>
         </div>
 
-        {/* Footer */}
+        {/* Description */}
         <div className="px-4 sm:px-8 py-4 sm:py-5">
           <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
         </div>
@@ -201,6 +217,7 @@ function LightboxModal({
   );
 }
 
+/* ─── Main Gallery Grid ──────────────────────────────────── */
 export function Gallery() {
   const { setEstimateFormOpen } = useAppStore();
   const [activeCategory, setActiveCategory] = useState<Category>('All');
@@ -208,7 +225,6 @@ export function Gallery() {
   const [lightboxItem, setLightboxItem] = useState<GalleryItem | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Simulate initial load
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 100);
     return () => clearTimeout(timer);
@@ -221,18 +237,13 @@ export function Gallery() {
   const lightboxIndex = lightboxItem ? filteredItems.findIndex(i => i.id === lightboxItem.id) : -1;
 
   const handleLightboxPrev = useCallback(() => {
-    if (lightboxIndex > 0) {
-      setLightboxItem(filteredItems[lightboxIndex - 1]);
-    }
+    if (lightboxIndex > 0) setLightboxItem(filteredItems[lightboxIndex - 1]);
   }, [lightboxIndex, filteredItems]);
 
   const handleLightboxNext = useCallback(() => {
-    if (lightboxIndex < filteredItems.length - 1) {
-      setLightboxItem(filteredItems[lightboxIndex + 1]);
-    }
+    if (lightboxIndex < filteredItems.length - 1) setLightboxItem(filteredItems[lightboxIndex + 1]);
   }, [lightboxIndex, filteredItems]);
 
-  // Get grid span classes based on item span property
   const getSpanClasses = (item: GalleryItem) => {
     if (item.span === 'tall') return 'md:row-span-2 md:h-auto';
     if (item.span === 'wide') return 'md:col-span-2';
@@ -249,8 +260,6 @@ export function Gallery() {
           backgroundSize: '28px 28px',
         }}
       />
-
-      {/* Gradient overlays */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-gold/[0.06] rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-navy/[0.04] rounded-full blur-[100px] translate-x-1/3 translate-y-1/3 pointer-events-none" />
 
@@ -271,9 +280,8 @@ export function Gallery() {
             Before &amp; After Gallery
           </h2>
           <p className="text-gray-500 max-w-2xl mx-auto text-lg">
-            See the dramatic transformations our team has achieved for homeowners across the GTA.
+            See the dramatic transformations our demolition team has achieved for homeowners and businesses across the GTA.
           </p>
-          {/* Decorative underline */}
           <motion.div
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
@@ -283,7 +291,7 @@ export function Gallery() {
           />
         </motion.div>
 
-        {/* Category Filter Pills with animated underline */}
+        {/* Category Filter Pills */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -322,7 +330,7 @@ export function Gallery() {
           ))}
         </motion.div>
 
-        {/* Gallery Grid - Masonry-style on desktop */}
+        {/* Gallery Grid */}
         {!isLoaded ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 auto-rows-[220px] sm:auto-rows-[280px]">
             <SkeletonCard />
@@ -379,12 +387,12 @@ export function Gallery() {
 
                   {/* Labels */}
                   <div className="absolute top-3 left-3 z-10">
-                    <span className="bg-navy/90 backdrop-blur-sm text-white text-sm font-extrabold px-4 py-2 rounded-lg tracking-wider">
+                    <span className="bg-navy/90 backdrop-blur-sm text-white text-xs sm:text-sm font-extrabold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg tracking-wider">
                       BEFORE
                     </span>
                   </div>
                   <div className="absolute top-3 right-3 z-10">
-                    <span className="bg-gold/90 backdrop-blur-sm text-white text-sm font-extrabold px-4 py-2 rounded-lg tracking-wider">
+                    <span className="bg-gold/90 backdrop-blur-sm text-white text-xs sm:text-sm font-extrabold px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg tracking-wider">
                       AFTER
                     </span>
                   </div>
@@ -419,14 +427,14 @@ export function Gallery() {
                     </motion.div>
                   </motion.div>
 
-                  {/* Slide hint (visible when not hovered) */}
+                  {/* Slide hint */}
                   <motion.div
                     animate={{ opacity: hoveredItem === item.id ? 0 : 1 }}
                     className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10"
                   >
                     <span className="bg-white/85 backdrop-blur-sm text-navy text-xs font-semibold px-4 py-2 rounded-full shadow-sm flex items-center gap-2">
                       <Hand className="w-3.5 h-3.5 animate-swipe-hint" />
-                      Swipe to compare
+                      Hover to compare
                     </span>
                   </motion.div>
                 </motion.div>
@@ -454,10 +462,10 @@ export function Gallery() {
         </motion.div>
       </div>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox */}
       <AnimatePresence>
         {lightboxItem && (
-          <LightboxModal
+          <SplitViewLightbox
             item={lightboxItem}
             onClose={() => setLightboxItem(null)}
             onPrev={handleLightboxPrev}

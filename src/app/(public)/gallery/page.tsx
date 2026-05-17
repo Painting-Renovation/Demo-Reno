@@ -29,7 +29,7 @@ export default function GalleryPage() {
     <main className="bg-cream">
       <PageHero
         title="Our Portfolio"
-        subtitle="Browse our completed projects and see the quality craftsmanship we bring to every home and business across the Greater Toronto Area."
+        subtitle="Browse our completed demolition projects and see the transformation we bring to every home and business across the Greater Toronto Area."
         breadcrumbs={[{ label: 'Gallery' }]}
         backgroundImage="/images/hero-exterior.jpg"
         overlay="dark"
@@ -82,7 +82,7 @@ export default function GalleryPage() {
             Before &amp; After Showcase
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            Drag the slider to compare our dramatic transformations side by side. See the difference professional painting makes.
+            Drag the slider to compare our dramatic transformations side by side. See the difference professional demolition and removal makes.
           </p>
         </motion.div>
         <BeforeAfterSlider />
@@ -111,22 +111,22 @@ export default function GalleryPage() {
               {
                 step: '01',
                 title: 'Consultation',
-                description: 'We visit your space, discuss your vision, and provide expert colour recommendations.',
+                description: 'We visit your site, discuss your project scope, and provide expert demolition recommendations.',
               },
               {
                 step: '02',
                 title: 'Preparation',
-                description: 'Thorough surface prep including patching, sanding, and protecting your furnishings.',
+                description: 'Thorough site preparation including permits, utility disconnects, and protecting surrounding areas.',
               },
               {
                 step: '03',
                 title: 'Execution',
-                description: 'Our skilled painters apply premium paints with precision and attention to detail.',
+                description: 'Our skilled crew executes demolition safely and efficiently with precision and attention to detail.',
               },
               {
                 step: '04',
                 title: 'Final Walkthrough',
-                description: 'We review every detail together to ensure you are 100% satisfied with the results.',
+                description: 'We review the completed work together to ensure the site is clean and you are 100% satisfied.'
               },
             ].map((item, i) => (
               <motion.div

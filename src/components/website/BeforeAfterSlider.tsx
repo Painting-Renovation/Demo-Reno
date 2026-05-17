@@ -5,75 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { GripVertical, Maximize2, Minimize2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { galleryItems, categories, getCategoryCounts, type Category, type GalleryItem } from '@/lib/gallery-data';
 
-interface ComparisonItem {
-  id: number;
-  title: string;
-  location: string;
-  category: string;
-  beforeImage: string;
-  afterImage: string;
-  description: string;
-}
+const categoryCounts = getCategoryCounts();
 
-const comparisonItems: ComparisonItem[] = [
-  {
-    id: 1,
-    title: 'Modern Living Room Refresh',
-    location: 'Downtown Toronto',
-    category: 'Interior',
-    beforeImage: '/images/before-after.jpg',
-    afterImage: '/images/hero-interior.jpg',
-    description: 'Complete interior repaint with a custom warm neutral palette, including feature walls and crisp trim work.',
-  },
-  {
-    id: 2,
-    title: 'Victorian Home Exterior',
-    location: 'North York',
-    category: 'Exterior',
-    beforeImage: '/images/before-after.jpg',
-    afterImage: '/images/hero-exterior.jpg',
-    description: 'Full exterior restoration preserving classic Victorian charm with modern weather-resistant finishes.',
-  },
-  {
-    id: 3,
-    title: 'Kitchen Cabinet Makeover',
-    location: 'Mississauga',
-    category: 'Cabinets',
-    beforeImage: '/images/before-after.jpg',
-    afterImage: '/images/cabinet-refinish.jpg',
-    description: 'Complete cabinet refinishing from dark oak to a clean contemporary white with new brushed hardware.',
-  },
-  {
-    id: 4,
-    title: 'Cedar Deck Restoration',
-    location: 'Scarborough',
-    category: 'Deck',
-    beforeImage: '/images/before-after.jpg',
-    afterImage: '/images/deck-fence.jpg',
-    description: 'Full deck sanding, staining, and sealing to restore natural cedar beauty for outdoor living.',
-  },
-  {
-    id: 5,
-    title: 'Condo Master Bedroom',
-    location: 'King West',
-    category: 'Interior',
-    beforeImage: '/images/before-after.jpg',
-    afterImage: '/images/hero-interior.jpg',
-    description: 'Elegant bedroom transformation with soothing sage accent wall and crisp white wainscoting.',
-  },
-  {
-    id: 6,
-    title: 'Office Lobby Refresh',
-    location: 'Financial District',
-    category: 'Commercial',
-    beforeImage: '/images/before-after.jpg',
-    afterImage: '/images/hero-exterior.jpg',
-    description: 'Professional lobby repaint with brand-aligned colors completed over a single weekend to minimize disruption.',
-  },
-];
-
-function EnhancedSlider({ item, isFullscreen, onToggleFullscreen }: { item: ComparisonItem; isFullscreen: boolean; onToggleFullscreen: () => void }) {
+/* ─── Enhanced Before / After Slider ─────────────────────── */
+function EnhancedSlider({ item, isFullscreen, onToggleFullscreen }: { item: GalleryItem; isFullscreen: boolean; onToggleFullscreen: () => void }) {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -122,7 +59,7 @@ function EnhancedSlider({ item, isFullscreen, onToggleFullscreen }: { item: Comp
       {/* Slider Container */}
       <div
         ref={containerRef}
-        className={`relative ${containerHeight} overflow-hidden select-none rounded-2xl ${isDragging ? 'cursor-ew-resize' : 'cursor-ew-resize'}`}
+        className={`relative ${containerHeight} overflow-hidden select-none rounded-2xl cursor-ew-resize`}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
@@ -170,7 +107,7 @@ function EnhancedSlider({ item, isFullscreen, onToggleFullscreen }: { item: Comp
           </div>
         </div>
 
-        {/* BEFORE Label - follows slider */}
+        {/* BEFORE Label */}
         <div
           className="absolute z-10 pointer-events-none"
           style={{
@@ -185,7 +122,7 @@ function EnhancedSlider({ item, isFullscreen, onToggleFullscreen }: { item: Comp
           </span>
         </div>
 
-        {/* AFTER Label - follows slider */}
+        {/* AFTER Label */}
         <div
           className="absolute z-10 pointer-events-none"
           style={{
@@ -223,10 +160,22 @@ function EnhancedSlider({ item, isFullscreen, onToggleFullscreen }: { item: Comp
   );
 }
 
+/* ─── BeforeAfterSlider (with category tabs) ─────────────── */
 export function BeforeAfterSlider() {
+  const [activeCategory, setActiveCategory] = useState<Category>('All');
   const [activeIndex, setActiveIndex] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [direction, setDirection] = useState(0);
+
+  // Filter items by active category
+  const filteredItems = activeCategory === 'All'
+    ? galleryItems
+    : galleryItems.filter(i => i.category === activeCategory);
+
+  const handleCategoryChange = useCallback((cat: Category) => {
+    setActiveIndex(0);
+    setActiveCategory(cat);
+  }, []);
 
   const goTo = useCallback((newIndex: number) => {
     setDirection(newIndex > activeIndex ? 1 : -1);
@@ -234,18 +183,22 @@ export function BeforeAfterSlider() {
   }, [activeIndex]);
 
   const goNext = useCallback(() => {
-    const next = (activeIndex + 1) % comparisonItems.length;
+    if (filteredItems.length === 0) return;
+    const next = (activeIndex + 1) % filteredItems.length;
     setDirection(1);
     setActiveIndex(next);
-  }, [activeIndex]);
+  }, [activeIndex, filteredItems.length]);
 
   const goPrev = useCallback(() => {
-    const prev = (activeIndex - 1 + comparisonItems.length) % comparisonItems.length;
+    if (filteredItems.length === 0) return;
+    const prev = (activeIndex - 1 + filteredItems.length) % filteredItems.length;
     setDirection(-1);
     setActiveIndex(prev);
-  }, [activeIndex]);
+  }, [activeIndex, filteredItems.length]);
 
-  const currentItem = comparisonItems[activeIndex];
+  const currentItem = filteredItems[activeIndex] || galleryItems[0];
+
+  const sliderCategories = categories.filter(c => c !== 'All');
 
   return (
     <section id="before-after-slider" className="py-20 md:py-28 bg-cream">
@@ -265,28 +218,39 @@ export function BeforeAfterSlider() {
             Before &amp; After <span className="text-gradient-gold">Slider</span>
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg">
-            Drag the slider to reveal the stunning transformations. Explore all {comparisonItems.length} projects with our interactive comparison tool.
+            Drag the slider to reveal the dramatic transformations. Explore projects by category with our interactive comparison tool.
           </p>
         </motion.div>
 
-        {/* Project Tabs */}
+        {/* Category Tabs */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="flex flex-nowrap justify-start sm:justify-center gap-2 mb-8 overflow-x-auto px-4 sm:px-0 scrollbar-hide"
+          className="flex flex-wrap justify-center gap-2 mb-8 px-4 sm:px-0"
         >
-          {comparisonItems.map((comp, index) => (
+          {/* "All" tab */}
+          <button
+            onClick={() => handleCategoryChange('All')}
+            className={`text-sm font-medium px-4 py-2 rounded-full transition-all cursor-pointer ${
+              activeCategory === 'All'
+                ? 'bg-navy text-white shadow-md'
+                : 'bg-white text-gray-600 border border-gray-200 hover:border-navy/30 hover:text-navy'
+            }`}
+          >
+            All ({categoryCounts.All})
+          </button>
+          {sliderCategories.map((cat) => (
             <button
-              key={comp.id}
-              onClick={() => goTo(index)}
-              className={`text-xs font-medium px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
-                index === activeIndex
+              key={cat}
+              onClick={() => handleCategoryChange(cat)}
+              className={`text-sm font-medium px-4 py-2 rounded-full transition-all cursor-pointer ${
+                activeCategory === cat
                   ? 'bg-navy text-white shadow-md'
                   : 'bg-white text-gray-600 border border-gray-200 hover:border-navy/30 hover:text-navy'
               }`}
             >
-              {comp.category}
+              {cat} ({categoryCounts[cat as Category]})
             </button>
           ))}
         </motion.div>
@@ -354,25 +318,24 @@ export function BeforeAfterSlider() {
           className="mt-6 p-5 bg-white rounded-xl shadow-sm border border-gray-100"
         >
           <div className="flex items-start justify-between gap-3 mb-2">
-            <div>
-              <Badge className="bg-sage/10 text-sage border-sage/20 text-xs">{currentItem.category}</Badge>
-            </div>
+            <Badge className="bg-navy/10 text-navy border-navy/20 text-xs">{currentItem.category}</Badge>
             <span className="text-xs text-gray-400">
-              {activeIndex + 1} / {comparisonItems.length}
+              {activeIndex + 1} / {filteredItems.length}
             </span>
           </div>
           <p className="text-gray-600 text-sm leading-relaxed">{currentItem.description}</p>
         </motion.div>
 
         {/* Thumbnail Strip */}
-        <div className="flex gap-3 mt-6 justify-center overflow-x-auto pb-2">
-          {comparisonItems.map((comp, index) => (
+        <div className="flex gap-3 mt-6 justify-center overflow-x-auto pb-2 scrollbar-hide">
+          {filteredItems.map((comp, index) => (
             <button
               key={comp.id}
               onClick={() => goTo(index)}
               className={`flex-shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
                 index === activeIndex ? 'border-gold shadow-md scale-105' : 'border-transparent opacity-60 hover:opacity-100'
               }`}
+              title={comp.title}
             >
               <div className="relative w-full h-full">
                 <img src={comp.beforeImage} alt="" className="w-full h-full object-cover" loading="lazy" />
