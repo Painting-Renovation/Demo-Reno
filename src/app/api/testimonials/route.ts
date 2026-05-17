@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase, toSnakeCase, toCamelCase, rowsToCamelCase } from '@/lib/supabase-server';
+import { supabase } from '@/lib/supabase-server';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -21,13 +21,13 @@ export async function GET(request: NextRequest) {
     let query = supabase
       .from('Testimonial')
       .select('*')
-      .eq('is_approved', true)
-      .order('is_featured', { ascending: false })
-      .order('created_at', { ascending: false })
+      .eq('isApproved', true)
+      .order('isFeatured', { ascending: false })
+      .order('createdAt', { ascending: false })
       .limit(limit);
 
     if (featured === 'true') {
-      query = query.eq('is_featured', true);
+      query = query.eq('isFeatured', true);
     }
 
     const { data, error } = await query;
@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const testimonials = rowsToCamelCase(data || []);
+    const testimonials = data || [];
 
     return NextResponse.json(
       { success: true, data: testimonials },
@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
 
     const { data: testimonial, error } = await supabase
       .from('Testimonial')
-      .insert(toSnakeCase({
+      .insert({
         name,
         location: location || null,
         rating: rating || 5,
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
         service: service || null,
         isFeatured: isFeatured || false,
         isApproved,
-      }))
+      })
       .select()
       .single();
 
@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { success: true, data: toCamelCase(testimonial) },
+      { success: true, data: testimonial },
       { status: 201, headers: corsHeaders }
     );
   } catch (error: unknown) {

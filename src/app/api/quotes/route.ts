@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase, toSnakeCase, toCamelCase, rowsToCamelCase } from '@/lib/supabase-server';
+import { supabase } from '@/lib/supabase-server';
 
 // GET /api/quotes — list quotes
 export async function GET(request: NextRequest) {
@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     let query = supabase
       .from('Quote')
       .select('*')
-      .order('created_at', { ascending: false });
+      .order('createdAt', { ascending: false });
 
     if (status && status !== 'all') {
       query = query.eq('status', status);
@@ -28,14 +28,14 @@ export async function GET(request: NextRequest) {
     }
 
     // Convert to camelCase immediately so subsequent processing uses camelCase keys
-    const quotes = rowsToCamelCase(data || []);
+    const quotes = data || [];
 
     // Enrich with lead info for quotes that have a leadId
     const enrichedQuotes = await Promise.all(quotes.map(async (quote: Record<string, unknown>) => {
       if (quote.leadId) {
         const { data: lead } = await supabase
           .from('Lead')
-          .select('first_name, last_name')
+          .select('firstName, lastName')
           .eq('id', quote.leadId)
           .single();
 
@@ -43,8 +43,8 @@ export async function GET(request: NextRequest) {
           return {
             ...quote,
             lead: {
-              firstName: lead.first_name,
-              lastName: lead.last_name,
+              firstName: lead.firstName,
+              lastName: lead.lastName,
             },
           };
         }
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
 
     const { data: quote, error } = await supabase
       .from('Quote')
-      .insert(toSnakeCase({
+      .insert({
         title,
         items: typeof items === 'string' ? items : JSON.stringify(items),
         subtotal: parseFloat(String(subtotal)) || 0,
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
         notes: notes || null,
         leadId: leadId || null,
         projectId: projectId || null,
-      }))
+      })
       .select()
       .single();
 
@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json(toCamelCase(quote), { status: 201 });
+    return NextResponse.json(quote, { status: 201 });
   } catch (error) {
     console.error('POST /api/quotes error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
