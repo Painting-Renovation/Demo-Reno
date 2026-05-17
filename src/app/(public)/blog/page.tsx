@@ -40,11 +40,11 @@ const featuredItem = {
 
 // Category icon mapping
 const categoryIcons: Record<string, string> = {
-  'Interior Tips': '🏠',
-  'Exterior Tips': '🏡',
-  'Color Trends': '🎨',
-  'Maintenance': '🔧',
-  'Commercial': '🏢',
+  'Residential Demolition': '🏠',
+  'Commercial Demolition': '🏢',
+  'Safety & Regulations': '🛡️',
+  'Cost & Planning': '📊',
+  'Environmental': '🌿',
   'DIY vs Pro': '🛠️',
 };
 
@@ -66,8 +66,8 @@ export default function BlogPage() {
   return (
     <main className="bg-cream">
       <PageHero
-        title="Painting Tips & Insights"
-        subtitle="Expert advice, color trends, and professional painting tips from our team of experienced Toronto painters. Stay informed and make confident decisions for your next project."
+        title="Demolition Tips & Insights"
+        subtitle="Expert advice, safety guides, and professional demolition tips from our team of experienced demolition specialists. Stay informed and make confident decisions for your next project."
         breadcrumbs={[{ label: 'Blog' }]}
         compact
       >
@@ -77,7 +77,7 @@ export default function BlogPage() {
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
             <input
               type="text"
-              placeholder="Search articles — colors, tips, techniques..."
+              placeholder="Search articles — permits, costs, safety tips..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-12 pr-4 py-3.5 bg-white/10 border border-white/15 rounded-xl text-white placeholder:text-white/40 focus:outline-none focus:border-gold/50 focus:bg-white/15 transition-all text-sm sm:text-base"
@@ -353,7 +353,7 @@ export default function BlogPage() {
                     </div>
                     <h3 className="text-lg font-bold text-white mb-2">Stay Updated</h3>
                     <p className="text-white/50 text-sm mb-5 leading-relaxed">
-                      Get painting tips, color trends, and exclusive offers delivered to your inbox.
+                      Get demolition tips, safety guides, and exclusive offers delivered to your inbox.
                     </p>
                     <Link
                       href="/contact"
@@ -372,8 +372,8 @@ export default function BlogPage() {
                     {[
                       { label: 'Free Estimate', href: '/free-estimate' },
                       { label: 'Our Services', href: '/services' },
-                      { label: 'Color Consultation', href: '/services/color-consultation' },
-                      { label: 'Our Guarantee', href: '/guarantee' },
+                      { label: 'Residential Demolition', href: '/services/residential-demolition' },
+                      { label: 'Commercial Demolition', href: '/services/commercial-demolition' },
                       { label: 'Contact Us', href: '/contact' },
                     ].map((link) => (
                       <li key={link.label}>
@@ -393,7 +393,7 @@ export default function BlogPage() {
                 <div className="bg-white rounded-2xl p-6 border border-gray-100">
                   <h3 className="text-lg font-bold text-navy mb-5">Popular Tags</h3>
                   <div className="flex flex-wrap gap-2">
-                    {['white paint', 'exterior', 'kitchen', 'color trends', 'cabinet refinishing', 'Toronto', 'DIY', 'maintenance', 'curb appeal', 'commercial'].map((tag) => (
+                    {['demolition', 'permits', 'residential', 'cost guide', 'concrete removal', 'Toronto', 'safety', 'asbestos', 'commercial', 'strip-out'].map((tag) => (
                       <button
                         key={tag}
                         onClick={() => setSearchQuery(tag)}

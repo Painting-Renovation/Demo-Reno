@@ -30,1159 +30,1171 @@ export interface BlogCategory {
 }
 
 export const blogCategories: BlogCategory[] = [
-  { name: 'Interior Tips', slug: 'interior-tips', count: 5, description: 'Expert advice for painting inside your home' },
-  { name: 'Exterior Tips', slug: 'exterior-tips', count: 4, description: 'Protect and beautify your home\'s exterior' },
-  { name: 'Color Trends', slug: 'color-trends', count: 4, description: 'Latest color trends and inspiration' },
-  { name: 'Maintenance', slug: 'maintenance', count: 3, description: 'Keep your paint looking fresh year-round' },
-  { name: 'Commercial', slug: 'commercial', count: 2, description: 'Tips for business and commercial spaces' },
-  { name: 'DIY vs Pro', slug: 'diy-vs-pro', count: 2, description: 'When to hire a professional painter' },
+  { name: 'Residential Demolition', slug: 'residential-demolition', count: 4, description: 'Home demolition projects, gutting, and strip-outs' },
+  { name: 'Commercial Demolition', slug: 'commercial-demolition', count: 3, description: 'Business and industrial demolition solutions' },
+  { name: 'Safety & Regulations', slug: 'safety-regulations', count: 3, description: 'Permits, safety standards, and compliance' },
+  { name: 'Cost & Planning', slug: 'cost-planning', count: 4, description: 'Budgeting, timelines, and planning guides' },
+  { name: 'Environmental', slug: 'environmental', count: 2, description: 'Asbestos, hazardous materials, and recycling' },
+  { name: 'DIY vs Pro', slug: 'diy-vs-pro', count: 2, description: 'When to hire professional demolition contractors' },
 ];
 
 export const blogArticles: BlogArticle[] = [
-  // ─── FEATURED ARTICLE ───
+  // ─── ARTICLE 1 (Featured) ───
   {
-    slug: 'how-to-choose-perfect-white-paint',
-    title: 'How to Choose the Perfect White Paint for Every Room',
+    slug: 'complete-guide-residential-demolition',
+    title: 'The Complete Guide to Residential Demolition: What Every Homeowner Needs to Know',
     excerpt:
-      'With hundreds of whites on the market, picking the right one can be overwhelming. We break down the key differences between warm, cool, and neutral whites — and which rooms they work best in.',
+      'Planning a home demolition project in the GTA? From permits to equipment, this comprehensive guide covers everything homeowners need to know before tearing down walls, gutting interiors, or leveling structures.',
     date: 'December 15, 2024',
-    category: 'Color Trends',
-    categoryColor: '#9B59B6',
-    readTime: '7 min read',
-    image: '/images/blog-white-paint.jpg',
-    author: 'Marco Santini',
-    authorRole: 'Senior Color Consultant',
+    category: 'Residential Demolition',
+    categoryColor: '#1B2A4A',
+    readTime: '10 min read',
+    image: '/images/blog-residential-demo.jpg',
+    author: 'Mike Rossi',
+    authorRole: 'Senior Project Manager',
     featured: true,
-    tags: ['white paint', 'color selection', 'interior design', 'paint colors'],
-    relatedArticles: ['toronto-color-trends-2025', 'interior-paint-prep-guide', 'color-consultation-worth-it'],
+    tags: ['residential demolition', 'home demolition', 'renovation', 'demolition guide'],
+    relatedArticles: ['permits-demolition-guide', 'interior-strip-out-guide', 'cost-guide-demolition'],
     content: [
       {
         type: 'paragraph',
-        text: 'White paint might seem like the simplest choice, but any interior designer will tell you it\'s one of the most nuanced decisions you\'ll make for your home. At ProCoat Painters, we\'ve helped thousands of Toronto homeowners navigate the overwhelming world of white paint, and we\'ve learned that the "perfect white" doesn\'t exist — but the perfect white for your specific room absolutely does.',
+        text: 'Residential demolition is one of the most significant projects a homeowner can undertake. Whether you\'re clearing a lot for a new build in Vaughan, gutting a century home in Toronto\'s Cabbagetown, or removing an old garage in Mississauga, understanding the demolition process is critical to keeping your project on track, on budget, and on the right side of the law. At In & Out Demolition, we\'ve managed hundreds of residential demolition projects across the Greater Toronto Area, and this guide distills everything we\'ve learned into a practical resource for homeowners.',
       },
       {
         type: 'heading2',
-        text: 'Understanding White Paint Undertones',
+        text: 'Types of Residential Demolition',
       },
       {
         type: 'paragraph',
-        text: 'Every white paint has an undertone — a subtle shift in color that becomes visible depending on your lighting, furniture, and surroundings. The three main categories are:',
+        text: 'Not all demolition is the same. The scope, method, and cost of your project depend entirely on what you\'re removing and why. Understanding these distinctions will help you communicate effectively with contractors and set realistic expectations for your project.',
       },
       {
-        type: 'bullets',
-        items: [
-          'Warm whites — Contain yellow, red, or orange undertones. Examples: Benjamin Moore White Dove (OC-17), Sherwin-Williams Alabaster (SW 7008). Best for living rooms, bedrooms, and any space where you want a cozy, inviting feel.',
-          'Cool whites — Contain blue, green, or gray undertones. Examples: Benjamin Moore Chantilly Lace (OC-65), Sherwin-Williams Snowbound (SW 7004). Ideal for kitchens, bathrooms, and modern spaces with lots of natural light.',
-          'Neutral whites — A balance between warm and cool. Examples: Benjamin Moore Simply White (OC-117), Sherwin-Williams Pure White (SW 7005). The most versatile option, working well in almost any room.',
-        ],
+        type: 'heading3',
+        text: 'Complete Tear-Down (Full Demolition)',
+      },
+      {
+        type: 'paragraph',
+        text: 'A complete tear-down involves removing an entire structure down to the foundation — and often the foundation itself. This is common when homeowners have purchased a lot with an aging or damaged structure and want to build new. Full demolition typically involves heavy equipment like excavators, bulldozers, and loaders. In the GTA, full residential tear-downs generally take 3-7 days depending on the size of the structure and whether asbestos abatement is required. Costs range from $15,000 to $50,000+ for a standard single-family home.',
+      },
+      {
+        type: 'heading3',
+        text: 'Partial Demolition',
+      },
+      {
+        type: 'paragraph',
+        text: 'Partial demolition targets specific sections of a home while leaving the rest intact. Common scenarios include removing a damaged addition, tearing down a non-load-bearing wall for an open-concept renovation, or removing a porch or sunroom. Partial demolition requires careful planning to ensure structural integrity is maintained. Our crews use a combination of hand tools, bobcats, and small excavators to perform precise partial demolitions throughout Toronto, Brampton, and Markham.',
+      },
+      {
+        type: 'heading3',
+        text: 'Interior Strip-Out (Selective Demolition)',
+      },
+      {
+        type: 'paragraph',
+        text: 'Interior strip-outs remove all interior finishes and non-structural elements — flooring, drywall, cabinetry, fixtures, and insulation — while preserving the exterior shell and structural framing. This is the most common type of demolition for major renovations and is significantly less expensive than a full tear-down, typically costing $5,000 to $15,000 depending on the home\'s size.',
+      },
+      {
+        type: 'divider',
       },
       {
         type: 'heading2',
-        text: 'Room-by-Room White Paint Guide',
-      },
-      {
-        type: 'heading3',
-        text: 'Living Room & Family Room',
-      },
-      {
-        type: 'paragraph',
-        text: 'Your living room is the heart of your home, and the right white sets the tone for everything else. In Toronto\'s older homes with warm-toned hardwood floors, a warm white like Benjamin Moore\'s Cloud White (OC-130) creates a seamless transition between walls and trim. For homes with cooler gray-toned flooring or contemporary furniture, consider a neutral white like Simply White that bridges the gap without competing.',
-      },
-      {
-        type: 'heading3',
-        text: 'Kitchen & Dining',
-      },
-      {
-        type: 'paragraph',
-        text: 'Kitchens benefit from a brighter, cleaner white that enhances the sense of cleanliness and openness. We frequently recommend Chantilly Lace for kitchen walls paired with White Dove on cabinetry — the subtle contrast adds depth without feeling stark. If your kitchen has warm-toned granite or butcher block countertops, Alabaster from Sherwin-Williams is an excellent choice that harmonizes with natural materials.',
-      },
-      {
-        type: 'heading3',
-        text: 'Bedrooms',
-      },
-      {
-        type: 'paragraph',
-        text: 'For bedrooms, we suggest leaning toward warmer whites that promote relaxation. White Dove is our most popular bedroom white in Toronto — it has just enough warmth to feel enveloping without reading as yellow. Pair it with soft linen bedding and warm-toned wood furniture for a serene retreat. North-facing bedrooms, which receive cooler light throughout the day, especially benefit from warm whites to counterbalance the blue-toned natural light.',
-      },
-      {
-        type: 'heading3',
-        text: 'Bathrooms',
-      },
-      {
-        type: 'paragraph',
-        text: 'Bathrooms are one of the few spaces where cooler whites truly shine. The bright, clean feel of a cool white like Chantilly Lace complements white tile, chrome fixtures, and glass surfaces. It also enhances the perception of cleanliness — a quality every bathroom should convey. If your bathroom has warm-toned finishes like brass fixtures or natural stone, consider a neutral white that won\'t clash.',
-      },
-      {
-        type: 'tip',
-        text: 'Always test your white paint sample on the wall and observe it at different times of day — morning light, afternoon sun, and evening lamplight can all change how a white appears. Our color consultants bring physical sample boards to your home for this exact reason.',
-      },
-      {
-        type: 'heading2',
-        text: 'The Ceilings and Trim Factor',
-      },
-      {
-        type: 'paragraph',
-        text: 'Don\'t forget about your fifth wall. Ceiling white should typically be a step brighter than your wall color to create an airy, lifted feeling. Benjamin Moore Ceiling White is formulated specifically for this purpose — it has a flat finish that hides imperfections and a slight blue cast that makes ceilings appear higher.',
-      },
-      {
-        type: 'paragraph',
-        text: 'For trim and baseboards, a semi-gloss or high-gloss white provides durability and a crisp contrast against flat or eggshell wall paint. We often use Benjamin Moore White Semi-Gloss on trim for a classic look that works with virtually any wall color.',
-      },
-      {
-        type: 'quote',
-        text: 'The secret to a great white paint job isn\'t the paint itself — it\'s understanding how light interacts with your space throughout the day.',
-        caption: '— Marco Santini, Senior Color Consultant at ProCoat Painters',
-      },
-      {
-        type: 'heading2',
-        text: 'Common White Paint Mistakes',
+        text: 'The Demolition Process: Step by Step',
       },
       {
         type: 'numbered',
         items: [
-          'Testing on small chips — Always paint at least a 2\'x2\' sample area to get an accurate reading.',
-          'Ignoring your fixed elements — Consider flooring, countertops, and furniture before choosing.',
-          'Using the same white everywhere — Different rooms have different lighting conditions that affect how white appears.',
-          'Skipping the primer — Proper priming ensures your white looks true to color and lasts for years.',
-          'Choosing paint sheen incorrectly — High-gloss highlights imperfections; flat paint absorbs light. Match sheen to room conditions.',
+          'Site Assessment & Planning — A professional walkthrough to identify structural elements, hazardous materials (asbestos, lead paint, mold), utility connections, and any site-specific challenges.',
+          'Permitting — Securing the required demolition permits from your local municipality. In Toronto, this means dealing with the City\'s Building division; in Mississauga, Brampton, and Vaughan, each city has its own process.',
+          'Utility Disconnection — All gas, hydro, and water services must be disconnected by certified professionals before demolition begins. This is non-negotiable for safety.',
+          'Hazardous Material Abatement — If asbestos, lead paint, or other hazardous materials are present, they must be safely removed by licensed abatement specialists before demolition can proceed.',
+          'Demolition Execution — The physical tearing down of the structure using appropriate equipment and techniques for the project scope.',
+          'Debris Removal & Site Cleanup — All demolition debris is loaded into bins or trucks, metal is separated for recycling, and the site is graded and cleared.',
+          'Final Inspection — Municipal inspectors verify the demolition meets all requirements and the site is safe and compliant.',
         ],
       },
       {
+        type: 'tip',
+        text: 'Always request a written demolition plan from your contractor before work begins. This document should outline the sequence of work, equipment to be used, safety measures, noise control methods, and the cleanup process. A professional company like In & Out Demolition provides this as part of every project.',
+      },
+      {
+        type: 'heading2',
+        text: 'Common Mistakes Homeowners Make',
+      },
+      {
+        type: 'bullets',
+        items: [
+          'Skipping the permit — Demolishing without a permit can result in fines of $10,000 to $50,000 in Ontario, plus stop-work orders and legal complications.',
+          'Forgetting about utilities — Failing to disconnect gas, hydro, and water before demolition creates serious safety hazards and can damage neighboring properties.',
+          'Underestimating asbestos risk — Homes built before 1990 commonly contain asbestos in insulation, flooring, drywall compound, and pipe wrapping. Testing and abatement are legally required.',
+          'Not notifying neighbors — A courtesy notice to adjacent property owners prevents complaints, maintains good relationships, and is often required by the municipality.',
+          'Ignoring site access — Failing to plan for equipment access, bin placement, and truck routes can delay your project and increase costs.',
+        ],
+      },
+      {
+        type: 'quote',
+        text: 'The most successful demolition projects are the ones where homeowners plan ahead, ask questions, and work with experienced professionals who understand local regulations and site conditions.',
+        caption: '— Mike Rossi, Senior Project Manager at In & Out Demolition',
+      },
+      {
+        type: 'heading2',
+        text: 'Ready to Start Your Demolition Project?',
+      },
+      {
         type: 'paragraph',
-        text: 'Ready to find your perfect white? Our complimentary color consultation (included with every painting project) takes the guesswork out of the equation. We bring physical samples, analyze your lighting, and help you select whites that transform your space. Contact us today to get started.',
+        text: 'Whether you\'re planning a full tear-down, partial demolition, or interior strip-out in Toronto, Mississauga, Brampton, Vaughan, or anywhere across the GTA, In & Out Demolition has the experience, equipment, and expertise to handle your project safely and efficiently. Call us at (437) 535-0494 for a free on-site consultation and detailed quote. We\'ll walk you through every step of the process and make sure your project starts on solid ground.',
       },
     ],
   },
 
   // ─── ARTICLE 2 ───
   {
-    slug: 'exterior-paint-colors-curb-appeal',
-    title: '5 Exterior Paint Colors That Boost Curb Appeal in Toronto',
+    slug: 'permits-demolition-guide',
+    title: 'Demolition Permits in the GTA: A Step-by-Step Guide',
     excerpt:
-      'Your home\'s exterior color makes a lasting first impression. Discover the five top-performing colors that real estate agents and designers say consistently attract buyers in the Greater Toronto Area.',
+      'Navigating municipal permit requirements for demolition can be confusing. This guide breaks down the permit process for Toronto, Mississauga, Brampton, Vaughan, and other GTA municipalities.',
     date: 'December 8, 2024',
-    category: 'Exterior Tips',
-    categoryColor: '#5B7B5A',
-    readTime: '6 min read',
-    image: '/images/blog-exterior-colors.jpg',
-    author: 'Sarah Chen',
-    authorRole: 'Lead Exterior Specialist',
-    tags: ['exterior painting', 'curb appeal', 'home value', 'Toronto real estate'],
-    relatedArticles: ['best-time-exterior-painting', 'toronto-color-trends-2025', 'exterior-paint-longevity'],
+    category: 'Safety & Regulations',
+    categoryColor: '#EF4444',
+    readTime: '8 min read',
+    image: '/images/blog-permits.jpg',
+    author: 'Sarah Tran',
+    authorRole: 'Compliance Specialist',
+    tags: ['permits', 'regulations', 'GTA', 'municipal bylaws', 'demolition permits'],
+    relatedArticles: ['safety-standards-demolition', 'complete-guide-residential-demolition', 'preparing-property-demolition'],
     content: [
       {
         type: 'paragraph',
-        text: 'Whether you\'re preparing to sell your home or simply want to be the pride of your neighborhood, your exterior paint color is one of the most impactful decisions you can make. According to a study by the University of Texas, a home\'s exterior color can influence its perceived value by up to $5,000. In Toronto\'s competitive real estate market, that number can be even higher.',
+        text: 'One of the most critical — and often most misunderstood — aspects of any demolition project is permitting. Every municipality in the Greater Toronto Area has specific requirements for demolition permits, and failing to comply can result in costly fines, project delays, and legal liability. At In & Out Demolition, we handle permitting for all our clients, but we believe homeowners should understand the process. Here\'s a comprehensive breakdown of what you need to know.',
       },
       {
         type: 'heading2',
-        text: '1. Classic Navy Blue',
+        text: 'When Do You Need a Demolition Permit?',
       },
       {
         type: 'paragraph',
-        text: 'Navy blue has become the go-to color for Toronto homeowners looking for sophistication without playing it too safe. It pairs beautifully with white trim, brass or nickel hardware, and natural stone accents. Benjamin Moore\'s Hale Navy (HC-154) is consistently our most requested exterior blue — it\'s deep enough to feel substantial but not so dark that it absorbs all the light. This color works exceptionally well on Victorian and Edwardian homes common in neighborhoods like The Annex and Cabbagetown.',
-      },
-      {
-        type: 'heading2',
-        text: '2. Warm Greige (Gray-Beige)',
-      },
-      {
-        type: 'paragraph',
-        text: 'Greige has dominated exterior color trends for the past five years, and for good reason. It offers the sophistication of gray with the warmth of beige, making it universally flattering on any home style. Sherwin-Williams Repose Gray (SW 7015) and Benjamin Moore Revere Pewter (HC-172) are our top picks. Greige is particularly effective on larger homes and modern builds in areas like Liberty Village and the King West corridor.',
-      },
-      {
-        type: 'heading2',
-        text: '3. Crisp White with Dark Trim',
-      },
-      {
-        type: 'paragraph',
-        text: 'The white-with-dark-trim combination is a timeless choice that\'s experiencing a major resurgence. Use Benjamin Moore\'s Decorator\'s White (OC-149) or Chantilly Lace (OC-65) on the main body and a contrasting dark like Black Iron (2133-10) or Graphite (1603) on window trim, shutters, and the front door. This creates a striking, high-contrast look that\'s especially popular on Cape Cod, Craftsman, and colonial-style homes in areas like Leaside and High Park.',
-      },
-      {
-        type: 'heading2',
-        text: '4. Sage Green',
-      },
-      {
-        type: 'paragraph',
-        text: 'For homeowners who want to connect their home to nature, sage green is an increasingly popular choice. Benjamin Moore\'s Saybrook Sage (HC-114) and Sherwin-Williams Evergreen Fog (SW 9130) create a calming, organic exterior that looks stunning against Toronto\'s tree-lined streets. Sage green pairs naturally with white trim, stone foundations, and copper or oil-rubbed bronze accents. It\'s particularly well-suited for cottages, bungalows, and Tudor-style homes in neighborhoods like Wychwood and Baby Point.',
-      },
-      {
-        type: 'heading2',
-        text: '5. Charcoal Gray',
-      },
-      {
-        type: 'paragraph',
-        text: 'Charcoal gray has emerged as the bold, modern alternative to traditional exterior colors. It creates a dramatic, contemporary statement that photographs beautifully — a real advantage in today\'s social media-driven real estate market. Benjamin Moore\'s Iron Mountain (2134-30) and Kendall Charcoal (HC-166) are our go-to charcoals. These deep grays look sophisticated when paired with warm wood accents, black window frames, and gold or brass light fixtures.',
-      },
-      {
-        type: 'tip',
-        text: 'Before committing to an exterior color, paint a 4\'x4\' test section on two different sides of your home (one facing north, one facing south). Observe the color for at least 3 days in different lighting conditions. This simple step prevents costly mistakes.',
-      },
-      {
-        type: 'heading2',
-        text: 'What to Avoid',
+        text: 'In Ontario, a demolition permit is required whenever you plan to remove all or part of a building or structure. This includes full building demolitions, removal of additions or wings, and in many cases, significant interior strip-outs that affect structural elements. Minor work like removing non-load-bearing walls or cosmetic finishes may not require a permit, but the line between "permitted" and "non-permitted" work varies by municipality.',
       },
       {
         type: 'bullets',
         items: [
-          'Pure white exteriors — They can look clinical and show every speck of dirt and mildew.',
-          'Yellow tones — Unless your home is a Victorian-era "painted lady," yellow exteriors can look dated.',
-          'Matching your neighbor — While you want to fit in, copying your neighbor\'s color creates a monotonous streetscape.',
-          'Extreme dark colors — Very dark colors absorb heat, which can cause paint to blister and peel faster in Toronto summers.',
+          'Full building demolition — Always requires a permit in every GTA municipality.',
+          'Removal of structural walls or supports — Requires a permit, often combined with a building permit for subsequent construction.',
+          'Addition removal — Requires a permit even if the addition is small.',
+          'Interior gutting — May require a permit if structural elements, plumbing stacks, or HVAC systems are affected.',
+          'Detached structures (sheds, garages) — Typically requires a permit for structures over 10 square meters.',
+          'Fences and decks — Generally do not require demolition permits, but removal may still need to comply with setback and zoning rules.',
         ],
       },
       {
+        type: 'heading2',
+        text: 'The Application Process',
+      },
+      {
         type: 'paragraph',
-        text: 'Choosing an exterior color is a big decision, and you\'ll live with it for 7-10 years. Our color consultants specialize in exterior color selection and will help you choose a palette that enhances your home\'s architecture, complements your neighborhood, and maximizes curb appeal. Book your free consultation today.',
+        text: 'While each municipality has its own forms and procedures, the general demolition permit process follows a similar pattern across the GTA:',
+      },
+      {
+        type: 'numbered',
+        items: [
+          'Complete the demolition permit application — Available online through your city\'s building department portal or in person at city hall.',
+          'Submit required documentation — This typically includes a site plan, demolition scope description, proof of utility disconnection, and an asbestos survey report.',
+          'Pay applicable fees — Demolition permit fees range from $200 to $2,000+ depending on the municipality and the scope of the project.',
+          'Wait for review and approval — Processing times range from 5 business days to 4 weeks depending on the municipality and project complexity.',
+          'Receive your permit — Once approved, the permit must be posted visibly at the demolition site.',
+          'Schedule inspections — Municipal building inspectors will visit the site at key milestones to verify compliance.',
+        ],
+      },
+      {
+        type: 'heading3',
+        text: 'City of Toronto',
+      },
+      {
+        type: 'paragraph',
+        text: 'Toronto has some of the most comprehensive demolition requirements in the GTA. In addition to the standard demolition permit, Toronto requires a "Notice of Demolition" to be submitted to the City at least 30 days before demolition begins. This notice triggers requirements for heritage review, site plan conditions, and dust mitigation. Toronto also requires demolition waste diversion reporting — a minimum of 70% of demolition waste must be diverted from landfill. Application fees in Toronto typically range from $500 to $2,500.',
+      },
+      {
+        type: 'heading3',
+        text: 'Mississauga, Brampton & Vaughan',
+      },
+      {
+        type: 'paragraph',
+        text: 'These Peel Region and York Region cities generally follow the Ontario Building Code requirements for demolition permits but each has unique additional conditions. Mississauga requires a pre-demolition inspection and a noise bylaw compliance plan. Brampton mandates specific fencing and signage requirements during demolition. Vaughan requires confirmation that all demolition waste will be disposed of at approved facilities. Processing times in these municipalities typically range from 10 to 20 business days.',
+      },
+      {
+        type: 'tip',
+        text: 'Always check with your local municipality for the most current requirements before starting your demolition project. Regulations change frequently, and what was compliant last year may not be this year. A professional demolition company stays up to date on all municipal requirements.',
+      },
+      {
+        type: 'heading2',
+        text: 'Consequences of Demolishing Without a Permit',
+      },
+      {
+        type: 'paragraph',
+        text: 'Demolishing without the required permits is a serious offence in Ontario. Under the Building Code Act, penalties can include fines up to $50,000 for individuals and $100,000 for corporations. Additionally, you may be ordered to restore the demolished structure, face increased insurance premiums, and encounter difficulties obtaining future building permits. In & Out Demolition never proceeds without proper permits in place — it\'s simply not worth the risk.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Need help navigating the permit process? In & Out Demolition handles all permit applications as part of our full-service demolition packages. Call us at (437) 535-0494 and let our compliance team take the paperwork off your plate.',
       },
     ],
   },
 
   // ─── ARTICLE 3 ───
   {
-    slug: 'cabinet-refinishing-complete-guide',
-    title: 'The Complete Guide to Kitchen Cabinet Refinishing',
+    slug: 'commercial-demolition-minimizing-disruption',
+    title: 'Commercial Demolition: How to Minimize Business Downtime',
     excerpt:
-      'Thinking about updating your kitchen without the cost of a full renovation? Cabinet refinishing can transform your space for a fraction of the price. Here\'s everything you need to know about the process, costs, and results.',
+      'Commercial demolition doesn\'t have to mean shutting down your business entirely. Learn strategies for phased demolition, after-hours work, and tenant coordination that keep operations running.',
     date: 'November 30, 2024',
-    category: 'Interior Tips',
-    categoryColor: '#3B82A0',
-    readTime: '9 min read',
-    image: '/images/blog-cabinets.jpg',
-    author: 'David Park',
-    authorRole: 'Cabinet Refinishing Lead',
-    tags: ['cabinet refinishing', 'kitchen renovation', 'cost savings', 'cabinet painting'],
-    relatedArticles: ['diy-painting-vs-professional', 'interior-paint-prep-guide', 'how-to-choose-perfect-white-paint'],
+    category: 'Commercial Demolition',
+    categoryColor: '#F59E0B',
+    readTime: '7 min read',
+    image: '/images/blog-commercial.jpg',
+    author: 'James Wilson',
+    authorRole: 'Commercial Projects Director',
+    tags: ['commercial demolition', 'business', 'minimal disruption', 'tenant relocation'],
+    relatedArticles: ['asbestos-hazardous-materials', 'interior-strip-out-guide', 'cost-guide-demolition'],
     content: [
       {
         type: 'paragraph',
-        text: 'If your kitchen cabinets are structurally sound but visually tired, cabinet refinishing is the smartest renovation decision you can make. At ProCoat Painters, we\'ve refinished over 2,000 kitchens across the Greater Toronto Area, and we consistently hear the same reaction from homeowners: "I can\'t believe these are the same cabinets." Here\'s your complete guide to understanding the process, setting expectations, and getting the best possible result.',
+        text: 'For business owners and property managers, demolition represents a double challenge: you need to remove or renovate existing structures while keeping your business — or your tenants\' businesses — operational. At In & Out Demolition, our commercial division has completed projects across the GTA, from stripping out office towers in Toronto\'s Financial District to gutting retail plazas in Brampton and warehouse facilities in Mississauga. Here are the strategies we use to minimize business downtime.',
       },
       {
         type: 'heading2',
-        text: 'Refinishing vs. Refacing vs. Replacing',
+        text: 'Strategy 1: Phased & Zoned Demolition',
       },
       {
         type: 'paragraph',
-        text: 'Before diving into refinishing, it\'s important to understand how it compares to other options:',
+        text: 'The most effective approach for occupied commercial properties is to divide the demolition into phases or zones. Rather than closing the entire building, we isolate specific areas with heavy-duty containment barriers and complete demolition sequentially. This allows the rest of the building to remain operational while work proceeds. Phasing is particularly effective for multi-tenant office buildings, shopping plazas, and industrial facilities with separate production areas.',
       },
       {
         type: 'bullets',
         items: [
-          'Cabinet Refinishing ($3,000-$6,000) — Your existing cabinet doors, drawers, and frames are professionally cleaned, sanded, primed, and sprayed with a premium lacquer or conversion varnish finish. The result is a factory-quality look at 60-80% less than replacement. Turnaround: 4-6 days.',
-          'Cabinet Refacing ($8,000-$15,000) — The cabinet boxes remain, but new doors, drawer fronts, and veneer are applied. Good if you want to change the door style entirely. Turnaround: 2-3 weeks.',
-          'Cabinet Replacement ($15,000-$40,000+) — Complete removal and installation of new cabinets. The most expensive and disruptive option, typically requiring 4-8 weeks and temporary kitchen setup.',
+          'Multi-tenant office buildings — Strip out vacant floors first, then coordinate with remaining tenants for phased relocation to completed areas.',
+          'Retail plazas — Demo one or two units at a time behind temporary hoarding, keeping adjacent stores open and accessible.',
+          'Restaurants & hospitality — Schedule demolition during closed hours or seasonal shutdowns to eliminate revenue impact entirely.',
+          'Warehouses & manufacturing — Zone off sections with industrial containment while operations continue in adjacent zones.',
+          'Medical & institutional facilities — Work in strict phases with infection control barriers, negative air pressure, and HEPA filtration.',
         ],
       },
       {
         type: 'heading2',
-        text: 'The ProCoat Refinishing Process',
+        text: 'Strategy 2: After-Hours & Weekend Scheduling',
+      },
+      {
+        type: 'paragraph',
+        text: 'For noise-sensitive environments like offices, call centers, and healthcare facilities, after-hours demolition is often the best solution. Our crews regularly work from 6 PM to 6 AM or complete intensive demolition over weekends. We bring in pre-rigged equipment to minimize setup time and use electric-powered tools and compact excavators to reduce noise levels. While after-hours work comes at a premium (typically 15-25% above standard rates), it often costs less than the revenue lost from a full business closure.',
+      },
+      {
+        type: 'heading2',
+        text: 'Strategy 3: Selective Demo vs. Full Gut',
+      },
+      {
+        type: 'paragraph',
+        text: 'In many commercial renovation projects, a full gut isn\'t necessary. Selective demolition targets only the elements that need to be removed — partitions, ceiling systems, flooring, and mechanical units — while preserving anything that can be reused. This approach reduces demolition time, generates less waste, and can cut overall project costs by 30-40%. Our estimators work closely with architects and general contractors to identify exactly what needs to go and what can stay.',
+      },
+      {
+        type: 'divider',
+      },
+      {
+        type: 'heading2',
+        text: 'Tenant Communication & Coordination',
+      },
+      {
+        type: 'paragraph',
+        text: 'Successful commercial demolition requires excellent communication with all building stakeholders. We provide a detailed logistics plan that includes:',
       },
       {
         type: 'numbered',
         items: [
-          'Design Consultation — We visit your home, discuss your vision, and bring sample doors finished in your preferred colors and finishes. This takes 30-60 minutes and ensures you love the result before we begin.',
-          'Preparation & Removal — All cabinet doors, drawers, hinges, and hardware are carefully removed, numbered, and transported to our climate-controlled spray facility. This protects your home from dust and overspray.',
-          'Professional Cleaning — Every surface is degreased, cleaned, and inspected for any damage that needs repair before refinishing.',
-          'Sanding & Priming — Doors are sanded to the proper profile for adhesion, then sprayed with a high-build primer designed specifically for cabinet surfaces.',
-          'Finish Application — Two to three coats of premium lacquer or conversion varnish are sprayed in a controlled, dust-free environment. This produces a finish that\'s harder and more durable than factory-applied paint.',
-          'On-Site Frame Finishing — While doors are being sprayed at our facility, our team primes and finishes the cabinet frames on-site using low-odor products with proper ventilation.',
-          'Precision Reinstallation — Doors and drawers are reinstalled with precision alignment. New hardware (if selected) is installed, and every door is adjusted for perfect operation.',
-          'Final Inspection — A detailed walkthrough with you to ensure every detail meets your expectations. Any touch-ups are completed on the spot.',
+          'Written notice to all tenants at least 30 days before demolition begins',
+          'Designated loading zones and truck routes that minimize interference with customer and employee traffic',
+          'Dust and noise mitigation measures, including HEPA-filtered containment and vibration monitoring',
+          'Elevator and stairwell usage schedules to prevent conflicts with building occupants',
+          'Emergency contact information and a dedicated project manager available 24/7 during the demolition phase',
         ],
-      },
-      {
-        type: 'heading2',
-        text: 'Popular Cabinet Colors for 2025',
-      },
-      {
-        type: 'paragraph',
-        text: 'Toronto homeowners are gravitating toward these cabinet color trends:',
-      },
-      {
-        type: 'bullets',
-        items: [
-          'Alabaster White — The timeless choice that brightens any kitchen and works with every countertop material.',
-          'Sage Green — A soft, organic green that brings nature indoors. Pairs beautifully with white countertops and brass hardware.',
-          'Navy Blue — Bold and sophisticated, navy cabinets create a dramatic focal point, especially on kitchen islands.',
-          'Warm Gray — A neutral that adds depth without the starkness of pure white. Excellent for open-concept spaces.',
-          'Two-Tone Combinations — White upper cabinets with navy or sage lower cabinets is our most requested combination in 2024-2025.',
-        ],
-      },
-      {
-        type: 'tip',
-        text: 'Switching from knobs to pulls (or vice versa) during refinishing is the easiest way to completely change the look of your kitchen for under $200-400. We can advise on hardware styles that complement your chosen finish.',
-      },
-      {
-        type: 'heading2',
-        text: 'How Long Does Refinished Cabinetry Last?',
-      },
-      {
-        type: 'paragraph',
-        text: 'With our conversion varnish finish, you can expect 10-15 years of beautiful, durable results. The finish is resistant to scratches, chips, moisture, and the yellowing that plagues standard latex paint. Unlike DIY painting projects that can begin peeling within months, our professional spray application bonds at a molecular level with the cabinet surface, creating a finish that\'s actually harder than the original factory coating.',
       },
       {
         type: 'quote',
-        text: 'Cabinet refinishing is the single highest-ROI home improvement in Toronto. You get a brand-new kitchen look for a fraction of the cost, and it pays for itself in added home value within 2-3 years.',
-        caption: '— David Park, Cabinet Refinishing Lead at ProCoat Painters',
+        text: 'The key to successful commercial demolition isn\'t just about the physical work — it\'s about managing the impact on people and businesses. A well-planned demolition project is almost invisible to the tenants next door.',
+        caption: '— James Wilson, Commercial Projects Director at In & Out Demolition',
+      },
+      {
+        type: 'tip',
+        text: 'If you\'re planning a commercial demolition project, start the planning process at least 8-12 weeks before your target start date. This allows adequate time for asbestos surveys, permit applications, tenant coordination, and scheduling — especially in Toronto where permit processing can take several weeks.',
       },
       {
         type: 'paragraph',
-        text: 'Ready to transform your kitchen? Contact us for a free consultation and see sample finishes in your own home under your own lighting conditions.',
+        text: 'In & Out Demolition has the equipment, crew, and experience to handle commercial demolition projects of any size across the GTA. Contact our commercial team at (437) 535-0494 for a free consultation and detailed project plan tailored to your business needs.',
       },
     ],
   },
 
   // ─── ARTICLE 4 ───
   {
-    slug: 'best-time-exterior-painting',
-    title: 'When Is the Best Time to Paint Your Home\'s Exterior in Toronto?',
+    slug: 'interior-strip-out-guide',
+    title: 'Interior Strip-Outs: The Smart Alternative to Full Demolition',
     excerpt:
-      'Timing matters when it comes to exterior painting. Learn the optimal months, temperature ranges, and weather conditions for a flawless, long-lasting finish on your home\'s exterior in the Greater Toronto Area.',
+      'Planning a major renovation? An interior strip-out removes old finishes and fixtures while preserving your building\'s structure. Learn when strip-outs make sense, what\'s involved, and how much they cost.',
     date: 'November 22, 2024',
-    category: 'Exterior Tips',
-    categoryColor: '#5B7B5A',
-    readTime: '5 min read',
-    image: '/images/blog-seasonal.jpg',
-    author: 'Sarah Chen',
-    authorRole: 'Lead Exterior Specialist',
-    tags: ['exterior painting', 'seasonal tips', 'Toronto weather', 'paint timing'],
-    relatedArticles: ['exterior-paint-colors-curb-appeal', 'exterior-paint-longevity', 'toronto-color-trends-2025'],
+    category: 'Residential Demolition',
+    categoryColor: '#1B2A4A',
+    readTime: '8 min read',
+    image: '/images/blog-strip-out.jpg',
+    author: 'Mike Rossi',
+    authorRole: 'Senior Project Manager',
+    tags: ['interior strip-out', 'selective demolition', 'gutting', 'renovation prep'],
+    relatedArticles: ['complete-guide-residential-demolition', 'diy-vs-pro-demolition', 'cost-guide-demolition'],
     content: [
       {
         type: 'paragraph',
-        text: 'Toronto\'s climate presents unique challenges for exterior painting. With temperatures ranging from -20°C in January to 35°C+ in July, and everything from heavy snow to thunderstorms, choosing the right time to paint your home\'s exterior isn\'t just a matter of convenience — it\'s essential for achieving a durable, long-lasting finish.',
+        text: 'If you\'re planning a major renovation — a kitchen gut, a full-home remodel, or a basement overhaul — an interior strip-out is almost always the first step. Unlike full demolition, a strip-out selectively removes interior finishes, fixtures, and non-structural elements while leaving the building\'s exterior walls, roof, and structural framing intact. At In & Out Demolition, interior strip-outs account for nearly 60% of our residential projects across the GTA, and for good reason: they\'re faster, less expensive, and far less disruptive than full demolition.',
       },
       {
         type: 'heading2',
-        text: 'The Ideal Painting Window: May through October',
+        text: 'What\'s Included in an Interior Strip-Out?',
       },
       {
         type: 'paragraph',
-        text: 'In Toronto, the optimal exterior painting season runs from mid-May through late October. During these months, temperatures consistently stay above 10°C (50°F), which is the minimum temperature required for most premium exterior paints to cure properly. Within this window, there are distinct sub-seasons, each with its own advantages:',
-      },
-      {
-        type: 'heading3',
-        text: 'Late Spring (May–June) — The Sweet Spot',
-      },
-      {
-        type: 'paragraph',
-        text: 'Late spring is widely considered the best time for exterior painting in Toronto. Temperatures are moderate (15-25°C), humidity is relatively low, and the risk of rain is manageable. The moderate temperatures allow paint to cure at an ideal pace — not too fast (which can cause poor adhesion) and not too slow (which can leave paint vulnerable to weather). Booking in spring also ensures your home looks fresh for the entire summer season.',
-      },
-      {
-        type: 'heading3',
-        text: 'Summer (July–August) — Great, with Caveats',
-      },
-      {
-        type: 'paragraph',
-        text: 'Summer offers the most predictable dry weather, but extreme heat can be problematic. When surface temperatures exceed 35°C, paint can dry too quickly, leading to lap marks, poor adhesion, and premature cracking. Professional painters mitigate this by starting early in the morning, following the shade around the house, and using products specifically formulated for hot-weather application. If your home has significant west-facing or south-facing surfaces, early summer (before the hottest days) is preferable.',
-      },
-      {
-        type: 'heading3',
-        text: 'Early Fall (September–October) — The Smart Choice',
-      },
-      {
-        type: 'paragraph',
-        text: 'Early fall is an excellent time to paint, and it comes with a distinct advantage: availability. Many homeowners complete their painting projects in summer, which means painters often have more flexibility in September and October. Fall temperatures are ideal for paint curing (10-20°C), and the lower sun angle reduces the risk of heat-related issues. The key is to complete the project before consistent overnight temperatures drop below 5°C.',
-      },
-      {
-        type: 'tip',
-        text: 'Book your exterior painting project in February or March for the best availability and often better pricing. Many painting companies offer early-bird discounts for spring bookings, and you\'ll have first pick of scheduling.',
-      },
-      {
-        type: 'heading2',
-        text: 'Weather Conditions That Stop Work',
+        text: 'The scope of a strip-out depends on your renovation plans, but a typical residential strip-out includes:',
       },
       {
         type: 'bullets',
         items: [
-          'Rain — Exterior paint needs at least 4 hours of dry time after application. We monitor weather forecasts closely and will reschedule if rain is likely within the drying window.',
-          'High humidity — Above 85% humidity, paint struggles to dry properly and may not adhere well. Toronto\'s muggy summer days can sometimes create these conditions.',
-          'Wind — Strong winds cause overspray, blow debris onto wet surfaces, and make working at heights unsafe. We avoid painting on days with sustained winds above 30 km/h.',
-          'Extreme temperatures — Below 5°C or above 35°C surface temperature, paint chemistry breaks down and results suffer.',
+          'Interior walls (drywall and partition walls, both load-bearing and non-load-bearing)',
+          'Flooring materials — hardwood, tile, carpet, laminate, and subfloor if required',
+          'Kitchen cabinetry, countertops, and built-in appliances',
+          'Bathroom fixtures — toilets, vanities, tubs, showers, and tile surrounds',
+          'Ceiling systems — drywall, drop ceilings, and suspended grid systems',
+          'Insulation — both batt and blown-in insulation from walls and attics',
+          'HVAC ductwork, plumbing pipes, and electrical wiring (in areas being completely reworked)',
+          'Interior doors, trim, baseboards, and window casings',
         ],
       },
       {
         type: 'heading2',
-        text: 'Winter Painting: Possible but Limited',
+        text: 'When to Choose a Strip-Out Over Full Demolition',
       },
       {
         type: 'paragraph',
-        text: 'While most exterior painting pauses during Toronto\'s winter months, certain projects can proceed with specialized cold-weather paints rated for temperatures as low as -5°C. These products are more expensive and may not achieve the same finish quality as standard exterior paints, but they\'re useful for urgent projects like touching up damaged areas before selling a home.',
-      },
-      {
-        type: 'paragraph',
-        text: 'The bottom line: plan your exterior painting project for late spring or early fall for the best results, and book early to secure your preferred timeline. Contact us for a free estimate and we\'ll recommend the ideal schedule for your specific home and needs.',
-      },
-    ],
-  },
-
-  // ─── ARTICLE 5 ───
-  {
-    slug: 'commercial-painting-minimizing-disruption',
-    title: 'Commercial Painting: Minimizing Business Disruption',
-    excerpt:
-      'Painting your commercial space doesn\'t have to mean shutting down operations. Discover proven strategies for after-hours work, phased scheduling, and zero-downtime transformations.',
-    date: 'November 15, 2024',
-    category: 'Commercial',
-    categoryColor: '#EF4444',
-    readTime: '6 min read',
-    image: '/images/blog-commercial.jpg',
-    author: 'James Wilson',
-    authorRole: 'Commercial Projects Director',
-    tags: ['commercial painting', 'business', 'minimal disruption', 'after-hours'],
-    relatedArticles: ['diy-painting-vs-professional', 'exterior-paint-longevity', 'cabinet-refinishing-complete-guide'],
-    content: [
-      {
-        type: 'paragraph',
-        text: 'For business owners, the prospect of painting can be daunting. How do you refresh your space without losing revenue, disrupting employees, or creating a negative experience for customers? At ProCoat Painters, we\'ve developed comprehensive strategies over 15 years of commercial work that allow us to transform offices, retail spaces, restaurants, and medical facilities with minimal to zero operational disruption.',
-      },
-      {
-        type: 'heading2',
-        text: 'Strategy 1: After-Hours & Weekend Scheduling',
-      },
-      {
-        type: 'paragraph',
-        text: 'The most common approach for commercial painting is scheduling work outside of business hours. Our crews regularly work from 6 PM to 6 AM, or full weekends (Friday evening through Sunday night), to ensure your space is ready for normal operations by Monday morning. We use low-odor, fast-drying products that are safe for occupied spaces and won\'t leave residual smells that could affect customers or employees the next day.',
-      },
-      {
-        type: 'heading2',
-        text: 'Strategy 2: Phased & Zoned Approach',
-      },
-      {
-        type: 'paragraph',
-        text: 'For larger spaces where complete closure isn\'t possible, we divide the project into zones that can be painted sequentially. For example, in a multi-floor office building, we might paint one floor at a time, relocating employees temporarily to adjacent floors. In retail environments, we can paint store sections behind temporary barriers that maintain a clean, professional appearance for customers.',
-      },
-      {
-        type: 'bullets',
-        items: [
-          'Offices — Paint floors in sequence; 1-2 floors per night during after-hours shifts.',
-          'Restaurants — Complete kitchen and dining area painting on consecutive Sunday/Monday closure days.',
-          'Retail stores — Section off 25% of the space at a time behind professional barriers.',
-          'Medical offices — Paint treatment rooms during off-hours; common areas in sections.',
-          'Warehouses — Zone off areas with floor-to-ceiling plastic containment while operations continue in adjacent zones.',
-        ],
-      },
-      {
-        type: 'heading2',
-        text: 'Strategy 3: Low-Odor & Zero-VOC Products',
-      },
-      {
-        type: 'paragraph',
-        text: 'Modern paint technology has made it possible to paint occupied spaces safely. We exclusively use low-VOC (volatile organic compound) and zero-VOC paints for commercial projects, including Benjamin Moore\'s Regal Select line and Sherwin-Williams Harmony, both of which meet the most stringent indoor air quality standards. These products have virtually no odor within 1-2 hours of application and are GreenGuard certified for use in schools and healthcare facilities.',
-      },
-      {
-        type: 'tip',
-        text: 'Schedule commercial painting projects during your slowest business season. Many businesses see natural slowdowns in January-February or July-August — these are ideal windows for painting with minimal revenue impact.',
-      },
-      {
-        type: 'heading2',
-        text: 'The ROI of Commercial Painting',
-      },
-      {
-        type: 'paragraph',
-        text: 'Beyond aesthetics, commercial painting delivers measurable business benefits:',
+        text: 'A strip-out is the right choice when your building\'s structural system and exterior are sound, and your renovation plans don\'t involve changing the footprint of the building. Common scenarios include:',
       },
       {
         type: 'numbered',
         items: [
-          'Customer perception — Studies show that 95% of first impressions are visual. A fresh, well-maintained space communicates professionalism and quality.',
-          'Employee productivity — Research from the University of Texas found that workplace color can influence productivity by up to 15%.',
-          'Brand consistency — Ensure your physical space accurately reflects your brand guidelines and values.',
-          'Property value — Freshly painted commercial spaces command 7-10% higher lease rates compared to spaces with dated finishes.',
-          'Maintenance prevention — Proactive painting prevents the costly damage that results from delayed maintenance, including wood rot, corrosion, and mold.',
+          'Purchasing a home to completely renovate — Strip out the old interior down to the studs and start fresh while keeping the shell.',
+          'Kitchen and bathroom gut renovations — Remove everything down to the framing for a total redesign.',
+          'Basement finishing preparation — Remove old finishes, expose utilities, and create a clean canvas for your contractor.',
+          'Fire or water damage restoration — Strip out damaged materials while preserving sound structure.',
+          'Commercial tenant improvements — Gut a retail or office space for a new tenant fit-out.',
+          'Adding insulation and upgrading mechanicals — Strip interior finishes to access wall cavities and utility runs.',
         ],
       },
       {
+        type: 'heading2',
+        text: 'Cost Expectations for Interior Strip-Outs',
+      },
+      {
         type: 'paragraph',
-        text: 'Whether you manage a single office or a portfolio of commercial properties, we can develop a customized painting schedule that works with your operations. Contact our commercial team for a free assessment and proposal.',
+        text: 'Interior strip-outs in the GTA typically cost between $5 and $15 per square foot, depending on the scope and complexity of the work. For a standard 1,500 square foot bungalow in Brampton or Mississauga, a full interior gut typically runs $7,500 to $15,000. Factors that affect pricing include:',
+      },
+      {
+        type: 'bullets',
+        items: [
+          'Number of stories — Multi-story homes require more labor and material handling time.',
+          'Material type — Removing plaster walls is more labor-intensive than drywall; tile removal requires specialized equipment.',
+          'Accessibility — Homes with difficult access for bins and equipment cost more.',
+          'Hazardous materials — Asbestos or lead paint abatement adds $3,000 to $15,000+ depending on the scope.',
+          'Debris volume — The amount of material being removed affects bin rental and disposal costs.',
+        ],
+      },
+      {
+        type: 'tip',
+        text: 'Schedule your strip-out to finish exactly when your renovation contractor is ready to begin framing or rough-in work. Gap time between demolition and renovation wastes money on interest, carrying costs, and potential weather damage to exposed framing. In & Out Demolition coordinates closely with your renovation team to ensure seamless timing.',
+      },
+      {
+        type: 'heading2',
+        text: 'The Strip-Out Process',
+      },
+      {
+        type: 'paragraph',
+        text: 'A professional interior strip-out follows a systematic process to maximize efficiency and safety. Our crews start by setting up floor protection and dust containment, then work room by room from top to bottom. Walls are pulled using reciprocating saws, pry bars, and in some cases mini excavators. All debris is loaded directly into bins placed at the most accessible exterior point. We separate metals for recycling and ensure all materials are disposed of at licensed facilities. A typical residential strip-out takes 2-5 days depending on the home\'s size.',
+      },
+      {
+        type: 'quote',
+        text: 'A good interior strip-out is like peeling back the layers of an onion — methodical, thorough, and always with an eye on preserving what matters. Our job is to give your renovation contractor the cleanest possible starting point.',
+        caption: '— Mike Rossi, Senior Project Manager at In & Out Demolition',
+      },
+      {
+        type: 'paragraph',
+        text: 'Planning a renovation that starts with a strip-out? In & Out Demolition provides fast, clean, and thorough interior gut services across Toronto, Mississauga, Brampton, Vaughan, Markham, and the entire GTA. Call (437) 535-0494 for a free on-site estimate and let us help your renovation start right.',
+      },
+    ],
+  },
+
+  // ─── ARTICLE 5 (Featured) ───
+  {
+    slug: 'cost-guide-demolition',
+    title: 'How Much Does Demolition Cost in 2025? A Comprehensive Breakdown',
+    excerpt:
+      'Demolition costs vary widely based on scope, materials, and location. Get a detailed breakdown of 2025 demolition pricing across the GTA, from interior strip-outs to full building tear-downs.',
+    date: 'November 15, 2024',
+    category: 'Cost & Planning',
+    categoryColor: '#3B82F6',
+    readTime: '9 min read',
+    image: '/images/blog-cost-guide.jpg',
+    author: 'Lisa Chen',
+    authorRole: 'Estimating Manager',
+    featured: true,
+    tags: ['demolition cost', 'budget', 'pricing', '2025', 'cost breakdown'],
+    relatedArticles: ['complete-guide-residential-demolition', 'commercial-demolition-minimizing-disruption', 'renovation-vs-demo'],
+    content: [
+      {
+        type: 'paragraph',
+        text: 'Cost is the first question every homeowner and business owner asks when considering a demolition project — and it\'s the right question to ask. Demolition pricing in the Greater Toronto Area has evolved significantly over the past few years, driven by rising disposal fees, increased regulation around hazardous materials, labor costs, and equipment expenses. At In & Out Demolition, we believe in transparent pricing, so here\'s a comprehensive breakdown of what you can expect to pay for demolition in 2025.',
+      },
+      {
+        type: 'heading2',
+        text: 'Residential Demolition Costs',
+      },
+      {
+        type: 'heading3',
+        text: 'Full House Tear-Down',
+      },
+      {
+        type: 'paragraph',
+        text: 'Complete residential demolition in the GTA typically costs between $15,000 and $50,000 for a standard single-family home. The wide range reflects several variables: home size, construction type, accessibility for heavy equipment, and whether hazardous materials are present. A small bungalow in Brampton with easy bin access might fall on the lower end at $15,000-$20,000, while a large two-story home in Toronto\'s Lawrence Park with limited access and potential asbestos could cost $35,000-$50,000.',
+      },
+      {
+        type: 'heading3',
+        text: 'Interior Strip-Out',
+      },
+      {
+        type: 'paragraph',
+        text: 'Interior gutting and strip-outs are the most common residential demolition service we provide. Pricing typically ranges from $5,000 to $15,000 for a full interior gut of a standard single-family home. On a per-square-foot basis, expect to pay $5 to $15 per square foot. Basement strip-outs alone usually run $2,500 to $6,000, while a complete kitchen and bathroom gut might cost $3,000 to $8,000.',
+      },
+      {
+        type: 'heading3',
+        text: 'Partial & Selective Demolition',
+      },
+      {
+        type: 'paragraph',
+        text: 'Targeted demolition work — removing a single wall, tearing out a garage, or demoing an addition — costs between $1,500 and $12,000 depending on the scope. Removing a non-load-bearing interior wall is typically $500-$2,000. Garage demolition in Mississauga or Vaughan averages $3,000-$8,000 depending on size and construction. Pool removal, which has become increasingly popular in the GTA, ranges from $8,000 to $25,000.',
+      },
+      {
+        type: 'divider',
+      },
+      {
+        type: 'heading2',
+        text: 'Commercial Demolition Costs',
+      },
+      {
+        type: 'paragraph',
+        text: 'Commercial demolition is priced differently from residential work due to the scale, complexity, and regulatory requirements involved. Typical commercial demolition in the GTA ranges from $10 to $30 per square foot, with larger projects benefiting from economies of scale.',
+      },
+      {
+        type: 'bullets',
+        items: [
+          'Office strip-out: $8-$18 per square foot — Removing drywall, ceilings, flooring, and mechanical systems while preserving the building shell.',
+          'Retail store gut: $10-$20 per square foot — Often requires work outside business hours, which adds to costs.',
+          'Industrial facility demo: $15-$35 per square foot — Heavy equipment, steel structures, and concrete work drive higher per-square-foot costs.',
+          'Full commercial building demolition: $100,000 to $500,000+ — Depends on building size, height, construction type, and urban site constraints.',
+        ],
+      },
+      {
+        type: 'heading2',
+        text: 'What Drives Demolition Costs?',
+      },
+      {
+        type: 'numbered',
+        items: [
+          'Disposal fees — GTA landfill tipping fees have increased to $150-$200+ per ton. A typical house demolition generates 40-80 tons of debris, meaning disposal alone can cost $6,000-$16,000.',
+          'Asbestos abatement — If present, asbestos removal adds $3,000-$15,000+ to any project. Homes built before 1990 should always be tested.',
+          'Equipment and labor — Excavators, loaders, and skilled operators represent a significant portion of costs. Labor rates in the GTA continue to climb.',
+          'Site accessibility — Tight urban lots, narrow driveways, and no bin access mean more manual labor and higher costs.',
+          'Permit fees — Municipal demolition permits range from $200 to $2,500+ depending on the jurisdiction and project scope.',
+          'Concrete and foundation work — Foundation removal and concrete crushing add $5,000-$20,000 depending on the volume of concrete.',
+        ],
+      },
+      {
+        type: 'tip',
+        text: 'Get at least three quotes for your demolition project and make sure each quote includes the same scope of work. Some contractors exclude disposal fees, permit costs, or hazardous material handling from their initial estimate — these "hidden costs" can add 30-50% to the final bill. In & Out Demolition provides detailed, all-inclusive quotes with no surprises.',
+      },
+      {
+        type: 'quote',
+        text: 'An accurate demolition estimate requires an on-site assessment. Prices that sound too good to be true usually are — they often exclude critical costs like disposal, permits, or hazardous material handling.',
+        caption: '— Lisa Chen, Estimating Manager at In & Out Demolition',
+      },
+      {
+        type: 'paragraph',
+        text: 'Want a detailed, transparent quote for your demolition project? In & Out Demolition provides free on-site estimates across the entire GTA. Call (437) 535-0494 to schedule your assessment and get an all-inclusive price with no hidden fees.',
       },
     ],
   },
 
   // ─── ARTICLE 6 ───
   {
-    slug: 'toronto-color-trends-2025',
-    title: 'Toronto Neighborhood Color Trends for 2025',
+    slug: 'asbestos-hazardous-materials',
+    title: 'Asbestos & Hazardous Materials: What You Must Know Before Demolition',
     excerpt:
-      'From the bold accents of Liberty Village to the timeless neutrals of Rosedale, each Toronto neighborhood has its own signature style. Explore the most popular color choices across the GTA heading into 2025.',
+      'Asbestos is present in thousands of GTA homes built before 1990. Before any demolition begins, hazardous materials must be identified and safely removed. Here\'s what every homeowner needs to know.',
     date: 'November 8, 2024',
-    category: 'Color Trends',
-    categoryColor: '#9B59B6',
+    category: 'Environmental',
+    categoryColor: '#10B981',
     readTime: '8 min read',
-    image: '/images/blog-trends.jpg',
-    author: 'Marco Santini',
-    authorRole: 'Senior Color Consultant',
-    featured: true,
-    tags: ['Toronto', 'color trends 2025', 'neighborhoods', 'interior design'],
-    relatedArticles: ['how-to-choose-perfect-white-paint', 'exterior-paint-colors-curb-appeal', 'interior-paint-prep-guide'],
+    image: '/images/blog-asbestos.jpg',
+    author: 'David Kumar',
+    authorRole: 'Environmental Safety Officer',
+    tags: ['asbestos', 'hazardous materials', 'environmental safety', 'abatement'],
+    relatedArticles: ['safety-standards-demolition', 'permits-demolition-guide', 'environmental-responsibility-demolition'],
     content: [
       {
         type: 'paragraph',
-        text: 'Toronto is one of the most architecturally diverse cities in North America, and that diversity is reflected in how homeowners approach color. As a painting company that has worked in virtually every Toronto neighborhood, we have a unique vantage point on the evolving color landscape. Here are the standout color trends we\'re seeing across the GTA as we head into 2025.',
+        text: 'If your home or commercial building was constructed before 1990 — and in the GTA, that covers a massive portion of the housing stock — there is a significant chance it contains asbestos-containing materials (ACMs). Asbestos was widely used in Canadian construction from the 1930s through the late 1980s for its fire resistance, insulation properties, and durability. Before any demolition, renovation, or remodeling project begins, asbestos and other hazardous materials must be identified and safely removed by licensed professionals. At In & Out Demolition, environmental safety is our first priority — no demo work starts until hazardous materials are cleared.',
       },
       {
         type: 'heading2',
-        text: 'Downtown Core & Condos: Moody Sophistication',
+        text: 'Where Asbestos Hides in Your Home',
       },
       {
         type: 'paragraph',
-        text: 'Toronto\'s downtown condo market continues to embrace darker, moodier color palettes that create a sense of luxury in compact spaces. Deep charcoals, navy blues, and forest greens are being used as accent walls and full-room colors in units throughout the Financial District, CityPlace, and Harbourfront. The trend is partly practical — darker colors can make small spaces feel more intimate and purposeful rather than simply "small." Popular picks include Benjamin Moore\'s Kendall Charcoal, Hale Navy, and October Mist.',
-      },
-      {
-        type: 'heading2',
-        text: 'Liberty Village & King West: Bold & Contemporary',
-      },
-      {
-        type: 'paragraph',
-        text: 'These neighborhoods attract young professionals who aren\'t afraid to make a statement. We\'re seeing a surge in dramatic color choices: deep emerald green dining rooms, navy blue kitchens, and even black accent walls. Two-tone kitchens (white upper cabinets with dark lower cabinets) account for nearly 60% of our cabinet refinishing projects in these areas. Brass and matte black hardware are the universal complements.',
-      },
-      {
-        type: 'heading2',
-        text: 'The Annex & Cabbagetown: Victorian Elegance',
-      },
-      {
-        type: 'paragraph',
-        text: 'The Victorian and Edwardian homes in these iconic neighborhoods demand a more nuanced approach. Homeowners are increasingly moving away from the safe beige-and-cream defaults of previous decades and embracing richer, more period-appropriate colors. Deep burgundy, forest green, and slate blue are popular accent colors that honor the architectural heritage. For main living areas, warm neutrals like Benjamin Moore\'s Accessible Beige and Pale Oak provide a sophisticated backdrop that lets original architectural details like crown molding and stained glass windows take center stage.',
-      },
-      {
-        type: 'heading2',
-        text: 'Rosedale & Forest Hill: Timeless Refined Neutrals',
-      },
-      {
-        type: 'paragraph',
-        text: 'Toronto\'s most affluent neighborhoods favor a restrained, elegant approach to color. Warm grays, creamy whites, and soft taupes dominate interiors, with color introduced through furnishings and artwork rather than wall paint. Exterior colors tend toward classic combinations: white bodies with black shutters, soft gray with white trim, or the occasional navy blue on Georgian-style homes. The emphasis is on quality of finish over bold color choices — proper surface preparation and premium paints are non-negotiable.',
-      },
-      {
-        type: 'heading2',
-        text: 'Leslieville & Riverside: Creative & Eclectic',
-      },
-      {
-        type: 'paragraph',
-        text: 'These east-end neighborhoods are Toronto\'s creative hub, and the color choices reflect that spirit. We see more experimentation here than anywhere else in the city — terracotta accent walls, dusty rose bedrooms, sage green kitchens, and bold patterned ceilings are all part of the mix. Homeowners in these areas often bring inspiration from design blogs and Instagram, and they\'re willing to take creative risks. Our color consultants love working in Leslieville because the canvas is always interesting.',
-      },
-      {
-        type: 'tip',
-        text: 'While neighborhood trends can provide inspiration, your home\'s color should ultimately reflect your personal taste and lifestyle. A good color consultant will help you incorporate trends in ways that feel authentic to you and your space.',
-      },
-      {
-        type: 'heading2',
-        text: '2025 Color Predictions',
-      },
-      {
-        type: 'paragraph',
-        text: 'Based on our project data and emerging design signals, here are our top predictions for Toronto color trends in 2025:',
+        text: 'Asbestos can be found in dozens of building materials throughout a typical pre-1990 home. The most common locations include:',
       },
       {
         type: 'bullets',
         items: [
-          'Warm earth tones — Terracotta, clay, and warm sand colors will replace the cool grays that have dominated for the past decade.',
-          'Soft pastels — Blush pinks, soft lavenders, and pale sage greens for accent walls and bedrooms.',
-          'Nature-inspired greens — Deeper, more saturated greens will extend beyond accent walls into full-room applications.',
-          'Metallic accents — Gold, brass, and copper hardware and accessories will continue to gain ground.',
-          'Two-tone kitchens — The trend of contrasting upper and lower cabinet colors will remain strong through 2025.',
-          'Statement ceilings — Painted ceilings in bold colors or patterns will become increasingly mainstream.',
+          'Insulation — Vermiculite attic insulation (often branded as Zonolite), pipe insulation, and boiler lagging are among the most dangerous asbestos-containing materials because they\'re loose and easily airborne.',
+          'Drywall joint compound — The "mud" used to tape drywall joints in homes built before 1985 commonly contained asbestos. When sanded or demolished, fine asbestos fibers become airborne.',
+          'Flooring — Vinyl tile (often 9x9 inch tiles), sheet vinyl, and the mastic adhesive used to install them frequently contain asbestos.',
+          'Ceiling textures — Popcorn ceilings and artex ceiling coatings applied before 1990 are a common asbestos source.',
+          'Roofing and siding — Asphalt shingles, cement board siding (like HardiePlank\'s predecessors), and roof felt can contain asbestos fibers.',
+          'Ductwork insulation — The tape and insulation wrapping on HVAC ducts, especially around furnaces and registers.',
+          'Plaster — Older lath and plaster walls, particularly in Toronto\'s Victorian and Edwardian homes, may contain asbestos in the plaster mix.',
         ],
       },
       {
+        type: 'heading2',
+        text: 'The Asbestos Survey Process',
+      },
+      {
         type: 'paragraph',
-        text: 'Want to explore what colors would work best in your Toronto home? Our color consultants have experience working in every neighborhood in the GTA. Book a free consultation and let us help you find your perfect palette.',
+        text: 'Before demolition begins, a qualified asbestos surveyor must inspect the property and collect samples of suspected materials for laboratory analysis. This process typically takes 1-2 hours for a standard residential property and costs $400-$1,200 depending on the size of the home and the number of samples collected. The resulting report identifies all asbestos-containing materials, their locations, and the quantity present. This report is required by most GTA municipalities as part of the demolition permit application.',
+      },
+      {
+        type: 'heading2',
+        text: 'Asbestos Abatement: What to Expect',
+      },
+      {
+        type: 'paragraph',
+        text: 'If asbestos is found, it must be removed by a licensed asbestos abatement contractor before demolition can proceed. The abatement process involves:',
+      },
+      {
+        type: 'numbered',
+        items: [
+          'Containment — The work area is sealed with polyethylene sheeting and placed under negative air pressure using HEPA-filtered ventilation to prevent fiber escape.',
+          'Wetting — Asbestos-containing materials are wetted with amended water to minimize dust and fiber release during removal.',
+          'Removal — Trained workers wearing full personal protective equipment (PPE) carefully remove all identified ACMs.',
+          'Cleaning — All surfaces are wet-wiped and HEPA-vacuumed to remove any residual fibers.',
+          'Clearance testing — An independent air quality consultant performs air monitoring to confirm the area is safe for re-entry and demolition.',
+          'Disposal — All asbestos waste is double-bagged in labeled containers and transported to an approved asbestos disposal facility.',
+        ],
+      },
+      {
+        type: 'tip',
+        text: 'Never attempt to remove asbestos-containing materials yourself. Disturbing asbestos without proper containment and PPE releases dangerous fibers into the air that you can inhale without even knowing it. Asbestos-related diseases like mesothelioma can take 20-50 years to develop after exposure. Always hire a licensed abatement professional.',
+      },
+      {
+        type: 'heading2',
+        text: 'Other Hazardous Materials to Watch For',
+      },
+      {
+        type: 'paragraph',
+        text: 'While asbestos is the most common hazardous material in older buildings, demolition may also encounter lead paint (common in homes built before 1978), mold growth in water-damaged areas, PCBs in old fluorescent light ballasts, and urea-formaldehyde foam insulation (UFFI). A thorough hazardous materials survey covers all these potential risks.',
+      },
+      {
+        type: 'quote',
+        text: 'Environmental safety isn\'t optional in demolition — it\'s the foundation of every responsible project. Identifying and removing hazardous materials before we start tearing things down protects our workers, our clients, and the community.',
+        caption: '— David Kumar, Environmental Safety Officer at In & Out Demolition',
+      },
+      {
+        type: 'paragraph',
+        text: 'Concerned about hazardous materials in your property? In & Out Demolition can coordinate asbestos surveys and abatement as part of your demolition project. Call (437) 535-0494 to discuss your situation with our environmental safety team.',
       },
     ],
   },
 
   // ─── ARTICLE 7 ───
   {
-    slug: 'interior-paint-prep-guide',
-    title: 'The Interior Painting Prep Checklist Professionals Use',
+    slug: 'safety-standards-demolition',
+    title: 'Demolition Safety Standards: How Professional Teams Protect Your Property',
     excerpt:
-      'The secret to a flawless paint job isn\'t the painting — it\'s the preparation. Learn the professional prep process that separates a DIY-looking result from a magazine-quality finish.',
+      'Demolition is inherently dangerous work. Learn the safety protocols, equipment standards, and training requirements that professional demolition companies follow to protect people and property.',
     date: 'October 28, 2024',
-    category: 'Interior Tips',
-    categoryColor: '#3B82A0',
+    category: 'Safety & Regulations',
+    categoryColor: '#EF4444',
     readTime: '7 min read',
-    image: '/images/blog-prep.jpg',
-    author: 'David Park',
-    authorRole: 'Cabinet Refinishing Lead',
-    tags: ['paint preparation', 'interior painting', 'professional tips', 'DIY'],
-    relatedArticles: ['diy-painting-vs-professional', 'cabinet-refinishing-complete-guide', 'how-to-choose-perfect-white-paint'],
+    image: '/images/blog-safety.jpg',
+    author: 'David Kumar',
+    authorRole: 'Environmental Safety Officer',
+    tags: ['safety', 'demolition standards', 'protective measures', 'site safety'],
+    relatedArticles: ['asbestos-hazardous-materials', 'permits-demolition-guide', 'diy-vs-pro-demolition'],
     content: [
       {
         type: 'paragraph',
-        text: 'At ProCoat Painters, we spend roughly 60-70% of our project time on preparation. That\'s not because we\'re slow — it\'s because proper prep is the single biggest factor in achieving a professional-quality finish. Every shortcut in preparation shows up as a flaw in the final result. Here\'s the comprehensive checklist our crews follow on every interior painting project.',
+        text: 'Demolition consistently ranks among the most hazardous construction activities. The combination of heavy machinery, falling debris, unstable structures, and hazardous materials creates an environment where safety must be the absolute top priority at all times. At In & Out Demolition, we follow the Ontario Occupational Health and Safety Act (OHSA), the Canadian Standards Association (CSA) guidelines, and our own rigorous internal safety protocols to ensure every project is completed without incident. Here\'s an inside look at how professional demolition teams protect your property and the people on site.',
       },
       {
         type: 'heading2',
-        text: 'Step 1: Room Assessment & Planning',
+        text: 'Pre-Demolition Safety Planning',
       },
       {
         type: 'paragraph',
-        text: 'Before touching a brush, we assess the room\'s condition and identify any issues that need addressing:',
+        text: 'Before any physical work begins, a comprehensive safety plan is developed for the project. This plan addresses every foreseeable risk and establishes procedures for mitigation:',
       },
       {
         type: 'bullets',
         items: [
-          'Inspect walls for cracks, holes, nail pops, and water stains',
-          'Check for peeling or bubbling paint (often a sign of moisture issues)',
-          'Evaluate the condition of existing paint — is it oil-based or latex?',
-          'Note any repairs needed to drywall, trim, or fixtures before painting',
-          'Assess lighting conditions that might affect color perception',
-          'Identify any surfaces that require special priming (stains, odors, glossy finishes)',
+          'Structural assessment — An engineer or experienced supervisor evaluates the building\'s structural system to identify potential collapse risks and determine the safest demolition sequence.',
+          'Utility verification — All underground and overhead utilities are located and marked by Ontario One Call before any excavation or heavy equipment work begins.',
+          'Hazardous materials survey — Asbestos, lead, mold, and other hazardous materials are identified and removed before demolition starts.',
+          'Site security plan — Fencing, barricades, signage, and security measures are established to protect the public and prevent unauthorized access.',
+          'Emergency response plan — Procedures for medical emergencies, fire, structural collapse, and utility strikes are documented and communicated to all crew members.',
+          'Dust and noise control plan — Measures to minimize the impact of demolition on neighboring properties and the environment.',
         ],
       },
       {
         type: 'heading2',
-        text: 'Step 2: Furniture & Fixture Protection',
+        text: 'Personal Protective Equipment (PPE)',
       },
       {
         type: 'paragraph',
-        text: 'Professional painters treat your home with respect. Our protection process includes:',
+        text: 'Every worker on an In & Out Demolition site wears comprehensive personal protective equipment appropriate to the task at hand:',
       },
       {
         type: 'bullets',
         items: [
-          'All furniture is either moved to the center of the room and covered with plastic sheeting, or removed to an adjacent room',
-          'Floor protection with canvas drop cloths (not plastic — canvas absorbs spills while plastic allows them to spread)',
-          'Electrical outlet covers and light switch plates are removed, not taped over, for the cleanest possible result',
-          'Window treatments are removed or carefully covered',
-          'Light fixtures and ceiling fans are either removed or wrapped in plastic',
-          'Doors are either removed for painting or carefully masked with painter\'s tape and plastic',
+          'CSA-approved hard hat — Required at all times on site when overhead work or heavy equipment is operating.',
+          'Steel-toed boots with puncture-resistant soles — Protect against falling objects and nails in debris.',
+          'High-visibility vest — Ensures workers are visible to equipment operators at all times.',
+          'Eye protection — Safety glasses or goggles during cutting, grinding, and debris removal.',
+          'Hearing protection — Earplugs or earmuffs when operating or working near loud equipment like excavators and jackhammers.',
+          'Respiratory protection — N95 or P100 respirators when creating dust, and full-face respirators during hazardous material work.',
+          'Cut-resistant gloves — During manual demolition and debris sorting to prevent lacerations.',
         ],
       },
       {
         type: 'heading2',
-        text: 'Step 3: Surface Repair',
+        text: 'Equipment Safety Protocols',
       },
       {
         type: 'paragraph',
-        text: 'This is where professional preparation truly separates from DIY work. Every imperfection in the wall surface will be visible under fresh paint — often more visible than before. Our repair process includes:',
+        text: 'Heavy equipment is both the most powerful tool and the most significant hazard on a demolition site. All In & Out Demolition equipment operators hold valid Ontario operator certifications and follow strict operating procedures:',
       },
       {
-        type: 'bullets',
+        type: 'numbered',
         items: [
-          'All nail holes, screw holes, and small cracks are filled with spackle or joint compound',
-          'Larger cracks are opened, taped with mesh or paper tape, and skim-coated with compound',
-          'Nail pops are re-set (or re-nailed) and covered with compound',
-          'Water stains are sealed with a stain-blocking primer before painting',
-          'Damaged drywall corners are repaired with corner bead and compound',
-          'All repaired areas are sanded smooth and feathered into the surrounding wall',
+          'Daily pre-operation inspections — Every piece of equipment is inspected for hydraulic leaks, structural integrity, safety features, and proper function before use.',
+          'Designated swing zones — Excavators and loaders have clearly marked "danger zones" where ground personnel are not permitted during operation.',
+          'Spotter system — A trained signal person directs equipment operators during blind operations, backing maneuvers, and close-proximity work.',
+          'Ground condition assessment — Soil stability, slope angles, and underground conditions are evaluated before positioning heavy equipment.',
+          'Emergency shutdown procedures — All operators are trained in immediate shutdown procedures for equipment malfunctions or unsafe conditions.',
         ],
       },
       {
         type: 'tip',
-        text: 'The most common DIY mistake is painting over unrepaired wall damage. Fresh paint actually highlights imperfections rather than hiding them — the uniform new sheen draws the eye to every bump, dent, and crack.',
+        text: 'If you\'re hiring a demolition contractor, ask about their safety record, WSIB coverage, and safety training programs. A reputable company will be proud to share this information. In & Out Demolition maintains an exemplary safety record with comprehensive WSIB coverage and ongoing safety training for all crew members.',
       },
       {
-        type: 'heading2',
-        text: 'Step 4: Sanding & Priming',
-      },
-      {
-        type: 'paragraph',
-        text: 'Proper sanding creates the ideal surface for paint adhesion. Our crews sand all walls with fine-grit sandpaper (220-grit) to create a slight texture that helps new paint bond. Glossy areas are sanded more aggressively to "de-gloss" the surface. After sanding, all surfaces are vacuumed and wiped with a damp cloth to remove dust.',
+        type: 'quote',
+        text: 'Safety isn\'t a checkbox on a form — it\'s a culture. Every person on our team, from the newest laborer to the most experienced operator, has the authority and the obligation to stop work if they see an unsafe condition.',
+        caption: '— David Kumar, Environmental Safety Officer at In & Out Demolition',
       },
       {
         type: 'paragraph',
-        text: 'Primer is applied where needed: over repaired areas, on bare drywall or plaster, over dark colors being covered with lighter ones, and on any surfaces with stains or odors. We use premium primers from Benjamin Moore and Sherwin-Williams that are specifically matched to the topcoat being applied.',
-      },
-      {
-        type: 'heading2',
-        text: 'Step 5: Caulking & Edge Preparation',
-      },
-      {
-        type: 'paragraph',
-        text: 'The final prep step before painting is caulking. Professional painters caulk the gap between walls and trim (baseboards, casings, crown molding) with paintable acrylic latex caulk. This creates a seamless transition between surfaces and eliminates unsightly gaps. We also caulk around window and door frames, where walls meet ceilings, and any other transition points. This level of detail is what creates the "custom" look that distinguishes a professional paint job from a DIY project.',
-      },
-      {
-        type: 'paragraph',
-        text: 'When you hire ProCoat, all of this preparation is included in our quoted price — no hidden fees, no corners cut. The result is a finish that looks flawless and lasts for years. Contact us for a free estimate.',
+        text: 'Looking for a demolition partner that takes safety seriously? In & Out Demolition\'s commitment to safety protects your property, your neighbors, and our team. Call (437) 535-0494 to discuss your project with a team that puts safety first.',
       },
     ],
   },
 
   // ─── ARTICLE 8 ───
   {
-    slug: 'exterior-paint-longevity',
-    title: 'How to Make Your Exterior Paint Last 10+ Years',
+    slug: 'concrete-removal-guide',
+    title: 'Concrete Removal & Foundation Demolition: Methods, Equipment & Timeline',
     excerpt:
-      'Properly applied exterior paint should last 7-10 years in Toronto\'s climate. Learn the professional techniques and maintenance habits that can push that to 10+ years, saving you thousands in premature repainting.',
-    date: 'October 15, 2024',
-    category: 'Maintenance',
-    categoryColor: '#8B5E3C',
-    readTime: '6 min read',
-    image: '/images/blog-maintenance.jpg',
-    author: 'Sarah Chen',
-    authorRole: 'Lead Exterior Specialist',
-    tags: ['exterior paint', 'maintenance', 'paint longevity', 'cost savings'],
-    relatedArticles: ['best-time-exterior-painting', 'exterior-paint-colors-curb-appeal', 'commercial-painting-minimizing-disruption'],
+      'Removing concrete driveways, foundations, and slabs requires specialized equipment and expertise. Learn about the methods, costs, and timelines for concrete demolition projects across the GTA.',
+    date: 'October 20, 2024',
+    category: 'Residential Demolition',
+    categoryColor: '#1B2A4A',
+    readTime: '8 min read',
+    image: '/images/blog-concrete.jpg',
+    author: 'Mike Rossi',
+    authorRole: 'Senior Project Manager',
+    tags: ['concrete removal', 'foundation demolition', 'heavy equipment', 'excavation'],
+    relatedArticles: ['complete-guide-residential-demolition', 'interior-strip-out-guide', 'cost-guide-demolition'],
     content: [
       {
         type: 'paragraph',
-        text: 'Exterior painting is one of the largest investments a homeowner makes, so it\'s natural to want it to last as long as possible. In Toronto\'s challenging climate — with freeze-thaw cycles, high humidity, intense summer sun, and winter road salt — achieving 10+ years from an exterior paint job requires both proper initial application and consistent maintenance. Here\'s our complete guide to maximizing the lifespan of your exterior paint.',
+        text: 'Concrete is one of the toughest materials you\'ll encounter in any demolition project, and removing it requires the right equipment, experienced operators, and a solid understanding of what\'s underneath. Whether you\'re removing an old driveway in Vaughan, demolishing a basement floor in Toronto, or tearing out a concrete pool deck in Mississauga, concrete demolition is a specialized service that demands professional expertise. At In & Out Demolition, we complete concrete removal projects of all sizes throughout the GTA, and this guide covers everything you need to know about the process.',
       },
       {
         type: 'heading2',
-        text: 'Start with Quality Materials',
+        text: 'Concrete Demolition Methods',
+      },
+      {
+        type: 'heading3',
+        text: 'Mechanical Breaking',
       },
       {
         type: 'paragraph',
-        text: 'The foundation of long-lasting exterior paint is using premium products. We exclusively use top-tier exterior paints from Benjamin Moore (Regal Select and Aura Exterior) and Sherwin-Williams (SuperPaint, Duration, and Emerald). These paints contain higher concentrations of premium pigments, advanced acrylic resins, and additives specifically designed to resist UV fading, mildew growth, and moisture penetration. While they cost 20-30% more than economy paints, they last significantly longer, making them more cost-effective over time.',
+        text: 'The most common method for concrete removal, mechanical breaking uses hydraulic breakers (hammers) mounted on excavators or bobcats to fracture concrete into manageable pieces. For residential projects like driveways and patios, a bobcat-mounted breaker can process 200-500 square feet of standard 4-6 inch concrete per day. For thicker slabs or reinforced concrete, a larger excavator-mounted hammer provides significantly more breaking force. Mechanical breaking is fast, efficient, and works in virtually all conditions.',
+      },
+      {
+        type: 'heading3',
+        text: 'Cutting & Removal',
+      },
+      {
+        type: 'paragraph',
+        text: 'Concrete cutting uses diamond-tipped saws to make precise cuts through concrete slabs and walls before removal. This method is preferred when you need clean, straight lines — for example, when removing a section of a basement floor while leaving the rest intact, or cutting a concrete driveway into sections for controlled removal. Wall sawing, wire sawing, and flat sawing are the three primary cutting techniques, each suited to different applications.',
+      },
+      {
+        type: 'heading3',
+        text: 'Excavation & Pulling',
+      },
+      {
+        type: 'paragraph',
+        text: 'For shallow concrete slabs and sidewalks without reinforcement, excavation equipment can sometimes lift and break concrete in large sections without the need for prior cutting. This method is fastest when concrete is already cracked or poorly bonded to the subgrade. For foundation walls, a combination of cutting and excavator pulling is typically used — the wall is cut into sections, then pulled down using an excavator with a grapple or thumb attachment.',
+      },
+      {
+        type: 'divider',
       },
       {
         type: 'heading2',
-        text: 'The Critical Role of Surface Preparation',
+        text: 'Foundation Demolition: A Special Case',
       },
       {
         type: 'paragraph',
-        text: 'Even the best paint will fail prematurely if applied to poorly prepared surfaces. Professional exterior preparation includes:',
-      },
-      {
-        type: 'bullets',
-        items: [
-          'Power washing to remove dirt, mildew, chalking, and loose paint — this is non-negotiable and should be done 24-48 hours before painting to allow surfaces to dry completely.',
-          'Scraping all loose and peeling paint down to a solid edge — we never paint over peeling paint, even if it means additional surface work.',
-          'Sanding rough areas and feathering paint edges for smooth transitions between bare and painted areas.',
-          'Caulking all gaps around windows, doors, trim, and siding joints with premium exterior-grade polyurethane caulk.',
-          'Priming all bare wood, repaired areas, and any surfaces where old paint has been removed to bare substrate.',
-          'Applying a bonding primer on glossy surfaces where new paint might not adhere properly.',
-        ],
-      },
-      {
-        type: 'heading2',
-        text: 'Proper Application Technique',
-      },
-      {
-        type: 'paragraph',
-        text: 'Professional painters use a spray-and-back-roll technique for large exterior surfaces. This involves spraying the paint onto the surface and then immediately rolling it with a nap roller. The spray ensures even, consistent coverage while the roller works the paint into the surface texture, creating a superior mechanical bond. This technique produces a more durable finish than spray-only or brush-only application.',
-      },
-      {
-        type: 'tip',
-        text: 'Apply paint to a minimum dry film thickness recommended by the manufacturer. Thin coats may look fine initially but will fail years earlier than properly applied coats. Two coats of premium exterior paint is the gold standard.',
-      },
-      {
-        type: 'heading2',
-        text: 'Annual Maintenance Checklist',
-      },
-      {
-        type: 'paragraph',
-        text: 'A few simple maintenance habits each year can significantly extend your paint\'s lifespan:',
+        text: 'Demolishing a building\'s foundation is significantly more complex than removing a slab or driveway. Foundations are thick (8-12 inches for residential), heavily reinforced with rebar, and deeply embedded in the ground. The process typically involves:',
       },
       {
         type: 'numbered',
         items: [
-          'Spring inspection — Walk around your home and look for peeling, blistering, or fading. Address small problems before they become big ones.',
-          'Keep vegetation trimmed — Plants and vines growing against your home trap moisture against the paint surface, accelerating deterioration.',
-          'Clean gutters regularly — Clogged gutters cause water to overflow and run down exterior walls, which is one of the leading causes of paint failure.',
-          'Power wash annually — A gentle power wash once a year removes dirt, pollen, and mildew that can degrade paint over time. Use low pressure and a wide fan tip.',
-          'Address moisture issues — Check for leaks around windows, doors, and the roofline. Water intrusion is the #1 enemy of exterior paint.',
-          'Touch up promptly — Small chips and scratches should be touched up as soon as they\'re noticed to prevent moisture from reaching the underlying surface.',
+          'Utility disconnection and verification — All services entering through the foundation must be disconnected.',
+          'Perimeter excavation — Soil around the foundation exterior is excavated to expose the full depth of the footings.',
+          'Structural separation — The house structure above is removed first (full demolition) or properly supported (partial demolition).',
+          'Foundation wall breaking — Large excavators with heavy-duty breakers fracture the concrete walls into pieces.',
+          'Footing removal — The footings at the base of the foundation are broken out and removed, often requiring deeper excavation.',
+          'Rebar and wire mesh removal — Steel reinforcement is cut and separated for recycling.',
+          'Backfilling and grading — The excavation is backfilled with clean fill and graded to the desired level.',
         ],
       },
       {
+        type: 'heading2',
+        text: 'Concrete Disposal & Recycling',
+      },
+      {
         type: 'paragraph',
-        text: 'When you invest in ProCoat for your exterior painting, you receive our comprehensive preparation process, premium materials, and a written warranty. We also offer annual exterior inspection services to catch and address any issues before they become expensive problems. Contact us for a free exterior assessment.',
+        text: 'Concrete is one of the most recyclable construction materials. At In & Out Demolition, we crush and recycle concrete wherever possible. Crushed concrete (also called recycled concrete aggregate or RCA) is used as road base, fill material, and drainage stone. Recycling concrete isn\'t just environmentally responsible — it also reduces disposal costs. At current GTA tipping fees of $150-$200 per ton, recycling can save $3,000-$8,000 on a typical house foundation removal project.',
+      },
+      {
+        type: 'tip',
+        text: 'If you\'re removing a concrete driveway, consider whether you want the sub-base (gravel or crushed stone under the concrete) removed as well. The sub-base is often in good condition and can be reused for your new driveway, saving you $500-$1,500 in new granular base material.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Need concrete or foundation removal? In & Out Demolition has the heavy equipment and experienced operators to handle any concrete demolition project. Call (437) 535-0494 for a free estimate anywhere across the GTA.',
       },
     ],
   },
 
   // ─── ARTICLE 9 ───
   {
-    slug: 'diy-painting-vs-professional',
-    title: 'DIY Painting vs. Hiring a Professional: An Honest Comparison',
+    slug: 'environmental-responsibility-demolition',
+    title: 'Sustainable Demolition: How Responsible Contractors Reduce Waste',
     excerpt:
-      'Thinking about tackling a painting project yourself? We break down the real costs, time commitment, and quality differences between DIY and professional painting to help you make the right call.',
-    date: 'October 5, 2024',
-    category: 'DIY vs Pro',
-    categoryColor: '#0B1D3A',
-    readTime: '8 min read',
-    image: '/images/blog-diy-vs-pro.jpg',
-    author: 'James Wilson',
-    authorRole: 'Commercial Projects Director',
-    tags: ['DIY', 'professional painting', 'cost comparison', 'painting tips'],
-    relatedArticles: ['interior-paint-prep-guide', 'cabinet-refinishing-complete-guide', 'commercial-painting-minimizing-disruption'],
+      'The demolition industry generates millions of tons of waste annually. Learn how modern demolition practices focus on recycling, reuse, and responsible disposal to minimize environmental impact.',
+    date: 'October 12, 2024',
+    category: 'Environmental',
+    categoryColor: '#10B981',
+    readTime: '7 min read',
+    image: '/images/blog-sustainable.jpg',
+    author: 'Sarah Tran',
+    authorRole: 'Compliance Specialist',
+    tags: ['sustainable demolition', 'recycling', 'waste management', 'green demolition'],
+    relatedArticles: ['asbestos-hazardous-materials', 'cost-guide-demolition', 'renovation-vs-demo'],
     content: [
       {
         type: 'paragraph',
-        text: 'We get it — painting seems straightforward. Pick a color, buy some supplies, and start rolling. YouTube tutorials make it look easy, and hardware stores market painting as a weekend project. But after 15 years in the painting industry and thousands of completed projects, we\'ve seen firsthand where DIY painting goes wrong — and we\'re not too proud to say that professional painting isn\'t always necessary. Here\'s an honest comparison to help you decide.',
+        text: 'The construction and demolition industry accounts for roughly one-third of all waste generated in Canada. In the Greater Toronto Area alone, demolition projects produce hundreds of thousands of tons of debris each year. But the narrative is changing rapidly. Modern demolition practices increasingly focus on sustainability — maximizing recycling, salvaging reusable materials, and minimizing landfill disposal. At In & Out Demolition, we\'re committed to responsible waste management and are proud to exceed the City of Toronto\'s 70% waste diversion target on virtually every project.',
       },
       {
         type: 'heading2',
-        text: 'When DIY Makes Sense',
-      },
-      {
-        type: 'bullets',
-        items: [
-          'Small rooms — A single bedroom or bathroom can be a satisfying and manageable DIY project for someone with basic skills.',
-          'Accent walls — A single accent wall is low-risk and a great way to experiment with color.',
-          'Furniture and small projects — Painting a bookshelf, side table, or front door is an excellent DIY project with immediate gratification.',
-          'Rental properties — If the goal is basic, uniform coverage rather than a premium finish, DIY can be cost-effective.',
-          'You enjoy it — If painting is genuinely a hobby that brings you satisfaction, by all means, do it yourself!',
-        ],
-      },
-      {
-        type: 'heading2',
-        text: 'When You Should Hire a Professional',
-      },
-      {
-        type: 'bullets',
-        items: [
-          'Entire homes or multiple rooms — The scope and logistics become overwhelming quickly. Professionals can paint a full home in 5-7 days; it might take a DIYer 3-4 weekends.',
-          'High ceilings and stairwells — Working at heights requires ladders, scaffolding, and experience. This is a safety concern as much as a quality concern.',
-          'Exterior painting — The preparation, equipment, and techniques required for exterior work are significantly more demanding than interior work.',
-          'Cabinet refinishing — Achieving a factory-quality spray finish requires professional equipment, a controlled environment, and significant expertise.',
-          'Complex color schemes — Multi-color designs, accent walls that require precise cut-ins, and rooms with lots of trim demand practiced skill.',
-          'Time-sensitive projects — If you need the work completed quickly (selling a home, hosting an event, etc.), professionals deliver reliable timelines.',
-        ],
-      },
-      {
-        type: 'heading2',
-        text: 'The Real Cost Comparison',
+        text: 'What Gets Recycled from a Demolition Project?',
       },
       {
         type: 'paragraph',
-        text: 'Let\'s compare the cost of painting a standard 12\'x14\' bedroom (walls only, assuming minimal wall repair needed):',
-      },
-      {
-        type: 'heading3',
-        text: 'DIY Costs',
+        text: 'A surprising amount of material from a typical demolition project can be recycled or repurposed. Here\'s a breakdown of common materials and their recycling potential:',
       },
       {
         type: 'bullets',
         items: [
-          'Paint (2 gallons premium) — $120-160',
-          'Primer (1 gallon) — $40-50',
-          'Brushes, rollers, trays, tape, drop cloths — $80-120',
-          'Patch compound, sandpaper, caulk — $30-40',
-          'Total materials: $270-370',
-          'Your time: 6-10 hours (often spread over 2-3 days)',
+          'Concrete and masonry — Crushed on-site or at a recycling facility into aggregate for road base, fill, and new concrete production. Concrete recycling rates approach 100% — virtually no concrete needs to go to landfill.',
+          'Metals — Steel, copper, aluminum, and brass are separated and sold to metal recyclers. Metals have significant scrap value and are the most economically valuable recyclable material from demolition.',
+          'Wood — Clean dimensional lumber can be salvaged for reuse or chipped into mulch. Treated or painted wood may require special disposal.',
+          'Drywall — Gypsum from drywall can be recycled into new drywall or used as a soil amendment in agriculture. Several GTA facilities accept drywall for recycling.',
+          'Asphalt — Asphalt shingles and paving can be recycled into new asphalt mixes. Ontario has a well-established asphalt recycling infrastructure.',
+          'Fixtures and appliances — Doors, windows, cabinets, light fixtures, and appliances in good condition can be donated to organizations like Habitat for Humanity ReStore.',
         ],
-      },
-      {
-        type: 'heading3',
-        text: 'Professional Costs',
-      },
-      {
-        type: 'bullets',
-        items: [
-          'Professional painting (walls only): $400-700',
-          'Includes: all materials, prep work, painting, cleanup, and warranty',
-          'Your time: 0 hours (plus 15 minutes for the estimate)',
-        ],
-      },
-      {
-        type: 'paragraph',
-        text: 'The price difference for a single room is modest — typically $100-400 more for professional work. When you factor in the value of your time, the professional advantage becomes clear. And the gap widens significantly for larger projects where professionals benefit from economies of scale.',
-      },
-      {
-        type: 'quote',
-        text: 'The real cost of DIY painting isn\'t the materials — it\'s the time you spend, the mistakes you make, and the result you live with every day. A bad paint job is something you see every time you walk into the room.',
-        caption: '— James Wilson, Commercial Projects Director at ProCoat Painters',
       },
       {
         type: 'heading2',
-        text: 'Quality Differences That Matter',
+        text: 'Deconstruction: The Most Sustainable Approach',
+      },
+      {
+        type: 'paragraph',
+        text: 'Deconstruction takes sustainable demolition to its highest level. Rather than mechanically demolishing a structure, deconstruction involves carefully disassembling it piece by piece to salvage the maximum amount of reusable material. While deconstruction takes 2-3 times longer than conventional demolition and costs more in labor, it can recover up to 80-90% of a building\'s materials. In Toronto, several heritage properties and green building projects have opted for full deconstruction as part of their sustainability commitments.',
+      },
+      {
+        type: 'heading2',
+        text: 'How In & Out Demolition Manages Waste',
+      },
+      {
+        type: 'paragraph',
+        text: 'Every In & Out Demolition project follows a structured waste management process:',
       },
       {
         type: 'numbered',
         items: [
-          'Cut-in quality — Professional painters create razor-sharp lines between walls and trim. DIY cut-ins often look wavy or thick.',
-          'Coverage and opacity — Pros know how to achieve full coverage without visible lap marks or roller texture.',
-          'Surface preparation — This is where the biggest quality gap exists. Professionals fill, sand, caulk, and prime to create a perfect canvas.',
-          'Speed and efficiency — What takes a DIYer a full weekend takes a professional crew 3-4 hours with superior results.',
-          'Cleanup — Professionals leave your home cleaner than they found it. DIY projects often leave paint splatters, tape residue, and debris.',
-          'Warranty — Professional work comes with written warranties. DIY work comes with... yourself.',
+          'On-site sorting — Our crews separate materials as they demolish, putting metals, concrete, wood, and general waste into separate bins or piles.',
+          'Salvage first — Before mechanical demolition begins, we remove items that can be reused — doors, windows, fixtures, and architectural elements.',
+          'Metal recycling — All ferrous and non-ferrous metals are separated and transported to licensed metal recycling facilities.',
+          'Concrete crushing — Concrete is transported to crushing facilities and recycled into aggregate. On larger projects, we bring in mobile crushing equipment to process concrete on-site.',
+          'Licensed disposal — All non-recyclable waste is taken to licensed GTA transfer stations and landfills with proper documentation.',
+          'Waste diversion reporting — We provide detailed waste diversion reports showing the percentage of materials recycled versus landfilled.',
         ],
       },
       {
         type: 'tip',
-        text: 'If you\'re on the fence, start by getting a free professional estimate. There\'s no obligation, and it will give you a realistic price comparison for your specific project. You might be surprised at how affordable professional painting can be.',
+        text: 'If sustainability is important to you, ask your demolition contractor about their waste diversion rates and whether they can provide a recycling report for your project. A reputable contractor will track and report this data. The City of Toronto requires a minimum 70% diversion rate for demolition projects — aim for a contractor that consistently exceeds this target.',
+      },
+      {
+        type: 'quote',
+        text: 'Every piece of material we recycle is material that doesn\'t end up in a landfill. It\'s not just good for the environment — it often reduces disposal costs and creates valuable resources for new construction.',
+        caption: '— Sarah Tran, Compliance Specialist at In & Out Demolition',
       },
       {
         type: 'paragraph',
-        text: 'Whether you decide to DIY or go pro, we\'re happy to help. Our free estimates come with no pressure and honest advice. Contact us today.',
+        text: 'In & Out Demolition is committed to sustainable practices on every project. Call (437) 535-0494 to discuss your demolition project with a team that cares about the environment as much as you do.',
       },
     ],
   },
 
   // ─── ARTICLE 10 ───
   {
-    slug: 'paint-sheen-guide',
-    title: 'The Complete Guide to Paint Sheens: Which Finish for Every Surface',
+    slug: 'renovation-vs-demo',
+    title: 'Renovation vs. Demolition: How to Decide What\'s Right for Your Property',
     excerpt:
-      'Flat, eggshell, satin, semi-gloss, high-gloss — understanding paint sheen is crucial for both aesthetics and durability. We explain which finish belongs on every surface in your home.',
-    date: 'September 22, 2024',
-    category: 'Interior Tips',
-    categoryColor: '#3B82A0',
-    readTime: '6 min read',
-    image: '/images/blog-sheen.jpg',
-    author: 'Marco Santini',
-    authorRole: 'Senior Color Consultant',
-    tags: ['paint sheen', 'paint finish', 'interior painting', 'painting guide'],
-    relatedArticles: ['interior-paint-prep-guide', 'how-to-choose-perfect-white-paint', 'diy-painting-vs-professional'],
+      'Should you renovate your existing home or tear it down and build new? This decision guide helps homeowners weigh the costs, timelines, and benefits of both approaches.',
+    date: 'October 5, 2024',
+    category: 'Cost & Planning',
+    categoryColor: '#3B82F6',
+    readTime: '8 min read',
+    image: '/images/blog-reno-vs-demo.jpg',
+    author: 'Lisa Chen',
+    authorRole: 'Estimating Manager',
+    tags: ['renovation', 'demolition', 'decision guide', 'property assessment'],
+    relatedArticles: ['interior-strip-out-guide', 'cost-guide-demolition', 'diy-vs-pro-demolition'],
     content: [
       {
         type: 'paragraph',
-        text: 'While most homeowners spend hours agonizing over paint colors, few give much thought to paint sheen — the level of gloss in the finish. Yet sheen is arguably just as important as color. It determines how light reflects off your walls, how durable the finish is, and even how large or small a room appears. Here\'s everything you need to know to choose the right sheen for every surface in your home.',
+        text: 'It\'s one of the biggest decisions a homeowner can face: do you invest in renovating your existing home, or do you tear it down and start fresh? There\'s no universal right answer — the best choice depends on your budget, timeline, the condition of your current home, and your long-term goals. At In & Out Demolition, we work with homeowners across the GTA who are weighing this exact decision every day. Here\'s a practical framework to help you make the right call for your property.',
       },
       {
         type: 'heading2',
-        text: 'The Paint Sheen Spectrum',
-      },
-      {
-        type: 'heading3',
-        text: 'Flat / Matte (0-5% gloss)',
+        text: 'When Renovation Makes Sense',
       },
       {
         type: 'paragraph',
-        text: 'Flat finishes absorb light rather than reflecting it, creating a smooth, velvety appearance. They\'re excellent at hiding wall imperfections — bumps, dents, and uneven textures virtually disappear under flat paint. However, flat finishes are the least durable and most difficult to clean. They\'re not recommended for high-traffic areas, kitchens, bathrooms, or children\'s rooms.',
-      },
-      {
-        type: 'paragraph',
-        text: 'Best for: Ceilings, low-traffic bedrooms, formal living rooms, dining rooms, and older homes with imperfect walls.',
-      },
-      {
-        type: 'heading3',
-        text: 'Eggshell (10-15% gloss)',
-      },
-      {
-        type: 'paragraph',
-        text: 'Eggshell has a very subtle sheen that resembles the surface of an egg. It offers a slight warmth and dimension that flat paint lacks, while still providing reasonable hiding of wall imperfections. Eggshell is washable (with gentle cleaning) and more durable than flat, making it our most recommended sheen for general living spaces.',
-      },
-      {
-        type: 'paragraph',
-        text: 'Best for: Living rooms, hallways, bedrooms, family rooms — essentially any wall surface in a typical home.',
-      },
-      {
-        type: 'heading3',
-        text: 'Satin (20-30% gloss)',
-      },
-      {
-        type: 'paragraph',
-        text: 'Satin has a noticeable but soft sheen that\'s easy to clean and highly durable. It resists moisture, stains, and scuffs better than eggshell, making it ideal for spaces that see more activity and exposure to moisture. The downside is that satin highlights wall imperfections more than lower-sheen finishes, so proper surface preparation is especially important.',
-      },
-      {
-        type: 'paragraph',
-        text: 'Best for: Kitchens, bathrooms, children\'s rooms, laundry rooms, and trim.',
-      },
-      {
-        type: 'heading3',
-        text: 'Semi-Gloss (40-55% gloss)',
-      },
-      {
-        type: 'paragraph',
-        text: 'Semi-gloss has a distinctly shiny appearance and excellent durability. It\'s the most common sheen for trim, doors, and cabinets because it creates a crisp, clean contrast against wall paint. Semi-gloss is highly washable and resists moisture, making it ideal for areas that require frequent cleaning.',
-      },
-      {
-        type: 'paragraph',
-        text: 'Best for: Doors, trim, baseboards, crown molding, cabinets, and high-moisture areas like bathrooms.',
-      },
-      {
-        type: 'heading3',
-        text: 'High-Gloss (70-90% gloss)',
-      },
-      {
-        type: 'paragraph',
-        text: 'High-gloss finishes are extremely shiny and durable, creating a mirror-like surface. They\'re dramatic and sophisticated but unforgiving — every imperfection in the surface beneath is highly visible. High-gloss is typically reserved for specific accent applications rather than broad wall surfaces.',
-      },
-      {
-        type: 'paragraph',
-        text: 'Best for: Front doors, furniture, accent pieces, and modern/contemporary design statements.',
-      },
-      {
-        type: 'tip',
-        text: 'Pro painters often use a "sheen progression" technique: flat on ceilings, eggshell on walls, semi-gloss on trim, and high-gloss on doors. This creates visual depth and helps each surface read distinctly.',
-      },
-      {
-        type: 'heading2',
-        text: 'ProCoat\'s Recommended Sheen Pairings',
+        text: 'Renovation is typically the better option when your home\'s structure and "bones" are fundamentally sound, and the changes you want are primarily cosmetic or confined to specific areas:',
       },
       {
         type: 'bullets',
         items: [
-          'Bedrooms — Flat ceiling, eggshell walls, semi-gloss trim and doors',
-          'Living/Dining — Flat ceiling, eggshell walls, semi-gloss trim, semi-gloss or high-gloss crown molding',
-          'Kitchen — Flat ceiling, satin or eggshell walls, semi-gloss trim, high-gloss or satin cabinets',
-          'Bathrooms — Flat ceiling, satin walls, semi-gloss trim, semi-gloss or high-gloss doors',
-          'Hallways — Flat ceiling, eggshell or satin walls, semi-gloss trim (satin recommended for high-traffic hallways with kids/pets)',
-          'Exterior — Satin or low-luster body, semi-gloss or high-gloss trim and doors, flat or satin soffits and fascia',
+          'Solid foundation and framing — If the structural system is in good condition, you\'re saving the most expensive parts of the home to rebuild.',
+          'Right location, wrong finishes — You love your neighborhood and lot but the interior doesn\'t meet your needs. Renovation lets you keep what matters and change what doesn\'t.',
+          'Heritage or character features — Homes with unique architectural details, stained glass, custom millwork, or historical significance are often worth preserving through renovation.',
+          'Budget constraints — Renovation is generally less expensive than a full tear-down and rebuild, especially if you can phase the work over several years.',
+          'Timeline considerations — Renovations can often be completed faster than a full demolition and new build, particularly if you can live in the home during construction.',
         ],
       },
       {
+        type: 'heading2',
+        text: 'When Demolition & Rebuild Makes Sense',
+      },
+      {
         type: 'paragraph',
-        text: 'Not sure which sheen is right for your project? Our consultants can recommend the perfect sheen for every surface in your home. Contact us for a free consultation.',
+        text: 'A full tear-down is often the smarter choice when the cost and complexity of renovation approach — or exceed — the cost of building new. Common scenarios include:',
+      },
+      {
+        type: 'bullets',
+        items: [
+          'Structural problems — Foundation issues, significant framing damage, or extensive water damage that would cost more to repair than to rebuild.',
+          'Outdated building systems — If your home needs complete replacement of electrical, plumbing, HVAC, roofing, and insulation, you may be better off starting fresh.',
+          'Wrong floor plan — If the layout fundamentally doesn\'t work for your lifestyle and walls can\'t be easily moved (due to structural constraints), a rebuild gives you a clean slate.',
+          'Poor construction quality — Homes with chronic issues like inadequate insulation, poor drainage, or substandard framing from original construction.',
+          'Maximum property value — A brand-new, custom-built home generally commands a higher resale value than a renovated older home on the same lot.',
+          'Zoning opportunities — If current zoning allows a larger home than what currently exists, a tear-down lets you maximize your lot\'s potential.',
+        ],
+      },
+      {
+        type: 'divider',
+      },
+      {
+        type: 'heading2',
+        text: 'The Cost Comparison',
+      },
+      {
+        type: 'paragraph',
+        text: 'Here\'s a realistic cost comparison for a typical 1,500-2,000 square foot home in the GTA:',
+      },
+      {
+        type: 'bullets',
+        items: [
+          'Major renovation ($150,000-$400,000+) — Full interior gut renovation including structural changes, new mechanical systems, finishes, and fixtures. Costs vary dramatically based on finish level.',
+          'Demolition + new build ($400,000-$800,000+) — Full tear-down ($15,000-$50,000) plus new construction ($350-$400+ per square foot). Higher upfront cost, but you get exactly what you want.',
+          'The break-even point — In the GTA, renovation starts to make less financial sense when the renovation scope exceeds 60-70% of the home. At that point, demolition and rebuild often deliver better value per dollar spent.',
+        ],
+      },
+      {
+        type: 'heading2',
+        text: 'Key Questions to Ask Yourself',
+      },
+      {
+        type: 'numbered',
+        items: [
+          'Do I love my lot and location? If yes, both options are viable. If no, consider selling and buying elsewhere.',
+          'What\'s the true condition of my home\'s structure? A professional home inspection can reveal hidden issues that tip the scale toward demolition.',
+          'What\'s my budget, including a 15-20% contingency? Be honest with yourself about total costs for both scenarios.',
+          'How long am I willing to wait? A full rebuild typically takes 10-18 months; a major renovation takes 4-12 months.',
+          'What will the finished home be worth? Talk to a real estate agent about comparable values for renovated vs. new-build homes in your neighborhood.',
+        ],
+      },
+      {
+        type: 'tip',
+        text: 'Get professional cost estimates for both renovation and tear-down-and-rebuild scenarios before making your decision. Many homeowners are surprised to discover that a rebuild is more attainable than they thought, or conversely, that their renovation can be done for less than they feared. In & Out Demolition provides free demolition estimates — call (437) 535-0494 to get started.',
+      },
+      {
+        type: 'paragraph',
+        text: 'Whether you choose to renovate or rebuild, In & Out Demolition can handle the demolition portion of your project. From full tear-downs to interior strip-outs, we serve the entire GTA with professional, reliable demolition services.',
       },
     ],
   },
 
   // ─── ARTICLE 11 ───
   {
-    slug: 'winter-home-maintenance',
-    title: 'Winter Painting & Home Maintenance Tips for Toronto Homeowners',
+    slug: 'diy-vs-pro-demolition',
+    title: 'DIY vs. Professional Demolition: When to Call the Experts',
     excerpt:
-      'Toronto winters are tough on your home\'s paint and surfaces. Learn what to watch for, how to prevent winter damage, and which interior projects are perfect for the colder months.',
-    date: 'September 10, 2024',
-    category: 'Maintenance',
-    categoryColor: '#8B5E3C',
-    readTime: '5 min read',
-    image: '/images/blog-winter.jpg',
-    author: 'Sarah Chen',
-    authorRole: 'Lead Exterior Specialist',
-    tags: ['winter maintenance', 'seasonal tips', 'Toronto winter', 'home care'],
-    relatedArticles: ['exterior-paint-longevity', 'best-time-exterior-painting', 'interior-paint-prep-guide'],
+      'Tackling a small demolition project yourself can save money, but some jobs demand professional expertise. Learn which demolition tasks are safe for DIY and when to hire a licensed contractor.',
+    date: 'September 28, 2024',
+    category: 'DIY vs Pro',
+    categoryColor: '#8B5CF6',
+    readTime: '6 min read',
+    image: '/images/blog-diy-vs-pro.jpg',
+    author: 'Mike Rossi',
+    authorRole: 'Senior Project Manager',
+    tags: ['DIY demolition', 'professional demolition', 'hiring contractors', 'safety risks'],
+    relatedArticles: ['safety-standards-demolition', 'complete-guide-residential-demolition', 'renovation-vs-demo'],
     content: [
       {
         type: 'paragraph',
-        text: 'Toronto winters are among the harshest in Canada, and your home bears the brunt of it. From freeze-thaw cycles that crack paint to road salt that corrodes metal surfaces, winter takes a toll on every part of your home\'s exterior. But winter is also an excellent time for interior painting projects. Here\'s your complete winter home maintenance guide.',
+        text: 'YouTube makes demolition look easy — a sledgehammer, some protective gear, and a can-do attitude. And for very small projects, that might actually be true. But there\'s a world of difference between knocking out a closet wall in your spare bedroom and demolishing a kitchen or tearing down a garage. At In & Out Demolition, we\'ve been called in to "fix" countless DIY demolition projects that went wrong, and the resulting costs are almost always higher than if the homeowner had called us in the first place. Here\'s an honest guide to help you decide what you can handle yourself and what requires professional expertise.',
       },
       {
         type: 'heading2',
-        text: 'Protecting Your Exterior in Winter',
+        text: 'DIY Demolition: Safe and Appropriate For',
+      },
+      {
+        type: 'paragraph',
+        text: 'With proper research, the right tools, and reasonable expectations, these small-scale demolition tasks are generally safe for handy homeowners:',
       },
       {
         type: 'bullets',
         items: [
-          'Clear snow and ice away from your foundation — Piled-up snow against your home creates moisture that seeps into paint and wood, causing peeling and rot.',
-          'Check gutters after heavy snowfall — Ice dams can force water under shingles and behind siding, causing extensive paint and structural damage.',
-          'Remove icicles from eaves and trim — Heavy icicles can damage gutters, fascia, and painted surfaces when they fall.',
-          'Keep salt away from painted surfaces — Road salt and de-icing products are corrosive to paint. Avoid piling snow (which contains salt) against your home\'s exterior.',
-          'Inspect for frost damage — Look for paint that has cracked or flaked due to freezing temperatures. Mark these areas for spring repair.',
+          'Removing non-load-bearing walls — If you\'re absolutely certain the wall isn\'t structural (no plumbing, electrical, or HVAC running through it, and it runs parallel to the floor joists above), a confident DIYer can handle removal.',
+          'Tearing out old flooring — Removing laminate, vinyl, or carpet is straightforward work that requires basic tools and some elbow grease.',
+          'Removing cabinets and countertops — With a helper, standard kitchen cabinets can be unscrewed and removed. Watch for plumbing and electrical connections.',
+          'Taking down wallpaper and tile — Tedious but not dangerous. Proper tools and patience are the main requirements.',
+          'Removing interior trim and baseboards — A pry bar, hammer, and care will get the job done.',
+          'Small shed or play structure removal — Freestanding structures without utilities can often be dismantled by a determined homeowner over a weekend.',
         ],
       },
       {
         type: 'heading2',
-        text: 'Why Winter Is Great for Interior Painting',
+        text: 'When to Call a Professional: No Question About It',
       },
       {
         type: 'paragraph',
-        text: 'Many homeowners don\'t realize that winter is actually one of the best times for interior painting:',
+        text: 'These demolition scenarios should always be handled by licensed professionals:',
+      },
+      {
+        type: 'bullets',
+        items: [
+          'Anything involving structural walls, beams, or columns — Removing a load-bearing element without proper shoring and engineering can cause catastrophic structural failure.',
+          'Homes with asbestos — Legally required to be removed by licensed abatement contractors. Disturbing asbestos is a serious health hazard.',
+          'Demolition involving utilities — Gas lines, electrical panels, and plumbing stacks must be disconnected by licensed trades. This is non-negotiable for safety.',
+          'Full house or building demolition — Requires permits, heavy equipment, licensed operators, and professional waste disposal.',
+          'Foundation or concrete removal — Requires specialized equipment (excavators, breakers) and knowledge of underground conditions.',
+          'Commercial demolition — Regulatory requirements, liability, and the scale of the work demand professional expertise.',
+          'Projects in dense urban areas — Protecting adjacent properties, managing traffic, and controlling dust and noise require professional planning.',
+        ],
+      },
+      {
+        type: 'heading2',
+        text: 'The Hidden Costs of DIY Demolition Gone Wrong',
+      },
+      {
+        type: 'paragraph',
+        text: 'What seems like a money-saving DIY project can quickly become expensive when things go wrong:',
       },
       {
         type: 'numbered',
         items: [
-          'Lower humidity — Toronto\'s winter air is dry, which means paint dries faster and cures more evenly than in humid summer months.',
-          'Better availability — Painters are typically less busy in winter, meaning more flexible scheduling and potentially better pricing.',
-          'Faster drying times — With indoor heating running, paint dries and cures quickly, allowing projects to be completed faster.',
-          'No open windows needed — Modern low-VOC paints make it safe to paint with windows closed, so cold weather doesn\'t affect indoor projects.',
-          'Ready for spring — Completing interior painting in winter means your home is fresh and updated for the spring selling season or summer entertaining.',
+          'Structural damage — Removing a load-bearing wall can cost $10,000-$50,000+ to repair, plus temporary shoring costs.',
+          'Utility damage — Hitting a gas line or electrical conduit creates immediate life-safety hazards and emergency repair costs.',
+          'Asbestos exposure — If you disturb asbestos without proper containment, professional remediation of the contaminated area can cost $20,000-$100,000+.',
+          'Injury costs — Emergency room visits, lost wages, and long-term health effects from improper demolition practices.',
+          'Disposal costs — Without contractor bin access, homeowners pay premium retail rates for waste disposal and recycling.',
+          'Permit violations — Fines of $10,000-$50,000 for unpermitted demolition work.',
         ],
       },
       {
         type: 'tip',
-        text: 'Many painting companies (including ProCoat) offer winter discounts on interior painting projects. Since exterior work slows down significantly from November through March, you can often get better rates and your preferred scheduling.',
+        text: 'If you\'re planning a DIY demolition project, at minimum have a professional inspect the area first to identify structural elements, utilities, and potential hazardous materials. Many demolition companies, including In & Out Demolition, offer affordable consultation visits that can save you from costly mistakes.',
       },
       {
-        type: 'heading2',
-        text: 'Indoor Humidity & Paint',
-      },
-      {
-        type: 'paragraph',
-        text: 'One thing to watch during winter painting is indoor humidity. While the air outside is dry, heating systems can create very dry conditions indoors (below 30% relative humidity), which can cause paint to dry too quickly and may lead to adhesion issues. We recommend maintaining indoor humidity between 40-50% during and after painting. A simple humidifier can make a significant difference in paint performance and indoor comfort.',
+        type: 'quote',
+        text: 'We respect homeowners who want to tackle projects themselves — there\'s real satisfaction in that. But knowing your limits is the most important tool in any toolbox. If there\'s any doubt, call a professional.',
+        caption: '— Mike Rossi, Senior Project Manager at In & Out Demolition',
       },
       {
         type: 'paragraph',
-        text: 'Planning a winter painting project? We offer free estimates throughout the season and can typically schedule your project within 1-2 weeks during winter months. Contact us to take advantage of winter availability.',
+        text: 'Not sure if your project is a DIY job or one for the pros? In & Out Demolition offers free consultations to assess your project and give you honest advice. Call (437) 535-0494 — no pressure, no obligation, just expert guidance.',
       },
     ],
   },
 
   // ─── ARTICLE 12 ───
   {
-    slug: 'color-consultation-worth-it',
-    title: 'Is a Professional Color Consultation Worth It? Here\'s What You Get',
+    slug: 'preparing-property-demolition',
+    title: 'How to Prepare Your Property for a Smooth Demolition Project',
     excerpt:
-      'A color consultation can save you from expensive mistakes and help you achieve a cohesive look throughout your home. We break down what happens during a consultation and why homeowners who use one are happier with their results.',
-    date: 'August 28, 2024',
-    category: 'Color Trends',
-    categoryColor: '#9B59B6',
-    readTime: '5 min read',
-    image: '/images/blog-consultation.jpg',
-    author: 'Marco Santini',
-    authorRole: 'Senior Color Consultant',
-    tags: ['color consultation', 'professional advice', 'paint colors', 'design tips'],
-    relatedArticles: ['how-to-choose-perfect-white-paint', 'toronto-color-trends-2025', 'paint-sheen-guide'],
+      'Proper preparation before demolition day prevents delays, reduces costs, and ensures a safe project. Here\'s a complete checklist for homeowners getting ready for demolition.',
+    date: 'September 20, 2024',
+    category: 'Cost & Planning',
+    categoryColor: '#3B82F6',
+    readTime: '7 min read',
+    image: '/images/blog-preparation.jpg',
+    author: 'James Wilson',
+    authorRole: 'Commercial Projects Director',
+    tags: ['preparation', 'planning', 'property demolition', 'project timeline'],
+    relatedArticles: ['permits-demolition-guide', 'complete-guide-residential-demolition', 'cost-guide-demolition'],
     content: [
       {
         type: 'paragraph',
-        text: 'Every year, thousands of Toronto homeowners stand in front of paint swatches at the hardware store, overwhelmed by the choices and unsure which one will look right in their home. Many pick a color, buy a few gallons, paint a room, and then realize — too late — that the color looks completely different in their space than it did in the store. A professional color consultation eliminates this gamble entirely.',
+        text: 'The success of any demolition project is largely determined before a single piece of equipment arrives on site. Proper preparation — from securing permits to notifying neighbors to planning bin placement — prevents costly delays, reduces the risk of complications, and ensures your project runs smoothly from start to finish. At In & Out Demolition, we guide every client through a comprehensive pre-demolition checklist, and here\'s the complete breakdown so you can prepare your property with confidence.',
       },
       {
         type: 'heading2',
-        text: 'What Happens During a Consultation',
+        text: '4-6 Weeks Before Demolition',
       },
       {
         type: 'paragraph',
-        text: 'At ProCoat, our color consultations are comprehensive and personalized:',
+        text: 'Early preparation focuses on planning, approvals, and identifying potential issues that could affect your timeline:',
       },
       {
         type: 'numbered',
         items: [
-          'Lifestyle interview — We learn about how you use each room, your aesthetic preferences, the mood you want to create, and any furniture or artwork you plan to keep.',
-          'Lighting analysis — We evaluate the natural light in each room (direction-facing, window size, tree shading) and the artificial lighting you use (warm, cool, LED, halogen).',
-          'Fixed elements assessment — We consider your flooring, countertops, tile, brick, stone, and any other permanent elements that will influence color selection.',
-          'Sample board presentation — We bring physical sample boards painted in your potential colors and hold them against your walls under your specific lighting conditions.',
-          'Whole-home flow planning — We ensure colors flow harmoniously from room to room, creating a cohesive palette that connects your entire home.',
-          'Test patches — We paint test patches on your walls so you can live with the colors for a few days before making a final decision.',
+          'Hire your demolition contractor and finalize scope — Get a detailed written quote that specifies exactly what will be demolished, what will be preserved, and what\'s included in the price.',
+          'Submit demolition permit applications — Start this process early, as approval can take 2-4 weeks depending on the municipality.',
+          'Schedule utility disconnections — Contact Enbridge (gas), Toronto Hydro or your local utility (electricity), and your water provider to schedule disconnections. Book these as early as possible — utility companies often have limited availability.',
+          'Complete asbestos and hazardous materials survey — A licensed surveyor must inspect the property and collect samples. If ACMs are found, schedule abatement before demolition.',
+          'Notify your neighbors — A courtesy notice to adjacent property owners goes a long way toward preventing complaints and maintaining good relationships. In some GTA municipalities, this is legally required.',
+          'Confirm your project timeline with your general contractor or renovation team — Coordinate the demolition schedule with the start of construction or renovation work.',
         ],
       },
       {
         type: 'heading2',
-        text: 'The Cost of Getting It Wrong',
+        text: '1-2 Weeks Before Demolition',
       },
       {
         type: 'paragraph',
-        text: 'Repainting a room because you chose the wrong color is expensive and frustrating. Consider the true cost of a color mistake:',
+        text: 'As demolition day approaches, focus on site logistics and final preparations:',
       },
       {
         type: 'bullets',
         items: [
-          'Paint materials for the correction — $100-200',
-          'Labor to repaint — $400-800 for a standard room',
-          'Disruption to your life — Moving furniture, covering floors, living with paint fumes again',
-          'Time lost — Another 1-2 days of painting work in your home',
-          'Total cost of a wrong color choice: $500-1,000+ (not to mention the stress)',
+          'Remove all personal belongings — Anything you want to keep must be out of the demolition zone. This includes furniture, personal items, artwork, and anything stored in closets, garages, or sheds being demolished.',
+          'Salvage materials you want to keep — If there are fixtures, doors, trim, or other elements you\'d like to reuse, remove them before the demo crew arrives. Once demolition starts, everything in the zone is assumed to be debris.',
+          'Arrange for bin placement — Work with your contractor to determine the best location for disposal bins. Consider truck access, property damage from heavy bins, and sidewalk or boulevard space requirements.',
+          'Plan for water access — Demolition crews need access to water for dust suppression. Ensure an exterior hose bib is accessible and functional.',
+          'Arrange alternative parking — If bins or equipment will occupy your driveway or street parking, plan where you and your neighbors will park during the project.',
+          'Prepare the site perimeter — Remove landscaping, fencing, or other obstacles near the demolition zone that could interfere with equipment access.',
         ],
       },
       {
+        type: 'heading2',
+        text: 'Day Before and Day Of',
+      },
+      {
         type: 'paragraph',
-        text: 'Our color consultation — included free with every ProCoat painting project — prevents these costly mistakes before they happen. And for homeowners who aren\'t ready to paint but want professional color guidance, standalone consultations are available for a reasonable fee that\'s a fraction of the cost of repainting.',
+        text: 'Final preparations the day before and the morning of demolition:',
+      },
+      {
+        type: 'bullets',
+        items: [
+          'Verify all utilities have been disconnected — Confirm with your utility providers that gas, electricity, and water have been officially disconnected at the street or meter.',
+          'Take final photos and video — Document the property\'s condition before demolition for insurance and permit purposes.',
+          'Post your demolition permit — Municipal permits must be visibly posted at the site during work.',
+          'Ensure site access is clear — Gates unlocked, pathways clear, and any obstacles removed from the equipment route.',
+          'Secure pets and children — Make arrangements for pets and children to be away from the property during all demolition activities.',
+          'Meet with the site supervisor — Review the demolition plan one final time and confirm contact information for the duration of the project.',
+        ],
       },
       {
         type: 'tip',
-        text: 'If you\'re planning to paint multiple rooms, a whole-home color consultation is especially valuable. Our consultants create a master palette that ensures every room feels connected and intentional.',
+        text: 'Keep a file with all your demolition-related documents — permit, asbestos report, utility disconnection confirmations, contractor insurance, and the written demolition plan. Having everything organized and accessible prevents delays if a municipal inspector requests documentation.',
       },
       {
-        type: 'heading2',
-        text: 'Real Results from Real Homeowners',
-      },
-      {
-        type: 'paragraph',
-        text: 'In a survey of 500 ProCoat clients who used our color consultation service, 97% said they were "very satisfied" or "completely satisfied" with their color choices, compared to 62% of DIY color selectors. Perhaps most telling: zero clients who used our consultation service requested color changes after painting was completed. The consultation works.',
+        type: 'quote',
+        text: 'A well-prepared demolition site is a safe and efficient demolition site. The time homeowners invest in preparation pays for itself many times over in avoided delays and complications.',
+        caption: '— James Wilson, Commercial Projects Director at In & Out Demolition',
       },
       {
         type: 'paragraph',
-        text: 'Ready to take the guesswork out of choosing colors? Book a free consultation with any painting project, or schedule a standalone color consultation to get professional guidance for your home.',
+        text: 'Ready to prepare for your demolition project? In & Out Demolition provides every client with a detailed preparation guide and timeline customized to their specific project. Call (437) 535-0494 to get started with a free on-site consultation anywhere across the GTA.',
       },
     ],
   },
 ];
 
 export function getArticleBySlug(slug: string): BlogArticle | undefined {
-  return blogArticles.find((a) => a.slug === slug);
+  return blogArticles.find((article) => article.slug === slug);
 }
 
 export function getArticlesByCategory(category: string): BlogArticle[] {
-  return blogArticles.filter((a) => a.category === category);
+  return blogArticles.filter((article) => article.category === category);
 }
 
 export function getRelatedArticles(article: BlogArticle, limit = 3): BlogArticle[] {
-  return blogArticles
-    .filter((a) => a.slug !== article.slug && article.relatedArticles.includes(a.slug))
+  return article.relatedArticles
+    .map((slug) => blogArticles.find((a) => a.slug === slug))
+    .filter((article): article is BlogArticle => article !== undefined)
     .slice(0, limit);
 }
 
 export function getFeaturedArticles(): BlogArticle[] {
-  return blogArticles.filter((a) => a.featured);
+  return blogArticles.filter((article) => article.featured);
 }
 
 export function getCategoryBySlug(slug: string): BlogCategory | undefined {
-  return blogCategories.find((c) => c.slug === slug);
+  return blogCategories.find((category) => category.slug === slug);
 }

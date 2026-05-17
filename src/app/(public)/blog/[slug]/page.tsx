@@ -140,9 +140,9 @@ export default function BlogArticlePage() {
               <div className="flex-1">
                 <p className="text-xs text-gold font-semibold uppercase tracking-wider mb-1">Written by</p>
                 <h4 className="text-lg font-bold text-navy">{article.author}</h4>
-                <p className="text-sm text-gray-500 mb-3">{article.authorRole} at ProCoat Painters</p>
+                <p className="text-sm text-gray-500 mb-3">{article.authorRole} at In &amp; Out Demolition</p>
                 <p className="text-sm text-gray-600 leading-relaxed">
-                  With years of professional painting experience in the Greater Toronto Area, our team shares practical knowledge to help homeowners make informed decisions about their painting projects.
+                  With years of professional demolition experience in the Greater Toronto Area, our team shares practical knowledge to help homeowners and businesses make informed decisions about their demolition and renovation projects.
                 </p>
               </div>
             </div>
@@ -161,10 +161,10 @@ export default function BlogArticlePage() {
             </div>
             <div className="relative">
               <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
-                Ready to Start Your Painting Project?
+                Ready to Start Your Demolition Project?
               </h3>
               <p className="text-white/60 text-sm sm:text-base mb-6 max-w-xl mx-auto">
-                Get a free, no-obligation estimate from our expert team. We&apos;ll assess your space, recommend the best approach, and provide transparent pricing.
+                Get a free, no-obligation estimate from our expert team. We&apos;ll assess your project, recommend the best approach, and provide transparent pricing.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                 <Link

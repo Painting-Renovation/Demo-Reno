@@ -1060,3 +1060,34 @@ Stage Summary:
 - Featured articles section for highlighted content
 - All pages return HTTP 200, 0 lint errors
 - Author attribution, tags, related articles, share functionality included
+---
+Task ID: 2
+Agent: main
+Task: Fill /blog page with real demolition-relevant content
+
+Work Log:
+- Examined existing blog structure: blog-data.ts (1188 lines, 12 painting articles), blog/page.tsx, blog/[slug]/page.tsx
+- Identified all content was painting-themed (ProCoat Painters) — needed complete replacement for In & Out Demolition
+- Rewrote blog-data.ts with 12 demolition-focused articles (1200 lines):
+  1. Complete Guide to Residential Demolition (featured)
+  2. Demolition Permits in the GTA
+  3. Commercial Demolition: Minimizing Business Disruption
+  4. Interior Strip-Outs Guide
+  5. How Much Does Demolition Cost in 2025 (featured)
+  6. Asbestos & Hazardous Materials
+  7. Demolition Safety Standards
+  8. Concrete Removal & Foundation Demolition
+  9. Sustainable Demolition
+  10. Renovation vs. Demolition Decision Guide
+  11. DIY vs. Professional Demolition
+  12. Preparing Your Property for Demolition
+- Updated 6 blog categories from painting to demolition themes
+- Updated blog/page.tsx: hero title, search placeholder, category icons, sidebar newsletter text, quick links, popular tags
+- Updated blog/[slug]/page.tsx: author box (In & Out Demolition), CTA section, author bio text
+- Verified build succeeds with no errors
+
+Stage Summary:
+- All 12 blog articles have full, rich demolition content (8-18 content blocks each)
+- Blog page and all article sub-pages now reflect In & Out Demolition branding
+- Categories, icons, tags, sidebar, and CTAs all updated for demolition industry
+- Build passes cleanly
