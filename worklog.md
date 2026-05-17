@@ -1091,3 +1091,35 @@ Stage Summary:
 - Blog page and all article sub-pages now reflect In & Out Demolition branding
 - Categories, icons, tags, sidebar, and CTAs all updated for demolition industry
 - Build passes cleanly
+---
+Task ID: 3
+Agent: main
+Task: Add unique paint color to each blog article - cards and detail pages adopt the assigned color
+
+Work Log:
+- Added `paintColor: string` and `paintColorName: string` fields to BlogArticle interface
+- Assigned 12 unique paint colors to all articles (no duplicates)
+- Updated blog listing page (page.tsx):
+  - ArticleCard: paint swatch visual in image area, left border accent in paint color, category badge uses paint color, author avatar uses paint color, "Read More" link uses paint color
+  - Featured cards: large paint swatch chip with color name, author avatar in paint color, read link in paint color
+  - Stats bar: changed second stat to show "Unique Colors" with Palette icon
+- Updated article detail page ([slug]/page.tsx):
+  - Added paint color swatch bar below hero showing hex code and color name
+  - ContentBlock receives paintColor prop for all content types:
+    - heading2: accent bar uses paint color
+    - heading3: left border uses paint color
+    - bullets: dot circle uses paint color tint
+    - numbered: circle background uses paint color with white text
+    - quote: left border uses paint color, caption uses paint color
+    - tip: gradient background uses paint color, icon and label use paint color
+    - divider: gradient uses paint color
+  - Author box: left border accent, avatar background in paint color, "Written by" label in paint color
+  - CTA section: background is paint color, estimate button text is paint color, shows paint swatch name
+  - Related articles: left border accent, category badge, read link all use each related article's own paint color
+- Build verified clean
+
+Stage Summary:
+- Each blog article now has a unique visual identity through its assigned paint color
+- The paint color permeates: card image area, card border, category badge, author avatar, content headings, bullet points, numbered lists, quotes, tips, dividers, CTA section, and related articles
+- 12 distinct colors: Caramel, Teal Mist, Warm Tan, Garden Green, Muted Coral, Dusty Blue, Wisteria, Gold Coast, Pacific Sage, Amber, Steel Blue, Terracotta Light
+- Future articles simply need a new unique paintColor added - system supports unlimited colors

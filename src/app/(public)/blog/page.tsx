@@ -8,7 +8,7 @@ const PageHero = dynamic(
   { ssr: false }
 );
 import { motion } from 'framer-motion';
-import { ArrowRight, Calendar, Tag, Clock, BookOpen, Search, TrendingUp, Star, ChevronDown } from 'lucide-react';
+import { ArrowRight, Calendar, Tag, Clock, BookOpen, Search, TrendingUp, Star, Palette } from 'lucide-react';
 import { blogArticles, blogCategories, getFeaturedArticles, getArticlesByCategory } from '@/lib/blog-data';
 import type { BlogArticle } from '@/lib/blog-data';
 
@@ -97,8 +97,8 @@ export default function BlogPage() {
               </div>
               <div className="w-px h-4 bg-gray-200" />
               <div className="flex items-center gap-2">
-                <Tag className="w-4 h-4 text-gold" />
-                <span className="text-sm font-medium text-navy">{blogCategories.length} Categories</span>
+                <Palette className="w-4 h-4 text-gold" />
+                <span className="text-sm font-medium text-navy">{blogArticles.length} Unique Colors</span>
               </div>
             </div>
             <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -136,29 +136,43 @@ export default function BlogPage() {
               {featured.map((article) => (
                 <motion.div key={article.slug} variants={featuredItem}>
                   <Link href={`/blog/${article.slug}`}>
-                    <article className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-gold/30 hover:shadow-xl transition-all duration-300 h-full">
-                      <div className="h-48 sm:h-56 bg-gradient-to-br from-navy/5 via-gold/5 to-sage/5 relative overflow-hidden">
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-6xl opacity-20 group-hover:opacity-30 transition-opacity duration-300">
-                            {categoryIcons[article.category] || '📝'}
-                          </span>
-                        </div>
-                        <div className="absolute top-4 left-4">
+                    <article className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 h-full">
+                      {/* Paint color header band */}
+                      <div
+                        className="h-48 sm:h-56 relative overflow-hidden"
+                        style={{ backgroundColor: `${article.paintColor}18` }}
+                      >
+                        {/* Paint swatch chip */}
+                        <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
                           <span
-                            className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm"
-                            style={{ color: article.categoryColor }}
+                            className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm"
+                            style={{ color: article.paintColor }}
                           >
                             <Tag className="w-3 h-3" />
                             {article.category}
                           </span>
-                        </div>
-                        <div className="absolute top-4 right-4">
                           <span className="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-gold text-white">
                             <Star className="w-3 h-3" />
                             Featured
                           </span>
                         </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        {/* Large paint swatch visual */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="flex flex-col items-center gap-3">
+                            <div
+                              className="w-20 h-20 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-500"
+                              style={{ backgroundColor: article.paintColor }}
+                            />
+                            <div className="flex items-center gap-2">
+                              <div
+                                className="w-3 h-3 rounded-full"
+                                style={{ backgroundColor: article.paintColor }}
+                              />
+                              <span className="text-xs font-medium text-gray-500 tracking-wide uppercase">{article.paintColorName}</span>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </div>
                       <div className="p-6 sm:p-8">
                         <div className="flex flex-wrap items-center gap-3 mb-3">
@@ -171,7 +185,7 @@ export default function BlogPage() {
                             {article.readTime}
                           </span>
                         </div>
-                        <h3 className="text-lg sm:text-xl font-bold text-navy mb-3 group-hover:text-gold transition-colors duration-200 line-clamp-2">
+                        <h3 className="text-lg sm:text-xl font-bold text-navy mb-3 group-hover:text-gray-700 transition-colors duration-200 line-clamp-2">
                           {article.title}
                         </h3>
                         <p className="text-gray-600 text-sm leading-relaxed line-clamp-3 mb-4">
@@ -179,7 +193,10 @@ export default function BlogPage() {
                         </p>
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-navy/10 flex items-center justify-center text-xs font-bold text-navy">
+                            <div
+                              className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white"
+                              style={{ backgroundColor: article.paintColor }}
+                            >
                               {article.author.split(' ').map((n) => n[0]).join('')}
                             </div>
                             <div>
@@ -187,7 +204,10 @@ export default function BlogPage() {
                               <p className="text-[10px] text-gray-400">{article.authorRole}</p>
                             </div>
                           </div>
-                          <span className="inline-flex items-center gap-1.5 text-gold font-semibold text-sm group-hover:gap-2.5 transition-all duration-200">
+                          <span
+                            className="inline-flex items-center gap-1.5 font-semibold text-sm group-hover:gap-2.5 transition-all duration-200"
+                            style={{ color: article.paintColor }}
+                          >
                             Read
                             <ArrowRight className="w-4 h-4" />
                           </span>
@@ -419,15 +439,28 @@ function ArticleCard({ article }: { article: BlogArticle }) {
   return (
     <motion.article
       variants={item}
-      className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-gold/30 hover:shadow-lg transition-all duration-300"
+      className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300"
+      style={{ borderLeft: `4px solid ${article.paintColor}` }}
     >
       <Link href={`/blog/${article.slug}`} className="flex flex-col sm:flex-row">
-        {/* Image area */}
-        <div className="sm:w-48 md:w-64 h-48 sm:h-auto bg-gradient-to-br from-navy/5 via-gold/5 to-sage/5 relative overflow-hidden flex-shrink-0">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-5xl opacity-15 group-hover:opacity-25 transition-opacity duration-300 group-hover:scale-110 transform">
-              {categoryIcon}
-            </span>
+        {/* Paint swatch area */}
+        <div
+          className="sm:w-48 md:w-64 h-48 sm:h-auto relative overflow-hidden flex-shrink-0 flex items-center justify-center"
+          style={{ backgroundColor: `${article.paintColor}12` }}
+        >
+          {/* Paint chip visual */}
+          <div className="flex flex-col items-center gap-2">
+            <div
+              className="w-14 h-14 rounded-xl shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-500"
+              style={{ backgroundColor: article.paintColor }}
+            />
+            <div className="flex items-center gap-1.5">
+              <div
+                className="w-2 h-2 rounded-full"
+                style={{ backgroundColor: article.paintColor }}
+              />
+              <span className="text-[10px] font-medium text-gray-400 tracking-wide uppercase">{article.paintColorName}</span>
+            </div>
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           {article.featured && (
@@ -446,8 +479,8 @@ function ArticleCard({ article }: { article: BlogArticle }) {
             <span
               className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full"
               style={{
-                backgroundColor: `${article.categoryColor}12`,
-                color: article.categoryColor,
+                backgroundColor: `${article.paintColor}15`,
+                color: article.paintColor,
               }}
             >
               <Tag className="w-3 h-3" />
@@ -463,7 +496,7 @@ function ArticleCard({ article }: { article: BlogArticle }) {
             </span>
           </div>
 
-          <h3 className="text-lg sm:text-xl font-bold text-navy mb-3 group-hover:text-gold transition-colors duration-200">
+          <h3 className="text-lg sm:text-xl font-bold text-navy mb-3 group-hover:text-gray-700 transition-colors duration-200">
             {article.title}
           </h3>
 
@@ -473,7 +506,10 @@ function ArticleCard({ article }: { article: BlogArticle }) {
 
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-full bg-navy/10 flex items-center justify-center text-[10px] font-bold text-navy">
+              <div
+                className="w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold text-white"
+                style={{ backgroundColor: article.paintColor }}
+              >
                 {article.author.split(' ').map((n) => n[0]).join('')}
               </div>
               <div>
@@ -481,7 +517,10 @@ function ArticleCard({ article }: { article: BlogArticle }) {
                 <p className="text-[10px] text-gray-400">{article.authorRole}</p>
               </div>
             </div>
-            <span className="inline-flex items-center gap-1.5 text-gold font-semibold text-sm group-hover:gap-2.5 transition-all duration-200">
+            <span
+              className="inline-flex items-center gap-1.5 font-semibold text-sm group-hover:gap-2.5 transition-all duration-200"
+              style={{ color: article.paintColor }}
+            >
               Read More
               <ArrowRight className="w-4 h-4" />
             </span>

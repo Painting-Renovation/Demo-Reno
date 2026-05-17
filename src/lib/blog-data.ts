@@ -13,6 +13,8 @@ export interface BlogArticle {
   content: BlogContent[];
   tags: string[];
   relatedArticles: string[];
+  paintColor: string;
+  paintColorName: string;
 }
 
 export interface BlogContent {
@@ -55,6 +57,8 @@ export const blogArticles: BlogArticle[] = [
     featured: true,
     tags: ['residential demolition', 'home demolition', 'renovation', 'demolition guide'],
     relatedArticles: ['permits-demolition-guide', 'interior-strip-out-guide', 'cost-guide-demolition'],
+    paintColor: '#D4A574',
+    paintColorName: 'Caramel',
     content: [
       {
         type: 'paragraph',
@@ -160,6 +164,8 @@ export const blogArticles: BlogArticle[] = [
     authorRole: 'Compliance Specialist',
     tags: ['permits', 'regulations', 'GTA', 'municipal bylaws', 'demolition permits'],
     relatedArticles: ['safety-standards-demolition', 'complete-guide-residential-demolition', 'preparing-property-demolition'],
+    paintColor: '#7DB5B5',
+    paintColorName: 'Teal Mist',
     content: [
       {
         type: 'paragraph',
@@ -253,6 +259,8 @@ export const blogArticles: BlogArticle[] = [
     authorRole: 'Commercial Projects Director',
     tags: ['commercial demolition', 'business', 'minimal disruption', 'tenant relocation'],
     relatedArticles: ['asbestos-hazardous-materials', 'interior-strip-out-guide', 'cost-guide-demolition'],
+    paintColor: '#C8A882',
+    paintColorName: 'Warm Tan',
     content: [
       {
         type: 'paragraph',
@@ -344,6 +352,8 @@ export const blogArticles: BlogArticle[] = [
     authorRole: 'Senior Project Manager',
     tags: ['interior strip-out', 'selective demolition', 'gutting', 'renovation prep'],
     relatedArticles: ['complete-guide-residential-demolition', 'diy-vs-pro-demolition', 'cost-guide-demolition'],
+    paintColor: '#8DB580',
+    paintColorName: 'Garden Green',
     content: [
       {
         type: 'paragraph',
@@ -447,6 +457,8 @@ export const blogArticles: BlogArticle[] = [
     featured: true,
     tags: ['demolition cost', 'budget', 'pricing', '2025', 'cost breakdown'],
     relatedArticles: ['complete-guide-residential-demolition', 'commercial-demolition-minimizing-disruption', 'renovation-vs-demo'],
+    paintColor: '#C4908A',
+    paintColorName: 'Muted Coral',
     content: [
       {
         type: 'paragraph',
@@ -546,6 +558,8 @@ export const blogArticles: BlogArticle[] = [
     authorRole: 'Environmental Safety Officer',
     tags: ['asbestos', 'hazardous materials', 'environmental safety', 'abatement'],
     relatedArticles: ['safety-standards-demolition', 'permits-demolition-guide', 'environmental-responsibility-demolition'],
+    paintColor: '#8E9FBF',
+    paintColorName: 'Dusty Blue',
     content: [
       {
         type: 'paragraph',
@@ -637,6 +651,8 @@ export const blogArticles: BlogArticle[] = [
     authorRole: 'Environmental Safety Officer',
     tags: ['safety', 'demolition standards', 'protective measures', 'site safety'],
     relatedArticles: ['asbestos-hazardous-materials', 'permits-demolition-guide', 'diy-vs-pro-demolition'],
+    paintColor: '#B89EC4',
+    paintColorName: 'Wisteria',
     content: [
       {
         type: 'paragraph',
@@ -730,6 +746,8 @@ export const blogArticles: BlogArticle[] = [
     authorRole: 'Senior Project Manager',
     tags: ['concrete removal', 'foundation demolition', 'heavy equipment', 'excavation'],
     relatedArticles: ['complete-guide-residential-demolition', 'interior-strip-out-guide', 'cost-guide-demolition'],
+    paintColor: '#D4B07A',
+    paintColorName: 'Gold Coast',
     content: [
       {
         type: 'paragraph',
@@ -820,6 +838,8 @@ export const blogArticles: BlogArticle[] = [
     authorRole: 'Compliance Specialist',
     tags: ['sustainable demolition', 'recycling', 'waste management', 'green demolition'],
     relatedArticles: ['asbestos-hazardous-materials', 'cost-guide-demolition', 'renovation-vs-demo'],
+    paintColor: '#7BA8A0',
+    paintColorName: 'Pacific Sage',
     content: [
       {
         type: 'paragraph',
@@ -902,6 +922,8 @@ export const blogArticles: BlogArticle[] = [
     authorRole: 'Estimating Manager',
     tags: ['renovation', 'demolition', 'decision guide', 'property assessment'],
     relatedArticles: ['interior-strip-out-guide', 'cost-guide-demolition', 'diy-vs-pro-demolition'],
+    paintColor: '#D9A96A',
+    paintColorName: 'Amber',
     content: [
       {
         type: 'paragraph',
@@ -1003,6 +1025,8 @@ export const blogArticles: BlogArticle[] = [
     authorRole: 'Senior Project Manager',
     tags: ['DIY demolition', 'professional demolition', 'hiring contractors', 'safety risks'],
     relatedArticles: ['safety-standards-demolition', 'complete-guide-residential-demolition', 'renovation-vs-demo'],
+    paintColor: '#A0B8C8',
+    paintColorName: 'Steel Blue',
     content: [
       {
         type: 'paragraph',
@@ -1097,6 +1121,8 @@ export const blogArticles: BlogArticle[] = [
     authorRole: 'Commercial Projects Director',
     tags: ['preparation', 'planning', 'property demolition', 'project timeline'],
     relatedArticles: ['permits-demolition-guide', 'complete-guide-residential-demolition', 'cost-guide-demolition'],
+    paintColor: '#BAA08A',
+    paintColorName: 'Terracotta Light',
     content: [
       {
         type: 'paragraph',
