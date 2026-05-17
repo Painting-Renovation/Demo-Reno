@@ -1012,3 +1012,51 @@ Stage Summary:
 - LeadActivity entries created as non-critical side effect (logged but don't fail request)
 - SiteAudit entries attempted (non-critical — known trigger issue with updatedAt on SiteAudit table)
 - Notification service ping attempted (non-blocking)
+
+---
+Task ID: blog-content-enhancement
+Agent: Main Agent
+Task: Fill /blog page with real content and create individual article sub-pages
+
+Work Log:
+- Created `/src/lib/blog-data.ts` — comprehensive blog data module with:
+  - 12 full articles with real, relevant painting industry content
+  - Each article includes: slug, title, excerpt, date, category, author, authorRole, tags, relatedArticles
+  - Full article content as structured blocks (paragraph, heading2, heading3, bullets, numbered, quote, tip, divider)
+  - 6 blog categories with descriptions and counts
+  - Helper functions: getArticleBySlug, getArticlesByCategory, getRelatedArticles, getFeaturedArticles, getCategoryBySlug
+  - Articles cover: white paint selection, exterior curb appeal, cabinet refinishing, seasonal timing, commercial painting, Toronto color trends, interior prep guide, paint longevity, DIY vs pro comparison, paint sheens, winter maintenance, color consultation
+- Rewrote `/src/app/(public)/blog/page.tsx` — enhanced blog listing page:
+  - Search bar in PageHero for filtering articles
+  - Stats bar showing article and category counts
+  - Featured articles section (2-column grid with larger cards)
+  - Category filter buttons with active state
+  - Full article list with ArticleCard component (image placeholder, category badge, date, read time, author avatar, excerpt)
+  - Sidebar with: Categories, Newsletter CTA, Quick Links, Popular Tags
+  - Empty state for no search results
+  - All links point to `/blog/[slug]` individual article pages
+- Created `/src/app/(public)/blog/[slug]/page.tsx` — individual article page:
+  - PageHero with article title and breadcrumbs (Blog > Category > Title)
+  - Article meta bar: author avatar, name, role, date, read time, share button
+  - Full content rendering with ContentBlock component supporting: paragraph, heading2, heading3, bullets, numbered, quote, tip, divider
+  - Gold accent bars on headings, styled bullet points with gold dots, numbered lists with navy circles
+  - Pro Tip callout boxes with gold accent
+  - Blockquotes with gold left border
+  - Author info box at end of article
+  - CTA section: "Ready to Start Your Painting Project?" with estimate + phone buttons
+  - Related articles section (3-card grid)
+  - Back to All Articles link
+  - 404 handling via notFound()
+- Updated `/src/components/website/Navbar.tsx`:
+  - Added Blog link to main desktop navigation (between Gallery and Process)
+  - Added Blog to mobile menu extra links
+  - Updated isActive() to highlight /blog and /blog/* routes
+
+Stage Summary:
+- Blog now has 12 real articles with full content across 6 categories
+- Each article has individual sub-page at /blog/[slug] with complete content rendering
+- Blog added to Navbar (desktop + mobile)
+- Search and category filtering on blog listing page
+- Featured articles section for highlighted content
+- All pages return HTTP 200, 0 lint errors
+- Author attribution, tags, related articles, share functionality included

@@ -22,6 +22,7 @@ const navLinks = [
     ],
   },
   { label: 'Gallery', href: '/gallery' },
+  { label: 'Blog', href: '/blog' },
   { label: 'Process', href: '/process' },
   { label: 'Testimonials', href: '/testimonials' },
   { label: 'Contact', href: '/contact' },
@@ -57,6 +58,9 @@ export function Navbar() {
   const isActive = (href: string) => {
     if (href === '/services') {
       return pathname === '/services' || pathname.startsWith('/services/');
+    }
+    if (href === '/blog') {
+      return pathname === '/blog' || pathname.startsWith('/blog/');
     }
     return pathname === href;
   };
@@ -308,6 +312,7 @@ export function Navbar() {
 
                   {/* Extra mobile nav links */}
                   {[
+                    { label: 'Blog', href: '/blog' },
                     { label: 'Pricing', href: '/pricing' },
                     { label: 'Free Estimate', href: '/free-estimate' },
                     { label: 'FAQ', href: '/faq' },
