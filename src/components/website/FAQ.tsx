@@ -247,10 +247,10 @@ export function FAQ() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="hidden lg:block"
+            className="lg:sticky"
           >
             <div className="sticky top-28">
-              <div className="bg-navy rounded-2xl p-8 text-white relative overflow-hidden">
+              <div className="bg-navy rounded-2xl p-6 sm:p-8 text-white relative overflow-hidden">
                 {/* Decorative elements */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-full blur-2xl" />
                 <div className="absolute bottom-0 left-0 w-24 h-24 bg-sage/10 rounded-full blur-2xl" />

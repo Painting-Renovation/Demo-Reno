@@ -91,7 +91,7 @@ export function LiveChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-24 right-6 z-50">
+    <div className="fixed z-50" style={{ bottom: 'max(6rem, calc(env(safe-area-inset-bottom) + 6rem))', right: 'max(1.5rem, env(safe-area-inset-right))' }}>
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -99,7 +99,7 @@ export function LiveChatWidget() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            className="mb-3 w-[340px] sm:w-[380px] rounded-2xl overflow-hidden shadow-2xl border border-white/10"
+            className="mb-3 w-[calc(100vw-3rem)] sm:w-[380px] rounded-2xl overflow-hidden shadow-2xl border border-white/10"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-navy to-navy-light px-5 py-4">
@@ -118,7 +118,7 @@ export function LiveChatWidget() {
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="text-white/50 hover:text-white transition-colors p-1 cursor-pointer"
+                  className="min-w-[44px] min-h-[44px] text-white/50 hover:text-white transition-colors p-1 cursor-pointer"
                   aria-label="Close chat"
                 >
                   <X className="w-5 h-5" />

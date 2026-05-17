@@ -36,7 +36,7 @@ export default function GalleryPage() {
       />
 
       {/* Portfolio Stats Bar */}
-      <section className="bg-navy py-8">
+      <section className="bg-navy py-6 sm:py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -89,7 +89,7 @@ export default function GalleryPage() {
       </section>
 
       {/* Process Overview */}
-      <section className="bg-cream py-20 md:py-24">
+      <section className="bg-cream py-12 sm:py-16 md:py-20 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -147,7 +147,7 @@ export default function GalleryPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-navy py-20 md:py-24">
+      <section className="bg-navy py-12 sm:py-16 md:py-20 lg:py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}

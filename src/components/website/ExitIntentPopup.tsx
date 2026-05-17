@@ -143,14 +143,14 @@ export function ExitIntentPopup() {
             <div className="absolute top-4 right-4 z-10">
               <button
                 onClick={handleClose}
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors cursor-pointer"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors cursor-pointer"
                 aria-label="Close popup"
               >
                 <X className="w-4 h-4 text-white/70" />
               </button>
             </div>
 
-            <div className="p-8 sm:p-10">
+            <div className="p-6 sm:p-8 md:p-10">
               {!submitted ? (
                 <>
                   {/* Discount badge */}
@@ -217,7 +217,7 @@ export function ExitIntentPopup() {
                     <button
                       type="submit"
                       disabled={loading}
-                      className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl text-white font-semibold text-sm transition-all cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
+                      className="w-full flex items-center justify-center gap-2 py-3.5 sm:py-4 rounded-xl text-white font-semibold text-sm transition-all cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed min-h-[48px]"
                       style={{
                         background: 'linear-gradient(135deg, #C8973E 0%, #D4A94E 100%)',
                         boxShadow: '0 6px 20px rgba(200,151,62,0.35)',

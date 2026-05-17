@@ -104,7 +104,7 @@ export default function BlogPage() {
       />
 
       {/* Blog Content */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row gap-12">
             {/* Main Content - Articles */}
@@ -196,7 +196,7 @@ export default function BlogPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="lg:sticky lg:top-32 space-y-8"
+                className="lg:sticky lg:top-24 space-y-8"
               >
                 {/* Categories */}
                 <div className="bg-white rounded-2xl p-6 border border-gray-100">

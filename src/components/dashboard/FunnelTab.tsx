@@ -287,6 +287,7 @@ export default function FunnelTab() {
               <CardTitle className="text-base">Lead Distribution</CardTitle>
             </CardHeader>
             <CardContent>
+              <div className="overflow-x-auto">
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={funnelData.stages} layout="vertical" margin={{ left: 0, right: 10 }}>
                   <CartesianGrid strokeDasharray="3 3" horizontal={false} />
@@ -303,6 +304,7 @@ export default function FunnelTab() {
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
+              </div>
             </CardContent>
           </Card>
         </div>

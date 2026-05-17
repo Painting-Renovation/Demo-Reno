@@ -341,13 +341,13 @@ export default function QuotesTab() {
 
       {/* Create Quote Dialog */}
       <Dialog open={createOpen} onOpenChange={setCreateOpen}>
-        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto sm:max-w-2xl w-[calc(100%-2rem)]">
           <DialogHeader>
             <DialogTitle>Create New Quote</DialogTitle>
             <DialogDescription>Add line items and set pricing for the quote</DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Quote Title *</Label>
                 <Input value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} placeholder="e.g., Kitchen Renovation Quote" />
@@ -369,15 +369,15 @@ export default function QuotesTab() {
                 </Button>
               </div>
               {formData.items.map((item, index) => (
-                <div key={item.id} className="flex gap-2 items-start">
-                  <div className="flex-1">
+                <div key={item.id} className="flex flex-col sm:flex-row gap-2 items-start">
+                  <div className="flex-1 w-full">
                     <Input
                       placeholder="Description"
                       value={item.description}
                       onChange={(e) => updateLineItem(index, 'description', e.target.value)}
                     />
                   </div>
-                  <div className="w-20">
+                  <div className="w-full sm:w-20">
                     <Input
                       type="number"
                       placeholder="Qty"
@@ -385,7 +385,7 @@ export default function QuotesTab() {
                       onChange={(e) => updateLineItem(index, 'quantity', parseInt(e.target.value) || 0)}
                     />
                   </div>
-                  <div className="w-28">
+                  <div className="w-full sm:w-28">
                     <Input
                       type="number"
                       placeholder="Unit Price"
@@ -393,7 +393,7 @@ export default function QuotesTab() {
                       onChange={(e) => updateLineItem(index, 'unitPrice', parseFloat(e.target.value) || 0)}
                     />
                   </div>
-                  <div className="w-24 flex items-center justify-end text-sm font-medium">
+                  <div className="w-full sm:w-24 flex items-center justify-end text-sm font-medium">
                     ${(item.quantity * item.unitPrice).toFixed(2)}
                   </div>
                   <Button
@@ -454,7 +454,7 @@ export default function QuotesTab() {
 
       {/* Quote Detail Dialog */}
       <Dialog open={detailOpen} onOpenChange={setDetailOpen}>
-        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto sm:max-w-2xl w-[calc(100%-2rem)]">
           {selectedQuote && (
             <>
               <DialogHeader>

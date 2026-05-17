@@ -174,7 +174,7 @@ export function Testimonials() {
           >
             <CarouselContent className="-ml-4">
               {testimonials.map((testimonial) => (
-                <CarouselItem key={testimonial.id} className="pl-4 md:basis-1/2 lg:basis-1/2">
+                <CarouselItem key={testimonial.id} className="pl-4 basis-full sm:basis-1/2">
                   <div className="glassmorphism-card rounded-2xl p-5 sm:p-6 md:p-8 h-full flex flex-col card-hover-lift relative overflow-hidden min-w-0">
                     {/* Large decorative quotation marks */}
                     <div className="quote-decorative">&ldquo;</div>

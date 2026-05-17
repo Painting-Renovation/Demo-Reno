@@ -216,7 +216,7 @@ function FlipCard({ member, index }: { member: TeamMember; index: number }) {
 
             {/* Flip hint */}
             <div className="mt-3 text-[10px] text-gold/60 font-medium tracking-wider uppercase group-hover:text-gold transition-colors">
-              Hover to reveal → Click to flip
+              <span className="hidden sm:inline">Hover to reveal → Click to flip</span><span className="sm:hidden">Tap card to flip</span>
             </div>
           </div>
         </motion.div>

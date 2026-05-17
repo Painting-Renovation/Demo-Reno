@@ -24,7 +24,7 @@ export default function FAQPage() {
       />
 
       {/* FAQ Component */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -46,7 +46,7 @@ export default function FAQPage() {
       </section>
 
       {/* Still Have Questions — CTA */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -87,8 +87,8 @@ export default function FAQPage() {
               </div>
 
               {/* Contact options */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-xl mx-auto">
-                <div className="flex flex-col items-center gap-2 text-white/60 p-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-xl mx-auto">
+                <div className="flex flex-col items-center gap-2 text-white/60 p-3 sm:p-4">
                   <Phone className="w-5 h-5 text-gold" />
                   <span className="text-sm font-medium text-white/80">
                     (437) 535-0494

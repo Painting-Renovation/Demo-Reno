@@ -373,7 +373,7 @@ export function GuaranteeSection() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="text-center"
         >
-          <p className="text-white/30 text-xs uppercase tracking-widest mb-6 font-medium">
+          <p className="text-white/50 text-xs sm:text-sm font-medium tracking-widest uppercase mb-6">
             Trusted Credentials
           </p>
           <motion.div

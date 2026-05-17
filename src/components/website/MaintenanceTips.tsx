@@ -128,14 +128,14 @@ export function MaintenanceTips() {
           transition={{ delay: 0.2 }}
           className="flex justify-center mb-12"
         >
-          <div className="inline-flex bg-white rounded-2xl p-1.5 shadow-lg border border-gray-100">
+          <div className="inline-flex bg-white rounded-2xl p-1.5 shadow-lg border border-gray-100 overflow-x-auto scrollbar-hide max-w-full">
             {seasons.map((season) => {
               const isActive = activeSeason === season.id;
               return (
                 <button
                   key={season.id}
                   onClick={() => setActiveSeason(season.id)}
-                  className={`flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer ${
+                  className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-3 rounded-xl text-sm font-semibold transition-all duration-300 cursor-pointer whitespace-nowrap ${
                     isActive
                       ? 'bg-navy text-white shadow-md'
                       : 'text-gray-500 hover:text-navy hover:bg-gray-50'
@@ -152,7 +152,7 @@ export function MaintenanceTips() {
                       <season.icon className="w-4 h-4" />
                     </motion.span>
                   </AnimatePresence>
-                  <span className="hidden sm:inline">{season.name}</span>
+                  <span className="sm:hidden">{season.name.slice(0, 3)}</span>
                 </button>
               );
             })}
@@ -170,8 +170,8 @@ export function MaintenanceTips() {
             className="mb-16"
           >
             {/* Season Banner */}
-            <div className={`rounded-2xl ${currentSeason.bgColor} ${currentSeason.borderColor} border-2 p-6 md:p-8 mb-8`}>
-              <div className="flex items-center gap-4 mb-2">
+            <div className={`rounded-2xl ${currentSeason.bgColor} ${currentSeason.borderColor} border-2 p-4 sm:p-6 md:p-8 mb-8`}>
+              <div className="flex items-start sm:items-center gap-3 sm:gap-4 mb-2 flex-col sm:flex-row">
                 <div className={`w-12 h-12 rounded-xl ${currentSeason.bgColor} flex items-center justify-center`}>
                   <motion.div
                     initial={{ rotate: -10, scale: 0.9 }}
@@ -181,8 +181,8 @@ export function MaintenanceTips() {
                     <currentSeason.icon className={`w-6 h-6 ${currentSeason.color}`} />
                   </motion.div>
                 </div>
-                <div>
-                  <h3 className={`text-xl md:text-2xl font-bold ${currentSeason.color}`}>
+                <div className="min-w-0">
+                  <h3 className={`text-lg sm:text-xl md:text-2xl font-bold ${currentSeason.color}`}>
                     {currentSeason.name} Maintenance Checklist
                   </h3>
                   <p className="text-gray-600 text-sm mt-1">
@@ -232,7 +232,7 @@ export function MaintenanceTips() {
           className="mb-14"
         >
           <Card className="border-0 shadow-xl overflow-hidden bg-white">
-            <div className="bg-gradient-to-r from-navy to-navy-light p-6 md:p-8">
+            <div className="bg-gradient-to-r from-navy to-navy-light p-4 sm:p-6 md:p-8">
               <div className="flex items-center gap-3 mb-2">
                 <PiggyBank className="w-7 h-7 text-gold" />
                 <h3 className="text-xl md:text-2xl font-bold text-white">Estimated Annual Savings</h3>

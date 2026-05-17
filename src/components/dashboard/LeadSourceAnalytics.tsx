@@ -265,8 +265,8 @@ export function LeadSourceAnalytics() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center gap-4">
-              <div className="flex-1">
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <div className="flex-1 min-w-0">
                 <ResponsiveContainer width="100%" height={280}>
                   <PieChart>
                     <Pie
@@ -287,7 +287,7 @@ export function LeadSourceAnalytics() {
                   </PieChart>
                 </ResponsiveContainer>
               </div>
-              <div className="space-y-3 shrink-0">
+              <div className="space-y-3 shrink-0 flex-wrap">
                 {leadSources.map((source) => {
                   const pct = Math.round((source.leads / totalLeads) * 100);
                   return (

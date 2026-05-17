@@ -169,7 +169,7 @@ export function ChatBotPanel() {
   }, []);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className="fixed bottom-6 right-6 z-50" style={{ bottom: 'max(1.5rem, env(safe-area-inset-bottom))', right: 'max(1.5rem, env(safe-area-inset-right))' }}>
       <AnimatePresence>
         {isOpen && !isMinimized && (
           <motion.div
@@ -178,7 +178,7 @@ export function ChatBotPanel() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.85, y: 20 }}
             transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-            className="mb-4 w-[360px] sm:w-[400px] max-h-[600px] rounded-2xl overflow-hidden shadow-2xl border border-gray-200 flex flex-col"
+            className="mb-4 w-[calc(100vw-3rem)] sm:w-[360px] sm:max-w-[400px] max-h-[70vh] sm:max-h-[600px] rounded-2xl overflow-hidden shadow-2xl border border-gray-200 flex flex-col"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-navy to-navy-light px-5 py-4 flex-shrink-0">
@@ -204,14 +204,14 @@ export function ChatBotPanel() {
                 <div className="flex items-center gap-1">
                   <button
                     onClick={handleMinimize}
-                    className="text-white/50 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/10 cursor-pointer"
+                    className="text-white/50 hover:text-white transition-colors p-2 -mr-1 rounded-lg hover:bg-white/10 cursor-pointer min-w-[44px] min-h-[44px] flex items-center justify-center"
                     aria-label="Minimize chat"
                   >
                     <Minimize2 className="w-4 h-4" />
                   </button>
                   <button
                     onClick={handleClose}
-                    className="text-white/50 hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/10 cursor-pointer"
+                    className="text-white/50 hover:text-white transition-colors p-2 -mr-1 rounded-lg hover:bg-white/10 cursor-pointer min-w-[44px] min-h-[44px] flex items-center justify-center"
                     aria-label="Close chat"
                   >
                     <X className="w-4 h-4" />
@@ -297,7 +297,7 @@ export function ChatBotPanel() {
                   <button
                     key={reply.key}
                     onClick={() => handleQuickReply(reply.key)}
-                    className="flex items-center gap-1.5 text-xs font-medium bg-white border border-gray-200 text-navy hover:bg-gold hover:text-white hover:border-gold px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md"
+                    className="flex items-center gap-1.5 text-xs font-medium bg-white border border-gray-200 text-navy hover:bg-gold hover:text-white hover:border-gold px-3 py-2 rounded-full transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md min-h-[36px]"
                   >
                     <reply.icon className="w-3 h-3" />
                     {reply.label}

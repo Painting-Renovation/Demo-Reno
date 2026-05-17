@@ -174,7 +174,7 @@ function BeforeAfterSlider({ item }: { item: BeforeAfterItem }) {
           style={{ opacity: isDragging ? 0 : 0.8 }}
         >
           <span className="bg-black/50 backdrop-blur-sm text-white text-xs px-4 py-1.5 rounded-full whitespace-nowrap">
-            ← Drag to compare →
+            <span className="hidden sm:inline">← Drag to compare →</span><span className="sm:inline hidden">Touch &amp; drag to compare</span>
           </span>
         </div>
       </div>

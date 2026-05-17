@@ -82,7 +82,7 @@ export default function ProcessPage() {
       />
 
       {/* Process Component */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -104,7 +104,7 @@ export default function ProcessPage() {
       </section>
 
       {/* Project Journey */}
-      <section className="bg-navy py-20 px-4 sm:px-6 lg:px-8">
+      <section className="bg-navy py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -126,7 +126,7 @@ export default function ProcessPage() {
       </section>
 
       {/* What to Expect — Timeline */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -150,8 +150,11 @@ export default function ProcessPage() {
             viewport={{ once: true, margin: '-50px' }}
             className="relative"
           >
-            {/* Vertical connector line */}
+            {/* Vertical connector line - desktop */}
             <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-navy via-gold to-sage -translate-x-1/2" />
+
+            {/* Vertical connector line - mobile */}
+            <div className="lg:hidden absolute left-5 top-0 bottom-0 w-0.5 bg-gradient-to-b from-navy via-gold to-sage" />
 
             <div className="space-y-8 lg:space-y-0">
               {timelineSteps.map((step, i) => {
@@ -165,14 +168,17 @@ export default function ProcessPage() {
                       isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'
                     }`}
                   >
-                    {/* Dot on the center line */}
+                    {/* Dot on the center line - desktop */}
                     <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 w-5 h-5 rounded-full bg-gold border-4 border-cream z-10 shadow-md" />
+
+                    {/* Dot on the line - mobile */}
+                    <div className="lg:hidden absolute left-3.5 -translate-x-1/2 top-8 w-5 h-5 rounded-full bg-gold border-4 border-cream z-10 shadow-md" />
 
                     {/* Content card */}
                     <div
                       className={`w-full lg:w-5/12 ${
                         isEven ? 'lg:pr-16' : 'lg:pl-16'
-                      }`}
+                      } pl-10 lg:pl-0`}
                     >
                       <div className="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
                         <div className="flex items-center gap-4 mb-4">
@@ -207,7 +213,7 @@ export default function ProcessPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}

@@ -70,7 +70,7 @@ export function CookieConsent() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-          className="fixed bottom-0 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-lg z-50"
+          className="fixed bottom-0 left-0 right-0 sm:left-auto sm:right-6 sm:max-w-lg z-50" style={{ bottom: 0 }}
         >
           {/* Collapsed state: compact pill bar */}
           {!expanded && (
@@ -93,22 +93,22 @@ export function CookieConsent() {
                 </div>
 
                 {/* Buttons */}
-                <div className="flex items-center gap-2 flex-shrink-0">
+                <div className="flex items-center gap-2 flex-shrink-0 flex-wrap sm:flex-nowrap">
                   <button
                     onClick={() => setExpanded(true)}
-                    className="hidden sm:flex items-center gap-1 text-white/50 hover:text-white text-xs font-medium px-2.5 py-1.5 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+                    className="flex items-center gap-1 text-white/50 hover:text-white text-xs font-medium px-3 py-2 rounded-lg hover:bg-white/10 transition-colors cursor-pointer min-w-[44px] min-h-[44px]"
                   >
                     <Settings className="w-3.5 h-3.5" />
                   </button>
                   <button
                     onClick={handleRejectOptional}
-                    className="text-white/50 hover:text-white text-xs font-medium px-2.5 py-1.5 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+                    className="text-white/50 hover:text-white text-xs font-medium px-3 py-2 rounded-lg hover:bg-white/10 transition-colors cursor-pointer min-h-[44px]"
                   >
                     Decline
                   </button>
                   <button
                     onClick={handleAcceptAll}
-                    className="bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-white text-xs font-bold px-4 py-2 rounded-xl transition-all shadow-lg shadow-gold/20 cta-button-enhanced"
+                    className="bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-all shadow-lg shadow-gold/20 cta-button-enhanced min-h-[44px]"
                   >
                     Accept All
                   </button>
@@ -138,7 +138,7 @@ export function CookieConsent() {
                   </div>
                   <button
                     onClick={() => setExpanded(false)}
-                    className="flex-shrink-0 w-8 h-8 rounded-lg hover:bg-white/10 flex items-center justify-center transition-colors cursor-pointer"
+                    className="flex-shrink-0 w-11 h-11 min-w-[44px] min-h-[44px] rounded-lg hover:bg-white/10 flex items-center justify-center transition-colors cursor-pointer"
                     aria-label="Close cookie preferences"
                   >
                     <X className="w-4 h-4 text-white/60" />
@@ -199,23 +199,23 @@ export function CookieConsent() {
                 </div>
 
                 {/* Action buttons */}
-                <div className="flex items-center gap-2 px-4 sm:px-5 py-3.5 border-t border-white/5">
+                <div className="flex items-center gap-2 px-4 sm:px-5 py-3.5 border-t border-white/5 flex-wrap sm:flex-nowrap">
                   <button
                     onClick={handleRejectOptional}
-                    className="text-white/50 hover:text-white text-xs font-medium px-3.5 py-2 rounded-lg hover:bg-white/10 transition-colors cursor-pointer"
+                    className="text-white/50 hover:text-white text-xs font-medium px-3.5 py-2.5 rounded-lg hover:bg-white/10 transition-colors cursor-pointer min-h-[44px]"
                   >
                     Reject Optional
                   </button>
                   <div className="flex-1" />
                   <button
                     onClick={handleCustomizeSave}
-                    className="bg-white/10 hover:bg-white/15 text-white text-xs font-medium px-4 py-2 rounded-lg transition-colors cursor-pointer border border-white/5"
+                    className="bg-white/10 hover:bg-white/15 text-white text-xs font-medium px-4 py-2.5 rounded-lg transition-colors cursor-pointer border border-white/5 min-h-[44px]"
                   >
                     Save
                   </button>
                   <button
                     onClick={handleAcceptAll}
-                    className="bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-white text-xs font-bold px-5 py-2 rounded-xl transition-all shadow-lg shadow-gold/20 cta-button-enhanced"
+                    className="bg-gradient-to-r from-gold to-gold-light hover:from-gold-light hover:to-gold text-white text-xs font-bold px-5 py-2.5 rounded-xl transition-all shadow-lg shadow-gold/20 cta-button-enhanced min-h-[44px]"
                   >
                     Accept All
                   </button>

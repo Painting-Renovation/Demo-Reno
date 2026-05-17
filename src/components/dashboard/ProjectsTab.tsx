@@ -218,7 +218,7 @@ export default function ProjectsTab() {
           <h2 className="text-2xl font-bold text-navy">Projects</h2>
           <p className="text-sm text-muted-foreground">{projects.length} total projects</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <div className="flex bg-muted rounded-lg p-0.5">
             <Button
               variant={viewMode === 'grid' ? 'default' : 'ghost'}
@@ -279,7 +279,7 @@ export default function ProjectsTab() {
                   </CardTitle>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
-                      <Button variant="ghost" size="icon" className="h-7 w-7 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <Button variant="ghost" size="icon" className="h-7 w-7 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
                         <MoreHorizontal className="h-4 w-4" />
                       </Button>
                     </DropdownMenuTrigger>
@@ -412,7 +412,7 @@ export default function ProjectsTab() {
 
       {/* Create Dialog */}
       <Dialog open={createOpen} onOpenChange={setCreateOpen}>
-        <DialogContent className="max-w-lg">
+        <DialogContent className="max-w-lg sm:max-w-lg w-[calc(100%-2rem)]">
           <DialogHeader>
             <DialogTitle>New Project</DialogTitle>
             <DialogDescription>Create a new project entry</DialogDescription>
@@ -437,7 +437,7 @@ export default function ProjectsTab() {
                 </SelectContent>
               </Select>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Start Date</Label>
                 <Input type="date" value={formData.startDate} onChange={(e) => setFormData({ ...formData, startDate: e.target.value })} />
@@ -447,7 +447,7 @@ export default function ProjectsTab() {
                 <Input type="date" value={formData.endDate} onChange={(e) => setFormData({ ...formData, endDate: e.target.value })} />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Estimated Cost ($)</Label>
                 <Input type="number" value={formData.estimatedCost} onChange={(e) => setFormData({ ...formData, estimatedCost: e.target.value })} />
@@ -473,7 +473,7 @@ export default function ProjectsTab() {
 
       {/* Detail Dialog */}
       <Dialog open={detailOpen} onOpenChange={setDetailOpen}>
-        <DialogContent className="max-w-lg max-h-[85vh] overflow-y-auto">
+        <DialogContent className="max-w-lg max-h-[85vh] overflow-y-auto sm:max-w-lg w-[calc(100%-2rem)]">
           {selectedProject && (
             <>
               <DialogHeader>
@@ -499,9 +499,9 @@ export default function ProjectsTab() {
                     ))}
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <Label className="text-xs text-muted-foreground">Estimated Cost</Label>
+                    <Label className="text-xs text-muted-foreground break-words">Estimated Cost</Label>
                     <p className="text-sm font-semibold">${selectedProject.estimatedCost?.toLocaleString() || 'N/A'}</p>
                   </div>
                   <div>

@@ -39,7 +39,7 @@ export default function NeighborhoodsPage() {
       <NeighborhoodSpotlight />
 
       {/* Full GTA Coverage */}
-      <section className="py-20 bg-navy">
+      <section className="py-12 sm:py-16 md:py-20 bg-navy">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -47,13 +47,13 @@ export default function NeighborhoodsPage() {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-3">Full GTA Coverage</h2>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3">Full GTA Coverage</h2>
             <p className="text-white/60 max-w-2xl mx-auto">
               Whether you&apos;re in downtown Toronto or the surrounding suburbs, our crews are ready to transform your space.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3">
             {[
               'Toronto', 'Mississauga', 'Brampton', 'Vaughan', 'Markham',
               'Richmond Hill', 'Oakville', 'Burlington', 'Scarborough', 'North York',
@@ -65,7 +65,7 @@ export default function NeighborhoodsPage() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.03, duration: 0.3 }}
-                className="bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-center text-white/70 text-sm hover:bg-gold/10 hover:border-gold/20 hover:text-gold transition-all cursor-default"
+                className="bg-white/5 border border-white/10 rounded-lg px-3 sm:px-4 py-2 sm:py-3 text-center text-white/70 text-xs sm:text-sm hover:bg-gold/10 hover:border-gold/20 hover:text-gold transition-all cursor-default"
               >
                 <MapPin className="w-3 h-3 mx-auto mb-1 text-gold/50" />
                 {area}
@@ -76,14 +76,14 @@ export default function NeighborhoodsPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-cream">
+      <section className="py-12 sm:py-16 md:py-20 bg-cream">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold text-navy mb-4">Your Neighborhood, Our Expertise</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-navy mb-4">Your Neighborhood, Our Expertise</h2>
             <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
               Join hundreds of homeowners in your area who&apos;ve trusted ProCoat with their painting projects. Get your free estimate today.
             </p>

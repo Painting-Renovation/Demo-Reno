@@ -1963,3 +1963,59 @@ select:focus-visible {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* ========================================
+   RESPONSIVE: Device & Orientation Support
+   ======================================== */
+
+/* Touch device optimizations - larger tap targets */
+@media (hover: none) and (pointer: coarse) {
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  /* Ensure inputs are large enough on touch */
+  input, textarea, select {
+    min-height: 44px;
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+}
+
+/* Small phones (width < 375px) */
+@media (max-width: 374px) {
+  .glassmorphism-card {
+    padding: 1rem;
+  }
+}
+
+/* Landscape mode on phones - reduce vertical spacing */
+@media (max-height: 500px) and (orientation: landscape) {
+  section {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+}
+
+/* Extra wide screens (2xl+) - constrain max content width for readability */
+@media (min-width: 1536px) {
+  .max-w-7xl {
+    max-width: 80rem;
+  }
+}
+
+/* Tablet (md) specific tweaks for better touch targets */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .min-h-\[44px\] {
+    min-height: 44px;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

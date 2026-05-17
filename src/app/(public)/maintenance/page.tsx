@@ -31,7 +31,7 @@ export default function MaintenancePage() {
       <MaintenanceTips />
 
       {/* Seasonal Tips Component */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -61,7 +61,7 @@ export default function MaintenancePage() {
       </section>
 
       {/* Quick Stats Banner */}
-      <section className="bg-navy py-16 px-4 sm:px-6 lg:px-8">
+      <section className="bg-navy py-10 sm:py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {[
@@ -107,7 +107,7 @@ export default function MaintenancePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}

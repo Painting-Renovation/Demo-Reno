@@ -477,6 +477,7 @@ export function InvoiceManager() {
             </div>
 
             {/* Line Items Table */}
+            <div className="overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -497,6 +498,7 @@ export function InvoiceManager() {
                 ))}
               </TableBody>
             </Table>
+            </div>
 
             {/* Totals */}
             <div className="flex justify-end">
@@ -602,7 +604,7 @@ export function InvoiceManager() {
               <Plus className="h-4 w-4 mr-1.5" /> Create Invoice
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-lg max-h-[85vh] overflow-y-auto">
+          <DialogContent className="max-w-lg max-h-[85vh] overflow-y-auto sm:max-w-lg w-[calc(100%-2rem)]">
             <DialogHeader>
               <DialogTitle>Create New Invoice</DialogTitle>
             </DialogHeader>
@@ -722,7 +724,7 @@ export function InvoiceManager() {
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
-        <div className="flex gap-1 bg-muted rounded-lg p-1">
+        <div className="flex gap-1 bg-muted rounded-lg p-1 overflow-x-auto">
           {tabs.map((tab) => (
             <button
               key={tab}

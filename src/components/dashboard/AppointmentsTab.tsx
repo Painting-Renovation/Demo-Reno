@@ -222,7 +222,7 @@ export default function AppointmentsTab() {
             <h2 className="text-2xl font-bold text-navy">Appointments</h2>
             <p className="text-sm text-muted-foreground">{appointments.length} total appointments</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <div className="flex bg-muted rounded-lg p-0.5">
               <Button
                 variant={(viewMode as string) === 'list' ? 'default' : 'ghost'}
@@ -277,15 +277,15 @@ export default function AppointmentsTab() {
                   {appointmentsByDate.get(dateKey)!.map((apt) => (
                     <div
                       key={apt.id}
-                      className="flex items-center justify-between rounded-lg border p-3 cursor-pointer hover:bg-muted/50"
+                      className="flex flex-col sm:flex-row sm:items-center sm:justify-between rounded-lg border p-3 cursor-pointer hover:bg-muted/50 gap-2"
                       onClick={() => { setSelectedAppointment(apt); setDetailOpen(true); }}
                     >
                       <div className="flex items-center gap-3">
-                        <div className="text-center">
+                        <div className="text-center shrink-0">
                           <p className="text-sm font-semibold text-navy">{formatTime(apt.date)}</p>
                           <p className="text-xs text-muted-foreground">{apt.duration} min</p>
                         </div>
-                        <div className="h-8 w-px bg-border" />
+                        <div className="h-8 w-px bg-border hidden sm:block" />
                         <div>
                           <p className="text-sm font-medium">
                             {apt.firstName} {apt.lastName}
@@ -316,13 +316,13 @@ export default function AppointmentsTab() {
 
         {/* Create Dialog */}
         <Dialog open={createOpen} onOpenChange={setCreateOpen}>
-          <DialogContent className="max-w-lg">
+          <DialogContent className="max-w-lg sm:max-w-lg w-[calc(100%-2rem)]">
             <DialogHeader>
               <DialogTitle>New Appointment</DialogTitle>
               <DialogDescription>Schedule a new client appointment</DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>First Name *</Label>
                   <Input value={formData.firstName} onChange={(e) => setFormData({ ...formData, firstName: e.target.value })} />
@@ -339,7 +339,7 @@ export default function AppointmentsTab() {
                 <Input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
                 {formErrors.email && <p className="text-xs text-destructive">{formErrors.email}</p>}
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Phone</Label>
                   <Input value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
@@ -363,7 +363,7 @@ export default function AppointmentsTab() {
                 <Label>Address</Label>
                 <Input value={formData.address} onChange={(e) => setFormData({ ...formData, address: e.target.value })} />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Date & Time *</Label>
                   <Input type="datetime-local" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} />
@@ -537,7 +537,7 @@ export default function AppointmentsTab() {
 
       {/* Create Dialog */}
       <Dialog open={createOpen} onOpenChange={setCreateOpen}>
-        <DialogContent className="max-w-lg">
+        <DialogContent className="max-w-lg sm:max-w-lg w-[calc(100%-2rem)]">
           <DialogHeader>
             <DialogTitle>New Appointment</DialogTitle>
             <DialogDescription>Schedule a new client appointment</DialogDescription>
@@ -711,7 +711,7 @@ function AppointmentDetailDialog({
         {statusTransitions[appointment.status]?.length > 0 && (
           <div className="pt-2 border-t">
             <p className="text-xs font-medium text-muted-foreground mb-2">Update Status</p>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               {statusTransitions[appointment.status].map((s) => (
                 <Button
                   key={s}

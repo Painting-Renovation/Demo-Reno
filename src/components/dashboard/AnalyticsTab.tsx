@@ -181,7 +181,7 @@ export default function AnalyticsTab() {
             Performance metrics and insights
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           {periodOptions.map((opt) => (
             <Button
               key={opt.value}
@@ -294,8 +294,9 @@ export default function AnalyticsTab() {
             <CardDescription>Where your leads come from</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center">
-              <ResponsiveContainer width="60%" height={280}>
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <div className="flex-1">
+                <ResponsiveContainer width="100%" height={280}>
                 <PieChart>
                   <Pie
                     data={data.leadSources}
@@ -320,7 +321,8 @@ export default function AnalyticsTab() {
                   />
                 </PieChart>
               </ResponsiveContainer>
-              <div className="space-y-3 flex-1">
+              </div>
+              <div className="space-y-3 shrink-0 flex-wrap">
                 {data.leadSources.map((source, index) => (
                   <div key={source.name} className="flex items-center gap-2">
                     <div

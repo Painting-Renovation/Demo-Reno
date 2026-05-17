@@ -89,7 +89,7 @@ export default function ContactPage() {
       />
 
       {/* Contact Information Cards */}
-      <section className="py-16 md:py-20 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -138,7 +138,7 @@ export default function ContactPage() {
       </section>
 
       {/* Business Hours */}
-      <section className="py-16 md:py-20 bg-cream">
+      <section className="py-12 sm:py-16 md:py-20 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Hours Table */}
@@ -194,7 +194,7 @@ export default function ContactPage() {
               className="space-y-6"
             >
               {/* Map Placeholder */}
-              <div className="map-placeholder rounded-2xl h-72 flex items-center justify-center relative overflow-hidden">
+              <div className="map-placeholder rounded-2xl aspect-video h-56 sm:h-72 flex items-center justify-center relative overflow-hidden">
                 <div className="absolute inset-0 bg-navy/30" />
                 <div className="relative z-10 text-center">
                   <div className="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-4 border border-gold/30">
@@ -238,7 +238,7 @@ export default function ContactPage() {
       <ContactSection />
 
       {/* FAQ Teaser */}
-      <section className="py-20 md:py-24 bg-navy">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-navy">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

@@ -209,7 +209,7 @@ export function ExpressService() {
               <div>
                 <div className="flex items-center gap-2">
                   <AlertTriangle className="w-4 h-4 text-gold" />
-                  <span className="text-white font-bold text-sm md:text-base">Limited Express Slots Available</span>
+                  <span className="text-white font-bold text-sm md:text-base truncate">Limited Express Slots Available</span>
                 </div>
                 <p className="text-white/50 text-xs mt-0.5">
                   Only {slotsLeft} express slots remaining this week
@@ -218,8 +218,8 @@ export function ExpressService() {
             </div>
 
             {/* Flip-clock style countdown timer */}
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1.5 text-white/60 text-xs">
+            <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+              <div className="hidden sm:flex items-center gap-1.5 text-white/60 text-xs">
                 <Timer className="w-3.5 h-3.5" />
                 <span>Book before end of day:</span>
               </div>
@@ -230,8 +230,8 @@ export function ExpressService() {
                   { value: timeLeft.seconds, label: 'sec' },
                 ].map((unit, i) => (
                   <div key={unit.label} className="flex items-center gap-1.5">
-                    <div className="relative bg-white/10 rounded-lg px-3 py-2 min-w-[48px] text-center overflow-hidden">
-                      <span className="text-white font-mono font-bold text-base md:text-lg tabular-nums">
+                    <div className="relative bg-white/10 rounded-lg px-2.5 sm:px-3 py-2 min-w-[40px] sm:min-w-[48px] text-center overflow-hidden">
+                      <span className="text-white font-mono font-bold text-sm sm:text-base md:text-lg tabular-nums">
                         {String(unit.value).padStart(2, '0')}
                       </span>
                       {/* Top highlight line */}

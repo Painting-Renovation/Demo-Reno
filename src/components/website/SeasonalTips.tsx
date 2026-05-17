@@ -100,7 +100,7 @@ export function SeasonalTips() {
             <Lightbulb className="w-4 h-4 text-gold" />
             <span className="text-sm font-medium text-navy/70">Expert Knowledge</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-navy mb-3">
+          <h2 className="text-3xl sm:text-4xl font-bold text-navy mb-3 text-balance">
             Painting Tips &amp; Insights
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">

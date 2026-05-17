@@ -206,7 +206,7 @@ function EnhancedSlider({ item, isFullscreen, onToggleFullscreen }: { item: Comp
           style={{ opacity: isDragging ? 0 : 0.85 }}
         >
           <span className="bg-black/50 backdrop-blur-sm text-white text-xs px-4 py-1.5 rounded-full whitespace-nowrap flex items-center gap-1.5">
-            <span className="animate-swipe-hint inline-block">←</span> Drag to compare <span className="animate-swipe-hint inline-block" style={{ animationDelay: '0.3s' }}>→</span>
+            <span className="animate-swipe-hint inline-block">←</span> <span className="hidden sm:inline">Drag</span><span className="sm:hidden">Swipe</span> to compare <span className="animate-swipe-hint inline-block" style={{ animationDelay: '0.3s' }}>→</span>
           </span>
         </div>
       </div>

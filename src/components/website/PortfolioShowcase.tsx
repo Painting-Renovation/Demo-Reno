@@ -151,7 +151,7 @@ export function PortfolioShowcase() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.5, delay: index * 0.08 }}
-                className="flex-shrink-0 w-[280px] sm:w-[320px] snap-start"
+                className="flex-shrink-0 w-[260px] sm:w-[280px] md:w-[320px] snap-start"
               >
                 <div className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                   {/* Image */}

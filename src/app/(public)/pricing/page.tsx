@@ -89,7 +89,7 @@ export default function PricingPage() {
       />
 
       {/* Pricing Calculator */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -111,7 +111,7 @@ export default function PricingPage() {
       </section>
 
       {/* ROI Calculator */}
-      <section className="bg-navy py-20 px-4 sm:px-6 lg:px-8">
+      <section className="bg-navy py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -133,7 +133,7 @@ export default function PricingPage() {
       </section>
 
       {/* Factors That Affect Pricing */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -182,7 +182,7 @@ export default function PricingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}

@@ -280,7 +280,7 @@ export function Navbar() {
             >
               <div className="h-1 bg-gradient-to-r from-gold via-gold-light to-gold animate-shimmer-line" />
 
-              <div className="pt-24 px-6 pb-8 flex flex-col h-full">
+              <div className="pt-24 px-6 pb-[max(2rem,env(safe-area-inset-bottom))] flex flex-col h-full">
                 <div className="flex flex-col gap-1">
                   {navLinks.map((link, index) => {
                     const active = isActive(link.href);

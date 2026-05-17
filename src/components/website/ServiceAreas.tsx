@@ -153,7 +153,7 @@ export function ServiceAreas() {
           <span className="text-gold text-sm font-semibold tracking-widest uppercase">
             ProCoat Painters
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy mt-3 mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-navy mt-3 mb-4 text-balance">
             Proudly Serving the Greater Toronto Area
           </h2>
           <p className="text-gray-500 max-w-2xl mx-auto text-lg">

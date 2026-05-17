@@ -40,9 +40,9 @@ function FAQItem({
     <div className="border border-gray-200 rounded-xl overflow-hidden transition-colors duration-200 hover:border-gold/40">
       <button
         onClick={onToggle}
-        className="flex items-center justify-between w-full text-left px-6 py-5 bg-white hover:bg-cream/50 transition-colors duration-200"
+        className="flex items-center justify-between w-full text-left px-4 sm:px-6 py-4 sm:py-5 bg-white hover:bg-cream/50 transition-colors duration-200"
       >
-        <span className="font-semibold text-navy pr-4">{question}</span>
+        <span className="font-semibold text-navy pr-4 text-sm sm:text-base">{question}</span>
         <ChevronDown
           className={`w-5 h-5 text-gold flex-shrink-0 transition-transform duration-300 ${
             isOpen ? 'rotate-180' : ''
@@ -58,7 +58,7 @@ function FAQItem({
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="overflow-hidden"
           >
-            <div className="px-6 pb-5 text-gray-600 leading-relaxed bg-white">
+            <div className="px-4 sm:px-6 pb-4 sm:pb-5 text-gray-600 leading-relaxed bg-white">
               {answer}
             </div>
           </motion.div>
@@ -213,21 +213,21 @@ export default function ServiceDetailPage() {
       </section>
 
       {/* Long Description */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 md:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
             {/* Main Content */}
-            <div className="lg:col-span-2 space-y-16">
+            <div className="lg:col-span-2 space-y-10 lg:space-y-16">
               {/* About This Service */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="text-3xl font-bold text-navy mb-6">
+                <h2 className="text-2xl sm:text-3xl font-bold text-navy mb-6">
                   About This Service
                 </h2>
-                <p className="text-gray-600 text-lg leading-relaxed">
+                <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
                   {service.longDescription}
                 </p>
               </motion.div>
@@ -239,7 +239,7 @@ export default function ServiceDetailPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="text-3xl font-bold text-navy mb-8">
+                <h2 className="text-2xl sm:text-3xl font-bold text-navy mb-8">
                   What&apos;s Included
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -268,14 +268,14 @@ export default function ServiceDetailPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="text-3xl font-bold text-navy mb-3">
+                <h2 className="text-2xl sm:text-3xl font-bold text-navy mb-3">
                   Our Process
                 </h2>
                 <p className="text-gray-500 mb-8">
                   A proven 4-step approach that ensures quality results on every
                   project.
                 </p>
-                <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+                <div className="bg-white rounded-2xl p-5 sm:p-8 shadow-sm border border-gray-100">
                   {service.process.map((step, i) => (
                     <ProcessStep
                       key={step.step}
@@ -296,7 +296,7 @@ export default function ServiceDetailPage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="text-3xl font-bold text-navy mb-3">
+                <h2 className="text-2xl sm:text-3xl font-bold text-navy mb-3">
                   Frequently Asked Questions
                 </h2>
                 <p className="text-gray-500 mb-8">
@@ -324,7 +324,7 @@ export default function ServiceDetailPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="bg-navy rounded-2xl p-8 text-white sticky top-32"
+                className="bg-navy rounded-2xl p-6 sm:p-8 text-white lg:sticky lg:top-24"
               >
                 <h3 className="text-xl font-bold mb-2">
                   {service.cta}
@@ -431,7 +431,7 @@ export default function ServiceDetailPage() {
 
       {/* Related Services */}
       {relatedServices.length > 0 && (
-        <section className="bg-white py-16 px-4 sm:px-6 lg:px-8 border-t border-gray-100">
+        <section className="bg-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 border-t border-gray-100">
           <div className="max-w-7xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -497,7 +497,7 @@ export default function ServiceDetailPage() {
       )}
 
       {/* Bottom CTA */}
-      <section className="bg-navy py-20 px-4 sm:px-6 lg:px-8">
+      <section className="bg-navy py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

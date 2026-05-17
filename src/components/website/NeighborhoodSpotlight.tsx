@@ -139,7 +139,7 @@ export function NeighborhoodSpotlight() {
             <MapPin className="w-3.5 h-3.5 mr-1" />
             Local Experts
           </Badge>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy mb-4 text-balance">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-navy mb-4 text-balance">
             Painting Excellence <span className="text-gradient-gold">Across Toronto</span>
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg">

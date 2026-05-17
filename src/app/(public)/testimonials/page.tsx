@@ -33,7 +33,7 @@ export default function TestimonialsPage() {
       />
 
       {/* Stats banner */}
-      <section className="bg-navy py-12 px-4 sm:px-6 lg:px-8">
+      <section className="bg-navy py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -66,7 +66,7 @@ export default function TestimonialsPage() {
       </section>
 
       {/* Written Testimonials */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -88,7 +88,7 @@ export default function TestimonialsPage() {
       </section>
 
       {/* Video Testimonials */}
-      <section className="bg-white py-20 px-4 sm:px-6 lg:px-8">
+      <section className="bg-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -110,7 +110,7 @@ export default function TestimonialsPage() {
       </section>
 
       {/* Reviews Showcase */}
-      <section className="bg-navy py-20 px-4 sm:px-6 lg:px-8">
+      <section className="bg-navy py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -157,7 +157,7 @@ export default function TestimonialsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}

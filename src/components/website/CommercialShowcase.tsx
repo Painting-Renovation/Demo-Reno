@@ -139,7 +139,7 @@ export function CommercialShowcase() {
             <Badge className="bg-gold/20 text-gold border-gold/30 mb-4 px-4 py-1.5 text-sm font-medium">
               Commercial Division
             </Badge>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 text-balance">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 text-balance">
               Professional <span className="text-shimmer-gold">Commercial</span> Painting Services
             </h2>
             <p className="text-white/70 max-w-3xl mx-auto text-lg md:text-xl leading-relaxed mb-8">

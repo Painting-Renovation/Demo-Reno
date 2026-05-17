@@ -55,7 +55,7 @@ export default function ReviewsPage() {
       <ReviewsShowcase />
 
       {/* Review Sources Section */}
-      <section className="bg-navy py-20 px-4 sm:px-6 lg:px-8 dark-texture-bg">
+      <section className="bg-navy py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 dark-texture-bg">
         <div className="relative max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -145,7 +145,7 @@ export default function ReviewsPage() {
       </section>
 
       {/* Write a Review CTA */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}

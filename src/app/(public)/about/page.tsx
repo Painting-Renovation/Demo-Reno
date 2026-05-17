@@ -82,7 +82,7 @@ export default function AboutPage() {
       />
 
       {/* Company Stats Bar */}
-      <section className="bg-navy py-10">
+      <section className="bg-navy py-8 sm:py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -110,7 +110,7 @@ export default function AboutPage() {
       </section>
 
       {/* Our Story Section */}
-      <section className="py-20 md:py-28 bg-white">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Story Content */}
@@ -210,7 +210,7 @@ export default function AboutPage() {
       </section>
 
       {/* Why ProCoat Section */}
-      <section className="py-20 md:py-28 bg-cream">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-28 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -261,7 +261,7 @@ export default function AboutPage() {
       <EnhancedTeam />
 
       {/* CTA Section */}
-      <section className="bg-navy py-20 md:py-24">
+      <section className="bg-navy py-12 sm:py-16 md:py-20 lg:py-24">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}

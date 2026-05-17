@@ -108,7 +108,7 @@ function QuoteDocument() {
   return (
     <div className="quote-document bg-white max-w-[850px] mx-auto">
       {/* Header */}
-      <div className="bg-navy text-white px-10 py-8 rounded-t-xl">
+      <div className="bg-navy text-white px-4 sm:px-10 py-6 sm:py-8 rounded-t-xl">
         <div className="flex items-start justify-between">
           <div>
             <div className="flex items-center gap-3 mb-1">
@@ -148,7 +148,7 @@ function QuoteDocument() {
       <div className="h-1 bg-gradient-to-r from-gold via-gold/70 to-gold" />
 
       {/* Body */}
-      <div className="px-10 py-8">
+      <div className="px-4 sm:px-10 py-6 sm:py-8">
         {/* Client info & Project */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
           <div>
@@ -181,6 +181,7 @@ function QuoteDocument() {
 
         {/* Line Items Table */}
         <div className="border rounded-lg overflow-hidden mb-6">
+          <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-muted/50">
@@ -224,6 +225,7 @@ function QuoteDocument() {
               })}
             </tbody>
           </table>
+          </div>
         </div>
 
         {/* Totals */}
@@ -319,7 +321,7 @@ function QuoteDocument() {
       </div>
 
       {/* Footer bar */}
-      <div className="bg-muted/30 px-10 py-4 rounded-b-xl">
+      <div className="bg-muted/30 px-4 sm:px-10 py-4 rounded-b-xl">
         <p className="text-center text-xs text-muted-foreground">
           Thank you for choosing{' '}
           <span className="font-semibold text-navy">{COMPANY.name}</span>.

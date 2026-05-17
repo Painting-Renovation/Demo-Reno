@@ -43,7 +43,8 @@ export function FloatingCTA() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
           transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-          className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3"
+      className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3"
+          style={{ bottom: 'max(1.5rem, env(safe-area-inset-bottom))', right: 'max(1.5rem, env(safe-area-inset-right))' }}
         >
           {!isMinimized && (
             <motion.div
@@ -106,7 +107,7 @@ export function FloatingCTA() {
             }}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="w-8 h-8 bg-white/90 hover:bg-white border border-gray-200 rounded-full shadow-md flex items-center justify-center transition-colors cursor-pointer"
+            className="w-9 h-9 bg-white/90 hover:bg-white border border-gray-200 rounded-full shadow-md flex items-center justify-center transition-colors cursor-pointer min-w-[36px] min-h-[36px]"
             aria-label={isMinimized ? 'Close floating button' : 'Minimize floating button'}
           >
             {isMinimized ? (

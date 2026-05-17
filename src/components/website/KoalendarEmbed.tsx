@@ -81,7 +81,7 @@ export function KoalendarEmbed() {
     <div className="relative w-full">
       {/* Loading state */}
       {isLoading && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center min-h-[600px] bg-white/80 z-10 rounded-lg">
+        <div className="absolute inset-0 flex flex-col items-center justify-center min-h-[400px] sm:min-h-[600px] bg-white/80 z-10 rounded-lg">
           <Loader2 className="w-8 h-8 text-[#C8973E] animate-spin mb-3" />
           <p className="text-sm text-gray-500">Loading booking calendar...</p>
         </div>
@@ -90,7 +90,7 @@ export function KoalendarEmbed() {
       <div
         ref={containerRef}
         id={WIDGET_ID}
-        className="w-full min-h-[600px]"
+        className="w-full min-h-[400px] sm:min-h-[600px]"
       />
     </div>
   );
