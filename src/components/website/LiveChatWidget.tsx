@@ -129,7 +129,7 @@ export function LiveChatWidget() {
             {/* Messages */}
             <div
               ref={scrollContainerRef}
-              className="bg-cream h-72 overflow-y-auto px-4 py-4 space-y-3"
+              className="bg-cream h-56 sm:h-72 max-h-[60vh] overflow-y-auto px-4 py-4 space-y-3"
             >
               {messages.map((msg) => (
                 <motion.div
@@ -199,7 +199,7 @@ export function LiveChatWidget() {
                     <button
                       key={reply}
                       onClick={() => handleQuickReply(reply)}
-                      className="text-xs font-medium bg-white border border-gray-200 text-navy hover:bg-gold hover:text-white hover:border-gold px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer"
+                      className="text-xs font-medium bg-white border border-gray-200 text-navy hover:bg-gold hover:text-white hover:border-gold px-3 py-2.5 rounded-full transition-all duration-200 cursor-pointer min-h-[44px]"
                     >
                       {reply}
                     </button>
@@ -222,7 +222,7 @@ export function LiveChatWidget() {
                 <button
                   onClick={() => handleSendMessage()}
                   disabled={!input.trim()}
-                  className="flex-shrink-0 w-10 h-10 rounded-xl bg-gold hover:bg-gold-light text-white flex items-center justify-center transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+                  className="flex-shrink-0 w-11 h-11 rounded-xl bg-gold hover:bg-gold-light text-white flex items-center justify-center transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
                   aria-label="Send message"
                 >
                   <Send className="w-4 h-4" />

@@ -324,7 +324,7 @@ export function Gallery() {
 
         {/* Gallery Grid - Masonry-style on desktop */}
         {!isLoaded ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 auto-rows-[280px]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 auto-rows-[220px] sm:auto-rows-[280px]">
             <SkeletonCard />
             <SkeletonCard />
             <SkeletonCard />
@@ -348,7 +348,13 @@ export function Gallery() {
                   className={`group relative rounded-2xl overflow-hidden cursor-pointer bg-white shadow-sm hover:shadow-[0_20px_40px_-8px_rgba(11,29,58,0.18)] transition-all duration-300 border border-gold/10 sm:hover:scale-[1.02] hover:border-gold/20 ${getSpanClasses(item)}`}
                   onMouseEnter={() => setHoveredItem(item.id)}
                   onMouseLeave={() => setHoveredItem(null)}
-                  onClick={() => setLightboxItem(item)}
+                  onClick={() => {
+                    if (hoveredItem === item.id) {
+                      setLightboxItem(item);
+                    } else {
+                      setHoveredItem(prev => prev === item.id ? null : item.id);
+                    }
+                  }}
                 >
                   {/* Image Comparison */}
                   <div className="absolute inset-0 overflow-hidden">
@@ -403,8 +409,8 @@ export function Gallery() {
                           <Eye className="w-5 h-5 text-white" />
                         </div>
                       </div>
-                      <h3 className="text-white font-bold text-xl mb-1 drop-shadow-lg">{item.title}</h3>
-                      <p className="text-white/80 text-base flex items-center gap-1 justify-center drop-shadow-md">
+                      <h3 className="text-white font-bold text-base sm:text-xl mb-1 drop-shadow-lg">{item.title}</h3>
+                      <p className="text-white/80 text-sm sm:text-base flex items-center gap-1 justify-center drop-shadow-md">
                         <MapPin className="w-3.5 h-3.5" />{item.location}
                       </p>
                       <span className="inline-block mt-3 bg-gold/90 text-white text-xs font-semibold px-4 py-2 rounded-full hover:bg-gold transition-colors">

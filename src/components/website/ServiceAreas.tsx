@@ -198,7 +198,7 @@ export function ServiceAreas() {
             transition={{ duration: 0.6 }}
             className="lg:col-span-2 order-2 lg:order-1 lg:sticky lg:top-8"
           >
-            <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+            <div className="relative bg-white rounded-2xl p-4 sm:p-6 md:p-8 shadow-lg border border-gray-100">
               {/* GTA Map Stylized Visual */}
               <div className="relative aspect-square max-w-sm mx-auto">
                 {/* Central Toronto marker */}
@@ -310,7 +310,7 @@ export function ServiceAreas() {
             )}
 
             {/* Don't see your area */}
-            <div className="mt-8 bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
+            <div className="mt-8 bg-white rounded-xl p-4 sm:p-6 border border-gray-100 shadow-sm">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-xl bg-gold/10 flex items-center justify-center flex-shrink-0">
                   <MessageCircle className="w-5 h-5 text-gold" />

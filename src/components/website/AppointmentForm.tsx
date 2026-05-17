@@ -300,7 +300,7 @@ export function AppointmentForm() {
                       } ${!selectedDate ? 'text-gray-400' : ''} hover:border-gold/40`}
                     >
                       <CalendarIcon className="w-4 h-4 mr-2 text-gold" />
-                      {selectedDate ? format(selectedDate, 'EEEE, MMM d, yyyy') : 'Select a date'}
+                      {selectedDate ? format(selectedDate, 'EEE, MMM d, yyyy') : 'Select a date'}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0 border-gold/20 shadow-lg" align="start">
@@ -326,7 +326,7 @@ export function AppointmentForm() {
                       <span className="w-1.5 h-1.5 bg-gold rounded-full" />
                       Morning
                     </p>
-                    <div className="grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-1.5">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-1.5 sm:gap-1.5">
                       {morningSlots.map((time) => (
                         <button
                           key={time}
@@ -334,7 +334,7 @@ export function AppointmentForm() {
                           onClick={() => {
                             setValue('preferredTime', time, { shouldValidate: true });
                           }}
-                          className={`text-[11px] sm:text-xs py-2 px-1 rounded-lg font-medium transition-all cursor-pointer ${
+                          className={`text-xs py-3 px-2 rounded-lg font-medium transition-all cursor-pointer min-h-[44px] ${
                             watchedFields.preferredTime === time
                               ? 'bg-navy text-white shadow-sm'
                               : 'bg-white border border-gray-200 text-gray-600 hover:border-navy/30 hover:text-navy'
@@ -351,7 +351,7 @@ export function AppointmentForm() {
                       <span className="w-1.5 h-1.5 bg-gold-light rounded-full" />
                       Afternoon
                     </p>
-                    <div className="grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-1.5">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-1.5 sm:gap-1.5">
                       {afternoonSlots.map((time) => (
                         <button
                           key={time}
@@ -359,7 +359,7 @@ export function AppointmentForm() {
                           onClick={() => {
                             setValue('preferredTime', time, { shouldValidate: true });
                           }}
-                          className={`text-xs py-2 px-1 rounded-lg font-medium transition-all cursor-pointer ${
+                          className={`text-xs py-3 px-2 rounded-lg font-medium transition-all cursor-pointer min-h-[44px] ${
                             watchedFields.preferredTime === time
                               ? 'bg-navy text-white shadow-sm'
                               : 'bg-white border border-gray-200 text-gray-600 hover:border-navy/30 hover:text-navy'
@@ -550,7 +550,7 @@ export function AppointmentForm() {
               >
                 <Button
                   onClick={handleClose}
-                  className="bg-navy hover:bg-navy-light text-white font-semibold px-8 transition-all shadow-sm hover:shadow-md rounded-xl"
+                  className="bg-navy hover:bg-navy-light text-white font-semibold px-8 py-3 transition-all shadow-sm hover:shadow-md rounded-xl min-h-[44px]"
                 >
                   Close
                 </Button>

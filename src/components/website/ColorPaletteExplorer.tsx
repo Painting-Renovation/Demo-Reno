@@ -201,7 +201,7 @@ function ColorCard({
             e.stopPropagation();
             onToggleFavorite();
           }}
-          className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-200 cursor-pointer shadow-sm"
+          className="absolute top-3 right-3 w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-200 cursor-pointer shadow-sm"
           aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
         >
           <Heart
@@ -345,7 +345,7 @@ function ComparePanel({
             </div>
             <button
               onClick={onClose}
-              className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors cursor-pointer"
+              className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors cursor-pointer"
               aria-label="Close compare panel"
             >
               <X className="w-4 h-4 text-gray-500" />
@@ -373,7 +373,7 @@ function ComparePanel({
                 </p>
                 <button
                   onClick={() => onRemove(color.id)}
-                  className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center hover:bg-red-50 hover:border-red-200 transition-colors cursor-pointer opacity-0 group-hover/swatch:opacity-100"
+                  className="absolute -top-2 -right-2 w-7 h-7 min-w-[44px] min-h-[44px] rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center hover:bg-red-50 hover:border-red-200 transition-colors cursor-pointer opacity-100 sm:opacity-0 sm:group-hover/swatch:opacity-100"
                   aria-label={`Remove ${color.name}`}
                 >
                   <X className="w-3 h-3 text-gray-400" />
@@ -444,7 +444,7 @@ function RoomPreviewModal({
           </div>
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors cursor-pointer"
+            className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors cursor-pointer"
             aria-label="Close preview"
           >
             <X className="w-5 h-5 text-gray-600" />
@@ -736,7 +736,7 @@ export function ColorPaletteExplorer() {
               exit={{ opacity: 0, height: 0 }}
               className="mb-6 overflow-hidden"
             >
-              <div className="bg-gold/5 border border-gold/20 rounded-xl px-4 py-3 flex items-center justify-between">
+              <div className="bg-gold/5 border border-gold/20 rounded-xl px-4 py-3 flex flex-wrap items-center justify-between gap-2">
                 <p className="text-sm text-navy/80">
                   <GitCompareArrows className="w-4 h-4 inline mr-1.5 text-gold" />
                   <span className="font-semibold">Compare mode</span> — Select up to 4 colors to compare side by side

@@ -257,7 +257,8 @@ export default function AnalyticsTab() {
             <CardDescription>New leads by period</CardDescription>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={280}>
+            <div className="h-[220px] sm:h-[280px]">
+            <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={data.leadsOverTime} margin={{ top: 5, right: 10, left: -10, bottom: 0 }}>
                 <defs>
                   <linearGradient id="leadsGradient" x1="0" y1="0" x2="0" y2="1">
@@ -284,6 +285,7 @@ export default function AnalyticsTab() {
                 />
               </AreaChart>
             </ResponsiveContainer>
+            </div>
           </CardContent>
         </Card>
 
@@ -296,7 +298,8 @@ export default function AnalyticsTab() {
           <CardContent>
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <div className="flex-1">
-                <ResponsiveContainer width="100%" height={280}>
+                <div className="h-[220px] sm:h-[280px]">
+                <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={data.leadSources}
@@ -321,6 +324,7 @@ export default function AnalyticsTab() {
                   />
                 </PieChart>
               </ResponsiveContainer>
+                </div>
               </div>
               <div className="space-y-3 shrink-0 flex-wrap">
                 {data.leadSources.map((source, index) => (
@@ -348,7 +352,8 @@ export default function AnalyticsTab() {
             <CardDescription>Most requested services</CardDescription>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={280}>
+            <div className="h-[220px] sm:h-[280px]">
+            <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data.servicePopularity} margin={{ left: -10, right: 10 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#E5E1D8" vertical={false} />
                 <XAxis dataKey="name" tick={{ fontSize: 11 }} stroke="#6B7280" />
@@ -368,6 +373,7 @@ export default function AnalyticsTab() {
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
+            </div>
           </CardContent>
         </Card>
 
@@ -378,7 +384,8 @@ export default function AnalyticsTab() {
             <CardDescription>Lead progression through stages</CardDescription>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={280}>
+            <div className="h-[220px] sm:h-[280px]">
+            <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data.miniFunnel} layout="vertical" margin={{ left: 0, right: 10 }}>
                 <CartesianGrid strokeDasharray="3 3" horizontal={false} />
                 <XAxis type="number" tick={{ fontSize: 11 }} stroke="#6B7280" />
@@ -398,6 +405,7 @@ export default function AnalyticsTab() {
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
+            </div>
           </CardContent>
         </Card>
       </div>

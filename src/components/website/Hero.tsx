@@ -49,7 +49,7 @@ export function Hero() {
   const contentScale = useTransform(scrollY, [0, 600], [1, 0.95]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
       {/* Background Image with Parallax */}
       <div className="absolute inset-0">
         <motion.img
@@ -272,7 +272,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
-              className="stat-card-glow glassmorphism-card rounded-2xl px-4 py-6 text-center group cursor-default relative overflow-hidden"
+              className="stat-card-glow glassmorphism-card rounded-2xl px-3 sm:px-4 py-4 sm:py-6 text-center group cursor-default relative overflow-hidden"
             >
               <div className={`absolute inset-0 bg-gradient-to-b ${stat.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
               <stat.icon className="w-6 h-6 text-gold mx-auto mb-2 group-hover:scale-110 transition-transform duration-300 relative z-10" />

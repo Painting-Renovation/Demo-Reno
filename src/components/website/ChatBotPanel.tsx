@@ -297,7 +297,7 @@ export function ChatBotPanel() {
                   <button
                     key={reply.key}
                     onClick={() => handleQuickReply(reply.key)}
-                    className="flex items-center gap-1.5 text-xs font-medium bg-white border border-gray-200 text-navy hover:bg-gold hover:text-white hover:border-gold px-3 py-2 rounded-full transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md min-h-[36px]"
+                    className="flex items-center gap-1.5 text-xs font-medium bg-white border border-gray-200 text-navy hover:bg-gold hover:text-white hover:border-gold px-3 py-2 rounded-full transition-all duration-200 cursor-pointer shadow-sm hover:shadow-md min-h-[44px]"
                   >
                     <reply.icon className="w-3 h-3" />
                     {reply.label}
@@ -321,7 +321,7 @@ export function ChatBotPanel() {
                 <button
                   onClick={handleSendMessage}
                   disabled={!input.trim()}
-                  className="flex-shrink-0 w-10 h-10 rounded-xl bg-gold hover:bg-gold-light text-white flex items-center justify-center transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shadow-md hover:shadow-lg"
+                  className="flex-shrink-0 w-11 h-11 rounded-xl bg-gold hover:bg-gold-light text-white flex items-center justify-center transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shadow-md hover:shadow-lg"
                   aria-label="Send message"
                 >
                   <Send className="w-4 h-4" />

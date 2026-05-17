@@ -136,7 +136,7 @@ export default function BlogPage() {
                   >
                     <div className="flex flex-col sm:flex-row">
                       {/* Image placeholder */}
-                      <div className="sm:w-64 h-48 sm:h-auto bg-gradient-to-br from-navy/10 to-gold/10 relative overflow-hidden flex-shrink-0">
+                      <div className="sm:w-48 md:w-64 h-48 sm:h-auto bg-gradient-to-br from-navy/10 to-gold/10 relative overflow-hidden flex-shrink-0">
                         <div className="absolute inset-0 flex items-center justify-center">
                           <div className="w-16 h-16 rounded-full bg-gold/10 flex items-center justify-center">
                             <BookOpen className="w-8 h-8 text-gold/40" />
@@ -145,7 +145,7 @@ export default function BlogPage() {
                       </div>
 
                       {/* Content */}
-                      <div className="flex-1 p-6 sm:p-8">
+                      <div className="flex-1 p-5 sm:p-6 md:p-8">
                         <div className="flex flex-wrap items-center gap-3 mb-3">
                           <span
                             className="inline-flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full"

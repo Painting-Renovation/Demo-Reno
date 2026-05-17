@@ -272,7 +272,7 @@ export default function LeadsTab() {
         cell: ({ row }) => (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-8 w-8">
+              <Button variant="ghost" size="icon" className="h-9 w-9 sm:h-8 sm:w-8">
                 <MoreHorizontal className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
@@ -479,7 +479,7 @@ export default function LeadsTab() {
             <Button
               variant="outline"
               size="icon"
-              className="h-8 w-8"
+              className="h-9 w-9 sm:h-8 sm:w-8"
               onClick={() => table.previousPage()}
               disabled={!table.getCanPreviousPage()}
             >
@@ -488,7 +488,7 @@ export default function LeadsTab() {
             <Button
               variant="outline"
               size="icon"
-              className="h-8 w-8"
+              className="h-9 w-9 sm:h-8 sm:w-8"
               onClick={() => table.nextPage()}
               disabled={!table.getCanNextPage()}
             >
@@ -605,7 +605,7 @@ export default function LeadsTab() {
                     setEditStatusOpen(true);
                   }}
                 >
-                  <SelectTrigger className="w-40">
+                  <SelectTrigger className="w-full sm:w-40">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>

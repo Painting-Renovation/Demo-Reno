@@ -100,7 +100,7 @@ export function FAQ() {
   }, [searchQuery, activeCategory]);
 
   return (
-    <section className="py-24 bg-cream relative overflow-hidden" id="faq">
+    <section className="py-16 sm:py-20 md:py-24 bg-cream relative overflow-hidden" id="faq">
       {/* Subtle background decoration */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-gold/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-0 w-72 h-72 bg-sage/5 rounded-full blur-3xl" />
@@ -163,7 +163,7 @@ export function FAQ() {
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex-shrink-0 ${
+                  className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 flex-shrink-0 min-h-[44px] ${
                     activeCategory === cat
                       ? 'bg-gold text-white shadow-md shadow-gold/20'
                       : 'bg-white text-navy/60 hover:bg-white hover:text-navy border border-gray-200 hover:border-gold/30'

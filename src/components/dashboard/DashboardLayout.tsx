@@ -202,7 +202,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             </Sheet>
 
             <div>
-              <h1 className="text-lg font-semibold text-navy">Welcome back, {ownerName}</h1>
+              <h1 className="text-base sm:text-lg font-semibold text-navy">Welcome back, {ownerName}</h1>
               <p className="text-xs text-muted-foreground hidden md:block">
                 {new Date().toLocaleDateString('en-US', {
                   weekday: 'long',

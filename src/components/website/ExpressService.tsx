@@ -269,7 +269,7 @@ export function ExpressService() {
         </motion.div>
 
         {/* Express Options with gradient border on hover */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
           {expressOptions.map((option, index) => {
             const Icon = option.icon;
             const urgencyColors = {
@@ -306,7 +306,7 @@ export function ExpressService() {
                 {/* Top color bar */}
                 <div className={option.popular ? 'h-1.5 bg-gradient-to-r from-gold to-gold-light' : option.urgencyLevel === 'high' ? 'h-1.5 bg-gradient-to-r from-red-400 to-red-500' : option.urgencyLevel === 'medium' ? 'h-1.5 bg-gradient-to-r from-gold to-gold-light' : 'h-1.5 bg-gradient-to-r from-sage to-sage-light'} />
 
-                <div className="p-6">
+                <div className="p-4 sm:p-6">
                   {/* Header */}
                   <div className="flex items-start justify-between mb-4">
                     <div className={`w-12 h-12 rounded-xl ${colors.bg} flex items-center justify-center transition-transform duration-300 group-hover/card:scale-110`}>

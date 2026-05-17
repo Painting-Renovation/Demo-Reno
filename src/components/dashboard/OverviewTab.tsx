@@ -245,7 +245,7 @@ export default function OverviewTab() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-navy">Dashboard Overview</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-navy">Dashboard Overview</h2>
           <p className="text-sm text-muted-foreground">
             Your business at a glance
           </p>
@@ -347,7 +347,7 @@ export default function OverviewTab() {
                         <TableCell>
                           <div>
                             <p className="text-sm font-medium">{lead.name}</p>
-                            <p className="text-xs text-muted-foreground">{lead.email}</p>
+                            <p className="text-xs text-muted-foreground hidden sm:block">{lead.email}</p>
                           </div>
                         </TableCell>
                         <TableCell className="text-sm">{lead.service}</TableCell>

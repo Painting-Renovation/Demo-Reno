@@ -11,8 +11,8 @@ export default function NotFound() {
             <PaintBucket className="w-10 h-10 text-gold" />
           </div>
         </div>
-        <h1 className="text-7xl font-bold text-white mb-2">404</h1>
-        <h2 className="text-2xl font-semibold text-gold mb-4">Page Not Found</h2>
+        <h1 className="text-5xl sm:text-7xl font-bold text-white mb-2">404</h1>
+        <h2 className="text-xl sm:text-2xl font-semibold text-gold mb-4">Page Not Found</h2>
         <p className="text-white/60 mb-8 leading-relaxed">
           Oops! The page you&apos;re looking for doesn&apos;t exist or has been moved.
           Let us help you find your way back.

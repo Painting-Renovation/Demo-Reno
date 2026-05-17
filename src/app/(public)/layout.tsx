@@ -45,7 +45,7 @@ const AppointmentForm = dynamic(
  */
 function FixedHeaderSpacer() {
   const { promoBannerHeight } = useAppStore();
-  const [navHeight, setNavHeight] = useState(76);
+  const [navHeight, setNavHeight] = useState(68);
 
   useEffect(() => {
     const navEl = document.querySelector('nav');

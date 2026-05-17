@@ -418,7 +418,7 @@ export default function AppointmentsTab() {
           <h2 className="text-2xl font-bold text-navy">Appointments</h2>
           <p className="text-sm text-muted-foreground">{appointments.length} total appointments</p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <div className="flex bg-muted rounded-lg p-0.5">
             <Button
               variant={(viewMode as string) === 'list' ? 'default' : 'ghost'}
@@ -543,7 +543,7 @@ export default function AppointmentsTab() {
             <DialogDescription>Schedule a new client appointment</DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>First Name *</Label>
                 <Input value={formData.firstName} onChange={(e) => setFormData({ ...formData, firstName: e.target.value })} />
@@ -560,7 +560,7 @@ export default function AppointmentsTab() {
               <Input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
               {formErrors.email && <p className="text-xs text-destructive">{formErrors.email}</p>}
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Phone</Label>
                 <Input value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} />
@@ -584,7 +584,7 @@ export default function AppointmentsTab() {
               <Label>Address</Label>
               <Input value={formData.address} onChange={(e) => setFormData({ ...formData, address: e.target.value })} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Date & Time *</Label>
                 <Input type="datetime-local" value={formData.date} onChange={(e) => setFormData({ ...formData, date: e.target.value })} />
