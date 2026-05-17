@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase-server';
+import { supabase, toSnakeCase, toCamelCase } from '@/lib/supabase-server';
 
 // GET /api/owner — fetch owner profile
 export async function GET() {
   try {
     const { data: owner, error } = await supabase
       .from('Owner')
-      .select('id, email, name, phone, company, address, googleEmail, slackWebhook')
+      .select('id, email, name, phone, company, address, google_email, slack_webhook')
       .limit(1)
       .single();
 
@@ -14,7 +14,7 @@ export async function GET() {
       return NextResponse.json({ error: 'Owner not found' }, { status: 404 });
     }
 
-    return NextResponse.json(owner);
+    return NextResponse.json(toCamelCase(owner));
   } catch (error) {
     console.error('GET /api/owner error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -47,11 +47,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
+    const camelOwner = toCamelCase(owner);
+
     return NextResponse.json({
-      id: owner.id,
-      email: owner.email,
-      name: owner.name,
-      company: owner.company,
+      id: camelOwner.id,
+      email: camelOwner.email,
+      name: camelOwner.name,
+      company: camelOwner.company,
     });
   } catch (error) {
     console.error('POST /api/owner error:', error);
@@ -86,16 +88,16 @@ export async function PUT(request: NextRequest) {
 
     const { data: updated, error } = await supabase
       .from('Owner')
-      .update(updateData)
+      .update(toSnakeCase(updateData))
       .eq('id', owner.id)
-      .select('id, email, name, phone, company, address, googleEmail, slackWebhook')
+      .select('id, email, name, phone, company, address, google_email, slack_webhook')
       .single();
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json(updated);
+    return NextResponse.json(toCamelCase(updated));
   } catch (error) {
     console.error('PUT /api/owner error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

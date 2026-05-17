@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase-server';
+import { supabase, toSnakeCase, toCamelCase, rowsToCamelCase } from '@/lib/supabase-server';
 
 // GET /api/projects — list projects
 export async function GET(request: NextRequest) {
@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
     let query = supabase
       .from('Project')
       .select('*')
-      .order('createdAt', { ascending: false });
+      .order('created_at', { ascending: false });
 
     if (status && status !== 'all') {
       query = query.eq('status', status);
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    const projects = data || [];
+    const projects = rowsToCamelCase(data || []);
 
     return NextResponse.json({ data: projects });
   } catch (error) {
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
 
     const { data: project, error } = await supabase
       .from('Project')
-      .insert({
+      .insert(toSnakeCase({
         name,
         description: description || null,
         serviceType: serviceType || null,
@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
         notes: notes || null,
         teamMembers: teamMembers || null,
         leadId: leadId || null,
-      })
+      }))
       .select()
       .single();
 
@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json(project, { status: 201 });
+    return NextResponse.json(toCamelCase(project), { status: 201 });
   } catch (error) {
     console.error('POST /api/projects error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

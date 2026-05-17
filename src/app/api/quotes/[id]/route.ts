@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase-server';
+import { supabase, toSnakeCase, toCamelCase } from '@/lib/supabase-server';
 
 // PUT /api/quotes/[id] — update quote
 export async function PUT(
@@ -37,7 +37,7 @@ export async function PUT(
 
     const { data: updated, error } = await supabase
       .from('Quote')
-      .update(updateData)
+      .update(toSnakeCase(updateData))
       .eq('id', id)
       .select()
       .single();
@@ -46,7 +46,7 @@ export async function PUT(
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json(updated);
+    return NextResponse.json(toCamelCase(updated));
   } catch (error) {
     console.error('PUT /api/quotes/[id] error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

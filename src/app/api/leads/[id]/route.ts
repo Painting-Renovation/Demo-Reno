@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase-server';
+import { supabase, toSnakeCase, toCamelCase, rowsToCamelCase } from '@/lib/supabase-server';
 
 // GET /api/leads/[id] — get lead with activities
 export async function GET(
@@ -23,16 +23,16 @@ export async function GET(
     const { data: activities, error: actError } = await supabase
       .from('LeadActivity')
       .select('*')
-      .eq('leadId', id)
-      .order('createdAt', { ascending: false });
+      .eq('lead_id', id)
+      .order('created_at', { ascending: false });
 
     if (actError) {
       return NextResponse.json({ error: actError.message }, { status: 500 });
     }
 
     const result = {
-      ...lead,
-      activities: activities || [],
+      ...toCamelCase(lead),
+      activities: rowsToCamelCase(activities || []),
     };
 
     return NextResponse.json(result);
@@ -62,7 +62,7 @@ export async function PUT(
       return NextResponse.json({ error: 'Lead not found' }, { status: 404 });
     }
 
-    const camelLead = existingLead;
+    const camelLead = toCamelCase(existingLead);
     const updateData: Record<string, unknown> = {};
     const allowedFields = [
       'status', 'priority', 'funnelStage', 'notes', 'phone',
@@ -80,12 +80,12 @@ export async function PUT(
     if (body.status && body.status !== (camelLead as Record<string, unknown>).status) {
       await supabase
         .from('LeadActivity')
-        .insert({
+        .insert(toSnakeCase({
           leadId: id,
           type: 'status_change',
           description: `Status changed from "${(camelLead as Record<string, unknown>).status}" to "${body.status}"`,
           outcome: body.status,
-        });
+        }));
 
       // Update lastContacted when status changes
       updateData.lastContacted = new Date().toISOString();
@@ -93,7 +93,7 @@ export async function PUT(
 
     const { data: updated, error } = await supabase
       .from('Lead')
-      .update(updateData)
+      .update(toSnakeCase(updateData))
       .eq('id', id)
       .select()
       .single();
@@ -102,7 +102,7 @@ export async function PUT(
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json(updated);
+    return NextResponse.json(toCamelCase(updated));
   } catch (error) {
     console.error('PUT /api/leads/[id] error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

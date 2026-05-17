@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase-server';
+import { supabase, toSnakeCase, toCamelCase } from '@/lib/supabase-server';
 
 // GET /api/notifications — fetch notification settings
 export async function GET() {
@@ -22,14 +22,14 @@ export async function GET() {
         return NextResponse.json({ error: createError.message }, { status: 500 });
       }
 
-      return NextResponse.json(newSettings);
+      return NextResponse.json(toCamelCase(newSettings));
     }
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json(settings);
+    return NextResponse.json(toCamelCase(settings));
   } catch (error) {
     console.error('GET /api/notifications error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
@@ -57,7 +57,7 @@ export async function PUT(request: NextRequest) {
       // Create with the body data
       const { data: newSettings, error: createError } = await supabase
         .from('NotificationSettings')
-        .insert(body)
+        .insert(toSnakeCase(body))
         .select()
         .single();
 
@@ -65,7 +65,7 @@ export async function PUT(request: NextRequest) {
         return NextResponse.json({ error: createError.message }, { status: 500 });
       }
 
-      return NextResponse.json(newSettings);
+      return NextResponse.json(toCamelCase(newSettings));
     }
 
     // Update existing settings
@@ -83,7 +83,7 @@ export async function PUT(request: NextRequest) {
 
     const { data: updatedSettings, error: updateError } = await supabase
       .from('NotificationSettings')
-      .update(updateData)
+      .update(toSnakeCase(updateData))
       .eq('id', (existingSettings as Record<string, unknown>).id)
       .select()
       .single();
@@ -92,7 +92,7 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: updateError.message }, { status: 500 });
     }
 
-    return NextResponse.json(updatedSettings);
+    return NextResponse.json(toCamelCase(updatedSettings));
   } catch (error) {
     console.error('PUT /api/notifications error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

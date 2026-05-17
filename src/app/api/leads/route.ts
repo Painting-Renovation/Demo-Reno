@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase-server';
+import { supabase, toSnakeCase, toCamelCase, rowsToCamelCase } from '@/lib/supabase-server';
 
 // GET /api/leads — list leads with optional filters
 export async function GET(request: NextRequest) {
@@ -20,21 +20,21 @@ export async function GET(request: NextRequest) {
       query = query.eq('status', status);
     }
     if (funnelStage) {
-      query = query.eq('funnelStage', funnelStage);
+      query = query.eq('funnel_stage', funnelStage);
     }
 
     // Text search across multiple fields using OR
     if (search) {
       query = query.or(
-        `firstName.ilike.%${search}%,lastName.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%,city.ilike.%${search}%`
+        `first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%,city.ilike.%${search}%`
       );
     }
 
     // Sorting
     if (sort === 'oldest') {
-      query = query.order('createdAt', { ascending: true });
+      query = query.order('created_at', { ascending: true });
     } else {
-      query = query.order('createdAt', { ascending: false });
+      query = query.order('created_at', { ascending: false });
     }
 
     // Count total matching records
@@ -57,15 +57,16 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    const leads = data || [];
+    // Convert to camelCase immediately so all subsequent processing uses camelCase keys
+    const leads = rowsToCamelCase(data || []);
 
     // Get counts for each lead (appointments, projects, quotes, activities)
     const leadsWithCounts = await Promise.all(leads.map(async (lead: Record<string, unknown>) => {
       const [apptRes, projRes, quoteRes, actRes] = await Promise.all([
-        supabase.from('Appointment').select('*', { count: 'exact', head: true }).eq('leadId', lead.id),
-        supabase.from('Project').select('*', { count: 'exact', head: true }).eq('leadId', lead.id),
-        supabase.from('Quote').select('*', { count: 'exact', head: true }).eq('leadId', lead.id),
-        supabase.from('LeadActivity').select('*', { count: 'exact', head: true }).eq('leadId', lead.id),
+        supabase.from('Appointment').select('*', { count: 'exact', head: true }).eq('lead_id', lead.id),
+        supabase.from('Project').select('*', { count: 'exact', head: true }).eq('lead_id', lead.id),
+        supabase.from('Quote').select('*', { count: 'exact', head: true }).eq('lead_id', lead.id),
+        supabase.from('LeadActivity').select('*', { count: 'exact', head: true }).eq('lead_id', lead.id),
       ]);
 
       return {
@@ -131,10 +132,10 @@ export async function GET(request: NextRequest) {
       .select('*', { count: 'exact', head: true });
 
     if (status && status !== 'all') countQuery = countQuery.eq('status', status);
-    if (funnelStage) countQuery = countQuery.eq('funnelStage', funnelStage);
+    if (funnelStage) countQuery = countQuery.eq('funnel_stage', funnelStage);
     if (search) {
       countQuery = countQuery.or(
-        `firstName.ilike.%${search}%,lastName.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%,city.ilike.%${search}%`
+        `first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%,city.ilike.%${search}%`
       );
     }
 
@@ -176,7 +177,7 @@ export async function POST(request: NextRequest) {
 
     const { data: lead, error: leadError } = await supabase
       .from('Lead')
-      .insert({
+      .insert(toSnakeCase({
         firstName,
         lastName,
         email,
@@ -192,7 +193,7 @@ export async function POST(request: NextRequest) {
         notes: combinedNotes,
         status: 'new',
         funnelStage: 'awareness',
-      })
+      }))
       .select()
       .single();
 
@@ -203,11 +204,11 @@ export async function POST(request: NextRequest) {
     // Create lead activity (non-critical — log errors but don't fail the request)
     const { error: activityError } = await supabase
       .from('LeadActivity')
-      .insert({
+      .insert(toSnakeCase({
         leadId: lead.id,
         type: 'estimate',
         description: `New lead created via ${leadSource || 'website'}`,
-      });
+      }));
     if (activityError) {
       console.error('Failed to create LeadActivity:', activityError.message);
     }
@@ -236,7 +237,7 @@ export async function POST(request: NextRequest) {
       // Non-blocking — don't fail the lead creation if notification fails
     });
 
-    return NextResponse.json(lead, { status: 201 });
+    return NextResponse.json(toCamelCase(lead), { status: 201 });
   } catch (error) {
     console.error('POST /api/leads error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
