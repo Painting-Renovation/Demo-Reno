@@ -9,7 +9,7 @@ const PageHero = dynamic(
 );
 import { motion } from 'framer-motion';
 import { ArrowRight, Calendar, Tag, Clock, BookOpen, Search, TrendingUp, Star, Palette } from 'lucide-react';
-import { blogArticles, blogCategories, getFeaturedArticles, getArticlesByCategory } from '@/lib/blog-data';
+import { blogArticles, blogCategories, getFeaturedArticles, getArticlesByCategory, getContrastTextColor } from '@/lib/blog-data';
 import type { BlogArticle } from '@/lib/blog-data';
 
 const container = {
@@ -137,12 +137,18 @@ export default function BlogPage() {
                 <motion.div key={article.slug} variants={featuredItem}>
                   <Link href={`/blog/${article.slug}`}>
                     <article className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 h-full">
-                      {/* Paint color header band */}
+                      {/* Cover image header */}
                       <div
                         className="h-48 sm:h-56 relative overflow-hidden"
-                        style={{ backgroundColor: `${article.paintColor}18` }}
                       >
-                        {/* Paint swatch chip */}
+                        <img
+                          src={article.image}
+                          alt={article.title}
+                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                        {/* Gradient overlay for text readability */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+                        {/* Badges */}
                         <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
                           <span
                             className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm"
@@ -156,23 +162,15 @@ export default function BlogPage() {
                             Featured
                           </span>
                         </div>
-                        {/* Large paint swatch visual */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="flex flex-col items-center gap-3">
-                            <div
-                              className="w-20 h-20 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-500"
-                              style={{ backgroundColor: article.paintColor }}
-                            />
-                            <div className="flex items-center gap-2">
-                              <div
-                                className="w-3 h-3 rounded-full"
-                                style={{ backgroundColor: article.paintColor }}
-                              />
-                              <span className="text-xs font-medium text-gray-500 tracking-wide uppercase">{article.paintColorName}</span>
-                            </div>
-                          </div>
+                        {/* Paint swatch badge in corner */}
+                        <div className="absolute bottom-4 left-4">
+                          <span
+                            className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-sm ${getContrastTextColor(article.paintColor) === 'dark' ? 'bg-white/90 text-gray-800' : 'bg-black/50 text-white'}`}
+                          >
+                            <span className="w-3 h-3 rounded-full border border-white/30" style={{ backgroundColor: article.paintColor }} />
+                            {article.paintColorName}
+                          </span>
                         </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       </div>
                       <div className="p-6 sm:p-8">
                         <div className="flex flex-wrap items-center gap-3 mb-3">
@@ -443,26 +441,26 @@ function ArticleCard({ article }: { article: BlogArticle }) {
       style={{ borderLeft: `4px solid ${article.paintColor}` }}
     >
       <Link href={`/blog/${article.slug}`} className="flex flex-col sm:flex-row">
-        {/* Paint swatch area */}
+        {/* Cover image area */}
         <div
-          className="sm:w-48 md:w-64 h-48 sm:h-auto relative overflow-hidden flex-shrink-0 flex items-center justify-center"
-          style={{ backgroundColor: `${article.paintColor}12` }}
+          className="sm:w-48 md:w-64 h-48 sm:h-auto relative overflow-hidden flex-shrink-0"
         >
-          {/* Paint chip visual */}
-          <div className="flex flex-col items-center gap-2">
-            <div
-              className="w-14 h-14 rounded-xl shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-500"
-              style={{ backgroundColor: article.paintColor }}
-            />
-            <div className="flex items-center gap-1.5">
-              <div
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: article.paintColor }}
-              />
-              <span className="text-[10px] font-medium text-gray-400 tracking-wide uppercase">{article.paintColorName}</span>
-            </div>
+          <img
+            src={article.image}
+            alt={article.title}
+            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+          {/* Subtle gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent sm:bg-gradient-to-r sm:from-transparent sm:to-black/10" />
+          {/* Paint swatch badge in corner */}
+          <div className="absolute bottom-3 left-3">
+            <span
+              className={`inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full backdrop-blur-sm ${getContrastTextColor(article.paintColor) === 'dark' ? 'bg-white/90 text-gray-800' : 'bg-black/50 text-white'}`}
+            >
+              <span className="w-2.5 h-2.5 rounded-full border border-white/30" style={{ backgroundColor: article.paintColor }} />
+              {article.paintColorName}
+            </span>
           </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           {article.featured && (
             <div className="absolute top-3 left-3">
               <span className="inline-flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-gold text-white uppercase tracking-wider">

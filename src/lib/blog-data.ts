@@ -51,7 +51,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Residential Demolition',
     categoryColor: '#1B2A4A',
     readTime: '10 min read',
-    image: '/images/blog-residential-demo.jpg',
+    image: '/images/blog/residential-demolition-guide.jpg',
     author: 'Mike Rossi',
     authorRole: 'Senior Project Manager',
     featured: true,
@@ -159,7 +159,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Safety & Regulations',
     categoryColor: '#EF4444',
     readTime: '8 min read',
-    image: '/images/blog-permits.jpg',
+    image: '/images/blog/demolition-permits.jpg',
     author: 'Sarah Tran',
     authorRole: 'Compliance Specialist',
     tags: ['permits', 'regulations', 'GTA', 'municipal bylaws', 'demolition permits'],
@@ -254,7 +254,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Commercial Demolition',
     categoryColor: '#F59E0B',
     readTime: '7 min read',
-    image: '/images/blog-commercial.jpg',
+    image: '/images/blog/commercial-demolition.jpg',
     author: 'James Wilson',
     authorRole: 'Commercial Projects Director',
     tags: ['commercial demolition', 'business', 'minimal disruption', 'tenant relocation'],
@@ -347,7 +347,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Residential Demolition',
     categoryColor: '#1B2A4A',
     readTime: '8 min read',
-    image: '/images/blog-strip-out.jpg',
+    image: '/images/blog/interior-strip-out.jpg',
     author: 'Mike Rossi',
     authorRole: 'Senior Project Manager',
     tags: ['interior strip-out', 'selective demolition', 'gutting', 'renovation prep'],
@@ -451,7 +451,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Cost & Planning',
     categoryColor: '#3B82F6',
     readTime: '9 min read',
-    image: '/images/blog-cost-guide.jpg',
+    image: '/images/blog/cost-guide-demolition.jpg',
     author: 'Lisa Chen',
     authorRole: 'Estimating Manager',
     featured: true,
@@ -553,7 +553,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Environmental',
     categoryColor: '#10B981',
     readTime: '8 min read',
-    image: '/images/blog-asbestos.jpg',
+    image: '/images/blog/asbestos-hazardous.jpg',
     author: 'David Kumar',
     authorRole: 'Environmental Safety Officer',
     tags: ['asbestos', 'hazardous materials', 'environmental safety', 'abatement'],
@@ -646,7 +646,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Safety & Regulations',
     categoryColor: '#EF4444',
     readTime: '7 min read',
-    image: '/images/blog-safety.jpg',
+    image: '/images/blog/safety-standards.jpg',
     author: 'David Kumar',
     authorRole: 'Environmental Safety Officer',
     tags: ['safety', 'demolition standards', 'protective measures', 'site safety'],
@@ -741,7 +741,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Residential Demolition',
     categoryColor: '#1B2A4A',
     readTime: '8 min read',
-    image: '/images/blog-concrete.jpg',
+    image: '/images/blog/concrete-removal.jpg',
     author: 'Mike Rossi',
     authorRole: 'Senior Project Manager',
     tags: ['concrete removal', 'foundation demolition', 'heavy equipment', 'excavation'],
@@ -833,7 +833,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Environmental',
     categoryColor: '#10B981',
     readTime: '7 min read',
-    image: '/images/blog-sustainable.jpg',
+    image: '/images/blog/environmental-demolition.jpg',
     author: 'Sarah Tran',
     authorRole: 'Compliance Specialist',
     tags: ['sustainable demolition', 'recycling', 'waste management', 'green demolition'],
@@ -917,7 +917,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Cost & Planning',
     categoryColor: '#3B82F6',
     readTime: '8 min read',
-    image: '/images/blog-reno-vs-demo.jpg',
+    image: '/images/blog/renovation-vs-demo.jpg',
     author: 'Lisa Chen',
     authorRole: 'Estimating Manager',
     tags: ['renovation', 'demolition', 'decision guide', 'property assessment'],
@@ -1020,7 +1020,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'DIY vs Pro',
     categoryColor: '#8B5CF6',
     readTime: '6 min read',
-    image: '/images/blog-diy-vs-pro.jpg',
+    image: '/images/blog/diy-vs-pro.jpg',
     author: 'Mike Rossi',
     authorRole: 'Senior Project Manager',
     tags: ['DIY demolition', 'professional demolition', 'hiring contractors', 'safety risks'],
@@ -1116,7 +1116,7 @@ export const blogArticles: BlogArticle[] = [
     category: 'Cost & Planning',
     categoryColor: '#3B82F6',
     readTime: '7 min read',
-    image: '/images/blog-preparation.jpg',
+    image: '/images/blog/preparing-property.jpg',
     author: 'James Wilson',
     authorRole: 'Commercial Projects Director',
     tags: ['preparation', 'planning', 'property demolition', 'project timeline'],
@@ -1223,4 +1223,14 @@ export function getFeaturedArticles(): BlogArticle[] {
 
 export function getCategoryBySlug(slug: string): BlogCategory | undefined {
   return blogCategories.find((category) => category.slug === slug);
+}
+
+/** Returns 'dark' for bright colors (use dark text), 'light' for dark colors (use light text) */
+export function getContrastTextColor(hexColor: string): 'dark' | 'light' {
+  const hex = hexColor.replace('#', '');
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luminance > 0.55 ? 'dark' : 'light';
 }

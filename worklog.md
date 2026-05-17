@@ -1123,3 +1123,69 @@ Stage Summary:
 - The paint color permeates: card image area, card border, category badge, author avatar, content headings, bullet points, numbered lists, quotes, tips, dividers, CTA section, and related articles
 - 12 distinct colors: Caramel, Teal Mist, Warm Tan, Garden Green, Muted Coral, Dusty Blue, Wisteria, Gold Coast, Pacific Sage, Amber, Steel Blue, Terracotta Light
 - Future articles simply need a new unique paintColor added - system supports unlimited colors
+
+---
+Task ID: 2
+Agent: Main Agent
+Task: Update blog listing page and blog article detail page to show cover images and fix text color contrast
+
+Work Log:
+- Added `getContrastTextColor(hexColor)` utility function to `/src/lib/blog-data.ts`
+  - Uses luminance formula (0.299R + 0.587G + 0.114B) / 255 to determine if text should be dark or light
+  - Returns 'dark' for bright backgrounds (luminance > 0.55), 'light' for dark backgrounds
+- Updated `/src/app/(public)/blog/page.tsx` — Blog Listing Page:
+  - Imported `getContrastTextColor` from blog-data
+  - **Featured Article cards**: Replaced paint swatch background area with real cover image (`article.image`) using `<img>` tag with `object-cover`
+    - Added gradient overlay (`bg-gradient-to-t from-black/60`) for text readability
+    - Category badge (top-left) and Featured badge (top-right) preserved with contrast-aware styling
+    - Paint swatch chip moved to bottom-left corner as overlay badge with `backdrop-blur-sm`
+    - Swatch badge uses dark/light text based on paint color luminance
+  - **ArticleCard component**: Replaced paint swatch area with real cover image
+    - Cover image with `object-cover` and hover scale animation
+    - Subtle gradient overlay (`from-black/40` on mobile, `from-transparent` on desktop)
+    - Paint color swatch badge in bottom-left corner with contrast-aware text
+    - Preserved `borderLeft: 4px solid ${paintColor}` accent on cards
+    - Preserved Featured badge in top-left corner
+- Updated `/src/app/(public)/blog/[slug]/page.tsx` — Blog Article Detail Page:
+  - Imported `getContrastTextColor` from blog-data
+  - Added full-width cover image section after paint color swatch bar
+    - Responsive heights: `h-56 sm:h-72 md:h-80` with `object-cover`
+    - Rounded corners, shadow, subtle paint color overlay at 15% opacity
+  - **CTA section contrast fix**: Replaced hardcoded white text with dynamic contrast logic
+    - Dark backgrounds (isDarkBg): white heading, white/70% description, white bg button, white/15 phone link
+    - Bright backgrounds (isDarkBg false): navy heading, navy/70% description, navy bg button, navy/10 phone link
+    - Palette icon and color name label also follow contrast logic
+  - **Numbered list circles contrast fix**: In ContentBlock, numbered circles now use contrast-aware text color
+    - Dark paint colors → white text in circles; bright paint colors → navy text in circles
+
+Stage Summary:
+- 3 files modified: `blog-data.ts`, `blog/page.tsx`, `blog/[slug]/page.tsx`
+- All blog cards now show real cover images from `/images/blog/` directory
+- Paint color system preserved alongside cover images (as small badges/accents)
+- Text contrast properly adapts to paint color brightness across CTA sections, numbered lists, and badges
+- ESLint: 0 errors, 0 warnings
+
+---
+Task ID: 2
+Agent: Main Agent + Sub-agent (full-stack-developer)
+Task: Fix blog text color contrast + Generate 12 cover images for blog articles
+
+Work Log:
+- Generated 12 unique AI cover images for each blog article using z-ai image CLI (1344x768 landscape format)
+- Updated all 12 `image` paths in `/src/lib/blog-data.ts` to point to new `/images/blog/` directory
+- Added `getContrastTextColor(hexColor)` utility function to blog-data.ts for luminance-based dark/light text detection
+- Updated blog listing page (`/blog/page.tsx`) to show real cover images instead of paint swatch placeholders
+  - Featured article cards: full cover image with gradient overlay, paint swatch as small badge
+  - Article cards: cover image with gradient overlay, contrast-aware paint swatch badge
+- Updated blog article detail page (`/blog/[slug]/page.tsx`)
+  - Added full-width cover image header section below the color swatch bar
+  - Fixed CTA section text contrast: bright colors get dark navy text, dark colors keep white text
+  - Applied contrast logic to CTA buttons, heading, description, phone number
+- Verified: ESLint clean (0 errors), all pages compile and serve correctly (200 status)
+
+Stage Summary:
+- 12 cover images generated and saved to `/public/images/blog/`
+- Text contrast now dynamically adapts to paint color brightness
+- Blog cards and article pages show relevant cover images
+- Paint color theme system preserved alongside cover images
+- No regressions in existing functionality

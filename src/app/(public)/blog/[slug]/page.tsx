@@ -10,7 +10,7 @@ const PageHero = dynamic(
 );
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowLeft, Calendar, Tag, Clock, BookOpen, User, Share2, ChevronRight, Phone, Palette } from 'lucide-react';
-import { blogArticles, getArticleBySlug, getRelatedArticles } from '@/lib/blog-data';
+import { blogArticles, getArticleBySlug, getRelatedArticles, getContrastTextColor } from '@/lib/blog-data';
 import type { BlogContent } from '@/lib/blog-data';
 
 const container = {
@@ -66,6 +66,24 @@ export default function BlogArticlePage() {
             <div className="flex items-center gap-1.5">
               <span className="text-[10px] font-mono text-gray-400">{pc}</span>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Cover image */}
+      <div className="py-8 sm:py-10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="relative rounded-2xl overflow-hidden shadow-lg">
+            <img
+              src={article.image}
+              alt={article.title}
+              className="w-full h-56 sm:h-72 md:h-80 object-cover"
+            />
+            {/* Subtle paint color overlay */}
+            <div
+              className="absolute inset-0"
+              style={{ backgroundColor: `${pc}15` }}
+            />
           </div>
         </div>
       </div>
@@ -190,33 +208,39 @@ export default function BlogArticlePage() {
               <div className="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full blur-3xl" />
             </div>
             <div className="relative">
-              <div className="flex items-center justify-center gap-2 mb-4">
-                <Palette className="w-5 h-5 text-white/70" />
-                <span className="text-xs font-semibold uppercase tracking-wider text-white/60">{article.paintColorName}</span>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
-                Ready to Start Your Demolition Project?
-              </h3>
-              <p className="text-white/70 text-sm sm:text-base mb-6 max-w-xl mx-auto">
-                Get a free, no-obligation estimate from our expert team. We&apos;ll assess your project, recommend the best approach, and provide transparent pricing.
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                <Link
-                  href="/free-estimate"
-                  className="inline-flex items-center gap-2 bg-white hover:bg-gray-50 font-bold px-8 py-3.5 rounded-xl transition-all duration-200 text-sm min-h-[44px] shadow-lg hover:shadow-xl"
-                  style={{ color: pc }}
-                >
-                  Get Free Estimate
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <a
-                  href="tel:+14375350494"
-                  className="inline-flex items-center gap-2 bg-white/15 hover:bg-white/25 text-white font-semibold px-6 py-3.5 rounded-xl transition-all duration-200 text-sm min-h-[44px] border border-white/20"
-                >
-                  <Phone className="w-4 h-4" />
-                  (437) 535-0494
-                </a>
-              </div>
+              {(() => {
+                const isDarkBg = getContrastTextColor(pc) === 'light';
+                return (
+                  <>
+                    <div className="flex items-center justify-center gap-2 mb-4">
+                      <Palette className={`w-5 h-5 ${isDarkBg ? 'text-white/70' : 'text-navy/50'}`} />
+                      <span className={`text-xs font-semibold uppercase tracking-wider ${isDarkBg ? 'text-white/60' : 'text-navy/50'}`}>{article.paintColorName}</span>
+                    </div>
+                    <h3 className={`text-xl sm:text-2xl font-bold mb-3 ${isDarkBg ? 'text-white' : 'text-navy'}`}>
+                      Ready to Start Your Demolition Project?
+                    </h3>
+                    <p className={`text-sm sm:text-base mb-6 max-w-xl mx-auto ${isDarkBg ? 'text-white/70' : 'text-navy/70'}`}>
+                      Get a free, no-obligation estimate from our expert team. We&apos;ll assess your project, recommend the best approach, and provide transparent pricing.
+                    </p>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                      <Link
+                        href="/free-estimate"
+                        className={`inline-flex items-center gap-2 font-bold px-8 py-3.5 rounded-xl transition-all duration-200 text-sm min-h-[44px] shadow-lg hover:shadow-xl ${isDarkBg ? 'bg-white hover:bg-gray-50 text-navy' : 'bg-navy hover:bg-navy-light text-white'}`}
+                      >
+                        Get Free Estimate
+                        <ArrowRight className="w-4 h-4" />
+                      </Link>
+                      <a
+                        href="tel:+14375350494"
+                        className={`inline-flex items-center gap-2 font-semibold px-6 py-3.5 rounded-xl transition-all duration-200 text-sm min-h-[44px] border ${isDarkBg ? 'bg-white/15 hover:bg-white/25 text-white border-white/20' : 'bg-navy/10 hover:bg-navy/15 text-navy border-navy/20'}`}
+                      >
+                        <Phone className="w-4 h-4" />
+                        (437) 535-0494
+                      </a>
+                    </div>
+                  </>
+                );
+              })()}
             </div>
           </motion.div>
 
@@ -326,17 +350,20 @@ function ContentBlock({ block, paintColor }: { block: BlogContent; paintColor: s
     case 'numbered':
       return (
         <motion.ol variants={item} className="space-y-3 mb-6 ml-1">
-          {block.items?.map((listItem, i) => (
-            <li key={i} className="flex items-start gap-3">
-              <span
-                className="w-6 h-6 rounded-full text-white flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-bold"
-                style={{ backgroundColor: pc }}
-              >
-                {i + 1}
-              </span>
-              <span className="text-gray-700 text-base sm:text-[17px] leading-relaxed">{listItem}</span>
-            </li>
-          ))}
+          {block.items?.map((listItem, i) => {
+            const isLight = getContrastTextColor(pc) === 'light';
+            return (
+              <li key={i} className="flex items-start gap-3">
+                <span
+                  className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-bold ${isLight ? 'text-white' : 'text-navy'}`}
+                  style={{ backgroundColor: pc }}
+                >
+                  {i + 1}
+                </span>
+                <span className="text-gray-700 text-base sm:text-[17px] leading-relaxed">{listItem}</span>
+              </li>
+            );
+          })}
         </motion.ol>
       );
 
