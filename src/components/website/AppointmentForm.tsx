@@ -213,24 +213,24 @@ export function AppointmentForm() {
 
   return (
     <Dialog open={appointmentFormOpen} onOpenChange={(open) => !open && handleClose()}>
-      <DialogContent className="sm:max-w-[580px] max-h-[90vh] overflow-y-auto p-0">
-        <DialogHeader className="p-6 pb-0">
+      <DialogContent className="w-full h-full sm:w-auto sm:h-auto sm:max-w-[580px] max-h-[100dvh] overflow-y-auto p-0">
+        <DialogHeader className="p-4 sm:p-6 pb-0">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-sage to-sage-light rounded-xl flex items-center justify-center shadow-md">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-sage to-sage-light rounded-xl flex items-center justify-center shadow-md">
               <CalendarIcon className="w-5 h-5 text-white" />
             </div>
             <div>
-              <DialogTitle className="text-xl font-bold text-navy">
+              <DialogTitle className="text-lg sm:text-xl font-bold text-navy">
                 Book a Consultation
               </DialogTitle>
-              <DialogDescription className="text-sm text-gray-500">
+              <DialogDescription className="text-xs sm:text-sm text-gray-500">
                 Schedule a free on-site or virtual consultation at your convenience.
               </DialogDescription>
             </div>
           </div>
         </DialogHeader>
 
-        <div className="px-6 pb-6">
+        <div className="px-4 sm:px-6 pb-4 sm:pb-6">
           {!isSuccess ? (
             <motion.form
               onSubmit={handleSubmit(onSubmit)}
@@ -326,7 +326,7 @@ export function AppointmentForm() {
                       <span className="w-1.5 h-1.5 bg-gold rounded-full" />
                       Morning
                     </p>
-                    <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5">
+                    <div className="grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-1.5">
                       {morningSlots.map((time) => (
                         <button
                           key={time}
@@ -334,7 +334,7 @@ export function AppointmentForm() {
                           onClick={() => {
                             setValue('preferredTime', time, { shouldValidate: true });
                           }}
-                          className={`text-xs py-2 px-1 rounded-lg font-medium transition-all cursor-pointer ${
+                          className={`text-[11px] sm:text-xs py-2 px-1 rounded-lg font-medium transition-all cursor-pointer ${
                             watchedFields.preferredTime === time
                               ? 'bg-navy text-white shadow-sm'
                               : 'bg-white border border-gray-200 text-gray-600 hover:border-navy/30 hover:text-navy'
@@ -351,7 +351,7 @@ export function AppointmentForm() {
                       <span className="w-1.5 h-1.5 bg-gold-light rounded-full" />
                       Afternoon
                     </p>
-                    <div className="grid grid-cols-4 sm:grid-cols-6 gap-1.5">
+                    <div className="grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-1.5">
                       {afternoonSlots.map((time) => (
                         <button
                           key={time}

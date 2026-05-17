@@ -112,11 +112,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const sidebarContent = (
     <div className="flex h-full flex-col">
       {/* Logo */}
-      <div className="flex items-center gap-3 px-6 py-5">
+      <div className="flex items-center gap-3 px-3 py-5 md:justify-center">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-navy">
           <Paintbrush className="h-5 w-5 text-gold" />
         </div>
-        <div className="min-w-0">
+        <div className="min-w-0 md:hidden">
           <h2 className="text-sm font-bold text-navy truncate">ProCoat Painters</h2>
           <p className="text-xs text-muted-foreground">Management Portal</p>
         </div>
@@ -125,7 +125,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       <Separator />
 
       {/* Nav Items */}
-      <ScrollArea className="flex-1 px-3 py-4">
+      <ScrollArea className="flex-1 px-2 py-4">
         <nav className="space-y-1">
           {DASHBOARD_TABS.map((tab) => {
             const IconComponent = iconMap[tab.icon] || LayoutDashboard;
@@ -134,15 +134,16 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               <button
                 key={tab.id}
                 onClick={() => handleNavClick(tab.id)}
+                title={tab.label}
                 className={cn(
-                  'flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200',
+                  'flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 md:justify-center md:px-0',
                   isActive
-                    ? 'bg-gold/10 text-gold border-l-2 border-gold'
+                    ? 'bg-gold/10 text-gold border-l-2 border-gold md:border-l-0'
                     : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                 )}
               >
                 <IconComponent className={cn('h-4 w-4 shrink-0', isActive && 'text-gold')} />
-                <span>{tab.label}</span>
+                <span className="md:hidden">{tab.label}</span>
               </button>
             );
           })}
@@ -152,22 +153,24 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       <Separator />
 
       {/* Bottom Actions */}
-      <div className="space-y-2 p-3">
+      <div className="space-y-2 p-2">
         <Button
           variant="ghost"
-          className="w-full justify-start gap-3 text-sm text-muted-foreground hover:text-foreground"
+          className="w-full justify-start gap-3 text-sm text-muted-foreground hover:text-foreground md:justify-center md:px-0"
           onClick={handleBackToWebsite}
+          title="Back to Website"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back to Website
+          <span className="md:hidden">Back to Website</span>
         </Button>
         <Button
           variant="ghost"
-          className="w-full justify-start gap-3 text-sm text-destructive hover:text-destructive hover:bg-destructive/10"
+          className="w-full justify-start gap-3 text-sm text-destructive hover:text-destructive hover:bg-destructive/10 md:justify-center md:px-0"
           onClick={handleLogout}
+          title="Sign Out"
         >
           <LogOut className="h-4 w-4" />
-          Sign Out
+          <span className="md:hidden">Sign Out</span>
         </Button>
       </div>
     </div>
@@ -175,8 +178,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
   return (
     <div className="flex h-screen bg-muted/30 overflow-hidden">
-      {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex w-64 flex-col border-r bg-white shrink-0">
+      {/* Desktop/ tablet Sidebar - icon-only on md, full on lg */}
+      <aside className="hidden md:flex w-16 lg:w-64 flex-col border-r bg-white shrink-0 transition-all duration-200">
         {sidebarContent}
       </aside>
 
@@ -188,7 +191,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             {/* Mobile Menu Button */}
             <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="lg:hidden">
+                <Button variant="ghost" size="icon" className="md:hidden">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
@@ -200,7 +203,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
             <div>
               <h1 className="text-lg font-semibold text-navy">Welcome back, {ownerName}</h1>
-              <p className="text-xs text-muted-foreground hidden sm:block">
+              <p className="text-xs text-muted-foreground hidden md:block">
                 {new Date().toLocaleDateString('en-US', {
                   weekday: 'long',
                   year: 'numeric',
@@ -213,7 +216,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
           {/* Quick Stats & Actions */}
           <div className="flex items-center gap-3">
-            <div className="hidden md:flex items-center gap-4 mr-4">
+            <div className="hidden lg:flex items-center gap-4 mr-4">
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 <UserPlus className="h-3.5 w-3.5" />
                 <span className="font-medium text-navy">{quickStats.totalLeads}</span> leads
@@ -239,7 +242,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto p-4 lg:p-6">
+        <main className="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-6">
           <QuickActions />
           <div className="mt-4">
             {children}

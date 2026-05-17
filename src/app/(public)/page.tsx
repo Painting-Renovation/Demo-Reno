@@ -43,7 +43,7 @@ export default function HomePage() {
       <Hero />
 
       {/* Trust Indicators Bar */}
-      <section className="py-8 bg-navy relative overflow-hidden">
+      <section className="py-6 sm:py-8 bg-navy relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy-light to-navy opacity-90" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
@@ -62,8 +62,8 @@ export default function HomePage() {
                 className="flex flex-col items-center gap-2"
               >
                 <item.icon className="w-6 h-6 text-gold" />
-                <span className="text-2xl font-bold text-white">{item.value}</span>
-                <span className="text-white/60 text-sm">{item.label}</span>
+                <span className="text-xl sm:text-2xl font-bold text-white">{item.value}</span>
+                <span className="text-white/60 text-xs sm:text-sm">{item.label}</span>
               </motion.div>
             ))}
           </div>
@@ -77,7 +77,7 @@ export default function HomePage() {
       <WhyChooseUs />
 
       {/* Quick Navigation Cards */}
-      <section className="py-20 bg-cream">
+      <section className="py-12 sm:py-16 md:py-20 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -177,7 +177,7 @@ export default function HomePage() {
       <LeadMagnetSection />
 
       {/* CTA Banner */}
-      <section className="py-20 bg-navy relative overflow-hidden">
+      <section className="py-12 sm:py-16 md:py-20 bg-navy relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy-light to-navy" />
           <div className="absolute inset-0 opacity-5" style={{

@@ -301,28 +301,28 @@ export function EstimateForm() {
 
   return (
     <Dialog open={estimateFormOpen} onOpenChange={(open) => !open && handleClose()}>
-      <DialogContent className="sm:max-w-[750px] max-h-[92vh] overflow-y-auto p-0">
-        <DialogHeader className="p-6 pb-0">
+      <DialogContent className="w-full h-full sm:w-auto sm:h-auto sm:max-w-[750px] max-h-[100dvh] overflow-y-auto p-0">
+        <DialogHeader className="p-4 sm:p-6 pb-0">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-gold to-gold-light rounded-xl flex items-center justify-center shadow-md">
-              <span className="text-white font-bold text-lg">✓</span>
+            <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-gold to-gold-light rounded-xl flex items-center justify-center shadow-md">
+              <span className="text-white font-bold text-base sm:text-lg">✓</span>
             </div>
             <div>
-              <DialogTitle className="text-xl font-bold text-navy">
+              <DialogTitle className="text-lg sm:text-xl font-bold text-navy">
                 Get Your Free Estimate
               </DialogTitle>
-              <DialogDescription className="text-sm text-gray-500">
+              <DialogDescription className="text-xs sm:text-sm text-gray-500">
                 Complete the form below and we&apos;ll get back to you within 24 hours.
               </DialogDescription>
             </div>
           </div>
         </DialogHeader>
 
-        <div className="px-6 pb-6">
+        <div className="px-4 sm:px-6 pb-4 sm:pb-6">
           {!isSuccess ? (
             <>
               {/* Koalendar Booking Widget Section */}
-              <div className="mb-6 mt-2">
+              <div className="mb-4 sm:mb-6 mt-2">
                 <div className="flex items-center gap-2.5 mb-4">
                   <div className="w-9 h-9 bg-gradient-to-br from-[#C8973E] to-[#E8B94E] rounded-xl flex items-center justify-center shadow-sm">
                     <CalendarCheck className="w-5 h-5 text-white" />
@@ -340,12 +340,12 @@ export function EstimateForm() {
               </div>
 
               {/* Visual Separator */}
-              <div className="relative my-6">
+              <div className="relative my-4 sm:my-6">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-gray-200" />
                 </div>
                 <div className="relative flex justify-center">
-                  <span className="bg-white px-4 py-1.5 text-xs text-gray-400 font-medium flex items-center gap-1.5 rounded-full border border-gray-100">
+                  <span className="bg-white px-3 sm:px-4 py-1.5 text-xs text-gray-400 font-medium flex items-center gap-1.5 rounded-full border border-gray-100">
                     <MessageSquare className="w-3.5 h-3.5" />
                     Prefer to send us a message? Fill out the form below.
                   </span>
@@ -353,10 +353,10 @@ export function EstimateForm() {
               </div>
 
               {/* Step Progress Indicator */}
-              <div className="mb-8 mt-2">
+              <div className="mb-6 sm:mb-8 mt-2">
                 <div className="flex items-center justify-between relative">
                   {/* Connecting line */}
-                  <div className="absolute top-5 left-6 right-6 h-0.5 bg-gray-100 rounded-full" />
+                  <div className="absolute top-4 sm:top-5 left-6 right-6 h-0.5 bg-gray-100 rounded-full" />
                   <motion.div
                     className="absolute top-5 left-6 h-0.5 bg-gradient-to-r from-gold to-gold-light rounded-full origin-left"
                     animate={{ width: `${(progress / 100) * (100 - (12 / 100) * 100)}%` }}
@@ -390,10 +390,11 @@ export function EstimateForm() {
                             <StepIcon className={`w-5 h-5 ${isActive ? 'text-white' : 'text-gray-400'}`} />
                           )}
                         </motion.div>
-                        <span className={`text-[11px] font-medium mt-2 transition-colors ${
+                        <span className={`text-[10px] sm:text-[11px] font-medium mt-1.5 sm:mt-2 transition-colors ${
                           isActive ? 'text-gold' : isCompleted ? 'text-sage' : 'text-gray-400'
                         }`}>
-                          {step.label}
+                          <span className="hidden sm:inline">{step.label}</span>
+                          <span className="sm:hidden">{stepNum}</span>
                         </span>
                       </div>
                     );
@@ -592,12 +593,12 @@ export function EstimateForm() {
                     transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
                     className="space-y-4"
                   >
-                    <div className="bg-cream rounded-xl p-5 space-y-3">
+                    <div className="bg-cream rounded-xl p-4 sm:p-5 space-y-3">
                       <h4 className="font-semibold text-navy text-sm flex items-center gap-2">
                         <User className="w-4 h-4 text-gold" />
                         Contact Information
                       </h4>
-                      <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
                         <div><span className="text-gray-400">Name:</span> <span className="text-navy font-medium">{watchedFields.firstName} {watchedFields.lastName}</span></div>
                         <div><span className="text-gray-400">Email:</span> <span className="text-navy font-medium break-all">{watchedFields.email}</span></div>
                         <div><span className="text-gray-400">Phone:</span> <span className="text-navy font-medium">{watchedFields.phone}</span></div>
@@ -605,12 +606,12 @@ export function EstimateForm() {
                       </div>
                     </div>
 
-                    <div className="bg-cream rounded-xl p-5 space-y-3">
+                    <div className="bg-cream rounded-xl p-4 sm:p-5 space-y-3">
                       <h4 className="font-semibold text-navy text-sm flex items-center gap-2">
                         <FileText className="w-4 h-4 text-gold" />
                         Project Details
                       </h4>
-                      <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
                         <div><span className="text-gray-400">Service:</span> <span className="text-navy font-medium">{watchedFields.serviceType}</span></div>
                         <div><span className="text-gray-400">Timeline:</span> <span className="text-navy font-medium">{watchedFields.timeline}</span></div>
                         {selectedService && (
@@ -661,13 +662,13 @@ export function EstimateForm() {
               </AnimatePresence>
 
               {/* Navigation Buttons */}
-              <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-100">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 mt-6 pt-4 border-t border-gray-100">
                 <Button
                   type="button"
                   variant="ghost"
                   onClick={handleBack}
                   disabled={currentStep === 1}
-                  className="text-gray-500 hover:text-navy disabled:opacity-0"
+                  className="text-gray-500 hover:text-navy disabled:opacity-0 order-2 sm:order-1"
                 >
                   <ArrowLeft className="w-4 h-4 mr-1" />
                   Back
@@ -677,7 +678,7 @@ export function EstimateForm() {
                   <Button
                     type="button"
                     onClick={handleNext}
-                    className="bg-gold hover:bg-gold-light text-white font-semibold px-6 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
+                    className="bg-gold hover:bg-gold-light text-white font-semibold px-6 transition-all shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 w-full sm:w-auto order-1 sm:order-2"
                   >
                     Next
                     <ArrowRight className="w-4 h-4 ml-1" />
@@ -687,7 +688,7 @@ export function EstimateForm() {
                     type="button"
                     onClick={onSubmit}
                     disabled={!termsAccepted || isSubmitting}
-                    className="bg-gold hover:bg-gold-light text-white font-semibold px-6 transition-all disabled:opacity-50 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0"
+                    className="bg-gold hover:bg-gold-light text-white font-semibold px-6 transition-all disabled:opacity-50 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 w-full sm:w-auto order-1 sm:order-2"
                   >
                     {isSubmitting ? (
                       <>

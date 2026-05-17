@@ -250,18 +250,18 @@ export default function OverviewTab() {
             Your business at a glance
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Button size="sm" className="bg-gold hover:bg-gold-light text-white">
             <UserPlus className="h-4 w-4 mr-1.5" />
-            Add Lead
+            <span className="hidden xs:inline">Add Lead</span>
           </Button>
           <Button size="sm" variant="outline" className="border-navy text-navy hover:bg-navy hover:text-white">
-            <FileText className="h-4 w-4 mr-1.5" />
-            New Quote
+            <FileText className="h-4 w-4 sm:mr-1.5" />
+            <span className="hidden sm:inline">New Quote</span>
           </Button>
           <Button size="sm" variant="outline" className="border-navy text-navy hover:bg-navy hover:text-white">
-            <Phone className="h-4 w-4 mr-1.5" />
-            Schedule Call
+            <Phone className="h-4 w-4 sm:mr-1.5" />
+            <span className="hidden sm:inline">Schedule Call</span>
           </Button>
         </div>
       </div>
@@ -324,6 +324,7 @@ export default function OverviewTab() {
           </CardHeader>
           <CardContent className="p-0">
             <div className="max-h-72 overflow-y-auto">
+              <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -364,6 +365,7 @@ export default function OverviewTab() {
                   )}
                 </TableBody>
               </Table>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -383,6 +385,7 @@ export default function OverviewTab() {
           </CardHeader>
           <CardContent className="p-0">
             <div className="max-h-72 overflow-y-auto">
+              <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -411,6 +414,7 @@ export default function OverviewTab() {
                   )}
                 </TableBody>
               </Table>
+              </div>
             </div>
           </CardContent>
         </Card>

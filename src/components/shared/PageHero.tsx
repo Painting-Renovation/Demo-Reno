@@ -29,7 +29,7 @@ export function PageHero({
   children,
 }: PageHeroProps) {
   return (
-    <section className={`relative overflow-hidden ${compact ? 'pt-32 pb-12 md:pt-40 md:pb-16' : 'pt-32 pb-16 md:pt-40 md:pb-24'}`}>
+    <section className={`relative overflow-hidden ${compact ? 'pt-28 pb-10 sm:pt-32 sm:pb-12 md:pt-40 md:pb-16' : 'pt-28 pb-12 sm:pt-32 sm:pb-16 md:pt-40 md:pb-24'}`}>
       {/* Background Image */}
       {backgroundImage && (
         <>
@@ -60,7 +60,7 @@ export function PageHero({
             transition={{ duration: 0.4 }}
             className="mb-6"
           >
-            <ol className="flex items-center gap-1.5 text-sm">
+            <ol className="flex flex-wrap items-center gap-1.5 text-sm">
               <li>
                 <Link
                   href="/"
@@ -95,8 +95,8 @@ export function PageHero({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <h1 className={`font-bold text-white mb-4 ${
-            compact ? 'text-3xl sm:text-4xl' : 'text-4xl sm:text-5xl lg:text-6xl'
+          <h1 className={`font-bold text-white mb-3 sm:mb-4 ${
+            compact ? 'text-2xl sm:text-3xl md:text-4xl' : 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl'
           }`}>
             {title}
           </h1>

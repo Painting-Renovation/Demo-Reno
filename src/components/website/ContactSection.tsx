@@ -210,7 +210,7 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-28 bg-white relative">
+    <section id="contact" className="py-16 sm:py-20 md:py-28 bg-white relative">
       {/* Subtle noise texture */}
       <div className="noise-overlay absolute inset-0 pointer-events-none" />
 
@@ -221,7 +221,7 @@ export function ContactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-14"
+          className="text-center mb-10 sm:mb-14"
         >
           <span className="text-gold text-sm font-semibold tracking-widest uppercase">
             ProCoat Painters
@@ -234,7 +234,7 @@ export function ContactSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 sm:gap-10">
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -315,7 +315,7 @@ export function ContactSection() {
             </div>
 
             {/* Google Maps Placeholder with navy overlay + Get Directions CTA */}
-            <div className="mt-2 map-placeholder rounded-2xl h-56 flex items-center justify-center relative">
+            <div className="mt-2 map-placeholder rounded-2xl h-48 sm:h-56 flex items-center justify-center relative">
               <div className="absolute inset-0 bg-navy/30" />
               <div className="relative z-10 text-center">
                 <div className="w-14 h-14 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-3 border border-gold/30">
@@ -339,7 +339,7 @@ export function ContactSection() {
             transition={{ duration: 0.6 }}
             className="lg:col-span-3"
           >
-            <div className="bg-cream rounded-2xl p-6 md:p-8 border border-gray-100 shadow-sm">
+            <div className="bg-cream rounded-2xl p-5 sm:p-6 md:p-8 border border-gray-100 shadow-sm">
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-xl font-bold text-navy">
                   Quick Contact Form
@@ -491,12 +491,12 @@ export function ContactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-16"
+          className="mt-12 sm:mt-16"
         >
           <p className="text-center text-sm font-semibold text-navy mb-6">
             Trusted &amp; Verified by
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 max-w-3xl mx-auto">
             {socialProofBadges.map((badge) => (
               <div
                 key={badge.label}
@@ -517,9 +517,9 @@ export function ContactSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-20 max-w-3xl mx-auto"
+          className="mt-16 sm:mt-20 max-w-3xl mx-auto"
         >
-          <div className="text-center mb-10">
+          <div className="text-center mb-8 sm:mb-10">
             <h3 className="text-2xl sm:text-3xl font-bold text-navy mb-3">
               Frequently Asked Questions
             </h3>

@@ -88,12 +88,33 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    box-sizing: border-box;
   }
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
   }
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+  /* Prevent font size inflation on mobile */
+  html {
+    -moz-text-size-adjust: none;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+  }
+  /* Responsive images and media */
+  img, video, svg {
+    max-width: 100%;
+    height: auto;
+  }
+  /* Safe area support for notched devices */
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
   }
 }
 
@@ -1930,4 +1951,15 @@ select:focus-visible {
 .countdown-segment {
   animation: countdownFlip 1s ease-in-out;
   transform-style: preserve-3d;
+}
+
+/* ========================================
+   SCROLLBAR HIDE UTILITY
+   ======================================== */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

@@ -22,6 +22,13 @@ export const metadata: Metadata = {
   icons: {
     icon: "/images/logo.png",
   },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+    viewportFit: "cover",
+  },
   openGraph: {
     title: "ProCoat Painters | Toronto's Premier Painting Professionals",
     description: "Transform your space with professional painting services. 2000+ projects completed, 15+ years experience, 100% satisfaction guaranteed. Get a free estimate today!",

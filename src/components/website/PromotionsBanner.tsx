@@ -202,27 +202,30 @@ export function PromotionsBanner() {
             {/* Bottom gold accent line */}
             <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
 
-            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+            <div className="relative max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-2.5 sm:py-3 md:py-4 pr-12 sm:pr-16">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4">
                 {/* Content */}
-                <div className="flex items-center gap-2 sm:gap-3 text-center sm:text-left flex-wrap justify-center">
+                <div className="flex items-center gap-2 sm:gap-3 text-center sm:text-left flex-wrap justify-center min-w-0">
                   <motion.div
                     animate={{ rotate: [0, 10, -10, 0] }}
                     transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                    className="flex-shrink-0"
                   >
-                    <Sparkles className="w-5 h-5 text-gold flex-shrink-0" />
+                    <Sparkles className="w-4 sm:w-5 h-4 sm:h-5 text-gold" />
                   </motion.div>
-                  <p className="text-white text-sm sm:text-base font-medium">
-                    <span className="text-gold font-bold">Spring Special:</span> 15% Off All Interior Painting Projects!
+                  <p className="text-white text-xs sm:text-sm md:text-base font-medium break-words leading-snug">
+                    <span className="text-gold font-bold">Spring Special:</span>{' '}
+                    <span className="hidden sm:inline">15% Off All Interior Painting Projects!</span>
+                    <span className="sm:hidden">15% Off Interior Painting!</span>
                   </p>
 
                   {/* Urgency indicators */}
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <span className="hidden md:inline-flex items-center gap-1 bg-red-500/20 text-red-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-red-500/30">
+                  <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                    <span className="hidden lg:inline-flex items-center gap-1 bg-red-500/20 text-red-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-red-500/30">
                       <Flame className="w-3 h-3" />
                       Limited Availability
                     </span>
-                    <span className="hidden md:inline-flex items-center gap-1 bg-gold/15 text-gold text-xs font-semibold px-2.5 py-1 rounded-full border border-gold/25">
+                    <span className="hidden lg:inline-flex items-center gap-1 bg-gold/15 text-gold text-xs font-semibold px-2.5 py-1 rounded-full border border-gold/25">
                       <Users className="w-3 h-3" />
                       12 spots left
                     </span>
@@ -230,16 +233,16 @@ export function PromotionsBanner() {
                 </div>
 
                 {/* Right side: Countdown + Buttons */}
-                <div className="flex items-center gap-3 flex-shrink-0 flex-wrap justify-center">
+                <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0 flex-wrap justify-center">
                   {/* Countdown Timer */}
-                  <div className="flex items-center gap-1 bg-white/10 backdrop-blur-sm rounded-lg px-3 py-1.5 border border-white/10">
-                    <Clock className="w-3.5 h-3.5 text-gold mr-1" />
-                    <div className="flex items-center gap-1 text-xs font-mono">
-                      <span className="bg-navy/50 text-white px-1.5 py-0.5 rounded font-bold">{pad(countdown.days)}d</span>
+                  <div className="flex items-center gap-0.5 sm:gap-1 bg-white/10 backdrop-blur-sm rounded-lg px-2 sm:px-3 py-1.5 border border-white/10">
+                    <Clock className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-gold mr-0.5 sm:mr-1 flex-shrink-0" />
+                    <div className="flex items-center gap-0.5 sm:gap-1 text-[10px] sm:text-xs font-mono">
+                      <span className="bg-navy/50 text-white px-1 sm:px-1.5 py-0.5 rounded font-bold">{pad(countdown.days)}d</span>
                       <span className="text-white/40">:</span>
-                      <span className="bg-navy/50 text-white px-1.5 py-0.5 rounded font-bold">{pad(countdown.hours)}h</span>
-                      <span className="text-white/40">:</span>
-                      <span className="bg-navy/50 text-white px-1.5 py-0.5 rounded font-bold">{pad(countdown.minutes)}m</span>
+                      <span className="bg-navy/50 text-white px-1 sm:px-1.5 py-0.5 rounded font-bold">{pad(countdown.hours)}h</span>
+                      <span className="text-white/40 hidden sm:inline">:</span>
+                      <span className="bg-navy/50 text-white px-1 sm:px-1.5 py-0.5 rounded font-bold hidden sm:inline">{pad(countdown.minutes)}m</span>
                     </div>
                   </div>
 
@@ -247,7 +250,7 @@ export function PromotionsBanner() {
                   <Button
                     onClick={() => setEstimateFormOpen(true)}
                     size="sm"
-                    className="bg-gold hover:bg-gold-light text-white font-semibold px-4 py-2 rounded-lg text-sm transition-all shadow-md hover:shadow-lg animate-pulse-glow"
+                    className="bg-gold hover:bg-gold-light text-white font-semibold px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm transition-all shadow-md hover:shadow-lg animate-pulse-glow min-h-[44px]"
                   >
                     Get Free Estimate
                   </Button>
@@ -255,7 +258,7 @@ export function PromotionsBanner() {
                     onClick={handleLearnMore}
                     variant="outline"
                     size="sm"
-                    className="border-gold/40 text-gold hover:bg-gold/10 hover:text-gold-light font-medium px-4 py-2 rounded-lg text-sm transition-all"
+                    className="border-gold/40 text-gold hover:bg-gold/10 hover:text-gold-light font-medium px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm transition-all min-h-[44px] hidden sm:inline-flex"
                   >
                     Learn More
                   </Button>
@@ -264,16 +267,16 @@ export function PromotionsBanner() {
             </div>
           </div>
 
-          {/* Professional close button */}
+          {/* Professional close button - 44px min touch target */}
           <motion.button
             onClick={handleDismiss}
             whileHover={{ scale: 1.1, rotate: 90 }}
             whileTap={{ scale: 0.9 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-1/2 right-2 sm:right-4 -translate-y-1/2 w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/50 hover:text-white/90 transition-all cursor-pointer backdrop-blur-sm border border-white/10 hover:border-white/20"
+            className="absolute top-1/2 right-1 sm:right-3 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white/50 hover:text-white/90 transition-all cursor-pointer backdrop-blur-sm border border-white/10 hover:border-white/20"
             aria-label="Dismiss promotion"
           >
-            <X className="w-3.5 h-3.5" />
+            <X className="w-4 h-4" />
           </motion.button>
         </motion.div>
       )}

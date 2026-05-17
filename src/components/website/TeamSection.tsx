@@ -163,12 +163,12 @@ function TeamCard({ member }: { member: typeof teamMembers[0] }) {
             href={member.linkedin}
             initial={false}
             animate={{
-              opacity: isHovered ? 1 : 0.4,
+              opacity: isHovered ? 1 : 0.6,
               scale: isHovered ? 1 : 0.9,
-              y: isHovered ? 0 : 8,
+              y: isHovered ? 0 : 4,
             }}
             transition={{ duration: 0.25 }}
-            className="w-9 h-9 rounded-xl bg-white/[0.06] border border-white/10 text-white/60 hover:text-gold hover:border-gold/30 hover:bg-gold/10 flex items-center justify-center transition-colors"
+            className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white/[0.06] border border-white/10 text-white/60 hover:text-gold hover:border-gold/30 hover:bg-gold/10 flex items-center justify-center transition-colors"
             aria-label={`${member.name} LinkedIn profile`}
           >
             <Linkedin className="w-4 h-4" />
@@ -177,12 +177,12 @@ function TeamCard({ member }: { member: typeof teamMembers[0] }) {
             href={`mailto:${member.email}`}
             initial={false}
             animate={{
-              opacity: isHovered ? 1 : 0.4,
+              opacity: isHovered ? 1 : 0.6,
               scale: isHovered ? 1 : 0.9,
-              y: isHovered ? 0 : 8,
+              y: isHovered ? 0 : 4,
             }}
             transition={{ duration: 0.25, delay: 0.05 }}
-            className="w-9 h-9 rounded-xl bg-white/[0.06] border border-white/10 text-white/60 hover:text-gold hover:border-gold/30 hover:bg-gold/10 flex items-center justify-center transition-colors"
+            className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white/[0.06] border border-white/10 text-white/60 hover:text-gold hover:border-gold/30 hover:bg-gold/10 flex items-center justify-center transition-colors"
             aria-label={`Email ${member.name}`}
           >
             <Mail className="w-4 h-4" />
@@ -191,12 +191,12 @@ function TeamCard({ member }: { member: typeof teamMembers[0] }) {
             href="#"
             initial={false}
             animate={{
-              opacity: isHovered ? 1 : 0.4,
+              opacity: isHovered ? 1 : 0.6,
               scale: isHovered ? 1 : 0.9,
-              y: isHovered ? 0 : 8,
+              y: isHovered ? 0 : 4,
             }}
             transition={{ duration: 0.25, delay: 0.1 }}
-            className="w-9 h-9 rounded-xl bg-white/[0.06] border border-white/10 text-white/60 hover:text-gold hover:border-gold/30 hover:bg-gold/10 flex items-center justify-center transition-colors"
+            className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white/[0.06] border border-white/10 text-white/60 hover:text-gold hover:border-gold/30 hover:bg-gold/10 flex items-center justify-center transition-colors"
             aria-label={`${member.name} portfolio`}
           >
             <ExternalLink className="w-4 h-4" />

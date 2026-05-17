@@ -107,8 +107,8 @@ function StepCard({ step, index }: { step: typeof steps[0]; index: number }) {
       </div>
 
       {/* Content */}
-      <div className="max-w-[220px]">
-        <h3 className="text-lg font-bold text-navy mb-2 group-hover:text-gold transition-colors duration-300">
+      <div className="max-w-[220px] min-w-0">
+        <h3 className="text-lg font-bold text-navy mb-2 group-hover:text-gold transition-colors duration-300 text-balance">
           {step.title}
         </h3>
         <p className="text-gray-500 text-sm leading-relaxed mb-3">
@@ -224,7 +224,7 @@ export function Process() {
   const progressPercent = useTransform(scrollYProgress, [0.1, 0.9], [0, 100]);
 
   return (
-    <section id="process" ref={sectionRef} className="py-24 md:py-32 bg-white relative overflow-hidden">
+    <section id="process" ref={sectionRef} className="py-16 sm:py-20 md:py-28 lg:py-32 bg-white relative overflow-hidden">
       {/* Animated gradient background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-white via-cream/30 to-white" />
@@ -336,7 +336,7 @@ export function Process() {
           </p>
           <Button
             onClick={() => setEstimateFormOpen(true)}
-            className="bg-gold hover:bg-gold-light text-white font-semibold px-10 py-4 rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 animate-glow-pulse text-lg"
+            className="bg-gold hover:bg-gold-light text-white font-semibold px-8 sm:px-10 py-4 rounded-xl transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 animate-glow-pulse text-base sm:text-lg"
           >
             Schedule Your Free Estimate
             <ArrowRight className="w-5 h-5 ml-2" />

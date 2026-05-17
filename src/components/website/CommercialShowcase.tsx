@@ -175,7 +175,7 @@ export function CommercialShowcase() {
             className="text-center mb-16"
           >
             <span className="text-gold text-sm font-semibold tracking-widest uppercase">Industries We Serve</span>
-            <h3 className="text-3xl md:text-4xl font-bold text-navy mt-3 mb-4">Specialized Commercial Solutions</h3>
+            <h3 className="text-3xl sm:text-4xl font-bold text-navy mt-3 mb-4 text-balance">Specialized Commercial Solutions</h3>
             <p className="text-gray-600 max-w-2xl mx-auto">Tailored painting services for every commercial environment with industry-specific expertise.</p>
           </motion.div>
 
@@ -254,11 +254,11 @@ export function CommercialShowcase() {
             className="text-center mb-16"
           >
             <span className="text-gold text-sm font-semibold tracking-widest uppercase">Success Stories</span>
-            <h3 className="text-3xl md:text-4xl font-bold text-navy mt-3 mb-4">Commercial Case Studies</h3>
+            <h3 className="text-3xl sm:text-4xl font-bold text-navy mt-3 mb-4 text-balance">Commercial Case Studies</h3>
             <p className="text-gray-600 max-w-2xl mx-auto">Real results from real commercial projects. See how we deliver value beyond paint.</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {caseStudies.map((study, index) => (
               <motion.div
                 key={study.title}
@@ -307,7 +307,7 @@ export function CommercialShowcase() {
             className="text-center mb-16"
           >
             <span className="text-gold text-sm font-semibold tracking-widest uppercase">Our Work</span>
-            <h3 className="text-3xl md:text-4xl font-bold text-navy mt-3 mb-4">Commercial Project Gallery</h3>
+            <h3 className="text-3xl sm:text-4xl font-bold text-navy mt-3 mb-4 text-balance">Commercial Project Gallery</h3>
           </motion.div>
 
           <motion.div

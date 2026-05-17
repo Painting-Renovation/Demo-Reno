@@ -179,7 +179,7 @@ export function VideoTestimonials() {
             <Video className="w-4 h-4 text-gold" />
             <span className="text-sm font-medium text-gold">Video Stories</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-navy mb-4">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-navy mb-4 text-balance">
             Hear It From{' '}
             <span className="text-gradient-gold">Our Clients</span>
           </h2>
@@ -194,7 +194,7 @@ export function VideoTestimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-8"
         >
           {visibleIndices.map((idx) => {
             const t = videoTestimonials[idx];
@@ -296,7 +296,7 @@ export function VideoTestimonials() {
         <div className="flex items-center justify-center gap-2">
           <button
             onClick={() => scrollToIndex(currentIndex - 1)}
-            className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold/40 transition-all"
+            className="w-11 h-11 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold/40 transition-all"
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -317,7 +317,7 @@ export function VideoTestimonials() {
           ))}
           <button
             onClick={() => scrollToIndex(currentIndex + 1)}
-            className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold/40 transition-all"
+            className="w-11 h-11 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-gold hover:border-gold/40 transition-all"
             aria-label="Next testimonial"
           >
             <ChevronRight className="w-4 h-4" />
@@ -349,7 +349,7 @@ export function VideoTestimonials() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4"
             style={{ background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}
             onClick={closeModal}
           >
@@ -358,17 +358,17 @@ export function VideoTestimonials() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.92, opacity: 0, y: 40 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-[#1a1a2e] rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl border border-white/10"
+              className="bg-[#1a1a2e] sm:rounded-2xl w-full sm:max-w-lg max-h-[90dvh] sm:max-h-[90vh] overflow-y-auto overflow-x-hidden shadow-2xl border border-white/10 rounded-b-none sm:rounded-b-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Dark header */}
               <div className="bg-gradient-to-br from-[#0B1D3A] to-[#132D5E] p-5 relative border-b border-white/5">
                 <button
                   onClick={closeModal}
-                  className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+                  className="absolute top-3 right-3 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
                   aria-label="Close modal"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-5 h-5" />
                 </button>
 
                 <div className="flex items-center gap-4">
@@ -405,7 +405,7 @@ export function VideoTestimonials() {
                 <div className="flex items-center gap-3 mb-1">
                   <button
                     onClick={() => setIsPlaying(!isPlaying)}
-                    className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+                    className="w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
                     aria-label={isPlaying ? 'Pause' : 'Play'}
                   >
                     {isPlaying ? (
@@ -433,7 +433,7 @@ export function VideoTestimonials() {
               {/* Testimonial Text */}
               <div
                 ref={scrollRef}
-                className="px-5 py-4 max-h-48 overflow-y-auto text-sm text-white/70 leading-relaxed"
+                className="px-5 py-4 max-h-36 sm:max-h-48 overflow-y-auto text-sm text-white/70 leading-relaxed"
               >
                 <Quote className="w-6 h-6 text-gold/30 mb-2" />
                 <p>{playingTestimonial.testimonial}</p>

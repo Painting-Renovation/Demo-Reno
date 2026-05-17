@@ -320,7 +320,7 @@ function StageDetailPopover({
               </div>
               <button
                 onClick={onClose}
-                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
                 aria-label="Close details"
               >
                 <X className="w-4 h-4 text-gray-500" />
@@ -416,7 +416,7 @@ function DesktopStageCard({
             delay: index * 0.12 + 0.15,
             ease: [0.16, 1, 0.3, 1],
           }}
-          className={`w-56 xl:w-64 rounded-2xl p-5 cursor-pointer group
+          className={`w-full xl:w-64 rounded-2xl p-4 xl:p-5 cursor-pointer group
             glass-morphism-light hover:shadow-xl hover:shadow-gold/5 transition-all duration-500
             hover:-translate-y-1 border border-white/40 hover:border-gold/30`}
           onClick={onDetail}
@@ -533,7 +533,7 @@ function MobileStageCard({
         <motion.div
           animate={isInView ? { scale: [0, 1.15, 1] } : { scale: 0 }}
           transition={{ duration: 0.4, delay: index * 0.1 }}
-          className="w-11 h-11 bg-gold rounded-full flex items-center justify-center shadow-md"
+          className="w-10 h-10 sm:w-11 sm:h-11 bg-gold rounded-full flex items-center justify-center shadow-md"
         >
           <stage.icon className="w-5 h-5 text-white" />
         </motion.div>
@@ -552,7 +552,7 @@ function MobileStageCard({
       {/* Card content */}
       <div className="flex-1 pb-8">
         <div
-          className="glass-morphism-light rounded-xl p-4 cursor-pointer group
+          className="glass-morphism-light rounded-xl p-4 cursor-pointer group min-w-0
             hover:shadow-lg hover:shadow-gold/5 hover:border-gold/30
             transition-all duration-300 border border-white/40"
           onClick={onDetail}

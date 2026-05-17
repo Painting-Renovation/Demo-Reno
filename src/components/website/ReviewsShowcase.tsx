@@ -247,7 +247,7 @@ export function ReviewsShowcase() {
           <div className="flex justify-center mb-3">
             <Quote className="w-8 h-8 text-gold/20" />
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-navy mb-3">
+          <h2 className="text-3xl sm:text-4xl font-bold text-navy mb-3 text-balance">
             What Our Clients Really Think
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
@@ -297,8 +297,8 @@ export function ReviewsShowcase() {
             <div className="space-y-2">
               {ratingBreakdown.map((item) => (
                 <div key={item.stars} className="flex items-center gap-3">
-                  <span className="text-sm font-medium text-navy w-12 text-right">{item.stars}★</span>
-                  <div className="flex-1 h-2.5 bg-gray-200 rounded-full overflow-hidden">
+                  <p className="text-sm font-medium text-navy w-10 sm:w-12 text-right">{item.stars}★</p>
+                  <div className="flex-1 h-2.5 bg-gray-200 rounded-full overflow-hidden min-w-0">
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${item.percent}%` }}
@@ -307,7 +307,7 @@ export function ReviewsShowcase() {
                       className="h-full bg-gold rounded-full"
                     />
                   </div>
-                  <span className="text-sm text-gray-500 w-10">{item.percent}%</span>
+                  <span className="text-sm text-gray-500 w-10 text-right">{item.percent}%</span>
                 </div>
               ))}
             </div>
@@ -316,12 +316,12 @@ export function ReviewsShowcase() {
 
         {/* Filter & Sort */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-nowrap gap-2 overflow-x-auto scrollbar-hide pb-1">
             {filterTabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveFilter(tab.id)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 flex-shrink-0 ${
                   activeFilter === tab.id
                     ? 'bg-navy text-white shadow-md'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'

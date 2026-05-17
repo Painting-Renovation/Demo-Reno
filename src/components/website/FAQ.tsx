@@ -118,7 +118,7 @@ export function FAQ() {
             <HelpCircle className="w-4 h-4 text-gold" />
             <span className="text-sm font-medium text-navy/70">Got Questions?</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-navy mb-3">
+          <h2 className="text-3xl sm:text-4xl font-bold text-navy mb-3 text-balance">
             Frequently Asked Questions
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
@@ -157,13 +157,13 @@ export function FAQ() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.1 }}
-              className="flex flex-wrap gap-2 mb-8"
+              className="flex flex-nowrap gap-2 mb-8 overflow-x-auto scrollbar-hide pb-1"
             >
               {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex-shrink-0 ${
                     activeCategory === cat
                       ? 'bg-gold text-white shadow-md shadow-gold/20'
                       : 'bg-white text-navy/60 hover:bg-white hover:text-navy border border-gray-200 hover:border-gold/30'

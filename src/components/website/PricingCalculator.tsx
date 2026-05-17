@@ -316,7 +316,7 @@ export function PricingCalculator() {
           className="bg-white rounded-2xl shadow-xl border border-gold/10 overflow-hidden"
         >
           {/* Progress Bar */}
-          <div className="bg-navy px-6 py-4">
+          <div className="bg-navy px-4 sm:px-6 py-3 sm:py-4">
             <div className="flex items-center justify-between max-w-lg mx-auto">
               {steps.map((step, i) => (
                 <div key={step} className="flex items-center">
@@ -351,7 +351,7 @@ export function PricingCalculator() {
           </div>
 
           {/* Step Content */}
-          <div className="p-6 md:p-8 min-h-[380px]">
+          <div className="p-4 sm:p-6 md:p-8 min-h-[320px] sm:min-h-[380px]">
             <AnimatePresence mode="wait">
               {/* Step 0: Service Type */}
               {currentStep === 0 && (
@@ -364,20 +364,20 @@ export function PricingCalculator() {
                 >
                   <h3 className="text-lg font-bold text-navy mb-1">What type of painting service do you need?</h3>
                   <p className="text-sm text-gray-500 mb-6">Select the service that best describes your project</p>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3">
                     {serviceOptions.map((service) => (
                       <button
                         key={service.id}
                         onClick={() => setSelectedService(service.id)}
-                        className={`p-4 rounded-xl border-2 text-left transition-all duration-200 hover:shadow-md ${
+                        className={`p-3 sm:p-4 rounded-xl border-2 text-left transition-all duration-200 hover:shadow-md ${
                           selectedService === service.id
                             ? 'border-gold bg-gold/5 shadow-md'
                             : 'border-gray-100 hover:border-gold/30'
                         }`}
                       >
-                        <span className="text-2xl mb-2 block">{service.icon}</span>
-                        <span className="block text-sm font-semibold text-navy">{service.label}</span>
-                        <span className="block text-xs text-gray-500 mt-0.5">{service.description}</span>
+                        <span className="text-xl sm:text-2xl mb-1.5 sm:mb-2 block">{service.icon}</span>
+                        <span className="block text-xs sm:text-sm font-semibold text-navy">{service.label}</span>
+                        <span className="block text-[10px] sm:text-xs text-gray-500 mt-0.5">{service.description}</span>
                       </button>
                     ))}
                   </div>
@@ -403,7 +403,7 @@ export function PricingCalculator() {
                   </p>
 
                   {isConsultation ? (
-                    <div className="bg-gradient-to-br from-gold/10 to-gold/5 rounded-xl p-8 text-center border border-gold/20">
+                    <div className="bg-gradient-to-br from-gold/10 to-gold/5 rounded-xl p-6 sm:p-8 text-center border border-gold/20">
                       <Sparkles className="w-12 h-12 text-gold mx-auto mb-4" />
                       <h4 className="text-xl font-bold text-navy mb-2">Free Color Consultation</h4>
                       <p className="text-gray-600 text-sm max-w-md mx-auto">
@@ -1043,7 +1043,7 @@ export function PricingCalculator() {
                         <Button
                           onClick={() => setEstimateFormOpen(true)}
                           size="lg"
-                          className="bg-gold hover:bg-gold-light text-white font-semibold px-8 py-6 text-base rounded-xl transition-all shadow-lg hover:shadow-xl w-full sm:w-auto"
+                          className="bg-gold hover:bg-gold-light text-white font-semibold px-8 py-5 sm:py-6 text-base rounded-xl transition-all shadow-lg hover:shadow-xl w-full sm:w-auto"
                         >
                           Book a Free On-Site Assessment
                           <ArrowRight className="w-4 h-4 ml-2" />
@@ -1058,20 +1058,20 @@ export function PricingCalculator() {
 
           {/* Navigation */}
           {currentStep < steps.length - 1 && (
-            <div className="px-6 md:px-8 pb-6 md:pb-8 flex items-center justify-between">
+            <div className="px-4 sm:px-6 md:px-8 pb-4 sm:pb-6 md:pb-8 flex items-center justify-between gap-3">
               <Button
                 variant="ghost"
                 onClick={prevStep}
                 disabled={currentStep === 0}
-                className="text-gray-500 hover:text-navy"
+                className="text-gray-500 hover:text-navy flex-shrink-0"
               >
                 <ChevronLeft className="w-4 h-4 mr-1" />
-                Back
+                <span className="hidden sm:inline">Back</span>
               </Button>
               <Button
                 onClick={nextStep}
                 disabled={!canProceed()}
-                className="bg-gold hover:bg-gold-light text-white font-semibold"
+                className="bg-gold hover:bg-gold-light text-white font-semibold flex-1 sm:flex-none"
               >
                 {isConsultation && currentStep === 1 ? 'See Estimate' : 'Next'}
                 <ChevronRight className="w-4 h-4 ml-1" />
@@ -1079,14 +1079,14 @@ export function PricingCalculator() {
             </div>
           )}
           {currentStep === steps.length - 1 && (
-            <div className="px-6 md:px-8 pb-6 md:pb-8 flex items-center justify-center">
+            <div className="px-4 sm:px-6 md:px-8 pb-4 sm:pb-6 md:pb-8 flex items-center justify-center">
               <Button
                 variant="ghost"
                 onClick={prevStep}
                 className="text-gray-500 hover:text-navy"
               >
                 <ChevronLeft className="w-4 h-4 mr-1" />
-                Modify Selections
+                Modify
               </Button>
             </div>
           )}

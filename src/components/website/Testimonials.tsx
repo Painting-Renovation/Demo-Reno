@@ -147,7 +147,7 @@ export function Testimonials() {
           <span className="text-gold text-sm font-semibold tracking-widest uppercase">
             ProCoat Painters
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3 mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3 mb-4 text-balance">
             What Our Clients Say
           </h2>
           <p className="text-white/60 max-w-2xl mx-auto text-lg">
@@ -175,7 +175,7 @@ export function Testimonials() {
             <CarouselContent className="-ml-4">
               {testimonials.map((testimonial) => (
                 <CarouselItem key={testimonial.id} className="pl-4 md:basis-1/2 lg:basis-1/2">
-                  <div className="glassmorphism-card rounded-2xl p-6 md:p-8 h-full flex flex-col card-hover-lift relative overflow-hidden">
+                  <div className="glassmorphism-card rounded-2xl p-5 sm:p-6 md:p-8 h-full flex flex-col card-hover-lift relative overflow-hidden min-w-0">
                     {/* Large decorative quotation marks */}
                     <div className="quote-decorative">&ldquo;</div>
                     <div className="quote-decorative-end">&ldquo;</div>
@@ -210,7 +210,7 @@ export function Testimonials() {
                         </div>
                         <p className="text-white/50 text-xs">{testimonial.location}</p>
                       </div>
-                      <span className="ml-auto text-xs bg-white/10 text-white/70 px-3 py-1 rounded-full hidden sm:inline-flex backdrop-blur-sm">
+                      <span className="ml-auto text-xs bg-white/10 text-white/70 px-3 py-1 rounded-full hidden md:inline-flex backdrop-blur-sm">
                         {testimonial.service}
                       </span>
                     </div>

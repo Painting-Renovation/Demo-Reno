@@ -85,7 +85,7 @@ export function Services() {
   const { setEstimateFormOpen } = useAppStore();
 
   return (
-    <section id="services" className="py-20 md:py-28 bg-white relative overflow-hidden">
+    <section id="services" className="py-14 sm:py-20 md:py-28 bg-white relative overflow-hidden">
       {/* Subtle noise texture */}
       <div className="noise-overlay absolute inset-0 pointer-events-none" />
 
@@ -149,7 +149,7 @@ export function Services() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 gap-y-10"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 md:gap-8"
         >
           {services.map((service) => (
             <motion.div
@@ -173,19 +173,19 @@ export function Services() {
               </div>
 
               {/* Content */}
-              <div className="p-6">
+              <div className="p-4 sm:p-6">
                 <div className="flex items-start justify-between gap-2 mb-3">
-                  <h3 className="text-xl font-bold text-navy group-hover:text-gold transition-colors duration-300">
+                  <h3 className="text-lg sm:text-xl font-bold text-navy group-hover:text-gold transition-colors duration-300">
                     {service.title}
                   </h3>
                   {service.popular && (
-                    <span className="flex-shrink-0 inline-flex items-center gap-1 bg-gradient-to-r from-gold to-gold-light text-white text-xs font-bold px-3 py-1.5 rounded-full animate-pulse-glow-enhanced shadow-lg shadow-gold/20">
-                      <Sparkles className="w-3.5 h-3.5" />
-                      Most Popular
+                    <span className="flex-shrink-0 inline-flex items-center gap-1 bg-gradient-to-r from-gold to-gold-light text-white text-[10px] sm:text-xs font-bold px-2 sm:px-3 py-1 sm:py-1.5 rounded-full animate-pulse-glow-enhanced shadow-lg shadow-gold/20 whitespace-nowrap">
+                      <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                      <span className="hidden sm:inline">Most </span>Popular
                     </span>
                   )}
                 </div>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                <p className="text-gray-600 text-sm leading-relaxed mb-4 break-words">
                   {service.description}
                 </p>
 
@@ -207,7 +207,7 @@ export function Services() {
                   <span className={"text-sm font-semibold " + (service.priceRange === 'Free' ? 'text-sage' : 'text-gold')}>
                     {service.priceRange === 'Free' ? 'Free Consultation' : `Starting from ${service.priceRange}`}
                   </span>
-                  <button className="inline-flex items-center gap-1.5 text-gold font-semibold text-sm group-hover:gap-3 transition-all duration-300 link-underline-visible">
+                  <button className="inline-flex items-center gap-1.5 text-gold font-semibold text-sm group-hover:gap-3 transition-all duration-300 link-underline-visible min-h-[44px] px-1">
                     Learn More
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </button>
@@ -243,7 +243,7 @@ export function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mt-16 bg-navy rounded-2xl p-10 md:p-14 relative overflow-hidden noise-overlay"
+          className="text-center mt-12 sm:mt-16 bg-navy rounded-2xl p-6 sm:p-10 md:p-14 relative overflow-hidden noise-overlay"
         >
           {/* Decorative gradient orb */}
           <div className="absolute -top-20 -right-20 w-60 h-60 bg-gold/10 rounded-full blur-3xl pointer-events-none" />

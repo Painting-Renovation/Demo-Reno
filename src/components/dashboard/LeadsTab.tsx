@@ -500,7 +500,7 @@ export default function LeadsTab() {
 
       {/* Lead Detail Dialog */}
       <Dialog open={detailOpen} onOpenChange={setDetailOpen}>
-        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+        <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto sm:max-w-2xl w-[calc(100%-2rem)]">
           {selectedLead && (
             <>
               <DialogHeader>
@@ -510,7 +510,7 @@ export default function LeadsTab() {
                 <DialogDescription>{selectedLead.email} · {selectedLead.phone || 'No phone'}</DialogDescription>
               </DialogHeader>
 
-              <div className="grid grid-cols-2 gap-4 mt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                 <div>
                   <Label className="text-xs text-muted-foreground">Status</Label>
                   <Badge
@@ -597,7 +597,7 @@ export default function LeadsTab() {
               )}
 
               {/* Quick Actions */}
-              <div className="flex gap-2 pt-2 border-t">
+              <div className="flex flex-wrap gap-2 pt-2 border-t">
                 <Select
                   value={selectedLead.status}
                   onValueChange={(val) => {

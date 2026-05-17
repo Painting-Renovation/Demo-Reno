@@ -56,13 +56,13 @@ export function Footer() {
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
               <Link href="/free-estimate">
-                <Button className="bg-navy hover:bg-navy-light text-white font-semibold px-8 py-3.5 rounded-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 cta-button-enhanced">
+                <Button className="bg-navy hover:bg-navy-light text-white font-semibold px-5 sm:px-8 py-3.5 rounded-lg transition-all shadow-lg hover:shadow-xl hover:scale-105 cta-button-enhanced min-h-[44px] text-sm sm:text-base">
                   Request Free Estimate
                 </Button>
               </Link>
               <a
                 href="tel:+14375350494"
-                className="inline-flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 text-navy font-semibold px-6 py-3.5 rounded-lg transition-all border border-navy/20"
+                className="inline-flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 text-navy font-semibold px-5 sm:px-6 py-3.5 rounded-lg transition-all border border-navy/20 min-h-[44px] text-sm sm:text-base"
               >
                 <Phone className="w-4 h-4" />
                 Call Now
@@ -73,7 +73,7 @@ export function Footer() {
       </div>
 
       {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-14">
           {/* Company Info */}
           <div className="sm:col-span-2 lg:col-span-1">
@@ -136,12 +136,12 @@ export function Footer() {
               <div className="w-6 h-px bg-gold/40" />
               Services
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-1">
               {serviceLinks.map((service) => (
                 <li key={service.href}>
                   <Link
                     href={service.href}
-                    className="footer-link-lift text-white/50 hover:text-white text-sm transition-colors duration-200"
+                    className="footer-link-lift text-white/50 hover:text-white text-sm transition-colors duration-200 block min-h-[44px] flex items-center"
                   >
                     {service.label}
                   </Link>
@@ -156,20 +156,20 @@ export function Footer() {
               <div className="w-6 h-px bg-gold/40" />
               Quick Links
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-1">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   {link.href === '/dashboard' ? (
                     <a
                       href={link.href}
-                      className="footer-link-lift text-white/50 hover:text-white text-sm transition-colors duration-200"
+                      className="footer-link-lift text-white/50 hover:text-white text-sm transition-colors duration-200 block min-h-[44px] flex items-center"
                     >
                       {link.label}
                     </a>
                   ) : (
                     <Link
                       href={link.href}
-                      className="footer-link-lift text-white/50 hover:text-white text-sm transition-colors duration-200"
+                      className="footer-link-lift text-white/50 hover:text-white text-sm transition-colors duration-200 block min-h-[44px] flex items-center"
                     >
                       {link.label}
                     </Link>
@@ -191,7 +191,7 @@ export function Footer() {
                   <Phone className="w-3.5 h-3.5 text-gold" />
                 </div>
                 <div>
-                  <a href="tel:+14375350494" className="footer-link-lift text-white/60 hover:text-white text-sm">
+                <a href="tel:+14375350494" className="footer-link-lift text-white/60 hover:text-white text-sm min-h-[44px] inline-flex items-center">
                     (437) 535-0494
                   </a>
                 </div>
@@ -200,7 +200,7 @@ export function Footer() {
                 <div className="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <Mail className="w-3.5 h-3.5 text-gold" />
                 </div>
-                <a href="mailto:infoinandoutdemolition@gmail.com" className="footer-link-lift text-white/60 hover:text-white text-sm mt-1 inline-block">
+                <a href="mailto:infoinandoutdemolition@gmail.com" className="footer-link-lift text-white/60 hover:text-white text-sm mt-1 inline-block break-words min-h-[44px]">
                   infoinandoutdemolition@gmail.com
                 </a>
               </li>
@@ -246,10 +246,10 @@ export function Footer() {
               <span className="hidden sm:inline">Licensed &amp; Insured in Ontario.</span>
             </p>
             <div className="flex items-center gap-5">
-              <Link href="/faq" className="footer-link-lift text-white/30 hover:text-white/60 text-xs">
+              <Link href="/faq" className="footer-link-lift text-white/30 hover:text-white/60 text-xs min-h-[44px] inline-flex items-center">
                 Privacy Policy
               </Link>
-              <Link href="/faq" className="footer-link-lift text-white/30 hover:text-white/60 text-xs">
+              <Link href="/faq" className="footer-link-lift text-white/30 hover:text-white/60 text-xs min-h-[44px] inline-flex items-center">
                 Terms of Service
               </Link>
               <a
@@ -261,7 +261,7 @@ export function Footer() {
               </a>
               <button
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="w-9 h-9 bg-white/5 hover:bg-gold/15 border border-white/8 hover:border-gold/25 rounded-full flex items-center justify-center text-white/30 hover:text-gold transition-all duration-300 social-icon-hover"
+                className="w-11 h-11 bg-white/5 hover:bg-gold/15 border border-white/8 hover:border-gold/25 rounded-full flex items-center justify-center text-white/30 hover:text-gold transition-all duration-300 social-icon-hover"
                 aria-label="Scroll to top"
               >
                 <ArrowUp className="w-4 h-4" />

@@ -366,7 +366,7 @@ export function InteractiveShowcase() {
             Recent{' '}
             <span className="text-gradient-gold">Projects</span>
           </h2>
-          <p className="text-gray-500 text-base sm:text-lg max-w-2xl mx-auto">
+          <p className="text-gray-500 text-base sm:text-lg max-w-2xl mx-auto text-balance">
             Browse our completed projects, filter by category, and see the
             transformations we deliver for homes and businesses across the GTA.
           </p>
@@ -410,7 +410,7 @@ export function InteractiveShowcase() {
 
           {/* Sort Dropdown */}
           <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-[180px] bg-white border-gray-200 text-sm rounded-full px-4">
+            <SelectTrigger className="w-full sm:w-[180px] bg-white border-gray-200 text-sm rounded-full px-4">
               <Sparkles className="w-4 h-4 text-gold mr-1" />
               <SelectValue placeholder="Sort by..." />
             </SelectTrigger>
@@ -571,7 +571,7 @@ export function InteractiveShowcase() {
 
       {/* ── Project Detail Modal ──────────────────────────────────────── */}
       <Dialog open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
-        <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto bg-white p-0 gap-0 rounded-2xl [&>button]:hidden">
+        <DialogContent className="sm:max-w-4xl max-h-[100dvh] sm:max-h-[90vh] overflow-y-auto bg-white p-0 gap-0 rounded-none sm:rounded-2xl [&>button]:hidden">
           {selectedProject && (
             <motion.div
               initial={{ opacity: 0, y: 30 }}

@@ -244,7 +244,7 @@ export function StatsBar() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-16 md:py-20 overflow-hidden"
+      className="relative w-full py-12 sm:py-16 md:py-20 overflow-hidden"
       style={{
         background: 'linear-gradient(135deg, #0B1D3A 0%, #0F2647 40%, #132D5E 70%, #0B1D3A 100%)',
       }}
@@ -296,7 +296,7 @@ export function StatsBar() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5"
         >
           {stats.map((stat, index) => (
             <motion.div

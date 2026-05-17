@@ -96,7 +96,7 @@ export function WhyChooseUs() {
   const { setEstimateFormOpen } = useAppStore();
 
   return (
-    <section className="py-20 md:py-28 relative overflow-hidden" id="why-choose-us">
+    <section className="py-14 sm:py-20 md:py-28 relative overflow-hidden" id="why-choose-us">
       {/* Shifting gradient background */}
       <div
         className="absolute inset-0 animate-gradient-shift"
@@ -130,9 +130,9 @@ export function WhyChooseUs() {
           className="text-center mb-8"
         >
           {/* Label badge */}
-          <div className="inline-flex items-center gap-2 bg-white rounded-full px-5 py-2 mb-5 shadow-sm border border-gold/10">
-            <Award className="w-4 h-4 text-gold" />
-            <span className="text-sm font-semibold text-navy/70 tracking-wide">Trusted Excellence</span>
+          <div className="inline-flex items-center gap-2 sm:gap-3 bg-white rounded-full px-4 sm:px-5 py-2 mb-5 shadow-sm border border-gold/10">
+            <Award className="w-4 h-4 text-gold flex-shrink-0" />
+            <span className="text-xs sm:text-sm font-semibold text-navy/70 tracking-wide">Trusted Excellence</span>
           </div>
 
           <div className="relative inline-block">
@@ -194,12 +194,12 @@ export function WhyChooseUs() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="flex justify-center mb-12"
         >
-          <div className="inline-flex items-center gap-3 bg-white rounded-2xl px-6 py-3 shadow-md border border-gold/10">
-            <div className="flex -space-x-2">
+          <div className="inline-flex items-center gap-2 sm:gap-3 bg-white rounded-2xl px-4 sm:px-6 py-3 shadow-md border border-gold/10">
+            <div className="flex -space-x-2 flex-shrink-0">
               {[...Array(5)].map((_, i) => (
                 <div
                   key={i}
-                  className="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold"
+                  className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 border-white flex items-center justify-center text-white text-[10px] sm:text-xs font-bold"
                   style={{
                     background: ['#C8973E', '#0B1D3A', '#5B7B5A', '#132D5E', '#E8B94E'][i],
                     zIndex: 5 - i,
@@ -209,13 +209,13 @@ export function WhyChooseUs() {
                 </div>
               ))}
             </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-bold text-navy">Trusted by 2,500+ homeowners</span>
+            <div className="flex flex-col min-w-0">
+              <span className="text-xs sm:text-sm font-bold text-navy truncate">Trusted by 2,500+ homeowners</span>
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3 h-3 fill-gold text-gold" />
+                  <Star key={i} className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-gold text-gold flex-shrink-0" />
                 ))}
-                <span className="text-xs text-gray-500 ml-1">4.9/5 average rating</span>
+                <span className="text-[10px] sm:text-xs text-gray-500 ml-1">4.9/5 average rating</span>
               </div>
             </div>
           </div>
@@ -227,7 +227,7 @@ export function WhyChooseUs() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-50px' }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8"
         >
           {trustItems.map((item, index) => {
             const Icon = item.icon;
@@ -237,7 +237,7 @@ export function WhyChooseUs() {
                 key={index}
                 variants={cardVariants}
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="card-shine bg-white rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-xl transition-all duration-500 group relative border border-transparent hover:border-gold/20 cursor-default overflow-hidden"
+                className="card-shine bg-white rounded-2xl p-5 sm:p-6 md:p-8 shadow-sm hover:shadow-xl transition-all duration-500 group relative border border-transparent hover:border-gold/20 cursor-default overflow-hidden"
               >
                 {/* Colored left border that extends on hover */}
                 <div
@@ -252,7 +252,7 @@ export function WhyChooseUs() {
                 />
 
                 {/* Numbered counter with animation */}
-                <div className="absolute top-6 right-6">
+                <div className="absolute top-4 right-4 sm:top-6 sm:right-6">
                   <AnimatedBadge index={index} />
                 </div>
 
@@ -264,7 +264,7 @@ export function WhyChooseUs() {
                     <h3 className="text-lg font-bold text-navy mb-2 group-hover:text-gold transition-colors duration-300">
                       {item.title}
                     </h3>
-                    <p className="text-base text-gray-500 leading-relaxed">
+                    <p className="text-sm sm:text-base text-gray-500 leading-relaxed break-words">
                       {item.description}
                     </p>
                   </div>

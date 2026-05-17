@@ -143,7 +143,7 @@ function FlipCard({ member, index }: { member: TeamMember; index: number }) {
       style={{ perspective: '1000px' }}
     >
       <motion.div
-        className="relative h-[420px] md:h-[480px]"
+        className="relative h-[380px] sm:h-[420px] md:h-[480px]"
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -278,30 +278,30 @@ function FlipCard({ member, index }: { member: TeamMember; index: number }) {
 
             {/* Social Links */}
             <div className="mt-auto flex items-center justify-center gap-2 pt-3 border-t border-white/10">
-              <a
+            <a
                 href={member.linkedin}
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
                 aria-label={`${member.name} LinkedIn`}
               >
                 <Linkedin className="w-4 h-4" />
               </a>
               <a
                 href={`mailto:${member.email}`}
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
                 aria-label={`Email ${member.name}`}
               >
                 <Mail className="w-4 h-4" />
               </a>
               <a
                 href="#"
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
                 aria-label={`${member.name} portfolio`}
               >
                 <ExternalLink className="w-4 h-4" />
               </a>
               <a
                 href="#"
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
                 aria-label={`${member.name} Instagram`}
               >
                 <Instagram className="w-4 h-4" />
@@ -370,7 +370,7 @@ export function EnhancedTeam() {
               <Briefcase className="w-5 h-5 text-gold" />
             </div>
             <div className="text-left">
-              <p className="text-2xl font-bold text-gold number-glow">{totalExperience}+</p>
+              <p className="text-3xl sm:text-4xl font-bold text-gold number-glow">{totalExperience}+</p>
               <p className="text-[10px] text-white/40 uppercase tracking-wider">Years of collective experience</p>
             </div>
           </motion.div>

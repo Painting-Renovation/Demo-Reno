@@ -195,8 +195,8 @@ export function ExpressService() {
             </div>
           </div>
 
-          <div className="relative flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
+          <div className="relative flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+            <div className="flex items-center gap-2.5 min-w-0">
               {/* Pulsing indicator */}
               <div className="relative">
                 <div className="w-3 h-3 bg-red-500 rounded-full" />

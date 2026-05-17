@@ -124,7 +124,7 @@ function LightboxModal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[60] flex items-center justify-center p-4"
+      className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-4"
       onClick={onClose}
     >
       {/* Backdrop */}
@@ -132,15 +132,15 @@ function LightboxModal({
 
       {/* Content */}
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
+        initial={{ scale: 0.9, opacity: 0, y: 40 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.9, opacity: 0, y: 40 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="relative max-w-5xl w-full max-h-[90vh] overflow-hidden rounded-2xl bg-white shadow-2xl"
+        className="relative w-full sm:max-w-5xl h-[100dvh] sm:h-auto sm:max-h-[90vh] overflow-hidden sm:rounded-2xl bg-white shadow-2xl rounded-b-none"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-8 py-5 border-b border-gray-100">
+        <div className="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5 border-b border-gray-100">
           <div>
             <h3 className="text-navy font-bold text-xl">{item.title}</h3>
             <div className="flex items-center gap-3 text-sm text-gray-500 mt-1">
@@ -158,22 +158,22 @@ function LightboxModal({
         </div>
 
         {/* Image */}
-        <div className="relative aspect-video bg-gray-50 mx-4 mt-4 rounded-xl overflow-hidden">
+        <div className="relative aspect-video bg-gray-50 mx-2 sm:mx-4 mt-2 sm:mt-4 rounded-lg sm:rounded-xl overflow-hidden">
           <img
             src={item.afterImage}
             alt={item.title}
             className="w-full h-full object-cover"
           />
           {/* Overlay badge */}
-          <div className="absolute bottom-4 left-4">
-            <span className="bg-gold/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1.5 rounded-full">
+          <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4">
+            <span className="bg-gold/90 backdrop-blur-sm text-white text-xs font-bold px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full">
               AFTER
             </span>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="px-8 py-5">
+        <div className="px-4 sm:px-8 py-4 sm:py-5">
           <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
         </div>
 
@@ -181,7 +181,7 @@ function LightboxModal({
         {hasPrev && (
           <button
             onClick={onPrev}
-            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center transition-all cursor-pointer"
+            className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center transition-all cursor-pointer"
             aria-label="Previous image"
           >
             <ChevronLeft className="w-5 h-5 text-navy" />
@@ -190,7 +190,7 @@ function LightboxModal({
         {hasNext && (
           <button
             onClick={onNext}
-            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center transition-all cursor-pointer"
+            className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center transition-all cursor-pointer"
             aria-label="Next image"
           >
             <ChevronRight className="w-5 h-5 text-navy" />
@@ -267,7 +267,7 @@ export function Gallery() {
             <Layers className="w-4 h-4 text-gold" />
             <span className="text-navy text-sm font-medium">Our Work</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy mt-3 mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy mt-3 mb-4 text-balance">
             Before &amp; After Gallery
           </h2>
           <p className="text-gray-500 max-w-2xl mx-auto text-lg">
@@ -289,13 +289,13 @@ export function Gallery() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="flex flex-wrap justify-center gap-1 mb-12 relative"
+          className="flex flex-nowrap justify-start sm:justify-center gap-1 mb-8 sm:mb-12 relative overflow-x-auto px-4 sm:px-0 scrollbar-hide"
         >
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className={`relative px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+              className={`relative flex-shrink-0 px-4 sm:px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
                 activeCategory === category
                   ? 'text-white shadow-lg shadow-navy/20'
                   : 'text-gray-600 hover:text-navy hover:bg-white hover:shadow-sm'
@@ -337,7 +337,7 @@ export function Gallery() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4 }}
-              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 auto-rows-[280px]"
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5 auto-rows-[220px] sm:auto-rows-[280px]"
             >
               {filteredItems.map((item, index) => (
                 <motion.div
@@ -345,7 +345,7 @@ export function Gallery() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: index * 0.08 }}
-                  className={`group relative rounded-2xl overflow-hidden cursor-pointer bg-white shadow-sm hover:shadow-[0_20px_40px_-8px_rgba(11,29,58,0.18)] transition-all duration-300 border border-gold/10 hover:scale-[1.02] hover:border-gold/20 ${getSpanClasses(item)}`}
+                  className={`group relative rounded-2xl overflow-hidden cursor-pointer bg-white shadow-sm hover:shadow-[0_20px_40px_-8px_rgba(11,29,58,0.18)] transition-all duration-300 border border-gold/10 sm:hover:scale-[1.02] hover:border-gold/20 ${getSpanClasses(item)}`}
                   onMouseEnter={() => setHoveredItem(item.id)}
                   onMouseLeave={() => setHoveredItem(null)}
                   onClick={() => setLightboxItem(item)}

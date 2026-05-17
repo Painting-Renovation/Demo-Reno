@@ -120,7 +120,7 @@ export function ROICalculator() {
   const previewScale = Math.min(1, Math.max(0.3, sqFt / (room.avgSqFt * 2)));
 
   return (
-    <section className="py-20 md:py-28 bg-cream relative overflow-hidden">
+    <section className="py-16 sm:py-20 md:py-28 bg-cream relative overflow-hidden">
       {/* Decorative orbs */}
       <div className="absolute top-20 right-0 w-80 h-80 bg-gold/5 rounded-full blur-[100px]" />
       <div className="absolute bottom-0 left-0 w-64 h-64 bg-navy/5 rounded-full blur-[80px]" />
@@ -159,8 +159,8 @@ export function ROICalculator() {
           {/* Left: Input Panel */}
           <div className="lg:col-span-2 space-y-5">
             {/* Room Type Selection */}
-            <div className="bg-white rounded-2xl p-6 shadow-lg border border-gold/10">
-              <h3 className="text-lg font-bold text-navy mb-1 flex items-center gap-2">
+            <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-lg border border-gold/10">
+              <h3 className="text-base sm:text-lg font-bold text-navy mb-1 flex items-center gap-2">
                 <Home className="w-5 h-5 text-gold" />
                 Room Type
               </h3>
@@ -199,9 +199,9 @@ export function ROICalculator() {
             </div>
 
             {/* Room Size */}
-            <div className="bg-white rounded-2xl p-6 shadow-lg border border-gold/10">
+            <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-lg border border-gold/10">
               <div className="flex items-center justify-between mb-1">
-                <h3 className="text-lg font-bold text-navy flex items-center gap-2">
+                <h3 className="text-base sm:text-lg font-bold text-navy flex items-center gap-2">
                   <DollarSign className="w-5 h-5 text-gold" />
                   Room Size
                 </h3>
@@ -238,7 +238,7 @@ export function ROICalculator() {
                 step={selectedRoom === 'whole-house' ? 100 : 10}
                 value={sqFt}
                 onChange={(e) => setSqFt(Number(e.target.value))}
-                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gold"
+                className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-gold touch-manipulation"
               />
               <div className="flex justify-between text-[10px] text-gray-400 mt-1 tabular-nums">
                 <span>{selectedRoom === 'whole-house' ? '500' : '50'} sq ft</span>
@@ -247,8 +247,8 @@ export function ROICalculator() {
             </div>
 
             {/* Current Condition */}
-            <div className="bg-white rounded-2xl p-6 shadow-lg border border-gold/10">
-              <h3 className="text-lg font-bold text-navy mb-1 flex items-center gap-2">
+            <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-lg border border-gold/10">
+              <h3 className="text-base sm:text-lg font-bold text-navy mb-1 flex items-center gap-2">
                 <Shield className="w-5 h-5 text-gold" />
                 Current Condition
               </h3>
@@ -278,7 +278,7 @@ export function ROICalculator() {
           {/* Right: Results Panel */}
           <div className="lg:col-span-3 space-y-5">
             {/* Value Increase Card */}
-            <div className="bg-gradient-to-br from-navy to-navy-light rounded-2xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
+            <div className="bg-gradient-to-br from-navy to-navy-light rounded-2xl p-5 sm:p-6 md:p-8 text-white shadow-xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-48 h-48 bg-gold/10 rounded-full blur-[60px]" />
               <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-4">
@@ -351,7 +351,7 @@ export function ROICalculator() {
               <div className="hidden md:block absolute top-4 bottom-4 left-1/2 -translate-x-1/2 w-px bg-gradient-to-b from-transparent via-gold/20 to-transparent" />
 
               {/* DIY Option */}
-              <div className="bg-white rounded-2xl md:rounded-r-none p-5 shadow-lg border border-gray-200 relative md:border-r-0">
+              <div className="bg-white rounded-2xl md:rounded-r-none p-4 sm:p-5 shadow-lg border border-gray-200 relative md:border-r-0">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center">
                     <X className="w-4 h-4 text-red-500" />
@@ -383,7 +383,7 @@ export function ROICalculator() {
               </div>
 
               {/* Professional Option */}
-              <div className="bg-white rounded-2xl md:rounded-l-none p-5 shadow-xl border-2 border-gold/30 relative md:border-l-0">
+              <div className="bg-white rounded-2xl md:rounded-l-none p-4 sm:p-5 shadow-xl border-2 border-gold/30 relative md:border-l-0">
                 <div className="absolute -top-2.5 left-5">
                   <Badge className="bg-gold text-white text-[10px] font-bold px-2.5 py-0.5 shadow-md">
                     RECOMMENDED
@@ -421,32 +421,32 @@ export function ROICalculator() {
             </div>
 
             {/* Bottom Stats Row */}
-            <div className="grid grid-cols-3 gap-3">
-              <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100 text-center hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-                <div className="w-10 h-10 mx-auto mb-2 rounded-lg bg-sage/10 flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5 text-sage" />
+            <div className="grid grid-cols-3 gap-2 sm:gap-3">
+              <div className="bg-white rounded-xl p-3 sm:p-4 shadow-md border border-gray-100 text-center hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-1.5 sm:mb-2 rounded-lg bg-sage/10 flex items-center justify-center">
+                  <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-sage" />
                 </div>
-                <p className="text-lg font-bold text-navy tabular-nums">{calculations.roi}%</p>
-                <p className="text-[10px] text-gray-500 uppercase tracking-wider">ROI</p>
+                <p className="text-base sm:text-lg font-bold text-navy tabular-nums">{calculations.roi}%</p>
+                <p className="text-[9px] sm:text-[10px] text-gray-500 uppercase tracking-wider">ROI</p>
               </div>
-              <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100 text-center hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-                <div className="w-10 h-10 mx-auto mb-2 rounded-lg bg-gold/10 flex items-center justify-center">
-                  <Sparkles className="w-5 h-5 text-gold" />
+              <div className="bg-white rounded-xl p-3 sm:p-4 shadow-md border border-gray-100 text-center hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-1.5 sm:mb-2 rounded-lg bg-gold/10 flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-gold" />
                 </div>
-                <p className="text-lg font-bold text-navy tabular-nums">{calculations.proQualityScore}</p>
-                <p className="text-[10px] text-gray-500 uppercase tracking-wider">Pro Quality</p>
+                <p className="text-base sm:text-lg font-bold text-navy tabular-nums">{calculations.proQualityScore}</p>
+                <p className="text-[9px] sm:text-[10px] text-gray-500 uppercase tracking-wider">Pro Quality</p>
               </div>
-              <div className="bg-white rounded-xl p-4 shadow-md border border-gray-100 text-center hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-                <div className="w-10 h-10 mx-auto mb-2 rounded-lg bg-navy/10 flex items-center justify-center">
-                  <ArrowRight className="w-5 h-5 text-navy" />
+              <div className="bg-white rounded-xl p-3 sm:p-4 shadow-md border border-gray-100 text-center hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-1.5 sm:mb-2 rounded-lg bg-navy/10 flex items-center justify-center">
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-navy" />
                 </div>
-                <p className="text-lg font-bold text-navy tabular-nums">${calculations.savingsVsRealEstate.toLocaleString()}</p>
-                <p className="text-[10px] text-gray-500 uppercase tracking-wider">Commission Saved</p>
+                <p className="text-base sm:text-lg font-bold text-navy tabular-nums">${calculations.savingsVsRealEstate.toLocaleString()}</p>
+                <p className="text-[9px] sm:text-[10px] text-gray-500 uppercase tracking-wider">Saved</p>
               </div>
             </div>
 
             {/* CTA */}
-            <div className="bg-gradient-to-r from-gold/10 to-sage/10 rounded-2xl p-6 border border-gold/20 text-center">
+            <div className="bg-gradient-to-r from-gold/10 to-sage/10 rounded-2xl p-5 sm:p-6 border border-gold/20 text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Info className="w-4 h-4 text-gold" />
                 <span className="text-xs text-gray-500">These are estimates based on Toronto GTA market data</span>

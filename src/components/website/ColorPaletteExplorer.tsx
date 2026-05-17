@@ -421,7 +421,7 @@ function RoomPreviewModal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[60] flex items-center justify-center p-4"
+      className="fixed inset-0 z-[60] flex items-end sm:items-center justify-center p-0 sm:p-4"
       onClick={onClose}
     >
       {/* Backdrop */}
@@ -433,11 +433,11 @@ function RoomPreviewModal({
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        className="relative max-w-2xl w-full rounded-2xl bg-white shadow-2xl overflow-hidden"
+        className="relative w-full sm:max-w-2xl max-h-[90dvh] sm:max-h-[90vh] overflow-y-auto rounded-none sm:rounded-2xl bg-white shadow-2xl rounded-b-none sm:rounded-b-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-gray-100">
           <div>
             <h3 className="font-bold text-navy text-lg">{color.name}</h3>
             <p className="text-sm text-gray-400 font-mono">{color.hex.toUpperCase()}</p>
@@ -452,7 +452,7 @@ function RoomPreviewModal({
         </div>
 
         {/* Room Mockup */}
-        <div className="relative mx-6 mt-4 rounded-xl overflow-hidden">
+        <div className="relative mx-4 sm:mx-6 mt-4 rounded-xl overflow-hidden">
           {/* Simple room using CSS - back wall, side walls, ceiling, floor */}
           <div
             className="relative w-full aspect-[16/10] overflow-hidden"
@@ -517,7 +517,7 @@ function RoomPreviewModal({
         </div>
 
         {/* Footer info */}
-        <div className="px-6 py-5">
+        <div className="px-4 sm:px-6 py-5">
           <p className="text-sm text-gray-500 mb-4">
             Visualize how <span className="font-semibold text-navy">{color.name}</span> looks in a room setting. For an accurate match, order a physical sample.
           </p>
@@ -627,7 +627,7 @@ export function ColorPaletteExplorer() {
             <Paintbrush className="w-4 h-4 text-gold" />
             <span className="text-navy text-sm font-medium">Color Collection</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy mt-3 mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-navy mt-3 mb-4 text-balance">
             Explore Our Color Collection
           </h2>
           <p className="text-gray-500 max-w-2xl mx-auto text-lg">
@@ -700,7 +700,7 @@ export function ColorPaletteExplorer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="flex flex-wrap justify-center gap-1 mb-10 relative"
+          className="flex flex-nowrap justify-start sm:justify-center gap-1 mb-8 sm:mb-10 relative overflow-x-auto px-4 sm:px-0 scrollbar-hide"
         >
           {categories.map(({ key, config }) => (
             <button
@@ -765,7 +765,7 @@ export function ColorPaletteExplorer() {
             initial="hidden"
             animate="visible"
             exit="hidden"
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5"
           >
             {filteredColors.map((color) => (
               <ColorCard

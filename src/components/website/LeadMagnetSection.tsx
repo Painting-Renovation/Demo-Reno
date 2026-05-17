@@ -68,7 +68,7 @@ export function LeadMagnetSection() {
   return (
     <section
       ref={ref}
-      className="relative py-20 sm:py-28 overflow-hidden"
+      className="relative py-16 sm:py-20 overflow-hidden"
       style={{
         background: 'linear-gradient(180deg, #FDF8F0 0%, #FFFFFF 100%)',
       }}
@@ -90,7 +90,7 @@ export function LeadMagnetSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: 'easeOut' }}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-10 sm:mb-12"
         >
           <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase mb-4"
             style={{ background: '#C8973E15', color: '#C8973E' }}
@@ -127,10 +127,10 @@ export function LeadMagnetSection() {
 
               {/* Book cover */}
               <div
-                className="relative w-72 sm:w-80 rounded-2xl p-8 flex flex-col justify-between shadow-2xl"
+                className="relative w-64 sm:w-72 md:w-80 rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-2xl"
                 style={{
                   background: 'linear-gradient(135deg, #0B1D3A 0%, #132D5E 50%, #0B1D3A 100%)',
-                  minHeight: '400px',
+                  minHeight: '360px',
                 }}
               >
                 {/* Gold top accent line */}
@@ -159,7 +159,7 @@ export function LeadMagnetSection() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-white text-xl sm:text-2xl font-bold leading-tight mb-2">
+                  <h3 className="text-white text-lg sm:text-xl md:text-2xl font-bold leading-tight mb-2">
                     The Complete Toronto
                     <br />
                     <span style={{ color: '#C8973E' }}>Homeowner&apos;s Guide</span>
@@ -200,7 +200,7 @@ export function LeadMagnetSection() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.35, ease: 'easeOut' }}
           >
-            <div className="bg-white rounded-2xl p-8 sm:p-10 shadow-xl border"
+            <div className="bg-white rounded-2xl p-6 sm:p-8 md:p-10 shadow-xl border"
               style={{ borderColor: '#0B1D3A10' }}
             >
               {!submitted ? (
@@ -283,7 +283,7 @@ export function LeadMagnetSection() {
                   </form>
 
                   {/* Trust indicators */}
-                  <div className="flex items-center justify-center gap-6 mt-6 pt-6"
+                  <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mt-6 pt-6"
                     style={{ borderTop: '1px solid #0B1D3A08' }}
                   >
                     {trustIndicators.map((item) => (
@@ -334,7 +334,7 @@ export function LeadMagnetSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="flex items-center justify-center gap-3 mt-6"
+              className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-6"
             >
               {/* Avatar stack */}
               <div className="flex -space-x-2">
@@ -353,9 +353,9 @@ export function LeadMagnetSection() {
                   </div>
                 ))}
               </div>
-              <div className="flex items-center gap-1.5">
-                <Users className="w-4 h-4" style={{ color: '#C8973E' }} />
-                <span className="text-sm font-medium" style={{ color: '#0B1D3A' }}>
+              <div className="flex items-center gap-1.5 min-w-0">
+                <Users className="w-4 h-4 flex-shrink-0" style={{ color: '#C8973E' }} />
+                <span className="text-xs sm:text-sm" style={{ color: '#0B1D3A' }}>
                   <strong style={{ color: '#C8973E' }}>12,500+</strong> homeowners have already downloaded
                 </span>
               </div>

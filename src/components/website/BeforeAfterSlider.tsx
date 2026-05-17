@@ -163,7 +163,7 @@ function EnhancedSlider({ item, isFullscreen, onToggleFullscreen }: { item: Comp
           className="absolute top-1/2 -translate-y-1/2 z-20 pointer-events-none"
           style={{ left: `${sliderPosition}%`, transform: `translate(-50%, -50%)` }}
         >
-          <div className="w-11 h-11 md:w-14 md:h-14 bg-white rounded-full shadow-xl flex items-center justify-center border-2 border-gold/50 transition-transform duration-200 hover:scale-110"
+          <div className="w-12 h-12 md:w-14 md:h-14 bg-white rounded-full shadow-xl flex items-center justify-center border-2 border-gold/50 transition-transform duration-200 hover:scale-110"
             style={isDragging ? { transform: 'scale(1.15)' } : undefined}
           >
             <GripVertical className="w-5 h-5 md:w-6 md:h-6 text-navy" />
@@ -214,10 +214,10 @@ function EnhancedSlider({ item, isFullscreen, onToggleFullscreen }: { item: Comp
       {/* Fullscreen button */}
       <button
         onClick={onToggleFullscreen}
-        className="absolute top-3 right-3 z-30 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm text-white/80 hover:text-white hover:bg-black/60 flex items-center justify-center transition-all cursor-pointer opacity-0 group-hover:opacity-100"
+        className="absolute top-3 right-3 z-30 w-11 h-11 rounded-full bg-black/40 backdrop-blur-sm text-white/80 hover:text-white hover:bg-black/60 flex items-center justify-center transition-all cursor-pointer opacity-100 sm:opacity-0 sm:group-hover:opacity-100"
         aria-label={isFullscreen ? 'Exit fullscreen' : 'View fullscreen'}
       >
-        {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+        {isFullscreen ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
       </button>
     </div>
   );
@@ -274,7 +274,7 @@ export function BeforeAfterSlider() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-2 mb-8"
+          className="flex flex-nowrap justify-start sm:justify-center gap-2 mb-8 overflow-x-auto px-4 sm:px-0 scrollbar-hide"
         >
           {comparisonItems.map((comp, index) => (
             <button
