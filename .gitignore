@@ -68,3 +68,5 @@ db/*.db-journal
 
 # worklog drafts (internal)
 worklog-*.md
+# Screenshots
+screenshot*.png
