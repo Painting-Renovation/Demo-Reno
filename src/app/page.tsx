@@ -1,7 +1,7 @@
 'use client';
 
-import PublicPage from './(public)/page';
+import { PublicWebsite } from '@/components/website/PublicWebsite';
 
 export default function Home() {
-  return <PublicPage />;
+  return <PublicWebsite />;
 }
