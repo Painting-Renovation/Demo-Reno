@@ -1,18 +1,34 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 
-// Server-side Supabase client with service_role key (bypasses RLS)
-export const supabase = createClient(supabaseUrl, supabaseServiceKey, {
-  auth: {
-    persistSession: false,
-    autoRefreshToken: false,
+// Lazy-initialized server-side Supabase client — only creates when actually called
+let _supabase: SupabaseClient | null = null
+
+export function getSupabase(): SupabaseClient {
+  if (!_supabase) {
+    if (!supabaseUrl || !supabaseServiceKey) {
+      throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY')
+    }
+    _supabase = createClient(supabaseUrl, supabaseServiceKey, {
+      auth: {
+        persistSession: false,
+        autoRefreshToken: false,
+      },
+    })
+  }
+  return _supabase
+}
+
+// Convenience export (lazy proxy) — callers can still use `supabase.from('...')` etc.
+export const supabase = new Proxy({} as SupabaseClient, {
+  get(_target, prop) {
+    return Reflect.get(getSupabase(), prop)
   },
 })
 
 // Helper to convert Prisma-style snake_case field names to camelCase for JSON responses
-// Supabase returns snake_case by default, we normalize to camelCase for the API
 export function toCamelCase<T>(row: Record<string, unknown>): T {
   const result: Record<string, unknown> = {}
   for (const [key, value] of Object.entries(row)) {
