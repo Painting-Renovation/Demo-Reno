@@ -1,10 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Navbar } from './Navbar';
-import { PromotionsBanner } from './PromotionsBanner';
 import { Hero } from './Hero';
-import { useAppStore } from '@/lib/store';
 import { Services } from './Services';
 import { WhyChooseUs } from './WhyChooseUs';
 import { BrandsSection } from './BrandsSection';
@@ -18,170 +14,114 @@ import { Testimonials } from './Testimonials';
 import { FAQ } from './FAQ';
 import { ServiceAreas } from './ServiceAreas';
 import { ContactSection } from './ContactSection';
-import { Footer } from './Footer';
-import { EstimateForm } from './EstimateForm';
-import { AppointmentForm } from './AppointmentForm';
 import { PricingCalculator } from './PricingCalculator';
 import { ReviewsShowcase } from './ReviewsShowcase';
 import { SeasonalTips } from './SeasonalTips';
 import { WeatherWidget } from './WeatherWidget';
-import { FloatingCTA } from './FloatingCTA';
-import { LiveChatWidget } from './LiveChatWidget';
-import { CookieConsent } from './CookieConsent';
-import { BackToTop } from './BackToTop';
 import { SectionDivider } from './SectionDivider';
 import { StatsBar } from './StatsBar';
 import { GuaranteeSection } from './GuaranteeSection';
 import { ProjectJourney } from './ProjectJourney';
 import { LeadMagnetSection } from './LeadMagnetSection';
-import { ExitIntentPopup } from './ExitIntentPopup';
 import { ROICalculator } from './ROICalculator';
 import { VideoTestimonials } from './VideoTestimonials';
 import { EnhancedTeam } from './EnhancedTeam';
 import { ExpressService } from './ExpressService';
 import { CommercialShowcase } from './CommercialShowcase';
 import { MaintenanceTips } from './MaintenanceTips';
-import { ChatBotPanel } from './ChatBotPanel';
 import { NeighborhoodSpotlight } from './NeighborhoodSpotlight';
 import { BeforeAfterSlider } from './BeforeAfterSlider';
 
 /**
- * Spacer component that sits below the fixed banner and navbar.
- * It dynamically measures the actual rendered height of both fixed elements
- * and sets an equivalent padding-top so page content isn't hidden behind them.
+ * Main website content sections.
+ * Layout (PublicLayout) handles Navbar, Footer, FloatingCTA, etc.
  */
-function FixedHeaderSpacer() {
-  const { promoBannerHeight } = useAppStore();
-  const [navHeight, setNavHeight] = useState(76); // default fallback: h-18 (72px) + h-1 shimmer (4px)
-
-  useEffect(() => {
-    const navEl = document.querySelector('nav');
-    if (navEl) {
-      const update = () => setNavHeight(navEl.offsetHeight);
-      update();
-      const observer = new ResizeObserver(update);
-      observer.observe(navEl);
-      return () => observer.disconnect();
-    }
-  }, []);
-
-  const totalHeight = promoBannerHeight + navHeight;
-
-  return (
-    <div
-      className="w-full flex-shrink-0 transition-[height] duration-500"
-      style={{ height: totalHeight }}
-      aria-hidden="true"
-    />
-  );
-}
-
 export function PublicWebsite() {
   return (
-    <div className="min-h-screen bg-white">
-      <PromotionsBanner />
-      <Navbar />
-      {/* Dynamic spacer to prevent content from hiding behind fixed banner + navbar */}
-      <FixedHeaderSpacer />
+    <>
+      <Hero />
+      <SectionDivider variant="dark" />
 
-      <main>
-        <Hero />
-        <SectionDivider variant="dark" />
+      <Services />
+      <SectionDivider variant="light" />
 
-        <Services />
-        <SectionDivider variant="light" />
+      <PricingCalculator />
+      <SectionDivider variant="dark" />
 
-        <PricingCalculator />
-        <SectionDivider variant="dark" />
+      <LeadMagnetSection />
+      <SectionDivider variant="light" />
 
-        <LeadMagnetSection />
-        <SectionDivider variant="light" />
+      <WhyChooseUs />
+      <SectionDivider variant="light" />
 
-        <WhyChooseUs />
-        <SectionDivider variant="light" />
+      <ROICalculator />
+      <SectionDivider variant="dark" />
 
-        <ROICalculator />
-        <SectionDivider variant="dark" />
+      <VideoTestimonials />
+      <SectionDivider variant="light" />
 
-        <VideoTestimonials />
-        <SectionDivider variant="light" />
+      <BrandsSection />
+      <SectionDivider variant="light" />
 
-        <BrandsSection />
-        <SectionDivider variant="light" />
+      <TeamSection />
+      <SectionDivider variant="dark" />
 
-        <TeamSection />
-        <SectionDivider variant="dark" />
+      <EnhancedTeam />
 
-        <EnhancedTeam />
+      <BeforeAfter />
+      <SectionDivider variant="dark" />
 
-        <BeforeAfter />
-        <SectionDivider variant="dark" />
+      <Gallery />
+      <SectionDivider variant="dark" />
 
-        <Gallery />
-        <SectionDivider variant="dark" />
+      <ColorPaletteExplorer />
+      <SectionDivider variant="light" />
 
-        <ColorPaletteExplorer />
-        <SectionDivider variant="light" />
+      <InteractiveShowcase />
+      <SectionDivider variant="dark" />
 
-        <InteractiveShowcase />
-        <SectionDivider variant="dark" />
+      <Process />
+      <SectionDivider variant="light" />
 
-        <Process />
-        <SectionDivider variant="light" />
+      <ExpressService />
 
-        <ExpressService />
+      <ProjectJourney />
+      <SectionDivider variant="light" />
 
-        <ProjectJourney />
-        <SectionDivider variant="light" />
+      <Testimonials />
+      <SectionDivider variant="dark" />
 
-        <Testimonials />
-        <SectionDivider variant="dark" />
+      <GuaranteeSection />
+      <SectionDivider variant="dark" />
 
-        <GuaranteeSection />
-        <SectionDivider variant="dark" />
+      <ReviewsShowcase />
+      <SectionDivider variant="light" />
 
-        <ReviewsShowcase />
-        <SectionDivider variant="light" />
+      <FAQ />
+      <SectionDivider variant="light" />
 
-        <FAQ />
-        <SectionDivider variant="light" />
+      <SeasonalTips />
+      <SectionDivider variant="dark" />
 
-        <SeasonalTips />
-        <SectionDivider variant="dark" />
+      <MaintenanceTips />
+      <SectionDivider variant="light" />
 
-        <MaintenanceTips />
-        <SectionDivider variant="light" />
+      <CommercialShowcase />
+      <SectionDivider variant="dark" />
 
-        <CommercialShowcase />
-        <SectionDivider variant="dark" />
+      <NeighborhoodSpotlight />
+      <SectionDivider variant="light" />
 
-        <NeighborhoodSpotlight />
-        <SectionDivider variant="light" />
+      <BeforeAfterSlider />
+      <SectionDivider variant="dark" />
 
-        <BeforeAfterSlider />
-        <SectionDivider variant="dark" />
+      <ServiceAreas />
+      <WeatherWidget />
+      <SectionDivider variant="dark" />
 
-        <ServiceAreas />
-        <WeatherWidget />
-        <SectionDivider variant="dark" />
+      <ContactSection />
 
-        <ContactSection />
-
-        <StatsBar />
-      </main>
-
-      <Footer />
-
-      {/* Modal Forms */}
-      <EstimateForm />
-      <AppointmentForm />
-
-      {/* Floating UI Elements */}
-      <FloatingCTA />
-      <ChatBotPanel />
-      <BackToTop />
-      <CookieConsent />
-      <ExitIntentPopup />
-    </div>
+      <StatsBar />
+    </>
   );
 }

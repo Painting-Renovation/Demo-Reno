@@ -51,6 +51,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <noscript>
+          <style>{`
+            [style*="opacity:0"], [style*="opacity: 0"] {
+              opacity: 1 !important;
+              transform: none !important;
+            }
+            [style*="scaleX(0)"], [style*="scaleX:0"] {
+              transform: scaleX(1) !important;
+            }
+          `}</style>
+        </noscript>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >

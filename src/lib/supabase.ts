@@ -6,20 +6,37 @@ const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 // Lazy-initialized Supabase client — only creates when actually called
 let _supabase: SupabaseClient | null = null;
 
-export function getSupabase(): SupabaseClient {
+export function getSupabase(): SupabaseClient | null {
   if (!_supabase) {
-    if (!supabaseUrl || !supabaseServiceKey) {
-      throw new Error('Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY');
+    if (!supabaseUrl || !supabaseServiceKey || supabaseServiceKey === 'placeholder') {
+      console.warn('[supabase] Skipping client init — missing or placeholder credentials');
+      return null;
     }
     _supabase = createClient(supabaseUrl, supabaseServiceKey);
   }
   return _supabase;
 }
 
-// Convenience export (lazy getter)
+// No-op stub for when Supabase is not configured
+const noopClient = new Proxy({} as SupabaseClient, {
+  get(_target, prop) {
+    if (prop === 'from') return () => ({
+      select: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      insert: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      update: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      delete: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+      rpc: () => ({ data: null, error: { message: 'Supabase not configured' } }),
+    });
+    return undefined;
+  },
+});
+
+// Convenience export (lazy getter with graceful fallback)
 export const supabase = new Proxy({} as SupabaseClient, {
   get(_target, prop) {
-    return Reflect.get(getSupabase(), prop);
+    const client = getSupabase();
+    if (!client) return Reflect.get(noopClient, prop);
+    return Reflect.get(client, prop);
   },
 });
 
