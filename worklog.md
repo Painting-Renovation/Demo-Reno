@@ -1349,3 +1349,26 @@ Stage Summary:
 - Key files modified: src/app/page.tsx, src/app/layout.tsx, src/components/website/PublicWebsite.tsx
 - Note: Turbopack dev server still crashes from cache corruption in sandbox (environment limitation, not code issue)
 - Production build (`bun run build` + `node .next/standalone/server.js`) works correctly and is stable
+
+---
+Task ID: 2
+Agent: Main Agent (auto-sync cron + deployment fix)
+Task: Auto-sync and fix persistent deployment HTTP 500
+
+Work Log:
+- Auto-sync: no changes to push (repo already up to date from previous session)
+- Deployment still showing HTTP 500 "Failed" error page (2854 bytes)
+- Tested local Turbopack build: compiles successfully, all 38 pages generated
+- Tested local production server: all routes return HTTP 200 (/, /contact, /about, etc.)
+- Restored original page.tsx pattern using PublicWebsite component directly
+- Cleaned .env (removed placeholder values, added NEXT_PUBLIC_SUPABASE_ANON_KEY)
+- Added 'use client' directive to root page.tsx
+- Multiple push attempts: commits 78e5fc5, 4a6a930, 2809e03, 8932f14, c642790, 1de6705, 74fcd6d
+- Verified: standalone output, postbuild script, all routes compile correctly
+
+Stage Summary:
+- Local build and production server verified working: all 38 routes HTTP 200
+- Deployment platform (paintingreno.space-z.ai) persistently returns HTTP 500
+- This appears to be an infrastructure/deployment platform issue, not a code issue
+- The platform may need manual redeploy or environment variable configuration
+- Key files in current state: page.tsx (PublicWebsite), layout.tsx (Viewport export), postcss.config.mjs (array format)
