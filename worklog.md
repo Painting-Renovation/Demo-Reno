@@ -1286,3 +1286,23 @@ Stage Summary:
 - All 38 pages build successfully as static content
 - Production server tested: all routes return HTTP 200
 - Pushed to GitHub for deployment
+
+---
+Task ID: deployment-fix-2
+Agent: Main Agent
+Task: Restore standalone output for deployment platform compatibility
+
+Work Log:
+- Previous fix (commit 9a8f60a) incorrectly removed output: "standalone" 
+- Deployment platform REQUIRES standalone output to serve the app
+- Restored output: "standalone" in next.config.ts
+- Restored postbuild script: cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/
+- Restored start script: node .next/standalone/server.js
+- Verified full build (npm run build + postbuild) succeeds
+- Verified standalone server: all 7 tested routes return HTTP 200
+- Pushed commit 54abd4f to GitHub
+
+Stage Summary:
+- Standalone deployment config restored
+- Build + standalone server verified working locally
+- Pushed to GitHub for deployment platform to pick up
