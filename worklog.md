@@ -1224,3 +1224,20 @@ Stage Summary:
 - All 20 AI-generated images are demolition-context appropriate
 - ESLint: 0 errors, 0 warnings
 - Dev server: /gallery returns HTTP 200
+
+---
+Task ID: deployment-fix
+Agent: Main Agent
+Task: Fix "Sorry, there was a problem deploying the code" on paintingreno.space-z.ai
+
+Work Log:
+- Diagnosed deployment build failure: `next build` crashed during static page collection with "supabaseUrl is required" error
+- Root cause: `src/lib/supabase.ts` and `src/lib/supabase-server.ts` threw errors at module initialization when NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY env vars were missing during build
+- Fix 1: Converted both files to use lazy initialization via Proxy pattern — Supabase client is only created on first use, not at import time
+- Fix 2: Added NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (placeholder) to committed .env file so deployment platform has env vars available during build
+- Verified: `bun run build` succeeds, `bun run lint` clean, standalone server starts correctly
+
+Stage Summary:
+- Deployment build should now succeed — Supabase clients are lazy-initialized
+- .env has placeholder Supabase URL + key for build; real keys needed at runtime for API routes
+- Commits pushed: ebb9167 (lazy-init), ad31b65 (env placeholders)
