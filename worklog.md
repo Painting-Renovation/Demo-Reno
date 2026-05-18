@@ -1306,3 +1306,23 @@ Stage Summary:
 - Standalone deployment config restored
 - Build + standalone server verified working locally
 - Pushed to GitHub for deployment platform to pick up
+
+---
+Task ID: blank-page-fix
+Agent: Main Agent
+Task: Fix blank frontend - page appears empty on deployment
+
+Work Log:
+- Diagnosed: Server returns full 886KB HTML with all content rendered correctly
+- Root cause 1: Framer Motion sets opacity:0 + transform on all Hero/Services/Stats elements as animation initial state. If JS chunks fail to load on deployment, everything stays invisible
+- Root cause 2: PublicWebsite.tsx was rendering duplicate Navbar, PromotionsBanner, Footer, FixedHeaderSpacer, and floating UI elements that were already in (public)/layout.tsx
+- Fix 1: Added noscript CSS in root layout.tsx to override opacity:0 inline styles when JS is unavailable
+- Fix 2: Refactored PublicWebsite.tsx - removed all layout-level components (Navbar, Footer, etc.) and 90+ unused imports, keeping only section content
+- Build verified: all 38 pages generate successfully
+- Lint verified: 0 errors
+- Pushed commit 1ff1b74 to GitHub
+
+Stage Summary:
+- Page content will now be visible even if JS fails to load (noscript fallback)
+- No more duplicate Navbar/Footer/Banner rendering
+- PublicWebsite.tsx reduced from 188 lines to ~110 lines (section content only)
