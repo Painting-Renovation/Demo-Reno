@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
@@ -13,6 +13,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: "cover",
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://procoatpainters.com"),
   title: "ProCoat Painters | Professional Painting Services in Toronto & GTA",
@@ -21,13 +29,6 @@ export const metadata: Metadata = {
   authors: [{ name: "ProCoat Painters" }],
   icons: {
     icon: "/images/logo.png",
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-    userScalable: true,
-    viewportFit: "cover",
   },
   openGraph: {
     title: "ProCoat Painters | Toronto's Premier Painting Professionals",
