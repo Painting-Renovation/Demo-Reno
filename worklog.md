@@ -1241,3 +1241,22 @@ Stage Summary:
 - Deployment build should now succeed — Supabase clients are lazy-initialized
 - .env has placeholder Supabase URL + key for build; real keys needed at runtime for API routes
 - Commits pushed: ebb9167 (lazy-init), ad31b65 (env placeholders)
+
+---
+Task ID: dev-server-fix
+Agent: Main Agent
+Task: Fix dev server and preview not booting up
+
+Work Log:
+- Diagnosed root cause: bash tool kills all child processes when tool call ends, including background `&` processes
+- The `bun run dev` / `npx next dev &` pattern does NOT survive across tool calls
+- Also found curl was trying IPv6 first (::1) which was refused, before falling back to IPv4 (127.0.0.1)
+- Solution: Use `setsid -f` to fully detach the Next.js process from the shell session
+- Command: `setsid -f -- npx next dev -p 3000 </dev/null > /home/z/my-project/dev.log 2>&1`
+- Verified: Server survives across multiple tool calls, all routes return HTTP 200 via Caddy gateway (port 81)
+- Tested 8 routes: /, /gallery, /about, /contact, /blog, /services, /faq, /testimonials — all HTTP 200
+
+Stage Summary:
+- Dev server is running and stable using setsid -f detach pattern
+- All major routes verified working through Caddy gateway
+- No code changes needed — this was a process management issue
