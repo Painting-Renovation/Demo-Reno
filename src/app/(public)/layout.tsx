@@ -9,6 +9,10 @@ import { useAppStore } from '@/lib/store';
 import { useEffect, useState } from 'react';
 
 /* ── Lazy-loaded non-critical components ── */
+const FixedHeaderSpacer = dynamic(
+  () => import('@/components/website/FixedHeaderSpacer').then((m) => ({ default: m.FixedHeaderSpacer })),
+  { ssr: false }
+);
 const FloatingCTA = dynamic(
   () => import('@/components/website/FloatingCTA').then((m) => ({ default: m.FloatingCTA })),
   { ssr: false }
@@ -38,42 +42,13 @@ const AppointmentForm = dynamic(
   { ssr: false }
 );
 
-/**
- * Spacer that dynamically measures the combined height of
- * the fixed promo banner + navbar and creates matching space
- * so content is never hidden behind them.
- */
-function FixedHeaderSpacer() {
-  const { promoBannerHeight } = useAppStore();
-  const [navHeight, setNavHeight] = useState(68);
-
-  useEffect(() => {
-    const navEl = document.querySelector('nav');
-    if (navEl) {
-      const update = () => setNavHeight(navEl.offsetHeight);
-      update();
-      const observer = new ResizeObserver(update);
-      observer.observe(navEl);
-      return () => observer.disconnect();
-    }
-  }, []);
-
-  const totalHeight = promoBannerHeight + navHeight;
-
-  return (
-    <div
-      className="w-full flex-shrink-0 transition-[height] duration-500"
-      style={{ height: totalHeight }}
-      aria-hidden="true"
-    />
-  );
-}
-
 export default function PublicLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <PromotionsBanner />
       <Navbar />
+      {/* Static fallback spacer — client component updates height after mount */}
+      <div className="w-full flex-shrink-0" style={{ height: 68 }} aria-hidden="true" />
       <FixedHeaderSpacer />
 
       <main className="flex-1">
